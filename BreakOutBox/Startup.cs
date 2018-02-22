@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using BreakOutBox.Data;
 using BreakOutBox.Models;
 using BreakOutBox.Services;
+using BreakOutBox.Models.Domain;
+using BreakOutBox.Data.Repositories;
 
 namespace BreakOutBox
 {
@@ -36,10 +38,10 @@ namespace BreakOutBox
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
-            //services.AddScoped<IGroepRepository, GroepRepository>();
-            //services.AddScoped<IOpdrachtRepository, OpdrachtRepository>();
-            //services.AddScoped<ISessieRepository, SessieRepository>();
-            //services.AddScoped<BreakOutBoxDataInitializer>();
+            services.AddScoped<IGroepRepository, GroepRepository>();
+            services.AddScoped<IOpdrachtRepository, OpdrachtRepository>();
+            services.AddScoped<ISessieRepository, SessieRepository>();
+            services.AddScoped<BreakOutBoxDataInitializer>();
 
             services.AddMvc();
         }

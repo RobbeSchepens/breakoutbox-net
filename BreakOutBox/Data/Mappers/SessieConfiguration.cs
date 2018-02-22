@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BreakOutBox.Data.Mappers
 {
-    public class SessieConfiguration
+    public class SessieConfiguration : IEntityTypeConfiguration<Sessie>
     {
         public void Configure(EntityTypeBuilder<Sessie> builder)
         {
