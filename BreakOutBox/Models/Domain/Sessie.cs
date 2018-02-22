@@ -7,33 +7,26 @@ namespace BreakOutBox.Models.Domain
 {
     public class Sessie
     {
-        #region Properties
-        public int SessieId { get; private set; }
+        public int SessieId { get; set; }
         public string UniekeCode { get; set; }
-        public string Naam { get; set; }
-        //public string Klas { get; set; }
-        public string Omschrijving { get; set; }
-        public ICollection<Opdracht> OpdrachtenPool { get; set; }
+        public Klas Klas { get; set; }
         public ICollection<Groep> Groepen { get; set; }
-        public Leerkracht Leerkracht { get; set; }
-        #endregion
+        public string UniekeNaam { get; set; }
+        public string Omschrijving { get; set; }
 
-        #region Constructors
         public Sessie()
         {
-            OpdrachtenPool = new HashSet<Opdracht>();
-            Groepen = new HashSet<Groep>();
+
+        }
+        public Sessie(string uniekeCode, Klas klas, ICollection<Groep> groepen, string uniekeNaam, string omschrijving)
+        {
+            this.UniekeCode = uniekeCode;
+            this.Klas = Klas;
+            this.Groepen = groepen;
+            this.UniekeNaam = uniekeNaam;
+            this.Omschrijving = omschrijving;
         }
 
-        public Sessie(string uniekeCode, string naam, string omschrijving, ICollection<Opdracht> opdrachtenPool, ICollection<Groep> groepen, Leerkracht leerkracht)
-        {
-            UniekeCode = uniekeCode;
-            Naam = naam;
-            Omschrijving = omschrijving;
-            OpdrachtenPool = opdrachtenPool;
-            Groepen = groepen;
-            Leerkracht = leerkracht;
-        }
-        #endregion
+
     }
 }
