@@ -1,0 +1,14 @@
+﻿@model BreakOutBox.Models.SessieViewModels.ToonOpdrachtViewModel
+@{
+    ViewData["Title"] = "Opdracht";
+}
+
+<form method="get" asp-controller="Sessie" asp-action="ToonOpdracht" asp-route-id="@Model.VraagNummer">
+    @*Hier moet ee nvariabele met de waarde die in het teksvak staat*@
+    <p><b>Categorie van de vraag:</b></p> @Model.Categorie
+    <p><b>De vraag:</b></p> @Model.Omschrijving
+    Antwoord: <input type="text" id="txtAntwoord" name="antwoord"><br>
+    <input type="submit" value="Submit">
+</form>
+
+

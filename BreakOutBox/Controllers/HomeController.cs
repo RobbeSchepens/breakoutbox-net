@@ -5,13 +5,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BreakOutBox.Models;
+using BreakOutBox.Models.Domain;
 
 namespace BreakOutBox.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ISessieRepository _sessieRepository;
+
+        public HomeController(ISessieRepository sessieRepository)
+        {
+            _sessieRepository = sessieRepository;
+        }
+
         public IActionResult Index()
         {
+            ViewData["Message"] = "Your application description page.";
+
+            /* 
+             * DIT WAS VOOR TE TESTEN
+             * Sessie s = _sessieRepository.GetByCode("321");
+             ViewData["Sessies"] = s.Omschrijving;*/
+
             return View();
         }
 
