@@ -9,11 +9,11 @@ namespace BreakOutBox.Models.Domain
     {
         public int OpgaveId { get; set; }
         public ICollection<String> Vragen { get; set; }
-        public string UitlegOefening { get; set; }
+        public string Uitleg { get; set; }
 
-        public Opgave(string uitlegOefening, ICollection<String> vragen)
+        public Opgave(string uitleg, ICollection<String> vragen)
         {
-            this.UitlegOefening = uitlegOefening;
+            this.Uitleg = uitleg;
             this.Vragen = vragen;
         }
     }
