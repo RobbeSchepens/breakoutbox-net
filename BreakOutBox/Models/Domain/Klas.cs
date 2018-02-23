@@ -1,22 +1,17 @@
-﻿
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace BreakOutBox.Models.Domain
 {
     public class Klas
     {
-
         public int KlasId { get; set; }
-        public ICollection<Leerling> LeerlingenInKlas { get; set; } // de leerlingen die in een klas zitten
-        public ICollection<Leerkracht> LeerkrachtenInKlas { get; set; }
+        public ICollection<Leerling> Leerlingen { get; set; }
+        public ICollection<Leerkracht> Leerkrachten { get; set; }
 
-
-        public Klas(ICollection<Leerling>  leerlingenInKlas, ICollection<Leerkracht> leerkrachtenInKlas)
+        public Klas(ICollection<Leerling>  leerlingen, ICollection<Leerkracht> leerkrachten)
         {
-            this.LeerlingenInKlas = leerlingenInKlas;
-            this.LeerkrachtenInKlas = leerkrachtenInKlas;
-
+            this.Leerlingen = leerlingen;
+            this.Leerkrachten = leerkrachten;
         }
     }
 }

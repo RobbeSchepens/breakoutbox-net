@@ -1,32 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BreakOutBox.Models.Domain
 {
     public class Sessie
     {
         public int SessieId { get; set; }
-        public string UniekeCode { get; set; }
+        public string Code { get; set; }
+        public string Naam { get; set; }
+        public string Omschrijving { get; set; }
         public Klas Klas { get; set; }
         public ICollection<Groep> Groepen { get; set; }
-        public string UniekeNaam { get; set; }
-        public string Omschrijving { get; set; }
 
         public Sessie()
         {
-
         }
-        public Sessie(string uniekeCode, Klas klas, ICollection<Groep> groepen, string uniekeNaam, string omschrijving)
+
+        public Sessie(string code, string naam, string omschrijving, Klas klas, ICollection<Groep> groepen)
         {
-            this.UniekeCode = uniekeCode;
-            this.Klas = Klas;
-            this.Groepen = groepen;
-            this.UniekeNaam = uniekeNaam;
+            this.Code = code;
+            this.Naam = naam;
             this.Omschrijving = omschrijving;
+            this.Klas = klas;
+            this.Groepen = groepen;
         }
-
-
     }
 }

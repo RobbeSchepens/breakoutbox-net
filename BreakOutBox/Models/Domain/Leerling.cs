@@ -5,17 +5,11 @@
         public int LeerlingId { get; set; }
         public string Voornaam { get; set; }
         public string Achternaam { get; set; }
-        public Klas Klas { get; set; }
 
-
-        public Leerling(string voornaam, string achternaam, Klas klas)
+        public Leerling(string voornaam, string achternaam)
         {
             this.Voornaam = voornaam;
             this.Achternaam = achternaam;
-            this.Klas = klas;
         }
-
-
-
     }
 }

@@ -8,7 +8,6 @@ namespace BreakOutBox.Models.Domain
     public class Pad
     {
         public ICollection<Opdracht> Opdrachten { get; set; }
-
         public ICollection<Actie> Acties { get; set; }
 
         public Pad(ICollection<Opdracht> opdrachten, ICollection<Actie> acties)
@@ -16,6 +15,5 @@ namespace BreakOutBox.Models.Domain
             this.Opdrachten = opdrachten;
             this.Acties = acties;
         }
-
     }
 }

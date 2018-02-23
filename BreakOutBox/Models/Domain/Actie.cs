@@ -12,10 +12,7 @@ namespace BreakOutBox.Models.Domain
 
         public Actie(string omschrijvingActie)
         {
-            
             this.OmschrijvingActie = omschrijvingActie;
-
         }
-
     }
 }
