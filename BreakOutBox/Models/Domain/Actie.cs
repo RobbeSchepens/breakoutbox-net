@@ -8,11 +8,11 @@ namespace BreakOutBox.Models.Domain
     public class Actie
     {
         public int ActieId { get; set; }
-        public string OmschrijvingActie { get; set; }
+        public string Omschrijving { get; set; }
 
-        public Actie(string omschrijvingActie)
+        public Actie(string omschrijving)
         {
-            this.OmschrijvingActie = omschrijvingActie;
+            this.Omschrijving = omschrijving;
         }
     }
 }
