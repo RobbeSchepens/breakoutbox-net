@@ -46,7 +46,7 @@ namespace BreakOutBox
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, BreakOutBoxDataInitializer breakOutBoxDataInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -59,16 +59,20 @@ namespace BreakOutBox
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseStaticFiles();//
+            app.UseStatusCodePages();//
             app.UseStaticFiles();
+            app.UseSession();//
+            app.UseAuthentication();//
 
-            app.UseAuthentication();
-
+           
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Sessie}/{action=Index}/{id?}");
             });
+            breakOutBoxDataInitializer.InitializeData();
         }
     }
 }
