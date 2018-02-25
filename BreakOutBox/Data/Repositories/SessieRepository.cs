@@ -23,13 +23,18 @@ namespace BreakOutBox.Data.Repositories
 
         public IEnumerable<Sessie> GetAll()
         {
-            throw new NotImplementedException();
+            return _sessies.ToList();
         }
 
-        public Sessie GetSessieByCode(string sessieCode)
+        public Sessie GetBySessieCode(string sessieCode)
         {
-            return _sessies.Include(s => s.Groepen)
-                .ThenInclude(grp => grp.Leden)
+            return _sessies
+                .Include(s => s.Klas)
+                    .ThenInclude(k => k.Leerlingen)
+                .Include(s => s.Klas)
+                    .ThenInclude(k => k.Leerkrachten)
+                .Include(s => s.Groepen)
+                    .ThenInclude(grp => grp.Leden)
                 .Include(s => s.Groepen)
                     .ThenInclude(grp => grp.Paden)
                     .ThenInclude(pad => pad.Opdrachten)
@@ -53,6 +58,15 @@ namespace BreakOutBox.Data.Repositories
                 .FirstOrDefault(s => s.Code == sessieCode);
         }
 
+        public ICollection<Sessie> GetSessiesByLeerkracht(Leerkracht leerkracht)
+        {
+            // 
+
+
+
+            return 
+        }
+
         public void Add(Sessie sessie)
         {
             _sessies.Add(sessie);
@@ -67,5 +81,7 @@ namespace BreakOutBox.Data.Repositories
         {
             _context.SaveChanges();
         }
+
+        
     }
 }
