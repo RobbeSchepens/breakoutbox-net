@@ -121,8 +121,8 @@ namespace BreakOutBox.Data
 
 
 
-
-                //_dbContext.Sessies.Add(sessie);
+                Sessie s = new Sessie();
+                _dbContext.Sessies.Add(s);
                 _dbContext.SaveChanges();
             }
         }

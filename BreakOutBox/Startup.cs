@@ -40,13 +40,13 @@ namespace BreakOutBox
             
             services.AddScoped<ISessieRepository, SessieRepository>();
             //services.AddScoped<ILeerkrachtRepository, LeerkrachtRepository>();
-            //services.AddScoped<BreakOutBoxDataInitializer>();
+            services.AddScoped<BreakOutBoxDataInitializer>();
 
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, BreakOutBoxDataInitializer breakOutBoxDataInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -69,6 +69,8 @@ namespace BreakOutBox
                     name: "default",
                     template: "{controller=Sessie}/{action=Index}/{id?}");
             });
+            
+            breakOutBoxDataInitializer.InitializeData();
         }
     }
 }
