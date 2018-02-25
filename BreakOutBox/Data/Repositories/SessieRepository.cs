@@ -34,7 +34,7 @@ namespace BreakOutBox.Data.Repositories
                 .Include(s => s.Klas)
                     .ThenInclude(k => k.Leerkrachten)
                 .Include(s => s.Groepen)
-                    .ThenInclude(grp => grp.Leden)
+                    .ThenInclude(grp => grp.Leerlingen)
                 .Include(s => s.Groepen)
                     .ThenInclude(grp => grp.Paden)
                     .ThenInclude(pad => pad.Opdrachten)
