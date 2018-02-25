@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BreakOutBox.Data.Mappers
 {
-    public class PadActiesConfiguration : IEntityTypeConfiguration<PadActie>
+    public class PadActieConfiguration : IEntityTypeConfiguration<PadActie>
     {
         public void Configure(EntityTypeBuilder<PadActie> builder)
         {

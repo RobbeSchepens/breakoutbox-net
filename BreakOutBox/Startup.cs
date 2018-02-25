@@ -37,11 +37,10 @@ namespace BreakOutBox
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-
-            services.AddScoped<IGroepRepository, GroepRepository>();
-            services.AddScoped<IOpdrachtRepository, OpdrachtRepository>();
+            
             services.AddScoped<ISessieRepository, SessieRepository>();
-            services.AddScoped<BreakOutBoxDataInitializer>();
+            //services.AddScoped<ILeerkrachtRepository, LeerkrachtRepository>();
+            //services.AddScoped<BreakOutBoxDataInitializer>();
 
             services.AddMvc();
         }

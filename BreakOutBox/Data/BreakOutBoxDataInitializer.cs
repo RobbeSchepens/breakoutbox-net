@@ -22,27 +22,27 @@ namespace BreakOutBox.Data
             {
 
                 var leerligen = new List<Leerling>{
-                    new Leerling("Andrea", "Van Dijk", null),
-                    new Leerling("Henk", "Bakker", null),
-                    new Leerling("Stephanie", "Mulder", null),
-                    new Leerling("Tom", "De Groot", null),
-                    new Leerling("Lily", "Bos", null),
-                    new Leerling("Jayden", "Hendriks", null),
-                    new Leerling("Pamela", "Dekker", null),
-                    new Leerling("Luc", "Dijkstra", null),
-                    new Leerling("Eva", "Jacobs", null),
-                    new Leerling("Harry", "Vermeulen", null),
+                    new Leerling("Andrea", "Van Dijk"),
+                    new Leerling("Henk", "Bakker"),
+                    new Leerling("Stephanie", "Mulder"),
+                    new Leerling("Tom", "De Groot"),
+                    new Leerling("Lily", "Bos"),
+                    new Leerling("Jayden", "Hendriks"),
+                    new Leerling("Pamela", "Dekker"),
+                    new Leerling("Luc", "Dijkstra"),
+                    new Leerling("Eva", "Jacobs"),
+                    new Leerling("Harry", "Vermeulen"),
 
-                    new Leerling("Katy", "Schouten", null),
-                    new Leerling("Marcel", "Willems", null),
-                    new Leerling("Rosa", "Hoekstra", null),
-                    new Leerling("Bob", "Koster", null),
-                    new Leerling("Sasha", "Verhoeven", null),
-                    new Leerling("Thijmen", "Prins", null),
-                    new Leerling("Sam", "Leunens", null),
-                    new Leerling("Sarah", "VanBossche", null),
-                    new Leerling("Femke", "Vanhoeke", null),
-                    new Leerling("Sep", "Jacobs", null),
+                    new Leerling("Katy", "Schouten"),
+                    new Leerling("Marcel", "Willems"),
+                    new Leerling("Rosa", "Hoekstra"),
+                    new Leerling("Bob", "Koster"),
+                    new Leerling("Sasha", "Verhoeven"),
+                    new Leerling("Thijmen", "Prins"),
+                    new Leerling("Sam", "Leunens"),
+                    new Leerling("Sarah", "VanBossche"),
+                    new Leerling("Femke", "Vanhoeke"),
+                    new Leerling("Sep", "Jacobs"),
                 };
 
 
@@ -122,7 +122,7 @@ namespace BreakOutBox.Data
 
 
 
-                _dbContext.Sessies.Add(sessie);
+                //_dbContext.Sessies.Add(sessie);
                 _dbContext.SaveChanges();
             }
         }

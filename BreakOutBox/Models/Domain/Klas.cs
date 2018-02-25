@@ -21,9 +21,9 @@ namespace BreakOutBox.Models.Domain
             this.Leerlingen = leerlingen;
         }
 
-        public void Add(Klas k)
+        public void Add(Leerkracht lk)
         {
-            KlasLeerkrachten.Add(new KlasLeerkracht(this, k));
+            KlasLeerkrachten.Add(new KlasLeerkracht(this, lk));
         }
     }
 }
