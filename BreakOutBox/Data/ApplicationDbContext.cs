@@ -44,6 +44,8 @@ namespace BreakOutBox.Data
             builder.ApplyConfiguration(new FeedbackConfiguration());
             builder.ApplyConfiguration(new OpgaveConfiguration());
             builder.ApplyConfiguration(new OpgaveVraagConfiguration());
+            builder.ApplyConfiguration(new KlasLeerkrachtConfiguration());
+
         }
     }
 }
