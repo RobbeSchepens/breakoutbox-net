@@ -10,6 +10,10 @@ namespace BreakOutBox.Models.Domain
         public int ActieId { get; set; }
         public string Omschrijving { get; set; }
 
+        public Actie()
+        {
+        }
+
         public Actie(string omschrijving)
         {
             this.Omschrijving = omschrijving;

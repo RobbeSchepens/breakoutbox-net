@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace BreakOutBox.Models.Domain
 {
@@ -6,12 +7,23 @@ namespace BreakOutBox.Models.Domain
     {
         public int KlasId { get; set; }
         public ICollection<Leerling> Leerlingen { get; set; }
-        public ICollection<Leerkracht> Leerkrachten { get; set; }
+        //public ICollection<Leerkracht> Leerkrachten { get; set; }
+        public ICollection<KlasLeerkracht> KlasLeerkrachten { get; private set; }
+        public IEnumerable<Leerkracht> Leerkrachten => KlasLeerkrachten.Select(k => k.Leerkracht);
 
-        public Klas(ICollection<Leerling>  leerlingen, ICollection<Leerkracht> leerkrachten)
+        public Klas()
+        {
+            KlasLeerkrachten = new HashSet<KlasLeerkracht>();
+        }
+
+        public Klas(ICollection<Leerling>  leerlingen)
         {
             this.Leerlingen = leerlingen;
-            this.Leerkrachten = leerkrachten;
+        }
+
+        public void Add(Klas k)
+        {
+            KlasLeerkrachten.Add(new KlasLeerkracht(this, k));
         }
     }
 }

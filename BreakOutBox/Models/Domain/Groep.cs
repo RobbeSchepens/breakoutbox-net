@@ -6,13 +6,13 @@ namespace BreakOutBox.Models.Domain
     {
         public int GroepId { get; set; }
         public string Naam { get; set; }
-        public ICollection<Leerling> Leden { get; set; }
+        public ICollection<Leerling> Leerlingen { get; set; }
         public ICollection<Pad> Paden { get; set; }
 
-        public Groep(string naam, ICollection<Leerling> leden, ICollection<Pad> paden)
+        public Groep(string naam, ICollection<Leerling> leerlingen, ICollection<Pad> paden)
         {
             this.Naam = naam;
-            this.Leden = leden;
+            this.Leerlingen = leerlingen;
             this.Paden = paden;
         }
     }

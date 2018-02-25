@@ -10,7 +10,10 @@ namespace BreakOutBox.Models.Domain
         public int LeerkrachtId { get; set; }
         public string Voornaam { get; set; }
         public string Achternaam { get; set; }
-        //public Klas Klas { get; set; } 
+
+        public Leerkracht()
+        {
+        }
 
         public Leerkracht(string voornaam, string achternaam, Klas klas)
         {

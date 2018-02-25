@@ -9,10 +9,13 @@ namespace BreakOutBox.Data.Mappers
         public void Configure(EntityTypeBuilder<Sessie> builder)
         {
             builder.ToTable("Sessie");
-            builder.HasKey(t => t.UniekeCode);
+            builder.HasKey(t => t.Code);
             builder.Property(t => t.Naam).IsRequired().HasMaxLength(20);
-            //builder.Property(t => t.Klas).IsRequired().HasMaxLength(20);
             builder.Property(t => t.Omschrijving).IsRequired().HasMaxLength(100);
+            
+            //Associations
+            builder.HasOne(s => s.Klas).WithMany().IsRequired().OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(s => s.Groepen).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
