@@ -12,15 +12,15 @@ namespace BreakOutBox.Models.Domain
         public Opgave Opgave { get; set; }
         public string Antwoord { get; set; }
         public Feedback Feedback { get; set; }
-        public string Groepsbewerking { get; set; }
+        public ICollection<Groepsbewerking> Groepsbewerkingen { get; set; }
 
-        public Oefening(string oefeningNaam, Opgave opgave, string antwoord, Feedback feedback, string groepsbewerking)
+        public Oefening(string oefeningNaam, Opgave opgave, string antwoord, Feedback feedback, ICollection<Groepsbewerking> groepsbewerkingen)
         {
             this.Naam = oefeningNaam;
             this.Opgave = opgave;
             this.Feedback = feedback;
             this.Antwoord = antwoord;
-            this.Groepsbewerking = groepsbewerking;
+            this.Groepsbewerkingen = groepsbewerkingen;
         }
     }
 }
