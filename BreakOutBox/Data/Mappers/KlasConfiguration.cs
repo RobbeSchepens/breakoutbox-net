@@ -12,7 +12,7 @@ namespace BreakOutBox.Data.Mappers
             builder.Ignore(t => t.Leerkrachten);
 
             //Associations
-            builder.HasMany(s => s.Leerlingen).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(s => s.Leerlingen).WithOne().IsRequired().OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
