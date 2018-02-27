@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace BreakOutBox.Models.Domain
 {
-    public class AllGroupsReadyState : SessieState
+    public class SessieAlleGroepenKlaarState : SessieState
     {
-        public AllGroupsReadyState(Sessie sessie) : base(sessie)
+        public SessieAlleGroepenKlaarState(Sessie sessie) : base(sessie)
         {
             
         }

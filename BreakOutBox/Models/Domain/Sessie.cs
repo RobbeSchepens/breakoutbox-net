@@ -10,7 +10,7 @@ namespace BreakOutBox.Models.Domain
         public string Naam { get; set; }
         public string Omschrijving { get; set; }
         public Klas Klas { get; set; }
-        public ICollection<Groep> Groepen { get; set; }
+        public IList<Groep> Groepen { get; set; }
 
         private SessieState _currentState;
 
@@ -18,14 +18,14 @@ namespace BreakOutBox.Models.Domain
         {
         }
 
-        public Sessie(string code, string naam, string omschrijving, Klas klas, ICollection<Groep> groepen)
+        public Sessie(string code, string naam, string omschrijving, Klas klas, IList<Groep> groepen)
         {
             this.Code = code;
             this.Naam = naam;
             this.Omschrijving = omschrijving;
             this.Klas = klas;
             this.Groepen = groepen;
-            this.toState(new NotReadyState(this));
+            this.toState(new SessieNietKlaarState(this));
         }
 
         protected void toState(SessieState state)
@@ -35,12 +35,20 @@ namespace BreakOutBox.Models.Domain
 
         public void vergrendelGroepen()
         {
-            throw new NotImplementedException();
+            foreach (Groep g in Groepen)
+            {
+                g.vergrendel();
+            }
         }
 
         public void startSessie()
         {
-            this.toState(new SessionStartedState(this));
+            this.toState(new SessieGestartState(this));
+        }
+
+        public void voegLeerlingToe(int id, Leerling leerling)
+        {
+            Groepen[id].voegLeerlingToe(leerling);
         }
     }
 }

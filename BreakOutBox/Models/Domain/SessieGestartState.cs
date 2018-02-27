@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace BreakOutBox.Models.Domain
 {
-    public class SessionStartedState : SessieState
+    public class SessieGestartState : SessieState
     {
-        public SessionStartedState(Sessie sessie) : base(sessie)
+        public SessieGestartState(Sessie sessie) : base(sessie)
         {
 
         }
