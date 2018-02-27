@@ -1,7 +1,37 @@
 ﻿
-<form method="get" asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@(321)">
-    @*Hier moet ee nvariabele met de waarde die in het teksvak staat*@
+@model BreakOutBox.Models.SessieViewModels.GeefSessieCodeViewModel
 
-    Sessie code: <input type="text" id="txtSessieCode" name="sessieCode"><br>
-    <input type="submit" value="Submit">
-</form>
+<div class="center-block">
+
+
+
+    <h1>BREAKOUT BOX </h1>
+
+    <form method="post">
+        <div asp-validation-summary="All"></div>
+
+        <div class="form-group">
+            <label asp-for="SessieCode"></label>
+            <textarea asp-for="SessieCode" class="form-control"></textarea>
+            <span asp-validation-for="SessieCode" class="text-danger"></span>
+        </div>
+
+
+
+
+        <div>
+            <button asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="" type="submit" >GO!</button>
+        </div>
+    </form>
+
+
+
+
+
+</div>
+
+
+
+
+
+

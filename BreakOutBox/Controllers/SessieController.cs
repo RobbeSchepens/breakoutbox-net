@@ -22,11 +22,20 @@ namespace BreakOutBox.Controllers
             return View("GeefSessieCode");
         }
 
-        public IActionResult GeefSessieCode(string SessieCode)
+        public IActionResult GeefSessieCode()
         {
+            IEnumerable<Sessie> sessies;
+            sessies = _sessieRepository.GetAll();
 
 
-            return View();
+            return View(sessies);
+        }
+
+        public IActionResult SessieOverzicht(string id)
+        {
+            string aa = id;
+            Sessie s = _sessieRepository.GetBySessieCode(id);
+            return View(s);
         }
 
 
