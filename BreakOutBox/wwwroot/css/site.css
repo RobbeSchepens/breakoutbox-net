@@ -41,12 +41,12 @@
 */
 
 nav {
-    background: rgb(240, 147, 43);
+    background: blue;
     color: white;
 }
 
 .navbar-inverse {
-    background: rgb(240, 147, 43);
+    background: blue;
     color: white;
 }
 
