@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace BreakOutBox.Models.Domain
 {
@@ -11,6 +12,8 @@ namespace BreakOutBox.Models.Domain
         public Klas Klas { get; set; }
         public ICollection<Groep> Groepen { get; set; }
 
+        private SessieState _currentState;
+
         public Sessie()
         {
         }
@@ -22,6 +25,22 @@ namespace BreakOutBox.Models.Domain
             this.Omschrijving = omschrijving;
             this.Klas = klas;
             this.Groepen = groepen;
+            this.toState(new NotReadyState(this));
+        }
+
+        protected void toState(SessieState state)
+        {
+            _currentState = state;
+        }
+
+        public void vergrendelGroepen()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void startSessie()
+        {
+            this.toState(new SessionStartedState(this));
         }
     }
 }
