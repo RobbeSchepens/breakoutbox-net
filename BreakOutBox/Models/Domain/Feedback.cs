@@ -4,5 +4,10 @@
     {
         public int FeedbackId { get; set; }
         public string Omschrijving { get; set; }
+
+        public Feedback(string omschrijving)
+        {
+            Omschrijving = omschrijving;
+        }
     }
 }

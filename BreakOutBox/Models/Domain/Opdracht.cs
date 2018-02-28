@@ -8,16 +8,22 @@ namespace BreakOutBox.Models.Domain
         public int VolgNr { get; set; }
         public ICollection<Oefening> Oefeningen { get; set; }
         public int Toegangscode { get; set; } // Deze komt uit de box = het Java spel
+        public Groepsbewerking GroepsBewerking { get; set; }
 
         public Opdracht()
         {
         }
 
-        public Opdracht(int volgNr, ICollection<Oefening> oefeningen, int toegangscode)
+        public Opdracht(int volgNr, int toegangscode)
         {
-            this.VolgNr = volgNr;
-            this.Oefeningen = oefeningen;
-            this.Toegangscode = toegangscode;
+            VolgNr = volgNr;
+            Oefeningen = new List<Oefening>();
+            Toegangscode = toegangscode;
+        }
+
+        public void voegOefeningToe(Oefening oefening)
+        {
+            Oefeningen.Add(oefening);
         }
     }
 }
