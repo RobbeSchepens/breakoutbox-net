@@ -12,6 +12,8 @@ namespace BreakOutBox.Models.Domain
         public IEnumerable<Opdracht> Opdrachten => PadOpdrachten.Select(k => k.Opdracht);
         public ICollection<PadActie> PadActies { get; private set; }
         public IEnumerable<Actie> Acties => PadActies.Select(k => k.Actie);
+        public int NrOfOpdrachten => PadOpdrachten.Count;
+        public int NrOfActies => PadActies.Count;
 
         public Pad()
         {
@@ -19,14 +21,28 @@ namespace BreakOutBox.Models.Domain
             PadActies = new HashSet<PadActie>();
         }
 
-        public void VoegOpdrachtToe(Opdracht k)
+        public void VoegOpdrachtToe(Opdracht opdracht)
         {
-            PadOpdrachten.Add(new PadOpdracht(this, k));
+            PadOpdrachten.Add(new PadOpdracht(this, opdracht));
         }
 
-        public void VoegActieToe(Actie k)
+        public void VoegActieToe(Actie actie)
         {
-            PadActies.Add(new PadActie(this, k));
+            PadActies.Add(new PadActie(this, actie));
+        }
+
+        public void VerwijderOpdracht(Opdracht opdracht)
+        {
+            if (!PadOpdrachten.Contains(new PadOpdracht(this, opdracht)))
+                throw new ArgumentException($"Opdracht met volgnr {opdracht.VolgNr} is geen bestaande opdracht.");
+            PadOpdrachten.Remove(new PadOpdracht(this, opdracht));
+        }
+
+        public void VerwijderActie(Actie actie)
+        {
+            if (!PadActies.Contains(new PadActie(this, actie)))
+                throw new ArgumentException($"Actie met id {actie.ActieId} is geen bestaande actie.");
+            PadActies.Remove(new PadActie(this, actie));
         }
     }
 }
