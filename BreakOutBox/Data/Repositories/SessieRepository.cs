@@ -28,11 +28,14 @@ namespace BreakOutBox.Data.Repositories
 
         public Sessie GetBySessieCode(string sessieCode)
         {
-            return _sessies
+
+
+            return null;
+           /* return _sessies
                 .Include(s => s.Klas)
                     .ThenInclude(k => k.Leerlingen)
                 .Include(s => s.Klas)
-                    .ThenInclude(k => k.Leerkrachten)
+                    .ThenInclude(k => k.KlasLeerkrachten)
                 .Include(s => s.Groepen)
                     .ThenInclude(grp => grp.Leerlingen)
                 .Include(s => s.Groepen)
@@ -55,17 +58,19 @@ namespace BreakOutBox.Data.Repositories
                 .Include(s => s.Groepen)
                     .ThenInclude(grp => grp.Paden)
                     .ThenInclude(pad => pad.Acties)
-                .FirstOrDefault(s => s.Code == sessieCode);
+                .FirstOrDefault(s => s.Code == sessieCode);*/
         }
 
         public ICollection<Sessie> GetSessiesByLeerkracht(Leerkracht leerkracht)
-        {        
-            List<Sessie> sessiesVanLeerkracht = _sessies.Where(s => s.Klas.Leerkrachten.Contains(leerkracht)).ToList();
+        {
+
+            return null;
+            /*List<Sessie> sessiesVanLeerkracht = _sessies.Where(s => s.Klas.Leerkrachten.Contains(leerkracht)).ToList();
             ICollection<Sessie> vollgedigeSessiesVanLeerkracht = null;
 
             sessiesVanLeerkracht.ForEach(s => vollgedigeSessiesVanLeerkracht.Add(GetBySessieCode(s.Code)));
            
-            return vollgedigeSessiesVanLeerkracht;
+            return vollgedigeSessiesVanLeerkracht;*/
         }
 
         public void Add(Sessie sessie)
