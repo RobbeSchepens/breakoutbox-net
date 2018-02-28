@@ -5,5 +5,10 @@
         public int GroepsbewerkingId { get; set; }
         public string Bewerking { get; set; }
         //public double Getal { get; set; }
+
+        public Groepsbewerking(string bewerking)
+        {
+            Bewerking = bewerking;
+        }
     }
 }

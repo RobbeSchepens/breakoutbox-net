@@ -4,5 +4,10 @@
     {
         public int OpgaveVraagId { get; set; }
         public string Vraag { get; set; }
+
+        public OpgaveVraag(string vraag)
+        {
+            Vraag = vraag;
+        }
     }
 }
