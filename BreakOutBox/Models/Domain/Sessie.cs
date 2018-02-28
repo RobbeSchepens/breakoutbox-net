@@ -37,7 +37,7 @@ namespace BreakOutBox.Models.Domain
         {
             foreach (Groep g in Groepen)
             {
-                g.vergrendel();
+                g.Vergrendel();
             }
         }
 
@@ -48,7 +48,7 @@ namespace BreakOutBox.Models.Domain
 
         public void voegLeerlingToe(int id, Leerling leerling)
         {
-            Groepen[id].voegLeerlingToe(leerling);
+            Groepen[id].VoegLeerlingToe(leerling);
         }
     }
 }

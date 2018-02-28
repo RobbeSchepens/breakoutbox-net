@@ -16,12 +16,12 @@ namespace BreakOutBox.Models.Domain
 
         public void vergrendel()
         {
-            groep.vergrendel();
+            groep.Vergrendel();
         }
 
         public void voegLeerlingToe(Leerling leerling)
         {
-            groep.voegLeerlingToe(leerling);
+            groep.VoegLeerlingToe(leerling);
         }
     }
 }
