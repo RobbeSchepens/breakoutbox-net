@@ -6,7 +6,7 @@ namespace BreakOutBox.Models.Domain
     public class Klas
     {
         public int KlasId { get; set; }
-        public ICollection<Leerling> Leerlingen { get; set; }
+        public ICollection<Leerling> Leerlingen { get; set;§ }
         //public ICollection<Leerkracht> Leerkrachten { get; set; }
         public ICollection<KlasLeerkracht> KlasLeerkrachten { get; private set; }
         public IEnumerable<Leerkracht> Leerkrachten => KlasLeerkrachten.Select(k => k.Leerkracht);
@@ -25,5 +25,5 @@ namespace BreakOutBox.Models.Domain
         {
             KlasLeerkrachten.Add(new KlasLeerkracht(this, lk));
         }
-    }
+    } 
 }

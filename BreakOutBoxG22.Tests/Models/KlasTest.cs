@@ -1,18 +1,14 @@
-﻿using System;
+﻿using BreakOutBox.Models.Domain;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Linq;
 using Xunit;
 
 namespace BreakOutBoxG22.Tests.Models
 {
-    class SessieTest
+    public class KlasTest
     {
 
-        public SessieTest()
-        {
-
-        }
-
+      
     }
 }
