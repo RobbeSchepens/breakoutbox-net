@@ -25,15 +25,15 @@ namespace BreakOutBox.Models.Domain
             this.Omschrijving = omschrijving;
             this.Klas = klas;
             this.Groepen = groepen;
-            this.toState(new SessieNietKlaarState(this));
+            this.ToState(new SessieNietKlaarState(this));
         }
 
-        protected void toState(SessieState state)
+        protected void ToState(SessieState state)
         {
             _currentState = state;
         }
 
-        public void vergrendelGroepen()
+        public void VergrendelGroepen()
         {
             foreach (Groep g in Groepen)
             {
@@ -41,12 +41,12 @@ namespace BreakOutBox.Models.Domain
             }
         }
 
-        public void startSessie()
+        public void StartSessie()
         {
-            this.toState(new SessieGestartState(this));
+            this.ToState(new SessieGestartState(this));
         }
 
-        public void voegLeerlingToe(int id, Leerling leerling)
+        public void VoegLeerlingToe(int id, Leerling leerling)
         {
             Groepen[id].VoegLeerlingToe(leerling);
         }
