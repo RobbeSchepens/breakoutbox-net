@@ -6,24 +6,24 @@ namespace BreakOutBox.Models.Domain
     public class Klas
     {
         public int KlasId { get; set; }
-        public ICollection<Leerling> Leerlingen { get; set;§ }
-        //public ICollection<Leerkracht> Leerkrachten { get; set; }
+        public ICollection<Leerling> Leerlingen { get; set; }
         public ICollection<KlasLeerkracht> KlasLeerkrachten { get; private set; }
         public IEnumerable<Leerkracht> Leerkrachten => KlasLeerkrachten.Select(k => k.Leerkracht);
 
         public Klas()
         {
             KlasLeerkrachten = new HashSet<KlasLeerkracht>();
+            Leerlingen = new HashSet<Leerling>();
         }
 
-        public Klas(ICollection<Leerling>  leerlingen)
+        public void VoegLeerkrachtToe(Leerkracht leerkracht)
         {
-            this.Leerlingen = leerlingen;
+            KlasLeerkrachten.Add(new KlasLeerkracht(this, leerkracht));
         }
 
-        public void Add(Leerkracht lk)
+        public void VoegLeerlingToe(Leerling leerling)
         {
-            KlasLeerkrachten.Add(new KlasLeerkracht(this, lk));
+            Leerlingen.Add(leerling);
         }
-    } 
+    }
 }

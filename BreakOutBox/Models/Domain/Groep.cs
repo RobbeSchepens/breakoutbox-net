@@ -8,7 +8,6 @@ namespace BreakOutBox.Models.Domain
         #region Fields
         private string _name;
         private GroepState _currentState;
-        //private int leerlingCount = 0;
         #endregion
 
         #region Properties
@@ -21,7 +20,7 @@ namespace BreakOutBox.Models.Domain
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Een groep moet een naam hebben.");
+                    throw new ArgumentException("De naam van de groep mag niet leeg zijn of spaties bevatten.");
                 _name = value;
             }
         }
@@ -70,6 +69,13 @@ namespace BreakOutBox.Models.Domain
         protected void ToState(GroepState state)
         {
             _currentState = state;
+        }
+
+        public void VerwijderLeerling(Leerling leerling)
+        {
+            if (!Leerlingen.Contains(leerling))
+                throw new ArgumentException($"{leerling.Voornaam} {leerling.Achternaam} bestaat niet.");
+            Leerlingen.Remove(leerling);
         }
         #endregion Methods
     }

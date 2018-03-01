@@ -8,7 +8,5 @@ namespace BreakOutBoxG22.Tests.Models
 {
     public class KlasTest
     {
-
-      
     }
 }

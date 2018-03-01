@@ -9,16 +9,15 @@ namespace BreakOutBox.Controllers
 {
     public class SessieController : Controller
     {
-
         private readonly ISessieRepository _sessieRepository;
+
         public SessieController(ISessieRepository sessieRepository)
         {
             _sessieRepository = sessieRepository;
-
         }
+
         public IActionResult Index()
         {
-
             return View("GeefSessieCode");
         }
 
@@ -26,8 +25,6 @@ namespace BreakOutBox.Controllers
         {
             IEnumerable<Sessie> sessies;
             sessies = _sessieRepository.GetAll();
-
-
             return View(sessies);
         }
 
@@ -37,7 +34,5 @@ namespace BreakOutBox.Controllers
             Sessie s = _sessieRepository.GetBySessieCode(id);
             return View(s);
         }
-
-
     }
 }

@@ -6,13 +6,11 @@ using Xunit;
 
 namespace BreakOutBoxG22.Tests.Models
 {
-    class SessieTest
+    public class SessieTest
     {
-
         public SessieTest()
         {
 
         }
-
     }
 }

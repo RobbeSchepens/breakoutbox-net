@@ -9,7 +9,6 @@ namespace BreakOutBox.Data.Repositories
 {
     public class SessieRepository : ISessieRepository
     {
-
         private readonly ApplicationDbContext _context;
         private readonly DbSet<Sessie> _sessies;
 
@@ -18,9 +17,7 @@ namespace BreakOutBox.Data.Repositories
             _context = context;
             _sessies = context.Sessies;
         }
-
-       
-
+        
         public IEnumerable<Sessie> GetAll()
         {
             return _sessies.ToList();
@@ -28,37 +25,35 @@ namespace BreakOutBox.Data.Repositories
 
         public Sessie GetBySessieCode(string sessieCode)
         {
-
-
             return null;
-           /* return _sessies
-                .Include(s => s.Klas)
-                    .ThenInclude(k => k.Leerlingen)
-                .Include(s => s.Klas)
-                    .ThenInclude(k => k.KlasLeerkrachten)
-                .Include(s => s.Groepen)
-                    .ThenInclude(grp => grp.Leerlingen)
-                .Include(s => s.Groepen)
-                    .ThenInclude(grp => grp.Paden)
-                    .ThenInclude(pad => pad.Opdrachten)
-                    .ThenInclude(opdr => opdr.Oefeningen)
-                    .ThenInclude(oef => oef.Opgave)
-                    .ThenInclude(Opgave => Opgave.Vragen)
-                .Include(s => s.Groepen)
-                    .ThenInclude(grp => grp.Paden)
-                    .ThenInclude(pad => pad.Opdrachten)
-                    .ThenInclude(opdr => opdr.Oefeningen)
-                    .ThenInclude(oef => oef.Feedback)
-                .Include(s => s.Groepen)
-                    .ThenInclude(grp => grp.Paden)
-                    .ThenInclude(pad => pad.Opdrachten)
-                    .ThenInclude(opdr => opdr.Oefeningen)
-                    .ThenInclude(oef => oef.Groepsbewerkingen)
-                    
-                .Include(s => s.Groepen)
-                    .ThenInclude(grp => grp.Paden)
-                    .ThenInclude(pad => pad.Acties)
-                .FirstOrDefault(s => s.Code == sessieCode);*/
+            /* return _sessies
+                 .Include(s => s.Klas)
+                     .ThenInclude(k => k.Leerlingen)
+                 .Include(s => s.Klas)
+                     .ThenInclude(k => k.KlasLeerkrachten)
+                 .Include(s => s.Groepen)
+                     .ThenInclude(grp => grp.Leerlingen)
+                 .Include(s => s.Groepen)
+                     .ThenInclude(grp => grp.Paden)
+                     .ThenInclude(pad => pad.Opdrachten)
+                     .ThenInclude(opdr => opdr.Oefeningen)
+                     .ThenInclude(oef => oef.Opgave)
+                     .ThenInclude(Opgave => Opgave.Vragen)
+                 .Include(s => s.Groepen)
+                     .ThenInclude(grp => grp.Paden)
+                     .ThenInclude(pad => pad.Opdrachten)
+                     .ThenInclude(opdr => opdr.Oefeningen)
+                     .ThenInclude(oef => oef.Feedback)
+                 .Include(s => s.Groepen)
+                     .ThenInclude(grp => grp.Paden)
+                     .ThenInclude(pad => pad.Opdrachten)
+                     .ThenInclude(opdr => opdr.Oefeningen)
+                     .ThenInclude(oef => oef.Groepsbewerkingen)
+
+                 .Include(s => s.Groepen)
+                     .ThenInclude(grp => grp.Paden)
+                     .ThenInclude(pad => pad.Acties)
+                 .FirstOrDefault(s => s.Code == sessieCode);*/
         }
 
         public ICollection<Sessie> GetSessiesByLeerkracht(Leerkracht leerkracht)
@@ -87,7 +82,5 @@ namespace BreakOutBox.Data.Repositories
         {
             _context.SaveChanges();
         }
-
-        
     }
 }
