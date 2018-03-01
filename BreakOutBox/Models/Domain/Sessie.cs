@@ -5,29 +5,36 @@ namespace BreakOutBox.Models.Domain
 {
     public class Sessie
     {
+        #region Fields
+        private SessieState _currentState;
+        #endregion
+
+        #region Properties
         public int SessieId { get; set; }
         public string Code { get; set; }
         public string Naam { get; set; }
         public string Omschrijving { get; set; }
         public Klas Klas { get; set; }
-        public IList<Groep> Groepen { get; set; }
+        public ICollection<Groep> Groepen { get; set; }
+        public int NrOfGroepen => Groepen.Count;
+        #endregion
 
-        private SessieState _currentState;
-
+        #region Constructors
         public Sessie()
         {
         }
 
-        public Sessie(string code, string naam, string omschrijving, Klas klas, IList<Groep> groepen)
+        public Sessie(string code, string naam, string omschrijving)
         {
             this.Code = code;
             this.Naam = naam;
             this.Omschrijving = omschrijving;
-            this.Klas = klas;
-            this.Groepen = groepen;
+            Groepen = new HashSet<Groep>();
             this.ToState(new SessieNietKlaarState(this));
         }
+        #endregion
 
+        #region Methods
         protected void ToState(SessieState state)
         {
             _currentState = state;
@@ -46,9 +53,17 @@ namespace BreakOutBox.Models.Domain
             this.ToState(new SessieGestartState(this));
         }
 
-        public void VoegLeerlingToe(int id, Leerling leerling)
+        public void VoegGroepToe(Groep groep)
         {
-            Groepen[id].VoegLeerlingToe(leerling);
+            Groepen.Add(groep);
         }
+
+        public void VerwijderGroep(Groep groep)
+        {
+            if (!Groepen.Contains(groep))
+                throw new ArgumentException($"Groep met id {groep.GroepId} bestaat niet.");
+            Groepen.Remove(groep);
+        }
+        #endregion
     }
 }

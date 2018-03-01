@@ -15,7 +15,7 @@ namespace BreakOutBox.Models.Domain
         {
         }
 
-        public Leerkracht(string voornaam, string achternaam, Klas klas)
+        public Leerkracht(string voornaam, string achternaam)
         {
             this.Voornaam = voornaam;
             this.Achternaam = achternaam;

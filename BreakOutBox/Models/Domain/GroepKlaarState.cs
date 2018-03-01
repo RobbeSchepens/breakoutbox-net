@@ -12,9 +12,9 @@ namespace BreakOutBox.Models.Domain
 
         }
 
-        public void vergrendel()
+        public void Vergrendel()
         {
-            base.vergrendel();
+            base.Vergrendel();
         }
     }
 }

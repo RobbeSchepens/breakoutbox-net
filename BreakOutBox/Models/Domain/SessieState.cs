@@ -14,12 +14,12 @@ namespace BreakOutBox.Models.Domain
             this.sessie = sessie;
         }
 
-        public void vergrendelGroepen()
+        public void VergrendelGroepen()
         {
 
         }
 
-        public void startSessie()
+        public void StartSessie()
         {
 
         }

@@ -56,7 +56,6 @@ namespace BreakOutBoxG22.Tests.Models
         {
             Assert.Throws<ArgumentException>(() => _groep1.VoegLeerlingToe(new Leerling("Jerome", "Home")));
         }
-
         #endregion
 
         #region DeleteLeerling
@@ -73,7 +72,7 @@ namespace BreakOutBoxG22.Tests.Models
         public void DeleteLeerling_NonExistingLeerling_ThrowsException()
         {
             Leerling aLeerling = new Leerling("Jow", "Chocow");
-            //Assert.Throws<ArgumentException>(() => _groep1.VerwijderLeerling(aLeerling));
+            Assert.Throws<ArgumentException>(() => _groep1.VerwijderLeerling(aLeerling));
         }
         #endregion
     }
