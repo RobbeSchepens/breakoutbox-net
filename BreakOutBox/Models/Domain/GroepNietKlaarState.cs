@@ -12,9 +12,9 @@ namespace BreakOutBox.Models.Domain
 
         }
 
-        public void voegLeerlingToe(Leerling leerling)
+        public void VoegLeerlingToe(Leerling leerling)
         {
-            base.voegLeerlingToe(leerling);
+            base.VoegLeerlingToe(leerling);
         }
     }
 }
