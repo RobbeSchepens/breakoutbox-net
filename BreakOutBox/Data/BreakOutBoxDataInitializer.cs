@@ -72,49 +72,45 @@ namespace BreakOutBox.Data
                 groep5.VoegLeerlingToe(leerlingen[18]);
                 groep5.VoegLeerlingToe(leerlingen[19]);
 
-                var Groepsbewerkingen = new List<Groepsbewerking>()
+                var Toegangscodes = new List<Toegangscode>();
+                for(int i = 0; i <= 7; i++)
                 {
-                    new Groepsbewerking("GroepsbewerkingPlaceholder"),
-                };
+                    Toegangscodes.Add(new Toegangscode(i));
+                }
 
-                var OpgaveVragen = new List<OpgaveVraag>()
+                var Groepsbewerkingen = new List<Groepsbewerking>();
+                for (int i = 0; i <= 7; i++)
                 {
-                    new OpgaveVraag("VraagPlaceholder"),
-                };
+                    Groepsbewerkingen.Add(new Groepsbewerking("BewerkingPlaceholder" + i.ToString()));
+                }
 
-                var opgaven = new List<Opgave>
+                var Opgaven = new List<Opgave>();
+                for (int i = 0; i <= 7; i++)
                 {
-                    new Opgave("Opgave1", OpgaveVragen),
-                    new Opgave("Opgave2", OpgaveVragen),
-                    new Opgave("Opgave3", OpgaveVragen),
-                    new Opgave("Opgave4", OpgaveVragen),
-                    new Opgave("Opgave5", OpgaveVragen),
-                    new Opgave("Opgave6", OpgaveVragen),
-                    new Opgave("Opgave7", OpgaveVragen),
-                    new Opgave("Opgave8", OpgaveVragen),
-                };
+                    Opgaven.Add(new Opgave("OpgavePlaceholder" + i.ToString()));
+                }
+
+                var Antwoorden = new List<Antwoord>();
+                for (int i = 0; i <= 7; i++)
+                {
+                    Antwoorden.Add(new Antwoord(i));
+                }
 
                 var feedback = new Feedback("FeedbackPlaceholder");
 
-                var oefeningen = new List<Oefening>();
-
-                foreach(Opgave o in opgaven)
+                var Oefeningen = new List<Oefening>();
+                for (int i = 0; i <= 7; i++)
                 {
-                    oefeningen.Add(new Oefening("OefeningPlaceHolder", o, "AntwoordPlaceholder", feedback, Groepsbewerkingen));
+                    Oefeningen.Add(new Oefening("OefeningPlaceholder" + i.ToString(), Opgaven[i], Antwoorden[i], feedback, Groepsbewerkingen[i]));
                 }
 
-
-                var Acties = new List<Actie>
+                var Acties = new List<Actie>();
+                for (int i = 0; i <= 7; i++)
                 {
-                    new Actie(""),
-                    new Actie(""),
-                    new Actie(""),
-                    new Actie(""),
-                    new Actie(""),
-                    new Actie(""),
-                    new Actie(""),
-                    new Actie(""),
-                };
+                    Acties.Add(new Actie("ActiePlaceholder" + i.ToString()));
+                }
+
+                var Box = new Box(Toegangscodes, Acties, Oefeningen);
 
 
                 //var TBA = new List<Opdracht> {
@@ -123,8 +119,8 @@ namespace BreakOutBox.Data
 
 
 
-                
-                
+
+
 
 
 

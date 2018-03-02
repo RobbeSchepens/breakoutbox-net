@@ -6,24 +6,14 @@ namespace BreakOutBox.Models.Domain
     {
         public int OpdrachtId { get; set; }
         public int VolgNr { get; set; }
-        public ICollection<Oefening> Oefeningen { get; set; }
-        public double Toegangscode { get; set; } // Deze komt uit de box = het Java spel
-        public Groepsbewerking GroepsBewerking { get; set; }
+        public Oefening Oefening { get; set; } //Komt uit box
+        public Toegangscode Toegangscode { get; set; } // Deze komt uit de box = het Java spel
 
-        public Opdracht()
-        {
-        }
-
-        public Opdracht(int volgNr, double toegangscode)
+        public Opdracht(int volgNr, Toegangscode toegangscode, Oefening oefening)
         {
             VolgNr = volgNr;
-            Oefeningen = new List<Oefening>();
+            Oefening = oefening;
             Toegangscode = toegangscode;
-        }
-
-        public void VoegOefeningToe(Oefening oefening)
-        {
-            Oefeningen.Add(oefening);
         }
     }
 }

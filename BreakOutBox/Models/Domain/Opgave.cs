@@ -8,13 +8,11 @@ namespace BreakOutBox.Models.Domain
     public class Opgave
     {
         public int OpgaveId { get; set; }
-        public ICollection<OpgaveVraag> Vragen { get; set; }
-        public string Uitleg { get; set; }
+        public string Vraag { get; set; }
 
-        public Opgave(string uitleg, ICollection<OpgaveVraag> vragen)
+        public Opgave(string vraag)
         {
-            this.Uitleg = uitleg;
-            this.Vragen = vragen;
+            this.Vraag = vraag;
         }
     }
 }

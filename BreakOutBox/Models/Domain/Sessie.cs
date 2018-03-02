@@ -7,6 +7,8 @@ namespace BreakOutBox.Models.Domain
     {
         #region Fields
         private SessieState _currentState;
+
+        private Box _box;
         #endregion
 
         #region Properties
@@ -24,7 +26,7 @@ namespace BreakOutBox.Models.Domain
         {
         }
 
-        public Sessie(string code, string naam, string omschrijving)
+        public Sessie(string code, string naam, string omschrijving, Box box)
         {
             this.Code = code;
             this.Naam = naam;
