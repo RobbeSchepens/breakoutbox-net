@@ -4,35 +4,40 @@ using System.Linq;
 using System.Threading.Tasks;
 using BreakOutBox.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
+using BreakOutBox.Models.SessieViewModels;
 
 namespace BreakOutBox.Controllers
 {
     public class SessieController : Controller
     {
-        private readonly ISessieRepository _sessieRepository;
 
+        private readonly ISessieRepository _sessieRepository;
         public SessieController(ISessieRepository sessieRepository)
         {
             _sessieRepository = sessieRepository;
-        }
 
-        public IActionResult Index()
-        {
-            return View("GeefSessieCode");
         }
-
-        public IActionResult GeefSessieCode()
+        public IActionResult Index(string id, IndexViewModel indexViewModel)
         {
-            IEnumerable<Sessie> sessies;
-            sessies = _sessieRepository.GetAll();
-            return View(sessies);
+            if (id == "onbestaand")
+                ViewData["BestaatNietError"] = "Deze sessie bestaat niet";
+            return View(indexViewModel);
         }
 
         public IActionResult SessieOverzicht(string id)
         {
-            string aa = id;
+            string a = id;
             Sessie s = _sessieRepository.GetBySessieCode(id);
-            return View(s);
+            if (s == null)
+                return RedirectToAction("Index", new { id = "onbestaand" });
+ 
+
+            // Dit kan ik pas verder doen als het domein goed is
+
+             ViewData["code"] = id;
+            return View();
         }
+
+
     }
 }
