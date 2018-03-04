@@ -7,8 +7,6 @@ namespace BreakOutBox.Models.Domain
     {
         #region Fields
         private SessieState _currentState;
-
-        private Box _box;
         #endregion
 
         #region Properties
@@ -19,6 +17,7 @@ namespace BreakOutBox.Models.Domain
         public Klas Klas { get; set; }
         public ICollection<Groep> Groepen { get; set; }
         public int NrOfGroepen => Groepen.Count;
+        public Box Box { get; private set; } // Box uit Java met alle oefeningen in
         #endregion
 
         #region Constructors
@@ -28,11 +27,12 @@ namespace BreakOutBox.Models.Domain
 
         public Sessie(string code, string naam, string omschrijving, Box box)
         {
-            this.Code = code;
-            this.Naam = naam;
-            this.Omschrijving = omschrijving;
+            Code = code;
+            Naam = naam;
+            Omschrijving = omschrijving;
             Groepen = new HashSet<Groep>();
-            this.ToState(new SessieNietKlaarState(this));
+            ToState(new SessieNietKlaarState(this));
+            Box = box; 
         }
         #endregion
 
@@ -52,19 +52,7 @@ namespace BreakOutBox.Models.Domain
 
         public void StartSessie()
         {
-            this.ToState(new SessieGestartState(this));
-        }
-
-        public void VoegGroepToe(Groep groep)
-        {
-            Groepen.Add(groep);
-        }
-
-        public void VerwijderGroep(Groep groep)
-        {
-            if (!Groepen.Contains(groep))
-                throw new ArgumentException($"Groep met id {groep.GroepId} bestaat niet.");
-            Groepen.Remove(groep);
+            ToState(new SessieGestartState(this));
         }
         #endregion
     }

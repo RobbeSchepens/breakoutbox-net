@@ -9,18 +9,19 @@ namespace BreakOutBox.Models.Domain
     {
         public int OefeningId { get; set; }
         public string Naam { get; set; }
-        public Opgave Opgave { get; set; }
-        public Antwoord Antwoord { get; set; }
-        public Feedback Feedback { get; set; }
-        public Groepsbewerking Groepsbewerking { get; set; }
+        public string Opgave { get; set; } // bvb: "oef/oefening1.pdf"
+        public double Antwoord { get; set; } // Het antwoord VOORALEER de groepsbewerking toe te passen
+        //public Antwoord Antwoord { get; set; }
+        //public Feedback Feedback { get; set; }
+        public string Groepsbewerking { get; set; } // De bewerking. Het resultaat van antwoord + groepsbewerking wordt 'on the spot' uitgerekend. 
 
-        public Oefening(string oefeningNaam, Opgave opgave, Antwoord antwoord, Feedback feedback, Groepsbewerking groepsbewerking)
+        public Oefening(string oefeningNaam, string opgave, string groepsbewerking)
         {
-            this.Naam = oefeningNaam;
-            this.Opgave = opgave;
-            this.Feedback = feedback;
-            this.Antwoord = antwoord;
-            this.Groepsbewerking = groepsbewerking;
+            Naam = oefeningNaam;
+            Opgave = opgave;
+            //this.Feedback = feedback;
+            //this.Antwoord = antwoord;
+            Groepsbewerking = groepsbewerking;
         }
     }
 }

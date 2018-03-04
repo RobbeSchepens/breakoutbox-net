@@ -20,29 +20,5 @@ namespace BreakOutBox.Models.Domain
             PadOpdrachten = new HashSet<PadOpdracht>();
             PadActies = new HashSet<PadActie>();
         }
-
-        public void VoegOpdrachtToe(Opdracht opdracht)
-        {
-            PadOpdrachten.Add(new PadOpdracht(this, opdracht));
-        }
-
-        public void VoegActieToe(Actie actie)
-        {
-            PadActies.Add(new PadActie(this, actie));
-        }
-
-        public void VerwijderOpdracht(Opdracht opdracht)
-        {
-            if (!PadOpdrachten.Contains(new PadOpdracht(this, opdracht)))
-                throw new ArgumentException($"Opdracht met volgnr {opdracht.VolgNr} is geen bestaande opdracht.");
-            PadOpdrachten.Remove(new PadOpdracht(this, opdracht));
-        }
-
-        public void VerwijderActie(Actie actie)
-        {
-            if (!PadActies.Contains(new PadActie(this, actie)))
-                throw new ArgumentException($"Actie met id {actie.ActieId} is geen bestaande actie.");
-            PadActies.Remove(new PadActie(this, actie));
-        }
     }
 }

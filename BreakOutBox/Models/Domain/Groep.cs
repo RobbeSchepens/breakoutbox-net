@@ -12,36 +12,35 @@ namespace BreakOutBox.Models.Domain
 
         #region Properties
         public int GroepId { get; set; }
-        public string Naam {
-            get
-            {
-                return _name;
-            }
-            private set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("De naam van de groep mag niet leeg zijn of spaties bevatten.");
-                _name = value;
-            }
-        }
+        //public string Naam {
+        //    get
+        //    {
+        //        return _name;
+        //    }
+        //    private set
+        //    {
+        //        if (string.IsNullOrWhiteSpace(value))
+        //            throw new ArgumentException("De naam van de groep mag niet leeg zijn of spaties bevatten.");
+        //        _name = value;
+        //    }
+        //}
         public ICollection<Leerling> Leerlingen { get; set; }
         public int NrOfLeerlingen => Leerlingen.Count;
-        public ICollection<Pad> Paden { get; set; }
-        public int NrOfPaden => Paden.Count;
+        public Pad Pad { get; set; }
         #endregion Properties
 
         #region Constructors
-        public Groep()
+        public Groep(Pad pad)
         {
             this.Leerlingen = new HashSet<Leerling>();
-            this.Paden = new HashSet<Pad>();
+            Pad = pad;
             ToState(new GroepNietKlaarState(this));
         }
 
-        public Groep(string naam) : this()
-        {
-            this.Naam = naam;
-        }
+        //public Groep(string naam) : this()
+        //{
+        //    Naam = naam;
+        //}
         #endregion Constructors
 
         #region Methods
@@ -56,11 +55,6 @@ namespace BreakOutBox.Models.Domain
                 this.ToState(new GroepKlaarState(this));
         }
 
-        public void VoegPadToe(Pad pad)
-        {
-            Paden.Add(pad);
-        }
-
         public void Vergrendel()
         {
             this.ToState(new GroepVergrendeldState(this));
@@ -69,13 +63,6 @@ namespace BreakOutBox.Models.Domain
         protected void ToState(GroepState state)
         {
             _currentState = state;
-        }
-
-        public void VerwijderLeerling(Leerling leerling)
-        {
-            if (!Leerlingen.Contains(leerling))
-                throw new ArgumentException($"{leerling.Voornaam} {leerling.Achternaam} bestaat niet.");
-            Leerlingen.Remove(leerling);
         }
         #endregion Methods
     }

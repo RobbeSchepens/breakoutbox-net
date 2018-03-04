@@ -8,8 +8,8 @@
 
         public Leerling(string voornaam, string achternaam)
         {
-            this.Voornaam = voornaam;
-            this.Achternaam = achternaam;
+            Voornaam = voornaam;
+            Achternaam = achternaam;
         }
     }
 }

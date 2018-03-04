@@ -40,10 +40,10 @@ namespace BreakOutBox.Data
             builder.ApplyConfiguration(new ActieConfiguration());
             builder.ApplyConfiguration(new PadActieConfiguration());
             builder.ApplyConfiguration(new OefeningConfiguration());
-            builder.ApplyConfiguration(new GroepsbewerkingConfiguration());
-            builder.ApplyConfiguration(new FeedbackConfiguration());
-            builder.ApplyConfiguration(new OpgaveConfiguration());
-            builder.ApplyConfiguration(new OpgaveVraagConfiguration());
+            //builder.ApplyConfiguration(new GroepsbewerkingConfiguration());
+            //builder.ApplyConfiguration(new FeedbackConfiguration());
+            //builder.ApplyConfiguration(new OpgaveConfiguration());
+            //builder.ApplyConfiguration(new OpgaveVraagConfiguration());
             builder.ApplyConfiguration(new KlasLeerkrachtConfiguration());
 
         }
