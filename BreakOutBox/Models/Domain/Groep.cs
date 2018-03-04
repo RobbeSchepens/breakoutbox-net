@@ -30,10 +30,10 @@ namespace BreakOutBox.Models.Domain
         #endregion Properties
 
         #region Constructors
-        public Groep(Pad pad)
+        public Groep(Pad pad, ICollection<Leerling> leerlingen)
         {
-            Leerlingen = new HashSet<Leerling>();
             Pad = pad;
+            Leerlingen = leerlingen;
             ToState(new GroepNietKlaarState(this));
         }
 
@@ -44,17 +44,6 @@ namespace BreakOutBox.Models.Domain
         #endregion Constructors
 
         #region Methods
-        public void VoegLeerlingToe(Leerling leerling)
-        {
-            if (Leerlingen.Count == 4)
-                throw new ArgumentException("Een groep mag maximaal 4 leerlingen groot zijn.");
-            Leerlingen.Add(leerling);
-            
-            // Check state 
-            if (Leerlingen.Count >= 2 && Leerlingen.Count <= 4)
-                ToState(new GroepKlaarState(this));
-        }
-
         public void Vergrendel()
         {
             ToState(new GroepVergrendeldState(this));
@@ -63,6 +52,24 @@ namespace BreakOutBox.Models.Domain
         protected void ToState(GroepState state)
         {
             _currentState = state;
+        }
+
+        public void VoegLeerlingToe(Leerling leerling)
+        {
+            if (Leerlingen.Count == 4)
+                throw new ArgumentException("Een groep mag maximaal 4 leerlingen groot zijn.");
+            Leerlingen.Add(leerling);
+
+            // Check state 
+            if (Leerlingen.Count >= 2 && Leerlingen.Count <= 4)
+                ToState(new GroepKlaarState(this));
+        }
+
+        public void VerwijderLeerling(Leerling leerling)
+        {
+            if (!Leerlingen.Contains(leerling))
+                throw new ArgumentException($"{leerling.Voornaam} {leerling.Achternaam} bestaat niet.");
+            Leerlingen.Remove(leerling);
         }
         #endregion Methods
     }

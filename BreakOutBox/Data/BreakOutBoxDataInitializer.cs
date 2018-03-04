@@ -112,11 +112,10 @@ namespace BreakOutBox.Data
 
                 //var Box = new Box(Toegangscodes, Acties, Oefeningen);
 
-
                 //var TBA = new List<Opdracht> {
                 //     new Opdracht(1,null,0),
                 // };
-
+                
                 Sessie s = new Sessie();
                 _dbContext.Sessies.Add(s);
                 _dbContext.SaveChanges();

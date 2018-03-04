@@ -8,7 +8,7 @@ namespace BreakOutBox.Models.Domain
     public class Toegangscode
     {
         public int ToegangscodeId { get; set; }
-        public double Code { get; set; }
+        public double Code { get; private set; }
         public Opdracht Opdracht { get; set; }
 
         public Toegangscode(double code)

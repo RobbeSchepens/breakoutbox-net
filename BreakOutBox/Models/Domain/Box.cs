@@ -17,6 +17,10 @@ namespace BreakOutBox.Models.Domain
         public IEnumerable<Oefening> Oefeningen => BoxOefeningen.Select(k => k.Oefening);
         public ICollection<BoxToegangscode> BoxToegangscodes { get; private set; }
         public IEnumerable<Toegangscode> Toegangscodes => BoxToegangscodes.Select(k => k.Toegangscode);
+        
+        public Box()
+        {
+        }
 
         public Box(ICollection<BoxToegangscode> boxtoegangscodes, ICollection<BoxActie> boxacties, ICollection<BoxOefening> boxoefeningen)
         {

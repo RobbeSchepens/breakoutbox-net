@@ -6,12 +6,14 @@ namespace BreakOutBox.Models.Domain
     {
         public int OpdrachtId { get; set; }
         public int VolgNr { get; set; }
-        public Oefening Oefening { get; set; } //Komt uit box
-        public Toegangscode Toegangscode { get; set; } // Deze komt uit de box = het Java spel
+        public Actie Actie { get; set; } // UIT BOX
+        public Oefening Oefening { get; set; } // UIT BOX
+        public Toegangscode Toegangscode { get; set; } // UIT BOX
 
-        public Opdracht(int volgNr, Toegangscode toegangscode, Oefening oefening)
+        public Opdracht(int volgNr, Actie actie, Oefening oefening, Toegangscode toegangscode)
         {
             VolgNr = volgNr;
+            Actie = actie;
             Oefening = oefening;
             Toegangscode = toegangscode;
         }

@@ -23,14 +23,15 @@ namespace BreakOutBox.Models.Domain
         #region Constructors
         public Sessie()
         {
+            //Box = new Box();
         }
 
-        public Sessie(string code, string naam, string omschrijving, Box box)
+        public Sessie(string code, string naam, string omschrijving, ICollection<Groep> groepen, Box box)
         {
             Code = code;
             Naam = naam;
             Omschrijving = omschrijving;
-            Groepen = new HashSet<Groep>();
+            Groepen = groepen;
             ToState(new SessieNietKlaarState(this));
             Box = box; 
         }
