@@ -45,7 +45,10 @@ namespace BreakOutBox.Data
             //builder.ApplyConfiguration(new OpgaveConfiguration());
             //builder.ApplyConfiguration(new OpgaveVraagConfiguration());
             builder.ApplyConfiguration(new KlasLeerkrachtConfiguration());
-
+            builder.ApplyConfiguration(new BoxConfiguration());
+            builder.ApplyConfiguration(new BoxActieConfiguration());
+            builder.ApplyConfiguration(new BoxOefeningConfiguration());
+            builder.ApplyConfiguration(new BoxToegangscodeConfiguration());
         }
     }
 }

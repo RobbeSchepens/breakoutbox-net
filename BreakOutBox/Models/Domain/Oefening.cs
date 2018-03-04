@@ -9,7 +9,7 @@ namespace BreakOutBox.Models.Domain
     {
         public int OefeningId { get; set; }
         public string Naam { get; set; }
-        public string Opgave { get; set; } // bvb: "oef/oefening1.pdf"
+        public string Opgave { get; set; } // Een path bvb: "oef/oefening1.pdf"
         public double Antwoord { get; set; } // Het antwoord VOORALEER de groepsbewerking toe te passen
         //public Antwoord Antwoord { get; set; }
         //public Feedback Feedback { get; set; }

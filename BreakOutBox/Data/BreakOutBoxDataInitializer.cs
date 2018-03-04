@@ -17,9 +17,9 @@ namespace BreakOutBox.Data
 
         public void InitializeData()
         {
-            //_dbContext.Database.EnsureDeleted();
-            //if (_dbContext.Database.EnsureCreated())
-            //{
+            _dbContext.Database.EnsureDeleted();
+            if (_dbContext.Database.EnsureCreated())
+            {
 
                 //var leerlingen = new List<Leerling>{
                 //    new Leerling("Andrea", "Van Dijk"),
@@ -73,7 +73,7 @@ namespace BreakOutBox.Data
                 //groep5.VoegLeerlingToe(leerlingen[19]);
 
                 //var Toegangscodes = new List<Toegangscode>();
-                //for(int i = 0; i <= 7; i++)
+                //for (int i = 0; i <= 7; i++)
                 //{
                 //    Toegangscodes.Add(new Toegangscode(i));
                 //}
@@ -113,14 +113,14 @@ namespace BreakOutBox.Data
                 //var Box = new Box(Toegangscodes, Acties, Oefeningen);
 
 
-                ////var TBA = new List<Opdracht> {
-                ////     new Opdracht(1,null,0),
-                //// };
+                //var TBA = new List<Opdracht> {
+                //     new Opdracht(1,null,0),
+                // };
 
-                //Sessie s = new Sessie();
-                //_dbContext.Sessies.Add(s);
-                //_dbContext.SaveChanges();
-            //}
+                Sessie s = new Sessie();
+                _dbContext.Sessies.Add(s);
+                _dbContext.SaveChanges();
+            }
         }
     }
 }
