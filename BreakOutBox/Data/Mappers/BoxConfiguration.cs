@@ -9,9 +9,11 @@ namespace BreakOutBox.Data.Mappers
         public void Configure(EntityTypeBuilder<Box> builder)
         {
             builder.ToTable("Box");
-            builder.Ignore(t => t.Acties);
-            builder.Ignore(t => t.Oefeningen);
-            builder.Ignore(t => t.Toegangscodes);
+
+            //Associations
+            builder.HasMany(s => s.Acties).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(s => s.Oefeningen).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(s => s.Toegangscodes).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

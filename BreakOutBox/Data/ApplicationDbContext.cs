@@ -29,26 +29,27 @@ namespace BreakOutBox.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new SessieConfiguration());
             builder.ApplyConfiguration(new KlasConfiguration());
             builder.ApplyConfiguration(new LeerkrachtConfiguration());
             builder.ApplyConfiguration(new LeerlingConfiguration());
-            builder.ApplyConfiguration(new SessieConfiguration());
+            builder.ApplyConfiguration(new KlasLeerkrachtConfiguration());
             builder.ApplyConfiguration(new GroepConfiguration());
             builder.ApplyConfiguration(new PadConfiguration());
             builder.ApplyConfiguration(new OpdrachtConfiguration());
-            builder.ApplyConfiguration(new PadOpdrachtConfiguration());
+            //builder.ApplyConfiguration(new PadOpdrachtConfiguration());
+            //builder.ApplyConfiguration(new PadActieConfiguration());
+            builder.ApplyConfiguration(new BoxConfiguration());
             builder.ApplyConfiguration(new ActieConfiguration());
-            builder.ApplyConfiguration(new PadActieConfiguration());
             builder.ApplyConfiguration(new OefeningConfiguration());
+            builder.ApplyConfiguration(new ToegangscodeConfiguration());
             //builder.ApplyConfiguration(new GroepsbewerkingConfiguration());
             //builder.ApplyConfiguration(new FeedbackConfiguration());
             //builder.ApplyConfiguration(new OpgaveConfiguration());
             //builder.ApplyConfiguration(new OpgaveVraagConfiguration());
-            builder.ApplyConfiguration(new KlasLeerkrachtConfiguration());
-            builder.ApplyConfiguration(new BoxConfiguration());
-            builder.ApplyConfiguration(new BoxActieConfiguration());
-            builder.ApplyConfiguration(new BoxOefeningConfiguration());
-            builder.ApplyConfiguration(new BoxToegangscodeConfiguration());
+            //builder.ApplyConfiguration(new BoxActieConfiguration());
+            //builder.ApplyConfiguration(new BoxOefeningConfiguration());
+            //builder.ApplyConfiguration(new BoxToegangscodeConfiguration());
         }
     }
 }
