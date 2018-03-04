@@ -14,6 +14,7 @@ namespace BreakOutBox.Models.Domain
         //public Antwoord Antwoord { get; set; }
         //public Feedback Feedback { get; set; }
         public string Groepsbewerking { get; set; } // De bewerking. Het resultaat van antwoord + groepsbewerking wordt 'on the spot' uitgerekend. 
+        public Opdracht Opdracht { get; set; }
 
         public Oefening(string oefeningNaam, string opgave, string groepsbewerking)
         {
