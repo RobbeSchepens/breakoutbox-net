@@ -19,8 +19,8 @@ namespace BreakOutBox.Models.Domain
         {
             Naam = oefeningNaam;
             Opgave = opgave;
-            //this.Feedback = feedback;
-            //this.Antwoord = antwoord;
+            //Feedback = feedback;
+            //Antwoord = antwoord;
             Groepsbewerking = groepsbewerking;
         }
     }

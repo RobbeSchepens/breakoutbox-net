@@ -10,12 +10,14 @@ namespace BreakOutBox.Data.Mappers
         {
             builder.ToTable("Oefening");
             builder.Property(t => t.Naam).IsRequired().HasMaxLength(20);
-            builder.Property(t => t.Antwoord).IsRequired().HasMaxLength(20);
+            builder.Property(t => t.Antwoord).IsRequired().HasMaxLength(8);
+            builder.Property(t => t.Opgave).IsRequired().HasMaxLength(20);
+            builder.Property(t => t.Groepsbewerking).IsRequired().HasMaxLength(20);
 
             //Associations
-            builder.HasOne(s => s.Feedback).WithOne().IsRequired(false).OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(s => s.Opgave).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(s => s.Groepsbewerkingen).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
+            //builder.HasOne(s => s.Feedback).WithOne().IsRequired(false).OnDelete(DeleteBehavior.Cascade);
+            //builder.HasOne(s => s.Opgave).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
+            //builder.HasMany(s => s.Groepsbewerkingen).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

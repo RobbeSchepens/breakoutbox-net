@@ -16,6 +16,7 @@ namespace BreakOutBox.Data.Mappers
             //Associations
             builder.HasOne(s => s.Klas).WithMany().IsRequired().OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(s => s.Groepen).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(s => s.Box).WithOne().IsRequired().OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

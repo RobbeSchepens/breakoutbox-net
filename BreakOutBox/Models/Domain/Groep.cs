@@ -6,7 +6,7 @@ namespace BreakOutBox.Models.Domain
     public class Groep
     {
         #region Fields
-        private string _name;
+        //private string _name;
         private GroepState _currentState;
         #endregion
 
@@ -32,7 +32,7 @@ namespace BreakOutBox.Models.Domain
         #region Constructors
         public Groep(Pad pad)
         {
-            this.Leerlingen = new HashSet<Leerling>();
+            Leerlingen = new HashSet<Leerling>();
             Pad = pad;
             ToState(new GroepNietKlaarState(this));
         }
@@ -52,12 +52,12 @@ namespace BreakOutBox.Models.Domain
             
             // Check state 
             if (Leerlingen.Count >= 2 && Leerlingen.Count <= 4)
-                this.ToState(new GroepKlaarState(this));
+                ToState(new GroepKlaarState(this));
         }
 
         public void Vergrendel()
         {
-            this.ToState(new GroepVergrendeldState(this));
+            ToState(new GroepVergrendeldState(this));
         }
 
         protected void ToState(GroepState state)

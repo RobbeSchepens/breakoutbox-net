@@ -16,7 +16,7 @@ namespace BreakOutBox.Models.Domain
 
         public Actie(string omschrijving)
         {
-            this.Omschrijving = omschrijving;
+            Omschrijving = omschrijving;
         }
     }
 }

@@ -10,10 +10,10 @@ namespace BreakOutBox.Data.Mappers
         {
             builder.ToTable("Opdracht");
             builder.Property(t => t.VolgNr).IsRequired().HasMaxLength(5);
-            builder.Property(t => t.Toegangscode).IsRequired().HasMaxLength(5);
 
             //Associations
-            builder.HasMany(s => s.Oefeningen).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(s => s.Oefening).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(s => s.Toegangscode).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
