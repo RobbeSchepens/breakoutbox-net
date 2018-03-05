@@ -48,15 +48,56 @@ namespace BreakOutBox.Data
 
                 #region BoxAanmaken
                 var toegangscodes = new List<Toegangscode> { // deze code geeft aan wat je volgende oefening is (bv. de code die je in een balon terugvind)
-                    new Toegangscode(0),
-                    new Toegangscode(0),
-                    new Toegangscode(0),
-                    new Toegangscode(0),
-                    new Toegangscode(0),
-                    new Toegangscode(0),
-                    new Toegangscode(0),
-                    new Toegangscode(0),
-                };
+
+
+               
+                new Toegangscode(100),
+                new Toegangscode(101),
+                new Toegangscode(102),
+                new Toegangscode(103),
+                new Toegangscode(104),
+                new Toegangscode(105),
+                new Toegangscode(106),
+                new Toegangscode(107),
+
+                new Toegangscode(108),
+                new Toegangscode(109),
+                new Toegangscode(110),
+                new Toegangscode(111),
+                new Toegangscode(112),
+                new Toegangscode(113),
+                new Toegangscode(114),
+                new Toegangscode(115),
+
+                new Toegangscode(116),
+                new Toegangscode(117),
+                new Toegangscode(118),
+                new Toegangscode(119),
+                new Toegangscode(120),
+                new Toegangscode(121),
+                new Toegangscode(122),
+                new Toegangscode(123),
+
+                new Toegangscode(124),
+                new Toegangscode(125),
+                new Toegangscode(126),
+                new Toegangscode(127),
+                new Toegangscode(128),
+                new Toegangscode(129),
+                new Toegangscode(130),
+                new Toegangscode(131),
+
+                new Toegangscode(132),
+                new Toegangscode(133),
+                new Toegangscode(134),
+                new Toegangscode(135),
+                new Toegangscode(136),
+                new Toegangscode(137),
+                new Toegangscode(138),
+                new Toegangscode(139)
+
+
+            };
 
                 var acties = new List<Actie> { // de mogelijke acties dat je moet ondernemen (in een balon prikken, telefoonboek opendoen)
                     new Actie(""),
@@ -70,18 +111,32 @@ namespace BreakOutBox.Data
                 };
 
                 var oefeningen = new List<Oefening> { // dit zijn de oefeningen die in de sessie gebruikt worden
-                    new Oefening("Oefening1", "oefening1.pdf", 11.1, "Tel 5 erbij op"),
-                    new Oefening("Oefening2", "oefening2.pdf", 22.2, "Trek 5 ervan af"),
-                    new Oefening("Oefening3", "oefening3.pdf", 33.3, "Doe maal 5"),
-                    new Oefening("Oefening4", "oefening4.pdf", 44.4, "Tel 5 erbij op"),
-                    new Oefening("Oefening5", "oefening5.pdf", 55.5, "Tel 5 erbij op"),
-                    new Oefening("Oefening6", "oefening6.pdf", 66.6, "Tel 5 erbij op"),
-                    new Oefening("Oefening7", "oefening7.pdf", 77.7, "Tel 5 erbij op"),
-                    new Oefening("Oefening8", "oefening8.pdf", 88.8, "Tel 5 erbij op")
+                    new Oefening("Oefening1", "oefening1.pdf", 10, ""),
+                    new Oefening("Oefening2", "oefening2.pdf", 11, ""),
+                    new Oefening("Oefening3", "oefening3.pdf", 12, ""),
+                    new Oefening("Oefening4", "oefening4.pdf", 13, ""),
+                    new Oefening("Oefening5", "oefening5.pdf", 14, ""),
+                    new Oefening("Oefening6", "oefening6.pdf", 15, ""),
+                    new Oefening("Oefening7", "oefening7.pdf", 16, ""),
+                    new Oefening("Oefening8", "oefening8.pdf", 17, "")
                 };
+
+
+                #region GroepsBewerkingAanOefeningenToekennen
+                var lijstMetGroepsbewerkingen = new List<String>();
+                for(int i = 50; i < 90; i++)
+                {
+                    lijstMetGroepsbewerkingen.Add("Tel "  + i.ToString() +  " bij op");
+                }
+                #endregion
+
 
                 Box box = new Box(acties, oefeningen, toegangscodes);
                 #endregion
+
+               
+
+
 
                 #region OpdrachtenMaken
                 var act = box.Acties.ToList();
@@ -98,54 +153,79 @@ namespace BreakOutBox.Data
                     new Opdracht(7,act[6],oef[6],toe[6]),
                     new Opdracht(8,act[7],oef[7],toe[7])
                 };
+                for(int i = 0; i < 8; i++)
+                {
+                    opdrachtenGroep1[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i];
+                }
+               
+
+
                 _dbContext.SaveChanges();
 
                 var opdrachtenGroep2 = new List<Opdracht>{ // lijst met alle opdrachten van groep2 (7, 6, 5, 4, 3, 2, 1, 8)
-                    new Opdracht(9,null,oef[6],null),
-                    new Opdracht(10,null,oef[5],null),
-                    new Opdracht(11,null,oef[4],null),
-                    new Opdracht(12,null,oef[3],null),
-                    new Opdracht(13,null,oef[2],null),
-                    new Opdracht(14,null,oef[1],null),
-                    new Opdracht(15,null,oef[0],null),
-                    new Opdracht(16,null,oef[7],null)
+                    new Opdracht(9,null,oef[6],toe[8]),
+                    new Opdracht(10,null,oef[5],toe[9]),
+                    new Opdracht(11,null,oef[4],toe[10]),
+                    new Opdracht(12,null,oef[3],toe[11]),
+                    new Opdracht(13,null,oef[2],toe[12]),
+                    new Opdracht(14,null,oef[1],toe[13]),
+                    new Opdracht(15,null,oef[0],toe[14]),
+                    new Opdracht(16,null,oef[7],toe[15])
                 };
+                for (int i = 0; i < 8; i++)
+                {
+                    opdrachtenGroep2[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i+8];
+                }
                 _dbContext.SaveChanges();
 
                 var opdrachtenGroep3 = new List<Opdracht>{ // lijst met alle opdrachten van groep3 (3, 5, 7, 1, 2, 4, 6, 8)
-                    new Opdracht(17,null,oef[2],null),
-                    new Opdracht(18,null,oef[4],null),
-                    new Opdracht(19,null,oef[6],null),
-                    new Opdracht(20,null,oef[0],null),
-                    new Opdracht(21,null,oef[1],null),
-                    new Opdracht(22,null,oef[3],null),
-                    new Opdracht(23,null,oef[5],null),
-                    new Opdracht(24,null,oef[7],null)
+                    new Opdracht(17,null,oef[2],toe[16]),
+                    new Opdracht(18,null,oef[4],toe[17]),
+                    new Opdracht(19,null,oef[6],toe[18]),
+                    new Opdracht(20,null,oef[0],toe[19]),
+                    new Opdracht(21,null,oef[1],toe[20]),
+                    new Opdracht(22,null,oef[3],toe[21]),
+                    new Opdracht(23,null,oef[5],toe[22]),
+                    new Opdracht(24,null,oef[7],toe[23])
                 };
+                for (int i = 0; i < 8; i++)
+                {
+                    opdrachtenGroep3[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i+16];
+                }
                 _dbContext.SaveChanges();
 
                 var opdrachtenGroep4 = new List<Opdracht>{ // lijst met alle opdrachten van groep4 ( 6, 2, 5, 1, 4, 7, 3, 8 )
-                    new Opdracht(25,null,oef[5],null),
-                    new Opdracht(26,null,oef[1],null),
-                    new Opdracht(27,null,oef[4],null),
-                    new Opdracht(28,null,oef[0],null),
-                    new Opdracht(29,null,oef[3],null),
-                    new Opdracht(30,null,oef[6],null),
-                    new Opdracht(31,null,oef[2],null),
-                    new Opdracht(32,null,oef[7],null)
+                    new Opdracht(25,null,oef[5],toe[24]),
+                    new Opdracht(26,null,oef[1],toe[25]),
+                    new Opdracht(27,null,oef[4],toe[26]),
+                    new Opdracht(28,null,oef[0],toe[27]),
+                    new Opdracht(29,null,oef[3],toe[28]),
+                    new Opdracht(30,null,oef[6],toe[29]),
+                    new Opdracht(31,null,oef[2],toe[30]),
+                    new Opdracht(32,null,oef[7],toe[31])
                 };
+                for (int i = 0; i < 8; i++)
+                {
+                    opdrachtenGroep4[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i+24];
+                }
                 _dbContext.SaveChanges();
 
                 var opdrachtenGroep5 = new List<Opdracht>{ // lijst met alle opdrachten van groep5 (4, 3, 6, 2, 7, 5, 1, 8)
-                    new Opdracht(33,null,oef[3],null),
-                    new Opdracht(34,null,oef[2],null),
-                    new Opdracht(35,null,oef[5],null),
-                    new Opdracht(36,null,oef[1],null),
-                    new Opdracht(37,null,oef[6],null),
-                    new Opdracht(38,null,oef[4],null),
-                    new Opdracht(39,null,oef[0],null),
-                    new Opdracht(40,null,oef[7],null)
+                    new Opdracht(33,null,oef[3],toe[32]),
+                    new Opdracht(34,null,oef[2],toe[33]),
+                    new Opdracht(35,null,oef[5],toe[34]),
+                    new Opdracht(36,null,oef[1],toe[35]),
+                    new Opdracht(37,null,oef[6],toe[36]),
+                    new Opdracht(38,null,oef[4],toe[37]),
+                    new Opdracht(39,null,oef[0],toe[38]),
+                    new Opdracht(40,null,oef[7],toe[39])
                 };
+
+                for (int i = 0; i < 8; i++)
+                {
+                    opdrachtenGroep5[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i+32];
+                }
+
                 _dbContext.SaveChanges();
                 #endregion
 
@@ -181,7 +261,7 @@ namespace BreakOutBox.Data
 
                 // k.Leerkrachten.ToList().Add(leerkrachten[0]);
 
-                var s = new Sessie("ABC", "Sessie1", "Een testSessie", groepen, box);
+                var s = new Sessie("ABC", "Sessie1", "Maandag ochtend D klas", groepen, box);
                 s.Klas = k;
 
                 #region Comments OLD
