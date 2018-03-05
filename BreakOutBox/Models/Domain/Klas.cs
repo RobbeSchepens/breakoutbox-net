@@ -16,6 +16,11 @@ namespace BreakOutBox.Models.Domain
         #endregion
 
         #region Constructors
+
+        public Klas()
+        {
+
+        }
         public Klas(ICollection<Leerling> leerlingen, ICollection<KlasLeerkracht> klasLeerkrachten)
         {
             KlasLeerkrachten = klasLeerkrachten;
