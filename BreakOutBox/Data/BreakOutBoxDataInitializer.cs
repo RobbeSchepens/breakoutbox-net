@@ -123,57 +123,11 @@ namespace BreakOutBox.Data
 
 
                 #region GroepsBewerkingAanOefeningenToekennen
-                var lijstMetGroepsbewerkingen = new List<String>{ // lijst met de mogelijke groepsbewerkingen
-                   "+259",
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-
-                    "",
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-
-                    "",
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-                   "",
-                };
-
-
-                oefeningen[0].Groepsbewerking = lijstMetGroepsbewerkingen[0]; //op deze manier verder doen
-
-                
+                var lijstMetGroepsbewerkingen = new List<String>();
+                for(int i = 50; i < 90; i++)
+                {
+                    lijstMetGroepsbewerkingen.Add("Tel "  + i.ToString() +  " bij op");
+                }
                 #endregion
 
 
@@ -199,6 +153,13 @@ namespace BreakOutBox.Data
                     new Opdracht(7,act[6],oef[6],toe[6]),
                     new Opdracht(8,act[7],oef[7],toe[7])
                 };
+                for(int i = 0; i < 8; i++)
+                {
+                    opdrachtenGroep1[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i];
+                }
+               
+
+
                 _dbContext.SaveChanges();
 
                 var opdrachtenGroep2 = new List<Opdracht>{ // lijst met alle opdrachten van groep2 (7, 6, 5, 4, 3, 2, 1, 8)
@@ -211,6 +172,10 @@ namespace BreakOutBox.Data
                     new Opdracht(15,null,oef[0],toe[14]),
                     new Opdracht(16,null,oef[7],toe[15])
                 };
+                for (int i = 0; i < 8; i++)
+                {
+                    opdrachtenGroep2[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i+8];
+                }
                 _dbContext.SaveChanges();
 
                 var opdrachtenGroep3 = new List<Opdracht>{ // lijst met alle opdrachten van groep3 (3, 5, 7, 1, 2, 4, 6, 8)
@@ -223,6 +188,10 @@ namespace BreakOutBox.Data
                     new Opdracht(23,null,oef[5],toe[22]),
                     new Opdracht(24,null,oef[7],toe[23])
                 };
+                for (int i = 0; i < 8; i++)
+                {
+                    opdrachtenGroep3[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i+16];
+                }
                 _dbContext.SaveChanges();
 
                 var opdrachtenGroep4 = new List<Opdracht>{ // lijst met alle opdrachten van groep4 ( 6, 2, 5, 1, 4, 7, 3, 8 )
@@ -235,6 +204,10 @@ namespace BreakOutBox.Data
                     new Opdracht(31,null,oef[2],toe[30]),
                     new Opdracht(32,null,oef[7],toe[31])
                 };
+                for (int i = 0; i < 8; i++)
+                {
+                    opdrachtenGroep4[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i+24];
+                }
                 _dbContext.SaveChanges();
 
                 var opdrachtenGroep5 = new List<Opdracht>{ // lijst met alle opdrachten van groep5 (4, 3, 6, 2, 7, 5, 1, 8)
@@ -248,9 +221,10 @@ namespace BreakOutBox.Data
                     new Opdracht(40,null,oef[7],toe[39])
                 };
 
-               
-             
-
+                for (int i = 0; i < 8; i++)
+                {
+                    opdrachtenGroep5[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i+32];
+                }
 
                 _dbContext.SaveChanges();
                 #endregion
@@ -287,7 +261,7 @@ namespace BreakOutBox.Data
 
                 // k.Leerkrachten.ToList().Add(leerkrachten[0]);
 
-                var s = new Sessie("ABC", "Sessie1", "Een testSessie", groepen, box);
+                var s = new Sessie("ABC", "Sessie1", "Maandag ochtend D klas", groepen, box);
                 s.Klas = k;
 
                 #region Comments OLD
