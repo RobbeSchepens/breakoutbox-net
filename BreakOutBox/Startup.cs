@@ -67,7 +67,7 @@ namespace BreakOutBox
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Sessie}/{action=Index}/{id?}");
             });
             
             breakOutBoxDataInitializer.InitializeData();

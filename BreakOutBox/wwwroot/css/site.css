@@ -39,18 +39,37 @@
     ONZE EIGEN CSS KOMT HIERONDER
     =============================
 */
+html {
+    height: 100%;
+}
 
-nav {
-    background: blue;
-    color: white;
+body {
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* 072 Spiky Naga www.webgradients.com */
+    /*background-image: linear-gradient(to top, #505285 0%, #585e92 12%, #65689f 25%, #7474b0 37%, #7e7ebb 50%, #8389c7 62%, #9795d4 75%, #a2a1dc 87%, #b5aee4 100%);*/
+    background: #D41872;
 }
 
 .navbar-inverse {
-    background: blue;
+    background-color: none;
+    border-color: none;
+}
+
+a {
     color: white;
 }
 
 .centeralign {
     text-align: center;
     margin-bottom: 20px;
+}
+
+#landing, #landing a, #landing a:hover, #landing a:visited, #landing a:active, #landing .text-danger {
+    color: white;
+}
+#landing input {
+    display: inline-block;
 }
