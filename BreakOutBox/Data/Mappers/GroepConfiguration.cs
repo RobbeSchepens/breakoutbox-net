@@ -13,7 +13,7 @@ namespace BreakOutBox.Data.Mappers
             
             //Associations
             builder.HasMany(s => s.Leerlingen).WithOne().IsRequired(false).OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(s => s.Pad).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(s => s.Pad).WithOne(s => s.Groep).IsRequired().OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

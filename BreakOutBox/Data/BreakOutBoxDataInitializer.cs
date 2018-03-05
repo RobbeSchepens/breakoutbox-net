@@ -92,13 +92,14 @@ namespace BreakOutBox.Data
                     new Opdracht(1,act[0],oef[0],toe[0]),
                     new Opdracht(2,act[1],oef[1],toe[1]),
                     new Opdracht(3,act[2],oef[2],toe[2]),
-
                     new Opdracht(4,act[3],oef[3],toe[3]),
                     new Opdracht(5,act[4],oef[4],toe[4]),
                     new Opdracht(6,act[5],oef[5],toe[5]),
                     new Opdracht(7,act[6],oef[6],toe[6]),
                     new Opdracht(8,act[7],oef[7],toe[7])
                 };
+                _dbContext.SaveChanges();
+
                 var opdrachtenGroep2 = new List<Opdracht>{ // lijst met alle opdrachten van groep2 (7, 6, 5, 4, 3, 2, 1, 8)
                     new Opdracht(9,null,oef[6],null),
                     new Opdracht(10,null,oef[5],null),
@@ -109,6 +110,8 @@ namespace BreakOutBox.Data
                     new Opdracht(15,null,oef[0],null),
                     new Opdracht(16,null,oef[7],null)
                 };
+                _dbContext.SaveChanges();
+
                 var opdrachtenGroep3 = new List<Opdracht>{ // lijst met alle opdrachten van groep3 (3, 5, 7, 1, 2, 4, 6, 8)
                     new Opdracht(17,null,oef[2],null),
                     new Opdracht(18,null,oef[4],null),
@@ -119,6 +122,8 @@ namespace BreakOutBox.Data
                     new Opdracht(23,null,oef[5],null),
                     new Opdracht(24,null,oef[7],null)
                 };
+                _dbContext.SaveChanges();
+
                 var opdrachtenGroep4 = new List<Opdracht>{ // lijst met alle opdrachten van groep4 ( 6, 2, 5, 1, 4, 7, 3, 8 )
                     new Opdracht(25,null,oef[5],null),
                     new Opdracht(26,null,oef[1],null),
@@ -129,6 +134,8 @@ namespace BreakOutBox.Data
                     new Opdracht(31,null,oef[2],null),
                     new Opdracht(32,null,oef[7],null)
                 };
+                _dbContext.SaveChanges();
+
                 var opdrachtenGroep5 = new List<Opdracht>{ // lijst met alle opdrachten van groep5 (4, 3, 6, 2, 7, 5, 1, 8)
                     new Opdracht(33,null,oef[3],null),
                     new Opdracht(34,null,oef[2],null),
@@ -139,6 +146,7 @@ namespace BreakOutBox.Data
                     new Opdracht(39,null,oef[0],null),
                     new Opdracht(40,null,oef[7],null)
                 };
+                _dbContext.SaveChanges();
                 #endregion
 
                 #region PadenAanmaken
@@ -149,6 +157,7 @@ namespace BreakOutBox.Data
                     new Pad(opdrachtenGroep4),
                     new Pad(opdrachtenGroep5)
                 };
+                _dbContext.SaveChanges();
                 #endregion
 
                 #region LeerlingenInGroepenSteken
