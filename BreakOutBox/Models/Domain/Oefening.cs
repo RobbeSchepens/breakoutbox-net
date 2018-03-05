@@ -13,7 +13,7 @@ namespace BreakOutBox.Models.Domain
         public double Antwoord { get; set; } // Het antwoord VOORALEER de groepsbewerking toe te passen
         public string Groepsbewerking { get; set; } // De bewerking. Het resultaat van antwoord + groepsbewerking wordt 'on the spot' uitgerekend. 
         public string Feedback { get; set; }
-        public Opdracht Opdracht { get; set; } // Voor one to one EF relatie. Anders error child db foreign key etc. 
+        //public Opdracht Opdracht { get; set; } // Voor one to one EF relatie. Anders error child db foreign key etc. 
 
         public Oefening(string oefeningNaam, string opgave, double antwoord, string groepsbewerking)
         {

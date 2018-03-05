@@ -9,7 +9,7 @@ namespace BreakOutBox.Models.Domain
     {
         public int ToegangscodeId { get; set; }
         public double Code { get; private set; }
-        public Opdracht Opdracht { get; set; }
+        public Opdracht Opdracht { get; set; } // Voor one to one EF relatie
 
         public Toegangscode(double code)
         {
