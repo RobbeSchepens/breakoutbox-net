@@ -92,6 +92,7 @@ namespace BreakOutBox.Data
                     new Opdracht(1,act[0],oef[0],toe[0]),
                     new Opdracht(2,act[1],oef[1],toe[1]),
                     new Opdracht(3,act[2],oef[2],toe[2]),
+
                     new Opdracht(4,act[3],oef[3],toe[3]),
                     new Opdracht(5,act[4],oef[4],toe[4]),
                     new Opdracht(6,act[5],oef[5],toe[5]),

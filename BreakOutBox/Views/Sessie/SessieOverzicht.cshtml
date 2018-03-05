@@ -1,4 +1,20 @@
-﻿
-<h1>id doorgegeven:</h1>
-<h2>@ViewData["code"]</h2>
+﻿@model BreakOutBox.Models.Domain.Sessie
 
+
+
+<h1>@Model.Omschrijving</h1>
+
+
+
+<br />
+
+@foreach (var groep in Model.Groepen){
+
+    <h2>Groep:</h2>
+    @foreach (var leerlingInGroep in groep.Leerlingen)
+    {
+        <span>@(leerlingInGroep.Voornaam + leerlingInGroep.Achternaam)</span><br />
+
+    }
+
+}

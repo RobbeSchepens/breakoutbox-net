@@ -25,7 +25,14 @@ namespace BreakOutBox.Data.Repositories
 
         public Sessie GetBySessieCode(string sessieCode)
         {
-            return null;
+            return _sessies
+                .Include(s => s.Groepen)
+                    .ThenInclude(grp => grp.Leerlingen)
+                .Include(s => s.Klas)
+                     .ThenInclude(k => k.Leerlingen)
+                .FirstOrDefault(s => s.Code == sessieCode);
+
+
             /* return _sessies
                  .Include(s => s.Klas)
                      .ThenInclude(k => k.Leerlingen)

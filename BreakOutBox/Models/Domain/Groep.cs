@@ -36,6 +36,10 @@ namespace BreakOutBox.Models.Domain
             Leerlingen = leerlingen;
             ToState(new GroepNietKlaarState(this));
         }
+        public Groep()
+        {
+
+        }
 
         //public Groep(string naam) : this()
         //{

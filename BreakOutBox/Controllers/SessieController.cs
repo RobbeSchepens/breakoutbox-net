@@ -26,16 +26,16 @@ namespace BreakOutBox.Controllers
 
         public IActionResult SessieOverzicht(string id)
         {
-            string a = id;
+            
             Sessie s = _sessieRepository.GetBySessieCode(id);
+            var se = s;
+
             if (s == null)
                 return RedirectToAction("Index", new { id = "onbestaand" });
- 
 
-            // Dit kan ik pas verder doen als het domein goed is
 
-             ViewData["code"] = id;
-            return View();
+           
+            return View(s);
         }
 
 
