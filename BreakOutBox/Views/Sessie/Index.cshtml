@@ -13,22 +13,22 @@
 
     <environment include="Development">
         @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />*@
-        @*<link rel="stylesheet" href="https://cdn.shoelace.style/1.0.0-beta24/shoelace.css">*@
         <link href="~/css/paper.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
         @*<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-            asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-            asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />*@
-        <link rel="stylesheet" href="https://cdn.shoelace.style/1.0.0-beta24/shoelace.css">
-        <link href="~/css/paper.css" rel="stylesheet" />
+        asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+        asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />*@
+        <link href="https://unpkg.com/papercss@1.4.1/dist/paper.min.css" rel="stylesheet"
+              asp-fallback-href="~/lib/paper/paper.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
 <body>
     <div id="top" class="row site">
-        <div id="landing" class="sm-12 md-12 col">
+        <div id="landing" class="sm-12 col">
             <div class="demo-title">
                 <div class="row flex-center">
                     <div class="text-center">

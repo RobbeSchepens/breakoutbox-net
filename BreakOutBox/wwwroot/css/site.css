@@ -50,22 +50,24 @@ body {
     background-attachment: fixed;
     /* 072 Spiky Naga www.webgradients.com */
     /*background-image: linear-gradient(to top, #505285 0%, #585e92 12%, #65689f 25%, #7474b0 37%, #7e7ebb 50%, #8389c7 62%, #9795d4 75%, #a2a1dc 87%, #b5aee4 100%);*/
-    background: #D41872;
-}
-
-a {
+    background: #D22355;
     color: white;
 }
 
-#landing, #landing a, #landing a:hover, #landing a:visited, #landing a:active, #landing .text-danger {
+a, #landing, #landing a, #landing a:hover, #landing a:visited, #landing a:active, #landing .text-danger {
     color: white;
 }
 
-    #landing input {
-        display: inline-block;
-    }
+#landing {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 
-nav ul li, nav ul {
+#landing input {
+    display: inline-block;
+}
+
+ul li, ul {
     text-decoration: none;
     list-style-type: none;
     margin: 0;
@@ -73,8 +75,47 @@ nav ul li, nav ul {
     text-indent: 0px;
 }
 
-nav ul li, nav ul li::before {
+nav ul li {
     display: inline-block;
-    content: none;
+    margin-right: 30px;
+}
 
+ul li::before {
+    content: none;
+}
+
+a, a:visited, a:active, a:hover {
+    background-image: none;
+}
+
+a:hover {
+    font-weight: bold;
+}
+
+nav a {
+    padding: 20px 0;
+    line-height: 60px;
+}
+
+
+.navbar-right {
+    right: 0;
+    left: auto;
+}
+
+h2, h4 {
+    margin: 0;
+}
+
+footer {
+    margin-top: 60px;
+}
+
+#RememberMe {
+    display: inline;
+}
+
+input, select, button, textarea {
+    border: 2px solid white;
+    color: white;
 }

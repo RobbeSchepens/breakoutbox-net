@@ -14,47 +14,25 @@
         @*<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
             asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
             asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />*@
-        <link href="~/css/paper.css" rel="stylesheet" />
+        <link href="https://unpkg.com/papercss@1.4.1/dist/paper.min.css" rel="stylesheet"
+            asp-fallback-href="~/lib/paper/paper.css"
+            asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
 <body>
     <div id="top" class="container row site">
-        <div id="landing" class="sm-12 md-12 col">
-            
-                <nav class="row">
-                    <ul>
-                        <li><a asp-area="" asp-controller="Sessie" asp-action="Index">Deelnemen aan sessie</a></li>
-                        <li><a asp-area="" asp-controller="Sessie" asp-action="Index">Aanmelden (leerkracht)</a></li>
-                    </ul>
-                </nav>
-        </div>
-    </div>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Sessie" asp-action="Index" class="navbar-brand">BreakOutBox</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Sessie" asp-action="Index">Deelnemen aan sessie</a></li>
-                    @*<li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>*@
-                    @*<li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
-                </ul>
+        <nav id="landing" class="sm-12 col">
+            <ul>
+                <li><a asp-area="" asp-controller="Sessie" asp-action="Index">Home</a>
+                @*<li><a asp-area="" asp-controller="Sessie" asp-action="Index">Aanmelden (leerkracht)</a></li>*@
                 @await Html.PartialAsync("_LoginPartial")
-            </div>
-        </div>
-    </nav>
-    <div class="container body-content">
+            </ul>
+        </nav>
+    </div>
+    <div class="container">
         @RenderBody()
-        <hr />
-        <footer>
+        <footer class="text-center">
             <p>&copy; 2018 - BreakOutBox</p>
         </footer>
     </div>
