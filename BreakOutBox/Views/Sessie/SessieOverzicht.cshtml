@@ -1,20 +1,20 @@
 ﻿@model BreakOutBox.Models.Domain.Sessie
-
-
+@{
+    ViewData["Title"] = "Sessie";
+}
 
 <h1>@Model.Omschrijving</h1>
 
-
-
 <br />
-
-@foreach (var groep in Model.Groepen){
-
-    <h2>Groep:</h2>
-    @foreach (var leerlingInGroep in groep.Leerlingen)
-    {
-        <span>@(leerlingInGroep.Voornaam + leerlingInGroep.Achternaam)</span><br />
-
-    }
-
+@foreach (var groep in Model.Groepen)
+{
+<div class="sm-12 md-6 col">
+    <h2 class="col-6">Groep @(groep.GroepId)</h2>
+    <ul>
+        @foreach (var leerling in groep.Leerlingen)
+        {
+            <li>@(leerling.Voornaam + leerling.Achternaam)</li>
+        }
+    </ul>
+</div>
 }
