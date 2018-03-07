@@ -27,7 +27,14 @@
     </environment>
 </head>
 <body>
-    <div id="top" class="row site">
+    <div id="top" class="container row site">
+        <nav id="landing" class="sm-12 col">
+            <ul>
+                @await Html.PartialAsync("_LoginPartial")
+            </ul>
+        </nav>
+    </div>
+    <div class="row site">
         <div id="landing" class="sm-12 col">
             <div class="demo-title">
                 <div class="row flex-center">
@@ -36,7 +43,7 @@
                         <form method="post">
                             <p><label asp-for="SessieCode"></label></p>
                             <p><input asp-for="SessieCode" type="text" onchange="this.form.submit()" class="form-control" /></p>
-                            <p><span asp-validation-for="SessieCode" class="text-danger"></span></p>
+                            @*<p><span asp-validation-for="SessieCode" class="text-danger"></span></p>*@
                             <p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>
                         </form>
                     </div>

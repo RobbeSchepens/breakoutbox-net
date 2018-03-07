@@ -24,8 +24,6 @@
     <div id="top" class="container row site">
         <nav id="landing" class="sm-12 col">
             <ul>
-                <li><a asp-area="" asp-controller="Sessie" asp-action="Index">Home</a>
-                @*<li><a asp-area="" asp-controller="Sessie" asp-action="Index">Aanmelden (leerkracht)</a></li>*@
                 @await Html.PartialAsync("_LoginPartial")
             </ul>
         </nav>

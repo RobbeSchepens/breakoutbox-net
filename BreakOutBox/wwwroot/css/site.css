@@ -50,7 +50,7 @@ body {
     background-attachment: fixed;
     /* 072 Spiky Naga www.webgradients.com */
     /*background-image: linear-gradient(to top, #505285 0%, #585e92 12%, #65689f 25%, #7474b0 37%, #7e7ebb 50%, #8389c7 62%, #9795d4 75%, #a2a1dc 87%, #b5aee4 100%);*/
-    background: #D22355;
+    background: #8c545c;
     color: white;
 }
 
@@ -77,7 +77,7 @@ ul li, ul {
 
 nav ul li {
     display: inline-block;
-    margin-right: 30px;
+    margin-left: 30px;
 }
 
 ul li::before {
@@ -90,6 +90,10 @@ a, a:visited, a:active, a:hover {
 
 a:hover {
     font-weight: bold;
+}
+
+nav {
+    text-align: right;
 }
 
 nav a {
