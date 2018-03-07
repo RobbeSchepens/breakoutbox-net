@@ -4,23 +4,46 @@
     ViewData["Title"] = "Index";
 }
 
+<head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
+</head>
 <h3>Sessies van @ViewData["LeerkrachtNaam"]</h3>
+<table>
+
+    <tr>
+        <th>Nr.</th>
+        <th>Code</th>
+        <th>Omschrijving</th>
+        <th>Aantal groepen</th>
+        <th>Klas</th>
+    </tr>
+    @{int i = 1;}
+    @foreach (var item in Model)
+    {
+
+        <tr class="c">
+            <td align="center">@(i++).</td>
+            <td align="center">@(item.Code)</td>
+            <td align="center">@(item.Omschrijving)</td>
+            <td align="center">@(item.Groepen.Count)</td>
+            <td align="center">XXX</td>
+            <td><a asp-controller="Leerkracht" asp-action="OverzichtGroepenInSessie" asp-route-id="@item.Code"><i class="fa fa-arrow-right" style="color:lightgreen"></i></a></td>
+        </tr>
+    }
+</table>
 
 
-@foreach (var item in Model)
-{
 
-  <div class="row">
-      <a asp-controller="Leerkracht" asp-action="OverzichtGroepenInSessie" asp-route-id="@item.Code">Sessie Code: @(item.Code + "|")Omschrijving:@(item.Omschrijving + "|")Aantal groepen: @(item.Groepen.Count + "|")Klas: XXX</a>
 
-  </div>
-        
-  
-    <br />
 
-}
+
+
+
+
+
 
 
 
