@@ -66,13 +66,16 @@ namespace BreakOutBox.Data.Repositories
         public ICollection<Sessie> GetSessiesByLeerkracht(Leerkracht leerkracht)
         {
 
-            return null;
-            /*List<Sessie> sessiesVanLeerkracht = _sessies.Where(s => s.Klas.Leerkrachten.Contains(leerkracht)).ToList();
-            ICollection<Sessie> vollgedigeSessiesVanLeerkracht = null;
 
-            sessiesVanLeerkracht.ForEach(s => vollgedigeSessiesVanLeerkracht.Add(GetBySessieCode(s.Code)));
-           
-            return vollgedigeSessiesVanLeerkracht;*/
+            /* 
+             List<Sessie> sessiesVanLeerkracht = _sessies.Where(s => s.Klas.Leerkrachten.Contains(leerkracht)).ToList();
+             ICollection<Sessie> vollgedigeSessiesVanLeerkracht = null;
+             sessiesVanLeerkracht.ForEach(s => vollgedigeSessiesVanLeerkracht.Add(GetBySessieCode(s.Code)));*/
+
+            return _sessies.Include(s => s.Groepen).ToList();
+
+         
+         
         }
 
         public void Add(Sessie sessie)

@@ -39,7 +39,8 @@ namespace BreakOutBox
             services.AddTransient<IEmailSender, EmailSender>();
             
             services.AddScoped<ISessieRepository, SessieRepository>();
-            //services.AddScoped<ILeerkrachtRepository, LeerkrachtRepository>();
+            services.AddScoped<ILeerkrachtRepository, LeerkrachtRepository>();
+
             services.AddScoped<BreakOutBoxDataInitializer>();
 
             services.AddMvc();
@@ -67,7 +68,7 @@ namespace BreakOutBox
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Sessie}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
             
             breakOutBoxDataInitializer.InitializeData();

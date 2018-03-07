@@ -251,18 +251,27 @@ namespace BreakOutBox.Data
                 #endregion
                 
                 #region KlasEnLeerkracht
-                Leerkracht lk = new Leerkracht("Tom", "Deveylder");
-                var k = new Klas();
-                k.Leerlingen = leerlingen;
-                var leerkrachten = new List<KlasLeerkracht> {
-                   new KlasLeerkracht(k,lk)
+                
+
+
+                var k = new Klas(leerlingen, null);
+
+                var listLeerkrachten = new List<Leerkracht> {
+                    new Leerkracht("Tom", "Deveylder")
+
                 };
+
+
+                k.Leerkrachten = listLeerkrachten;
+
+
                 #endregion
 
                 // k.Leerkrachten.ToList().Add(leerkrachten[0]);
 
                 var s = new Sessie("ABC", "Sessie1", "Maandag ochtend D klas", groepen, box);
                 s.Klas = k;
+                //s.Klas.KlasLeerkrachten.Add(leerkrachten[0]);
 
                 #region Comments OLD
                 //var Toegangscodes = new List<Toegangscode>();

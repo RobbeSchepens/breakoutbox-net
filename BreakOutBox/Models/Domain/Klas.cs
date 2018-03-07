@@ -9,8 +9,8 @@ namespace BreakOutBox.Models.Domain
         #region Properties
         public int KlasId { get; set; }
         public ICollection<Leerling> Leerlingen { get; set; }
-        public ICollection<KlasLeerkracht> KlasLeerkrachten { get; private set; }
-        public IEnumerable<Leerkracht> Leerkrachten => KlasLeerkrachten.Select(k => k.Leerkracht);
+        public ICollection<KlasLeerkracht> KlasLeerkrachten { get;  set; } // hier stond private set
+        public ICollection<Leerkracht> Leerkrachten { get;  set; } //=> KlasLeerkrachten.Select(k => k.Leerkracht); Veranderd omdat ik anders geen leerkracht kon toevoegen
         public int NrOfLeerlingen => Leerlingen.Count;
         public int NrOfLeerkrachten => KlasLeerkrachten.Count;
         #endregion

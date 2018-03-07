@@ -1,0 +1,27 @@
+﻿@model List<BreakOutBox.Models.Domain.Sessie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<h3>Sessies van @ViewData["LeerkrachtNaam"]</h3>
+
+
+@foreach (var item in Model)
+{
+
+  <div class="row">
+      <a asp-controller="Leerkracht" asp-action="OverzichtGroepenInSessie" asp-route-id="@item.Code">Sessie Code: @(item.Code + "|")Omschrijving:@(item.Omschrijving + "|")Aantal groepen: @(item.Groepen.Count + "|")Klas: XXX</a>
+
+  </div>
+        
+  
+    <br />
+
+}
+
+
+
+

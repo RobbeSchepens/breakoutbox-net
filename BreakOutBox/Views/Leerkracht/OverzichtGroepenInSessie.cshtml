@@ -1,0 +1,25 @@
+﻿@model BreakOutBox.Models.Domain.Sessie
+@{
+ 
+}
+
+<div class="row">
+    <div class="col-12 col">
+        <h2>Sessie: @Model.Omschrijving</h2>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var groep in Model.Groepen)
+    {
+        <div class="sm-12 md-6 col">
+            <h4>Groep @(groep.GroepId)</h4>
+            <ul>
+                @foreach (var leerling in groep.Leerlingen)
+                {
+                    <li>@(leerling.Voornaam + leerling.Achternaam)</li>
+                }
+            </ul>
+        </div>
+    }
+</div>

@@ -13,6 +13,7 @@ namespace BreakOutBox.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Sessie> Sessies { get; set; }
+        public DbSet<Leerkracht> Leerkrachten { get; set; }
         //public DbSet<Groep> Groepen { get; set; }
         //public DbSet<Pad> Paden { get; set; }
         //public DbSet<Opdracht> Opdrachten { get; set; }
