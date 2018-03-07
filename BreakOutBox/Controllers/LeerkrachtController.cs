@@ -26,10 +26,9 @@ namespace BreakOutBox.Controllers
 
 
             Leerkracht lk = _leerkrachtRepository.GetByVolledigeNaam("Tom", "Deveylder"); // de leerkreacht die vebonden staat met de huidige user
-
             List<Sessie> sessiesVanLeerkracht = _sessieRepository.GetSessiesByLeerkracht(lk).ToList();
 
-            ViewData["LeerkrachtNaam"] = "Tom Deveylder"; // lk.Voornaam + lk.Achternaam
+            ViewData["LeerkrachtNaam"] = lk.Voornaam + " " + lk.Achternaam; 
 
             return View(sessiesVanLeerkracht);
         }
