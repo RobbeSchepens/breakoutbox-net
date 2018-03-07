@@ -14,10 +14,6 @@ namespace BreakOutBox.Data
     {
         public DbSet<Sessie> Sessies { get; set; }
         public DbSet<Leerkracht> Leerkrachten { get; set; }
-        //public DbSet<Groep> Groepen { get; set; }
-        //public DbSet<Pad> Paden { get; set; }
-        //public DbSet<Opdracht> Opdrachten { get; set; }
-        //public DbSet<Oefening> Oefeningen { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
