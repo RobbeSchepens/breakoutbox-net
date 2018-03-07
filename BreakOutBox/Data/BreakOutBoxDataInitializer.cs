@@ -199,11 +199,11 @@ namespace BreakOutBox.Data
 
                 k.Leerkrachten = listLeerkrachten;
 
-                // k.Leerkrachten.ToList().Add(leerkrachten[0]);
+                
 
                 var s = new Sessie("ABC", "Sessie1", "Maandag ochtend D klas", groepen, box);
                 s.Klas = k;
-                //s.Klas.KlasLeerkrachten.Add(leerkrachten[0]);
+                
 
                 _dbContext.Sessies.Add(s);
                 _dbContext.SaveChanges();
