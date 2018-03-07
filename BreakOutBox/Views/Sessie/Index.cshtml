@@ -45,6 +45,7 @@
                             <p><input asp-for="SessieCode" type="text" onchange="this.form.submit()" class="form-control" /></p>
                             @*<p><span asp-validation-for="SessieCode" class="text-danger"></span></p>*@
                             <p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>
+                            <p>@ViewData["BestaatNietError"]</p>
                         </form>
                     </div>
                 </div>
