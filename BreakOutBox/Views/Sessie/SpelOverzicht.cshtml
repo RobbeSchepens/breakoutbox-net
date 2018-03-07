@@ -1,0 +1,34 @@
+﻿@model BreakOutBox.Models.Domain.Sessie
+@{
+    ViewData["Title"] = "Spel Overzicht";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<br />
+
+<h4>Groep 1</h4>
+
+<p>Opdracht 1</p>
+
+<p>Test</p>
+
+
+@*@foreach (var groep in Model.Groepen)
+{
+    @foreach (var oefening in Model.Box.Oefeningen)
+    {<div class="sm-12 md-6 col">
+
+            <ul>
+                <li>
+                    @(oefening.Opgave)
+
+                    <input type="submit" value="Antwoord" class="btn btn-primary" />
+                </li>
+            </ul>
+        </div>
+
+    }
+
+}*@
+
