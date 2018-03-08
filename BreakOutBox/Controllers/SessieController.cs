@@ -57,13 +57,40 @@ namespace BreakOutBox.Controllers
             return View(sessie);
         }
 
+        [HttpGet]
             public IActionResult SpelOverzicht(string id)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
 
-            
+            TempData["message"] = $"Groep {id}";
 
             return View(sessie);
+        }
+
+        [HttpPost]
+        public IActionResult SpelOVerzicht(IndexViewModel ivm, string id)
+        {
+
+
+            
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Sessie sessie = _sessieRepository.GetBySessieCode(id);
+                    if (sessie == null)
+                    {
+                        TempData["message2"] = "Probeer opnieuw";
+                        return View();
+                    }
+                    return RedirectToAction("SpelOverzicht", new { id = id});
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", e.Message);
+                }
+            }
+            return View();
         }
 
     }
