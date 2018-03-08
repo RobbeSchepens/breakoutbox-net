@@ -20,7 +20,7 @@
                     <li>@(leerling.Voornaam + leerling.Achternaam)</li>
                 }
                 <li>
-                    <a asp-controller="Sessie" asp-action="ToonPad" asp-route-id="@groep.GroepId">
+                    <a asp-controller="Sessie" asp-action="SpelOverzicht" asp-route-id="@groep.GroepId">
                         <i class="fas fa-angle-double-right"></i> Klik hier als dit jouw groep is
                     </a>
                 </li>
@@ -28,5 +28,3 @@
         </div>
     }
 </div>
-
-<a asp-action="SpelOverzicht">Test</a>
