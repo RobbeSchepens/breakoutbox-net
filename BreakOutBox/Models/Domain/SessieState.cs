@@ -14,14 +14,18 @@ namespace BreakOutBox.Models.Domain
             this.sessie = sessie;
         }
 
-        public void VergrendelGroepen()
-        {
-
+        public string Activeer() {
+            return "De sessie moet deactief zijn om ze te kunnen activeren.";
         }
 
-        public void StartSessie()
+        public string Deactiveer()
         {
+            return "De sessie moet actief zijn om ze te kunnen deactiveren.";
+        }
 
+        public string StartSpel()
+        {
+            return "Het spel moet eerst geactiveerd zijn en alle groepen klaar.";
         }
     }
 }
