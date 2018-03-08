@@ -57,14 +57,10 @@ namespace BreakOutBox.Controllers
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
 
-            //MapSessieSpelOverichtViewModel(sesieViewModel,sessie);
+            
 
             return View();
         }
 
-        //private void MapSessieSpelOverichtViewModel(EditViewModel sesieViewModel, Sessie sessie)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }
