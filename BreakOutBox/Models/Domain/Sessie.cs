@@ -23,7 +23,6 @@ namespace BreakOutBox.Models.Domain
         #region Constructors
         public Sessie()
         {
-            //Box = new Box();
         }
 
         public Sessie(string code, string naam, string omschrijving, ICollection<Groep> groepen, Box box)
@@ -32,8 +31,8 @@ namespace BreakOutBox.Models.Domain
             Naam = naam;
             Omschrijving = omschrijving;
             Groepen = groepen;
-            ToState(new SessieNietKlaarState(this));
-            Box = box; 
+            Box = box;
+            ToState(new SessieActiefState(this));
         }
         #endregion
 
@@ -43,18 +42,33 @@ namespace BreakOutBox.Models.Domain
             _currentState = state;
         }
 
-        public void VergrendelGroepen()
+        public string Activeer()
         {
-            foreach (Groep g in Groepen)
-            {
-                g.Vergrendel();
-            }
+            return _currentState.Activeer();
         }
 
-        public void StartSessie()
+        public string Deactiveer()
         {
-            ToState(new SessieGestartState(this));
+            return _currentState.Deactiveer();
         }
+
+        public string StartSpel()
+        {
+            return _currentState.StartSpel();
+        }
+
+        //public void VergrendelGroepen()
+        //{
+        //    foreach (Groep g in Groepen)
+        //    {
+        //        g.Vergrendel();
+        //    }
+        //}
+
+        //public void StartSessie()
+        //{
+        //    ToState(new SessieNonActiefState(this));
+        //}
         #endregion
     }
 }
