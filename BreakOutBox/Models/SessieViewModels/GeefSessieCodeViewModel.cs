@@ -15,6 +15,10 @@ namespace BreakOutBox.Models.SessieViewModels
         public IndexViewModel()
         {
         }
+        public IndexViewModel(Sessie s)
+        {
+            s.Code = SessieCode;
+        }
     }
 }
 

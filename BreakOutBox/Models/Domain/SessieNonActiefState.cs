@@ -11,9 +11,19 @@ namespace BreakOutBox.Models.Domain
         {
         }
 
-        public override string Activeer()
+        public override void Activeer()
         {
-            return "Sessie is geactiveerd. Groepen kunnen nu deelnemen.";
+            
+        }
+
+        public override void Deactiveer()
+        {
+            throw new Exception("De sessie is al non-actief.");
+        }
+
+        public override void StartSpel()
+        {
+            throw new Exception("Het spel kan niet gestart worden als de sessie niet actief is.");
         }
     }
 }

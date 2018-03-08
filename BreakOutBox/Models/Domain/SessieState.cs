@@ -9,24 +9,13 @@ namespace BreakOutBox.Models.Domain
     {
         protected Sessie sessie;
 
-        public SessieState(Sessie sessie)
+        protected SessieState(Sessie sessie)
         {
             this.sessie = sessie;
         }
 
-        public virtual string Activeer() {
-
-            return "De sessie moet deactief zijn om ze te kunnen activeren.";
-        }
-
-        public string Deactiveer()
-        {
-            return "De sessie moet actief zijn om ze te kunnen deactiveren.";
-        }
-
-        public string StartSpel()
-        {
-            return "Het spel moet eerst geactiveerd zijn en alle groepen klaar.";
-        }
+        public abstract void Activeer();
+        public abstract void Deactiveer();
+        public abstract void StartSpel();
     }
 }
