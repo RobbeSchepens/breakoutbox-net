@@ -17,43 +17,47 @@ namespace BreakOutBox.Controllers
             _sessieRepository = sessieRepository;
         }
 
-        public IActionResult Index(string id, IndexViewModel indexViewModel)
+        [HttpGet]
+        public IActionResult Index()
         {
-            if (id == "onbestaand")
-                ViewData["BestaatNietError"] = "Deze code werd niet gevonden. Heb je de juiste code ingevuld?";
-            return View(indexViewModel);
+            return View(new IndexViewModel());
         }
 
-        //[HttpPost]
+        [HttpPost]
+        public IActionResult Index(IndexViewModel ivm)
+        {
+            //Sessie s = _sessieRepository.GetBySessieCode(id);
+
+            //if (s == null)
+            //    return RedirectToAction("Index", new { id = "onbestaand" });
+
+            //return View(s);
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Sessie sessie = _sessieRepository.GetBySessieCode(ivm.SessieCode);
+                    if (sessie == null)
+                        TempData["message"] = $"mis.";
+                    return RedirectToAction("SessieOverzicht", new { id=ivm.SessieCode});
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", e.Message);
+                }
+            }
+            return View();
+        }
+
+        [HttpGet]
         public IActionResult SessieOverzicht(string id)
         {
-            Sessie s = _sessieRepository.GetBySessieCode(id);
-
-            if (s == null)
-                return RedirectToAction("Index", new { id = "onbestaand" });
-
-            return View(s);
-
-            //if (ModelState.IsValid)
-            //{
-            //    try
-            //    {
-            //        Sessie sessie = _sessieRepository.GetBySessieCode(code);
-
-            //        if (sessie == null)
-            //            return RedirectToAction("Index", new { code = "onbestaand" });
-
-            //        TempData["message"] = $"Je hebt nu toegang tot de sessie.";
-            //        return View(sessie);
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        ModelState.AddModelError("", e.Message);
-            //    }
-            //}
+            Sessie sessie = _sessieRepository.GetBySessieCode(id);
+            return View(sessie);
         }
 
-        public IActionResult SpelOverzicht(string id)
+            public IActionResult SpelOverzicht(string id)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
 

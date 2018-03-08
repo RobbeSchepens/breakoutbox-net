@@ -14,7 +14,8 @@ namespace BreakOutBox.Models.Domain
             this.sessie = sessie;
         }
 
-        public string Activeer() {
+        public virtual string Activeer() {
+
             return "De sessie moet deactief zijn om ze te kunnen activeren.";
         }
 

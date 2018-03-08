@@ -11,7 +11,7 @@ namespace BreakOutBox.Models.Domain
         {
         }
 
-        public string Activeer()
+        public override string Activeer()
         {
             return "Sessie is geactiveerd. Groepen kunnen nu deelnemen.";
         }
