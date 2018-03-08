@@ -54,7 +54,8 @@ body {
     color: white;
 }
 
-a, #landing, #landing a, #landing a:hover, #landing a:visited, #landing a:active, #landing .text-danger {
+a, #landing, a, a:hover, a:visited, a:active, .text-danger {
+    background-image: none;
     color: white;
 }
 
@@ -84,10 +85,6 @@ ul li::before {
     content: none;
 }
 
-a, a:visited, a:active, a:hover {
-    background-image: none;
-}
-
 a:hover {
     font-weight: bold;
 }
@@ -112,7 +109,7 @@ h2, h4 {
 }
 
 footer {
-    margin-top: 60px;
+    margin: 60px 0 30px 0;
 }
 
 #RememberMe {

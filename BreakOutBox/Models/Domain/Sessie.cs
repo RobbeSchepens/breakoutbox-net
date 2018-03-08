@@ -18,6 +18,7 @@ namespace BreakOutBox.Models.Domain
         public ICollection<Groep> Groepen { get; set; }
         public int NrOfGroepen => Groepen.Count;
         public Box Box { get; private set; } // Box uit Java met alle oefeningen in
+        public int State { get; set; }
         #endregion
 
         #region Constructors
@@ -32,7 +33,8 @@ namespace BreakOutBox.Models.Domain
             Omschrijving = omschrijving;
             Groepen = groepen;
             Box = box;
-            ToState(new SessieActiefState(this));
+            ToState(new SessieNonActiefState(this));
+            State = 0; // nog in constructor toevoegen 
         }
         #endregion
 
@@ -42,33 +44,49 @@ namespace BreakOutBox.Models.Domain
             _currentState = state;
         }
 
-        //public string Activeer()
-        //{
-        //    _currentState.Activeer();
-        //}
+        public void Activeer()
+        {
+            try
+            {
+                _currentState.Activeer();
+                ToState(new SessieActiefState(this));
+                State = 1;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
 
-        //public string Deactiveer()
-        //{
-        //    return _currentState.Deactiveer();
-        //}
+        public void Deactiveer()
+        {
+            try
+            {
+                _currentState.Activeer();
+                ToState(new SessieNonActiefState(this));
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
 
-        //public string StartSpel()
-        //{
-        //    return _currentState.StartSpel();
-        //}
+        public void StartSpel()
+        {
+            try
+            {
+                foreach (Groep g in Groepen)
+                {
+                    g.Vergrendel();
+                }
 
-        //public void VergrendelGroepen()
-        //{
-        //    foreach (Groep g in Groepen)
-        //    {
-        //        g.Vergrendel();
-        //    }
-        //}
-
-        //public void StartSessie()
-        //{
-        //    ToState(new SessieNonActiefState(this));
-        //}
+                ToState(new SessieInSpel(this));
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
         #endregion
     }
 }
