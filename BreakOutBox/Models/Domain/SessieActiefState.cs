@@ -11,14 +11,19 @@ namespace BreakOutBox.Models.Domain
         {
         }
 
-        public string Deactiveer()
+        public override void Activeer()
         {
-            return "Sessie is gedeactiveerd.";
+            throw new Exception("De sessie is al actief.");
         }
 
-        public string StartSpel()
+        public override void Deactiveer()
         {
-            return "Spel is gestart.";
+            // ...
+        }
+
+        public override void StartSpel()
+        {
+            // ...
         }
     }
 }

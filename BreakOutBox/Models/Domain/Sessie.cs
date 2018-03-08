@@ -42,20 +42,20 @@ namespace BreakOutBox.Models.Domain
             _currentState = state;
         }
 
-        public string Activeer()
-        {
-            return _currentState.Activeer();
-        }
+        //public string Activeer()
+        //{
+        //    _currentState.Activeer();
+        //}
 
-        public string Deactiveer()
-        {
-            return _currentState.Deactiveer();
-        }
+        //public string Deactiveer()
+        //{
+        //    return _currentState.Deactiveer();
+        //}
 
-        public string StartSpel()
-        {
-            return _currentState.StartSpel();
-        }
+        //public string StartSpel()
+        //{
+        //    return _currentState.StartSpel();
+        //}
 
         //public void VergrendelGroepen()
         //{

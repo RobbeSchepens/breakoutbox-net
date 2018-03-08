@@ -39,7 +39,10 @@ namespace BreakOutBox.Controllers
                 {
                     Sessie sessie = _sessieRepository.GetBySessieCode(ivm.SessieCode);
                     if (sessie == null)
-                        TempData["message"] = $"mis.";
+                    {
+                        TempData["message"] = $"Deze sessie werd niet gevonden. Heb je de juiste code ingegeven?";
+                        return View();
+                    }
                     return RedirectToAction("SessieOverzicht", new { id=ivm.SessieCode});
                 }
                 catch (Exception e)
