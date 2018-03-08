@@ -63,7 +63,7 @@ namespace BreakOutBox.Controllers
 
             
 
-            return View();
+            return View(sessie);
         }
 
     }
