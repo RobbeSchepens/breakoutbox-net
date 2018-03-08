@@ -9,13 +9,11 @@ namespace BreakOutBox.Models.SessieViewModels
 {
     public class IndexViewModel
     {
-        [Required(ErrorMessage = "{0} is verplicht in te vullen")]
+        [Required(ErrorMessage = "Je bent de sessiecode vergeten opgeven!")]
         public string SessieCode { get; set; }
-
 
         public IndexViewModel()
         {
-
         }
     }
 }
