@@ -10,7 +10,7 @@ namespace BreakOutBox.Models.Domain
         #endregion
 
         #region Properties
-        public int SessieId { get; set; }
+        //public int SessieId { get; set; }
         public string Code { get; set; }
         public string Naam { get; set; }
         public string Omschrijving { get; set; }
@@ -19,8 +19,6 @@ namespace BreakOutBox.Models.Domain
         public int NrOfGroepen => Groepen.Count;
         public Box Box { get; private set; } // Box uit Java met alle oefeningen in
         public int State { get; set; }
-        
-        public enum States { NonActief, Actief, InSpel };
         #endregion
 
         #region Constructors
@@ -47,7 +45,7 @@ namespace BreakOutBox.Models.Domain
                     State = 1;
                     break;
                 case 2:
-                    ToState(new SessieInSpel(this));
+                    ToState(new SessieInSpelState(this));
                     State = 2;
                     break;
                 default: goto case 0;
@@ -94,7 +92,7 @@ namespace BreakOutBox.Models.Domain
             try
             {
                 _currentState.StartSpel(Groepen);
-                ToState(new SessieInSpel(this));
+                ToState(new SessieInSpelState(this));
                 State = 2;
             }
             catch (Exception e)

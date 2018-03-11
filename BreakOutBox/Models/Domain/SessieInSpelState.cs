@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 
 namespace BreakOutBox.Models.Domain
 {
-    public class SessieInSpel : SessieState
+    public class SessieInSpelState : SessieState
     {
-        public SessieInSpel(Sessie sessie) : base(sessie)
+        public SessieInSpelState(Sessie sessie) : base(sessie)
         {
         }
 
         public override void Activeer()
         {
-            throw new Exception("Het spel kan niet gestart worden als het niet actief is.");
+            throw new Exception("Het spel is bezig. Gelieve te deactiveren alvorens actief te maken.");
         }
 
         public override void Deactiveer(ICollection<Groep> groepen)

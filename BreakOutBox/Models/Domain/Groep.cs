@@ -27,6 +27,7 @@ namespace BreakOutBox.Models.Domain
         public ICollection<Leerling> Leerlingen { get; set; }
         public int NrOfLeerlingen => Leerlingen.Count;
         public Pad Pad { get; set; }
+        public int State { get; set; }
         #endregion Properties
 
         #region Constructors
@@ -34,11 +35,27 @@ namespace BreakOutBox.Models.Domain
         {
         }
 
-        public Groep(Pad pad, ICollection<Leerling> leerlingen)
+        public Groep(Pad pad, ICollection<Leerling> leerlingen, int state)
         {
             Pad = pad;
             Leerlingen = leerlingen;
-            ToState(new GroepNietKlaarState(this));
+
+            switch (state)
+            {
+                case 0:
+                    ToState(new GroepNietGereedState(this));
+                    State = 0;
+                    break;
+                case 1:
+                    ToState(new GroepGereedState(this));
+                    State = 1;
+                    break;
+                case 2:
+                    ToState(new GroepVergrendeldState(this));
+                    State = 2;
+                    break;
+                default: goto case 0;
+            }
         }
 
         //public Groep(string naam) : this()
@@ -48,19 +65,35 @@ namespace BreakOutBox.Models.Domain
         #endregion Constructors
 
         #region Methods
+        protected void ToState(GroepState state)
+        {
+            _currentState = state;
+        }
+
         public void Vergrendel()
         {
-            ToState(new GroepVergrendeldState(this));
+            try
+            {
+                ToState(new GroepVergrendeldState(this));
+                State = 2;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public void Ontgrendel()
         {
-            ToState(new GroepVergrendeldState(this));
-        }
-
-        protected void ToState(GroepState state)
-        {
-            _currentState = state;
+            try
+            {
+                ToState(new GroepNietGereedState(this));
+                State = 0;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public void VoegLeerlingToe(Leerling leerling)
@@ -71,7 +104,7 @@ namespace BreakOutBox.Models.Domain
 
             // Check state 
             if (Leerlingen.Count >= 2 && Leerlingen.Count <= 4)
-                ToState(new GroepKlaarState(this));
+                ToState(new GroepGereedState(this));
         }
 
         public void VerwijderLeerling(Leerling leerling)

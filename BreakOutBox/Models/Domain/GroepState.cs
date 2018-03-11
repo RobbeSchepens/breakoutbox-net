@@ -9,19 +9,12 @@ namespace BreakOutBox.Models.Domain
     {
         protected Groep groep;
 
-        public GroepState(Groep groep)
+        protected GroepState(Groep groep)
         {
             this.groep = groep;
         }
 
-        public void Vergrendel()
-        {
-            groep.Vergrendel();
-        }
-
-        public void VoegLeerlingToe(Leerling leerling)
-        {
-            groep.VoegLeerlingToe(leerling);
-        }
+        public abstract void ZetGereed();
+        public abstract void ZetNietGereed();
     }
 }

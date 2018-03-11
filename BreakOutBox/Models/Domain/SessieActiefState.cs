@@ -18,7 +18,10 @@ namespace BreakOutBox.Models.Domain
 
         public override void Deactiveer(ICollection<Groep> groepen)
         {
-            // ...
+            foreach (Groep g in groepen)
+            {
+                g.Ontgrendel();
+            }
         }
 
         public override void StartSpel(ICollection<Groep> groepen)
