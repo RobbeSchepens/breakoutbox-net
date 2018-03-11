@@ -26,24 +26,20 @@ namespace BreakOutBox.Controllers
         [HttpPost]
         public IActionResult Index(IndexViewModel ivm)
         {
-            //Sessie s = _sessieRepository.GetBySessieCode(id);
-
-            //if (s == null)
-            //    return RedirectToAction("Index", new { id = "onbestaand" });
-
-            //return View(s);
-
             if (ModelState.IsValid)
             {
                 try
                 {
                     Sessie sessie = _sessieRepository.GetBySessieCode(ivm.SessieCode);
                     if (sessie == null)
-                    {
                         TempData["message"] = $"Deze sessie werd niet gevonden. Heb je de juiste code ingegeven?";
-                        return View();
+                    else
+                    {
+                        if(sessie.State != 0)
+                            return RedirectToAction("SessieOverzicht", new { id = ivm.SessieCode });
+                        else
+                            TempData["message"] = $"Deze sessie is nog niet geactiveerd.";
                     }
-                    return RedirectToAction("SessieOverzicht", new { id=ivm.SessieCode});
                 }
                 catch (Exception e)
                 {

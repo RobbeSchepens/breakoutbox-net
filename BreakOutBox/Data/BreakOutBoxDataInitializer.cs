@@ -193,8 +193,8 @@ namespace BreakOutBox.Data
                 #region Klas, leerkracht en sessie
                 var k = new Klas(leerlingen);
                 k.VoegLeerkrachtToe(new Leerkracht("Tom", "Deveylder"));
-
-                var s = new Sessie("ABC", "Sessie1", "Maandag ochtend D klas", groepen, box);
+                
+                var s = new Sessie("ABC", "Sessie1", "Maandag ochtend D klas", groepen, box, 1);
                 s.Klas = k;
 
                 _dbContext.Sessies.Add(s);

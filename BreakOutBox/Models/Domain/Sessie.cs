@@ -19,6 +19,8 @@ namespace BreakOutBox.Models.Domain
         public int NrOfGroepen => Groepen.Count;
         public Box Box { get; private set; } // Box uit Java met alle oefeningen in
         public int State { get; set; }
+        
+        public enum States { NonActief, Actief, InSpel };
         #endregion
 
         #region Constructors
@@ -26,15 +28,30 @@ namespace BreakOutBox.Models.Domain
         {
         }
 
-        public Sessie(string code, string naam, string omschrijving, ICollection<Groep> groepen, Box box)
+        public Sessie(string code, string naam, string omschrijving, ICollection<Groep> groepen, Box box, int state)
         {
             Code = code;
             Naam = naam;
             Omschrijving = omschrijving;
             Groepen = groepen;
             Box = box;
-            ToState(new SessieNonActiefState(this));
-            State = 0; // nog in constructor toevoegen 
+
+            switch (state)
+            {
+                case 0:
+                    ToState(new SessieNonActiefState(this));
+                    State = 0;
+                    break;
+                case 1:
+                    ToState(new SessieActiefState(this));
+                    State = 1;
+                    break;
+                case 2:
+                    ToState(new SessieInSpel(this));
+                    State = 2;
+                    break;
+                default: goto case 0;
+            }
         }
         #endregion
 
@@ -62,8 +79,9 @@ namespace BreakOutBox.Models.Domain
         {
             try
             {
-                _currentState.Activeer();
+                _currentState.Deactiveer(Groepen);
                 ToState(new SessieNonActiefState(this));
+                State = 0;
             }
             catch (Exception e)
             {
@@ -75,12 +93,9 @@ namespace BreakOutBox.Models.Domain
         {
             try
             {
-                foreach (Groep g in Groepen)
-                {
-                    g.Vergrendel();
-                }
-
+                _currentState.StartSpel(Groepen);
                 ToState(new SessieInSpel(this));
+                State = 2;
             }
             catch (Exception e)
             {

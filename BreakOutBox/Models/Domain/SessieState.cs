@@ -13,9 +13,9 @@ namespace BreakOutBox.Models.Domain
         {
             this.sessie = sessie;
         }
-
+        
         public abstract void Activeer();
-        public abstract void Deactiveer();
-        public abstract void StartSpel();
+        public abstract void Deactiveer(ICollection<Groep> groepen);
+        public abstract void StartSpel(ICollection<Groep> groepen);
     }
 }

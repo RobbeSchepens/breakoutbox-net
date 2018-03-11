@@ -16,14 +16,17 @@ namespace BreakOutBox.Models.Domain
             throw new Exception("De sessie is al actief.");
         }
 
-        public override void Deactiveer()
+        public override void Deactiveer(ICollection<Groep> groepen)
         {
             // ...
         }
 
-        public override void StartSpel()
+        public override void StartSpel(ICollection<Groep> groepen)
         {
-            // ...
+            foreach (Groep g in groepen)
+            {
+                g.Vergrendel();
+            }
         }
     }
 }

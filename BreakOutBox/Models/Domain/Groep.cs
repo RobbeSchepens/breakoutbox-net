@@ -11,7 +11,6 @@ namespace BreakOutBox.Models.Domain
         #endregion
 
         #region Properties
-        public int GroepId { get; set; }
         //public string Naam {
         //    get
         //    {
@@ -24,21 +23,22 @@ namespace BreakOutBox.Models.Domain
         //        _name = value;
         //    }
         //}
+        public int GroepId { get; set; }
         public ICollection<Leerling> Leerlingen { get; set; }
         public int NrOfLeerlingen => Leerlingen.Count;
         public Pad Pad { get; set; }
         #endregion Properties
 
         #region Constructors
+        public Groep()
+        {
+        }
+
         public Groep(Pad pad, ICollection<Leerling> leerlingen)
         {
             Pad = pad;
             Leerlingen = leerlingen;
             ToState(new GroepNietKlaarState(this));
-        }
-        public Groep()
-        {
-
         }
 
         //public Groep(string naam) : this()
@@ -49,6 +49,11 @@ namespace BreakOutBox.Models.Domain
 
         #region Methods
         public void Vergrendel()
+        {
+            ToState(new GroepVergrendeldState(this));
+        }
+
+        public void Ontgrendel()
         {
             ToState(new GroepVergrendeldState(this));
         }

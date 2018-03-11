@@ -13,15 +13,15 @@ namespace BreakOutBox.Models.Domain
 
         public override void Activeer()
         {
-            
+            // ...
         }
 
-        public override void Deactiveer()
+        public override void Deactiveer(ICollection<Groep> groepen)
         {
             throw new Exception("De sessie is al non-actief.");
         }
 
-        public override void StartSpel()
+        public override void StartSpel(ICollection<Groep> groepen)
         {
             throw new Exception("Het spel kan niet gestart worden als de sessie niet actief is.");
         }
