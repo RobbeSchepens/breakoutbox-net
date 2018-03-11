@@ -92,5 +92,28 @@ namespace BreakOutBox.Controllers
             return View();
         }
 
+        [ActionName("SessieOverzicht")]
+        public IActionResult VergrendelGroep(string id, int groepid)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Sessie sessie = _sessieRepository.GetBySessieCode(id);
+                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+                    groep.Vergrendel();
+                    _sessieRepository.SaveChanges();
+                    TempData["message"] = $"Groep {groep.GroepId} is nu vergrendeld.";
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", e.Message);
+                }
+                //return RedirectToAction(nameof(Index));
+            }
+            //ViewData["IsEdit"] = true;
+            //ViewData["Locations"] = GetLocationsAsSelectList();
+            return View();
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿ @model BreakOutBox.Models.Domain.Sessie
+﻿@model BreakOutBox.Models.Domain.Sessie
 @{
     ViewData["Title"] = "Sessie";
 }
@@ -22,6 +22,11 @@
                 <li>
                     <a asp-controller="Sessie" asp-action="SpelOverzicht" asp-route-id="@groep.GroepId">
                         <i class="fas fa-angle-double-right"></i> Klik hier als dit jouw groep is
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@groep.GroepId">
+                        <i class="fas fa-angle-double-right"></i> Test ZET GROEP GEREED
                     </a>
                 </li>
             </ul>
