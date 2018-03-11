@@ -67,11 +67,8 @@ namespace BreakOutBox.Controllers
         }
 
         [HttpPost]
-        public IActionResult SpelOVerzicht(IndexViewModel ivm, string id)
+        public IActionResult SpelOverzicht(IndexViewModel ivm, string id)
         {
-
-
-            
             if (ModelState.IsValid)
             {
                 try
@@ -92,18 +89,19 @@ namespace BreakOutBox.Controllers
             return View();
         }
 
-        [ActionName("SessieOverzicht")]
-        public IActionResult VergrendelGroep(string id, int groepid)
+        //[ActionName("SessieOverzicht")]
+        public IActionResult VergrendelGroep(int groepid)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Sessie sessie = _sessieRepository.GetBySessieCode(id);
+                    Sessie sessie = _sessieRepository.GetBySessieCode("ABC");
                     Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
                     groep.Vergrendel();
                     _sessieRepository.SaveChanges();
                     TempData["message"] = $"Groep {groep.GroepId} is nu vergrendeld.";
+                    return RedirectToAction(nameof(SessieOverzicht), new { id = "ABC" });
                 }
                 catch (Exception e)
                 {
@@ -111,8 +109,6 @@ namespace BreakOutBox.Controllers
                 }
                 //return RedirectToAction(nameof(Index));
             }
-            //ViewData["IsEdit"] = true;
-            //ViewData["Locations"] = GetLocationsAsSelectList();
             return View();
         }
     }
