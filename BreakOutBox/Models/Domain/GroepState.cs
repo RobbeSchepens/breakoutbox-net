@@ -7,11 +7,11 @@ namespace BreakOutBox.Models.Domain
 {
     public abstract class GroepState
     {
-        protected Groep groep;
+        protected Groep _groep;
 
         protected GroepState(Groep groep)
         {
-            this.groep = groep;
+            _groep = groep;
         }
 
         public abstract void ZetGereed();

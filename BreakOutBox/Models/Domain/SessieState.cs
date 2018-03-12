@@ -7,11 +7,11 @@ namespace BreakOutBox.Models.Domain
 {
     public abstract class SessieState
     {
-        protected Sessie sessie;
+        protected Sessie _sessie;
 
         protected SessieState(Sessie sessie)
         {
-            this.sessie = sessie;
+            _sessie = sessie;
         }
         
         public abstract void Activeer();

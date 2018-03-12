@@ -12,7 +12,7 @@ namespace BreakOutBox.Data.Mappers
             //builder.Property(t => t.Naam).IsRequired().HasMaxLength(20);
             
             //Associations
-            builder.HasMany(s => s.Leerlingen).WithOne().IsRequired(false).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(s => s.Leerlingen).WithOne().IsRequired(false).OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(s => s.Pad).WithOne(s => s.Groep).IsRequired().OnDelete(DeleteBehavior.Cascade);
         }
     }

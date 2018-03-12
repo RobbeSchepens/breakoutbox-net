@@ -11,6 +11,9 @@ namespace BreakOutBox.Data.Mappers
             builder.ToTable("Leerkracht");
             builder.Property(t => t.Voornaam).IsRequired().HasMaxLength(20);
             builder.Property(t => t.Achternaam).IsRequired().HasMaxLength(20);
+
+            //Associations
+            builder.HasMany(t => t.Sessies).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
