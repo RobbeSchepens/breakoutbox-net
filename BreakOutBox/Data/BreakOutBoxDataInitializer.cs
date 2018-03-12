@@ -54,7 +54,7 @@ namespace BreakOutBox.Data
                 // FEEDBACK in OEFENING
                 for (var i = 1; i < 9; i++)
                 {
-                    oefeningen[i].Feedback = "TheorieOefening" + i + ".pdf";
+                    oefeningen[i-1].Feedback = "TheorieOefening" + i + ".pdf";
                 }
 
                 Box box = new Box(acties, oefeningen, toegangscodes);
