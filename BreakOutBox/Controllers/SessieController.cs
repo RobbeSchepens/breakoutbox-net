@@ -26,6 +26,8 @@ namespace BreakOutBox.Controllers
         [HttpPost]
         public IActionResult Index(IndexViewModel ivm)
         {
+            
+
             if (ModelState.IsValid)
             {
                 try

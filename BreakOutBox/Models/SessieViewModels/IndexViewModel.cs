@@ -9,6 +9,7 @@ namespace BreakOutBox.Models.SessieViewModels
 {
     public class IndexViewModel
     {
+      
         [Required(ErrorMessage = "Je bent de sessiecode vergeten opgeven!")]
         [Display(Name = "Sessiecode")]
         [DataType(DataType.Text)]
@@ -17,10 +18,10 @@ namespace BreakOutBox.Models.SessieViewModels
         public IndexViewModel()
         {
         }
-        public IndexViewModel(Sessie s)
+       /* public IndexViewModel(Sessie s)
         {
             s.Code = SessieCode;
-        }
+        }*/
     }
 }
 

@@ -207,6 +207,8 @@ namespace BreakOutBox.Data
 
                 _dbContext.Sessies.Add(s);
                 _dbContext.SaveChanges();
+
+                
                 #endregion
             }
         }

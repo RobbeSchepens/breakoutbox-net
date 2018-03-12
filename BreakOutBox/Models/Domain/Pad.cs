@@ -12,6 +12,11 @@ namespace BreakOutBox.Models.Domain
         public int GroepId { get; set; } // Voor one to one EF relatie.
         public Groep Groep { get; set; } // Voor one to one EF relatie.
 
+
+        public Pad()
+        {
+
+        }
         public Pad(ICollection<Opdracht> opdrachten)
         {
             Opdrachten = opdrachten;
