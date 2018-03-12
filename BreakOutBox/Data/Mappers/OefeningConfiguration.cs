@@ -15,9 +15,7 @@ namespace BreakOutBox.Data.Mappers
             builder.Property(t => t.Groepsbewerking).IsRequired().HasMaxLength(20);
 
             //Associations
-            //builder.HasOne(s => s.Feedback).WithOne().IsRequired(false).OnDelete(DeleteBehavior.Cascade);
-            //builder.HasOne(s => s.Opgave).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
-            //builder.HasMany(s => s.Groepsbewerkingen).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(s => s.Vak).WithMany().IsRequired().OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

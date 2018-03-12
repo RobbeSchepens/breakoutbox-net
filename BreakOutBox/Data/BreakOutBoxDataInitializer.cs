@@ -41,15 +41,21 @@ namespace BreakOutBox.Data
 
                 // OEFENINGEN
                 var oefeningen = new List<Oefening> { // dit zijn de oefeningen die in de sessie gebruikt worden
-                    new Oefening("Oefening1", "oefening1.pdf", 10, ""),
-                    new Oefening("Oefening2", "oefening2.pdf", 11, ""),
-                    new Oefening("Oefening3", "oefening3.pdf", 12, ""),
-                    new Oefening("Oefening4", "oefening4.pdf", 13, ""),
-                    new Oefening("Oefening5", "oefening5.pdf", 14, ""),
-                    new Oefening("Oefening6", "oefening6.pdf", 15, ""),
-                    new Oefening("Oefening7", "oefening7.pdf", 16, ""),
-                    new Oefening("Oefening8", "oefening8.pdf", 17, "")
+                    new Oefening("BerekenOmtrek", "oefening1.pdf", 10, new Vak("Wiskunde")),
+                    new Oefening("Oefening2", "oefening2.pdf", 11, new Vak("Informatica")),
+                    new Oefening("Oefening3", "oefening3.pdf", 12, new Vak("Aardrijkskunde")),
+                    new Oefening("Oefening4", "oefening4.pdf", 13, new Vak("Mechanica")),
+                    new Oefening("Oefening5", "oefening5.pdf", 14, new Vak("Nederlands")),
+                    new Oefening("Oefening6", "oefening6.pdf", 15, new Vak("Engels")),
+                    new Oefening("Oefening7", "oefening7.pdf", 16, new Vak("Fysica")),
+                    new Oefening("Oefening8", "oefening8.pdf", 17, new Vak("Chemie"))
                 };
+
+                // FEEDBACK in OEFENING
+                for (var i = 1; i < 9; i++)
+                {
+                    oefeningen[i].Feedback = "TheorieOefening" + i + ".pdf";
+                }
 
                 Box box = new Box(acties, oefeningen, toegangscodes);
                 #endregion
@@ -192,10 +198,12 @@ namespace BreakOutBox.Data
 
                 #region Klas, leerkracht en sessie
                 var k = new Klas(leerlingen);
-                k.VoegLeerkrachtToe(new Leerkracht("Tom", "Deveylder"));
+                var lk = new Leerkracht("Tom", "Deveylder");
+                k.VoegLeerkrachtToe(lk);
                 
                 var s = new Sessie("ABC", "Sessie1", "Maandag ochtend D klas", groepen, box, 1);
                 s.Klas = k;
+                lk.VoegSessieToe(s);
 
                 _dbContext.Sessies.Add(s);
                 _dbContext.SaveChanges();
