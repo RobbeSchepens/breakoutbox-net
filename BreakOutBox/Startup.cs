@@ -13,6 +13,7 @@ using BreakOutBox.Models;
 using BreakOutBox.Services;
 using BreakOutBox.Models.Domain;
 using BreakOutBox.Data.Repositories;
+using System.Security.Claims;
 
 namespace BreakOutBox
 {
@@ -35,16 +36,17 @@ namespace BreakOutBox
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-
+            services.AddAuthorization(options => {
+                options.AddPolicy("leerkrachtAuth", policy => policy.RequireClaim(ClaimTypes.Role, "leerkrachtAuth"));
+               
+            });
 
             // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
-            
+            services.AddTransient<IEmailSender, EmailSender>();         
             services.AddScoped<ISessieRepository, SessieRepository>();
             services.AddScoped<ILeerkrachtRepository, LeerkrachtRepository>();
-
             services.AddScoped<BreakOutBoxDataInitializer>();
-
+            services.AddSession();
             services.AddMvc();
         }
 
@@ -71,9 +73,8 @@ namespace BreakOutBox
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Sessie}/{action=Index}/{id?}");
-            });
-            
-            breakOutBoxDataInitializer.InitializeData();
+            });          
+            breakOutBoxDataInitializer.InitializeData().Wait();
         }
     }
 }
