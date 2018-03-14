@@ -30,8 +30,6 @@ namespace BreakOutBox.Controllers
         [HttpPost]
         public IActionResult Index(IndexViewModel ivm)
         {
-            
-
             if (ModelState.IsValid)
             {
                 try
@@ -124,6 +122,7 @@ namespace BreakOutBox.Controllers
                 {
                     Sessie sessie = _sessieRepository.GetBySessieCode("ABC");
                     Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+                    groep.SwitchState(groep.State);
                     groep.ZetNietGereed();
                     _sessieRepository.SaveChanges();
                     TempData["message"] = $"Groep {groep.GroepId} is nu terug beschikbaar.";
@@ -135,10 +134,5 @@ namespace BreakOutBox.Controllers
             }
             return RedirectToAction(nameof(SessieOverzicht), new { id = "ABC" });
         }
-
-
-
-
-
     }
 }
