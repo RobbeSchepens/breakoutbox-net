@@ -21,5 +21,18 @@ namespace BreakOutBox.Models.Domain
         {
             Opdrachten = opdrachten;
         }
+
+        public Opdracht getNextOpdracht(Opdracht opdracht)
+        {
+            try
+            { }       
+            catch
+            { }           
+            int indexCurrent = Opdrachten.ToList().IndexOf(opdracht);
+            return Opdrachten.ToList()[indexCurrent+1];
+
+        }
+
+
     }
 }

@@ -17,7 +17,7 @@
 
                             <div id="pdf">
                                 <object width="600" height="750" type="application/pdf" data="~/OpdhrachtenG1/@Model.Opdracht.Oefening.Opgave" id="pdf_content">
-                                    <p>Insert your error message here, if the PDF cannot be displayed.</p>
+                                   
                                 </object>
                             </div>
 
@@ -30,9 +30,23 @@
                         
                         @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
                         <p><button type="submit" class="">Ga verder</button></p>
+
+                        <div hidden>
+                            <p><input asp-for="OpdrachtId" type="text" class="form-control" autocomplete="off" value="@Model.Opdracht.OpdrachtId"/></p>
+                            <p><input asp-for="GroepId" type="text" class="form-control" autocomplete="off" value="@Model.Groep.GroepId" /></p>
+                            <p><input asp-for="sessieId" type="text" class="form-control" autocomplete="off" value="@Model.Sessie.Code" /></p>
+
+                        </div>
+
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+@section scripts {
+    <script asp-src-include="lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script asp-src-include="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}

@@ -13,22 +13,18 @@ namespace BreakOutBox.Models.SpelViewModels
 
 
         //[Required]
-        [Display(Name = "Toegangscode voor de volgende oefening")]
-        //[Compare("55")]
+        [Display(Name = "Toegangscode voor de volgende oefening")]   
         public int Toegangscode { get; set; }
-
 
         public Sessie Sessie { get; set; }
         public Groep Groep { get; set; }
         public Opdracht Opdracht { get; set; }
+        
 
+        public int GroepId { get; set; }
+        public int OpdrachtId { get; set; }
+        public string sessieId { get; set; }
 
-    
-        public int AantalFouteInvoer { get; set; }      
-
-
-        int _teller = 0;
-       
 
         public SpelSpelenViewModel()
         {
@@ -38,7 +34,7 @@ namespace BreakOutBox.Models.SpelViewModels
         {
             this.Sessie = sessie;
             this.Groep = groep;
-            this.Opdracht = GetCurrentOpdracht();
+            this.Opdracht = Groep.Pad.Opdrachten.ToList()[0];
 
         }
 
@@ -47,18 +43,7 @@ namespace BreakOutBox.Models.SpelViewModels
             this.Groep = groep;         
         }*/
 
-        public Opdracht GetCurrentOpdracht()
-        {         
-            return Groep.Pad.Opdrachten.ToList()[_teller];
-        }
-
-
-        public void VolgendeOpdracht()
-        {
-           this.Opdracht = Groep.Pad.Opdrachten.ToList()[_teller++];
-
-        }
-
+       
 
     }
 }

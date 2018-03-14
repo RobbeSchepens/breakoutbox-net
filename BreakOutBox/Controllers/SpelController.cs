@@ -25,11 +25,12 @@ namespace BreakOutBox.Controllers
             Sessie s = _sessieRepository.GetBySessieCode(sessieCode);
             Groep groep = s.Groepen.ToList()[nummerGroep - 1];
 
-            // var ssvmTest = new SpelSpelenViewModel(s, groep);
+
+
 
             return View(new SpelSpelenViewModel(s, groep));
 
-            //return RedirectToAction("SpelSpelen", new {ssvm = new SpelSpelenViewModel(s, groep) });
+            // return RedirectToAction("SpelSpelen", new {ssvm = new SpelSpelenViewModel(s, groep) });
             // return RedirectToAction("SpelSpelen",  new { ssvm = new SpelSpelenViewModel(s, groep) });
             // new SpelSpelenViewModel(s, groep)
 
@@ -37,19 +38,28 @@ namespace BreakOutBox.Controllers
         [HttpPost]
         public IActionResult SpelSpelen(SpelSpelenViewModel ssvm)
         {
-            
+           
+
             if (ModelState.IsValid)
             {
                 try
                 {
                     try
                     {
+                        Sessie s = _sessieRepository.GetBySessieCode(ssvm.sessieId); // sessieId = sessieCode (kan nog veranderd worden)
+                        Groep g = s.Groepen.Where(a => a.GroepId == ssvm.GroepId).FirstOrDefault();
 
-                        ssvm.VolgendeOpdracht();
+                        Opdracht vorigeOpdracht = g.Pad.Opdrachten.Where(a => a.OpdrachtId == ssvm.OpdrachtId).FirstOrDefault();
+                        Opdracht nieweOpdracht = g.Pad.getNextOpdracht(vorigeOpdracht);
+
+                        ssvm.Opdracht = nieweOpdracht;
+                        ssvm.Groep = g;
+                        ssvm.Sessie = s;
+
                     }
                     catch
                     {
-                        TempData["errorGeenVOlgendeOpdracht"] = "Er is geen volgende opdracht gevonden";
+                        ViewData["errorGeenVOlgendeOpdracht"] = "Er is geen volgende opdracht gevonden";
                     }
                     
                 }
