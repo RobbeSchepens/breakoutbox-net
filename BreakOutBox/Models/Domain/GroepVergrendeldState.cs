@@ -20,5 +20,15 @@ namespace BreakOutBox.Models.Domain
         {
             throw new Exception("Deze groep is vergrendeld en kan niet niet-gereed gezet worden.");
         }
+
+        public override void Vergrendel()
+        {
+            throw new Exception("Deze groep is al vergrendeld.");
+        }
+
+        public override void Ontgrendel()
+        {
+            // ...
+        }
     }
 }

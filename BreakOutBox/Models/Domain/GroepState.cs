@@ -16,5 +16,7 @@ namespace BreakOutBox.Models.Domain
 
         public abstract void ZetGereed();
         public abstract void ZetNietGereed();
+        public abstract void Vergrendel();
+        public abstract void Ontgrendel();
     }
 }

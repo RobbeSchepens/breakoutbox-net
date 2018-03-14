@@ -1,5 +1,15 @@
 ﻿@model BreakOutBox.Models.Domain.Sessie
 @{
+    bool isEenGroepGeselecteerd = false;
+    foreach (var groep in Model.Groepen)
+    {
+        if (groep.State == 1)
+        {
+            isEenGroepGeselecteerd = true;
+        }
+    }
+}
+@{
     ViewData["Title"] = "Sessie";
 }
 
@@ -19,17 +29,35 @@
                 {
                     <li>@(leerling.Voornaam + leerling.Achternaam)</li>
                 }
-                <li>
-                    <a asp-controller="Sessie" asp-action="SpelOverzicht" asp-route-id="@groep.GroepId">
-                        <i class="fas fa-angle-double-right"></i> Klik hier als dit jouw groep is
-                    </a>
-                </li>
-                <li>
-                    <a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@groep.GroepId">
-                        <i class="fas fa-angle-double-right"></i> Test ZET GROEP GEREED
-                    </a>
-                </li>
+                <li><p></p></li>
+                @*<li>
+                        @Html.ActionLink("Klik hier als dit jouw groepje is", "VergrendelGroep", "Sessie", new { groepId = groep.GroepId }, "")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Klik hier om de groep terug te ontgrendelen", "OntgrendelGroep", "Sessie", new { groepId = groep.GroepId }, "")
+                    </li>*@
+                @if (!isEenGroepGeselecteerd && groep.State != 2)
+                {
+                    <li>
+                        <a href="@Url.Action("ZetGroepGereed", "Sessie", new { groepId = groep.GroepId })">
+                            <i class="fas fa-angle-double-right"></i> Klik hier als dit jouw groep is
+                        </a>
+                    </li>
+                }
+                @if (groep.State == 1 && groep.State != 2)
+                {
+                    <li>
+                        <a href="@Url.Action("ZetGroepNietGereed", "Sessie", new { groepId = groep.GroepId })">
+                            <i class="fas fa-angle-double-right"></i> Klik hier om de groep terug te ontgrendelen
+                        </a>
+                    </li>
+                }
             </ul>
         </div>
     }
+</div>
+<div class="row">
+    <div class="sm-12 col">
+        <p>@TempData["message"]</p>
+    </div>
 </div>

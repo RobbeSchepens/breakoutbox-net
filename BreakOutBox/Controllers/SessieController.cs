@@ -90,9 +90,8 @@ namespace BreakOutBox.Controllers
             }
             return View();
         }
-
-        //[ActionName("SessieOverzicht")]
-        public IActionResult VergrendelGroep(int groepid)
+        
+        public IActionResult ZetGroepGereed(int groepid)
         {
             if (ModelState.IsValid)
             {
@@ -100,18 +99,36 @@ namespace BreakOutBox.Controllers
                 {
                     Sessie sessie = _sessieRepository.GetBySessieCode("ABC");
                     Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
-                    groep.Vergrendel();
+                    groep.ZetGereed();
                     _sessieRepository.SaveChanges();
-                    TempData["message"] = $"Groep {groep.GroepId} is nu vergrendeld.";
-                    return RedirectToAction(nameof(SessieOverzicht), new { id = "ABC" });
+                    TempData["message"] = $"Je hebt groep {groep.GroepId} gekozen.";
                 }
                 catch (Exception e)
                 {
                     ModelState.AddModelError("", e.Message);
                 }
-                //return RedirectToAction(nameof(Index));
             }
-            return View();
+            return RedirectToAction(nameof(SessieOverzicht), new { id = "ABC" });
+        }
+
+        public IActionResult ZetGroepNietGereed(int groepid)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Sessie sessie = _sessieRepository.GetBySessieCode("ABC");
+                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+                    groep.ZetNietGereed();
+                    _sessieRepository.SaveChanges();
+                    TempData["message"] = $"Groep {groep.GroepId} is nu terug beschikbaar.";
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", e.Message);
+                }
+            }
+            return RedirectToAction(nameof(SessieOverzicht), new { id = "ABC" });
         }
     }
 }

@@ -70,6 +70,32 @@ namespace BreakOutBox.Models.Domain
             _currentState = state;
         }
 
+        public void ZetGereed()
+        {
+            try
+            {
+                ToState(new GroepGereedState(this));
+                State = 1;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public void ZetNietGereed()
+        {
+            try
+            {
+                ToState(new GroepNietGereedState(this));
+                State = 0;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
         public void Vergrendel()
         {
             try

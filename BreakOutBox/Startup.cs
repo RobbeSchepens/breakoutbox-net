@@ -73,8 +73,8 @@ namespace BreakOutBox
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Sessie}/{action=Index}/{id?}");
-            });          
-            breakOutBoxDataInitializer.InitializeData().Wait();
+            });
+            breakOutBoxDataInitializer.InitializeData();//.Wait();
         }
     }
 }
