@@ -29,6 +29,9 @@ namespace BreakOutBox.Models.Domain
         #endregion
 
         #region Methods
+
+    
+
         public void VoegLeerkrachtToe(Leerkracht k)
         {
             KlasLeerkrachten.Add(new KlasLeerkracht(this, k));

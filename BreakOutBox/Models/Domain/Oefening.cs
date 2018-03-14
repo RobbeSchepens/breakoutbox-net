@@ -15,6 +15,12 @@ namespace BreakOutBox.Models.Domain
         public string Feedback { get; set; }
         public Vak Vak { get; set; }
 
+
+
+        public Oefening()
+        {
+
+        }
         public Oefening(string oefeningNaam, string opgave, double antwoord, Vak vak)
         {
             Naam = oefeningNaam;
