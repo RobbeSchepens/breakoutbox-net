@@ -27,7 +27,7 @@
             <ul>
                 @foreach (var leerling in groep.Leerlingen)
                 {
-                    <li>@(leerling.Voornaam + leerling.Achternaam)</li>
+                    <li>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
                 }
                 <li><p></p></li>
                 @*<li>
@@ -36,7 +36,7 @@
                     <li>
                         @Html.ActionLink("Klik hier om de groep terug te ontgrendelen", "OntgrendelGroep", "Sessie", new { groepId = groep.GroepId }, "")
                     </li>*@
-                @if (!isEenGroepGeselecteerd && groep.State != 2)
+                @if (groep.State == 0 && groep.State != 2)
                 {
                     <li>
                         <a href="@Url.Action("ZetGroepGereed", "Sessie", new { groepId = groep.GroepId })">
@@ -48,7 +48,7 @@
                 {
                     <li>
                         <a href="@Url.Action("ZetGroepNietGereed", "Sessie", new { groepId = groep.GroepId })">
-                            <i class="fas fa-angle-double-right"></i> Klik hier om de groep terug te ontgrendelen
+                            <i class="fas fa-angle-double-right"></i> Klik hier om de groep te deselecteren
                         </a>
                     </li>
                 }

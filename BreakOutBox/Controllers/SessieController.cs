@@ -105,7 +105,8 @@ namespace BreakOutBox.Controllers
                 }
                 catch (Exception e)
                 {
-                    ModelState.AddModelError("", e.Message);
+                    //ModelState.AddModelError("", e.Message);
+                    TempData["message"] = $"Deze groep werd al gekozen.";
                 }
             }
             return RedirectToAction(nameof(SessieOverzicht), new { id = "ABC" });
