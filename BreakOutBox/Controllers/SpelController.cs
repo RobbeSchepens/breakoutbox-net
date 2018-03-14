@@ -21,18 +21,40 @@ namespace BreakOutBox.Controllers
         public IActionResult SpelSpelen()
         {
 
-            int groepId = 0;
-            string SessieCode = "ABC"; // deze 2 moeten op een speciale manier worden geimporteerd
+            int nummerGroep = 1;
+            string sessieCode = "ABC"; // deze 2 moeten op een speciale manier worden geimporteerd
 
 
+            Sessie s = _sessieRepository.GetBySessieCode(sessieCode);
+            Groep groep = s.Groepen.ToList()[nummerGroep - 1];
 
-            return View(new SpelSpelenViewModel(SessieCode, groepId));
+            return View(new SpelSpelenViewModel(s, groep));
         }
         [HttpPost]
         public IActionResult SpelSpelen(SpelSpelenViewModel ssvm)
         {
-
-            return View();
+            
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    try
+                    {
+                     
+                        
+                    }
+                    catch
+                    {
+                        TempData["errorGeenVOlgendeOpdracht"] = "Er is geen volgende opdracht gevonden";
+                    }
+                    
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", e.Message);
+                }
+            }
+            return View(ssvm);
         }
 
     }

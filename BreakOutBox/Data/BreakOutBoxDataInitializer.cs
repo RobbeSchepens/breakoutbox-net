@@ -87,6 +87,13 @@ namespace BreakOutBox.Data
                     new Opdracht(7,act[6],oef[6],toe[6]),
                     new Opdracht(8,act[7],oef[7],toe[7])
                 };
+
+                for(int z = 0; z < 8; z++)
+                {
+                    opdrachtenGroep1[z].Oefening.Opgave = "opdracht" + z+1 + "G1.pdf";
+                }
+
+
                 for (int i = 0; i < 8; i++)
                 {
                     opdrachtenGroep1[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i];

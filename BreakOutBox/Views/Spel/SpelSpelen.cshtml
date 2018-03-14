@@ -1,26 +1,38 @@
-﻿@model BreakOutBox.Models.Domain.Groep
-@{
-    ViewData["Title"] = "SpelOverzicht";
-}
-
-<h2>Spel Overzicht</h2>
-
-<br />
+﻿@model BreakOutBox.Models.SpelViewModels.SpelSpelenViewModel
 
 
-<h4>@TempData["message"]</h4>
+<div class="row site">
+    <div id="landing" class="sm-12 col">
+        <div class="demo-title">
+            <div class="row flex-center">
+                <div class="text-center">
+                    <h1>Break Out Box</h1>
+                    <form method="post">
 
-<p>Opdracht 1</p>
+                        <p>Oefening naam: @Model.Opdracht.Oefening.Naam</p>
+                        <p>Vak: @Model.Opdracht.Oefening.Vak.Naam</p>
+                        <p></p>
 
-<p>Test</p>
+                        <div>
 
-<div>
-    <label>Toeganscode</label>
-    <input class="form-control" data-val-required="Gelieve een antwoord te geven" />
+                            <div id="pdf">
+                                <object width="600" height="750" type="application/pdf" data="~/OpdhrachtenG1/opdracht1G1.pdf" id="pdf_content">
+                                    <p>Insert your error message here, if the PDF cannot be displayed.</p>
+                                </object>
+                            </div>
 
-    <button type="submit" class="btn btn-default">Submit</button>
+                            
 
+                        </div>
+                        <p><label asp-for="Toegangscode"></label></p>
+                        <p><input asp-for="Toegangscode" type="text" class="form-control" autocomplete="off" /></p>
+                        <p><span asp-validation-for="Toegangscode" class="text-danger"></span></p>
+                        
+                        @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
+                        <p><button type="submit" class="">Ga verder</button></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-

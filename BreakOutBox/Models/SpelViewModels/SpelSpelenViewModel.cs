@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,25 +10,37 @@ namespace BreakOutBox.Models.SpelViewModels
 {
     public class SpelSpelenViewModel
     {
-        public string SessieCode { get; set; }
-        public int GroepId { get; set; }
+
+
+        [Required]
+        [Display(Name = "Toegangscode voor de volgende oefening")]
+        //[Compare("55")]
+        public int Toegangscode { get; set; }
+
+
+        public Sessie Sessie { get; set; }
         public Groep Groep { get; set; }
-        public Pad Pad => Groep.Pad;  
+        public Opdracht Opdracht { get; set; }
+
+
+
+        public Pad Pad => Groep.Pad;
         public int AantalFouteInvoer { get; set; }      
-        public int OpdrachtNummer { get; set; }
 
 
-        int _teller = 0; 
-        Opdracht _currentOpdracht;
+        int _teller = 0;
+       
 
         public SpelSpelenViewModel()
         {
 
         }
-        public SpelSpelenViewModel(string sessieCode, int groepId)
+        public SpelSpelenViewModel(Sessie sessie, Groep groep)
         {
-            this.SessieCode = sessieCode;
-            this.GroepId = groepId;
+            this.Sessie = sessie;
+            this.Groep = groep;
+            this.Opdracht = GetCurrentOpdracht();
+
         }
 
         /*public SpelSpelenViewModel(Groep groep)
@@ -41,10 +54,10 @@ namespace BreakOutBox.Models.SpelViewModels
         }
 
 
-        public Opdracht GetVolgendeOpdracht()
+        public void VolgendeOpdracht()
         {
-            _teller++;
-            return Pad.Opdrachten.ToList()[_teller];
+           this.Opdracht = Pad.Opdrachten.ToList()[_teller++];
+
         }
 
 
