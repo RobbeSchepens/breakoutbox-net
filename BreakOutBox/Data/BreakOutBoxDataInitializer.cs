@@ -90,7 +90,7 @@ namespace BreakOutBox.Data
 
                 for(int z = 0; z < 8; z++)
                 {
-                    opdrachtenGroep1[z].Oefening.Opgave = "opdracht" + z+1 + "G1.pdf";
+                    opdrachtenGroep1[z].Oefening.Opgave = "opdracht" + (z+1) + "G1.pdf";
                 }
 
 
