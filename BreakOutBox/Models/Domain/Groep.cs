@@ -74,6 +74,7 @@ namespace BreakOutBox.Models.Domain
         {
             try
             {
+                _currentState.ZetGereed();
                 ToState(new GroepGereedState(this));
                 State = 1;
             }
@@ -87,6 +88,7 @@ namespace BreakOutBox.Models.Domain
         {
             try
             {
+                _currentState.ZetNietGereed();
                 ToState(new GroepNietGereedState(this));
                 State = 0;
             }
@@ -100,6 +102,7 @@ namespace BreakOutBox.Models.Domain
         {
             try
             {
+                _currentState.Vergrendel();
                 ToState(new GroepVergrendeldState(this));
                 State = 2;
             }
@@ -113,6 +116,7 @@ namespace BreakOutBox.Models.Domain
         {
             try
             {
+                _currentState.Ontgrendel();
                 ToState(new GroepNietGereedState(this));
                 State = 0;
             }

@@ -203,21 +203,16 @@ namespace BreakOutBox.Data
 
                 #region Klas, leerkracht en sessie
                 var k = new Klas(leerlingen);
-                k.VoegLeerkrachtToe(new Leerkracht("Tom", "Pieters"));
+                var lk = new Leerkracht("Tom", "Pieters");
+                k.VoegLeerkrachtToe(lk);
                 
                 var s = new Sessie("ABC", "Sessie1", "Maandag ochtend D klas", groepen, box, 1);
                 s.Klas = k;
                 lk.VoegSessieToe(s);
 
                 _dbContext.Sessies.Add(s);
-
-
                 await CreateUser("Tom_Pieters@school.be", "Tom_Pieters@school.be", "password", "Admin");
-
-
                 _dbContext.SaveChanges();
-
-                
                 #endregion
             }
 
