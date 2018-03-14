@@ -33,29 +33,15 @@ namespace BreakOutBox.Models.Domain
         #region Constructors
         public Groep()
         {
+            SwitchState(State);
         }
 
         public Groep(Pad pad, ICollection<Leerling> leerlingen, int state)
         {
             Pad = pad;
             Leerlingen = leerlingen;
-
-            switch (state)
-            {
-                case 0:
-                    ToState(new GroepNietGereedState(this));
-                    State = 0;
-                    break;
-                case 1:
-                    ToState(new GroepGereedState(this));
-                    State = 1;
-                    break;
-                case 2:
-                    ToState(new GroepVergrendeldState(this));
-                    State = 2;
-                    break;
-                default: goto case 0;
-            }
+            SwitchState(state);
+            State = state;
         }
 
         //public Groep(string naam) : this()
@@ -68,6 +54,23 @@ namespace BreakOutBox.Models.Domain
         protected void ToState(GroepState state)
         {
             _currentState = state;
+        }
+
+        private void SwitchState(int st)
+        {
+            switch (st)
+            {
+                case 0:
+                    ToState(new GroepNietGereedState(this));
+                    break;
+                case 1:
+                    ToState(new GroepGereedState(this));
+                    break;
+                case 2:
+                    ToState(new GroepVergrendeldState(this));
+                    break;
+                default: goto case 0;
+            }
         }
 
         public void ZetGereed()
