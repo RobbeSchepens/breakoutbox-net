@@ -1,34 +1,39 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Threading.Tasks;
-//using BreakOutBox.Models.Domain;
-//using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using BreakOutBox.Models.Domain;
+using Microsoft.AspNetCore.Mvc;
+using BreakOutBox.Models.SpelViewModels;
 
-//namespace BreakOutBox.Controllers
-//{
-//    public class SpelController : Controller
-//    {
-//        private readonly ISessieRepository _sessieRepository;
+namespace BreakOutBox.Controllers
+{
+    public class SpelController : Controller
+    {
+        private readonly ISessieRepository _sessieRepository;
 
-//        public SpelController(ISessieRepository sessieRepository)
-//        {
-//            _sessieRepository = sessieRepository;
-//        }
+        public SpelController(ISessieRepository sessieRepository)
+        {
+            _sessieRepository = sessieRepository;
+        }
+
+        [HttpGet]
+        public IActionResult SpelSpelen()
+        {
+
+            int groepId = 0;
+            string SessieCode = "ABC"; // deze 2 moeten op een speciale manier worden geimporteerd
 
 
-//        public IActionResult Spel(string id)
-//        {
 
+            return View(new SpelSpelenViewModel(SessieCode, groepId));
+        }
+        [HttpPost]
+        public IActionResult SpelSpelen(SpelSpelenViewModel ssvm)
+        {
 
-//            //Sessie s = _sessieRepository.GetBySessieCode(id);
-//            //var se = s;
+            return View();
+        }
 
-//            //if (s == null)
-//            //    return RedirectToAction("Sessie", new { id = "onbestaand" });
-            
-
-//            return View();
-//        }
-//    }
-//}
+    }
+}

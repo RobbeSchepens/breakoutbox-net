@@ -10,6 +10,11 @@ namespace BreakOutBox.Models.Domain
         public Oefening Oefening { get; set; } // UIT BOX
         public Toegangscode Toegangscode { get; set; } // UIT BOX
 
+
+        public Opdracht()
+        {
+
+        }
         public Opdracht(int volgNr, Actie actie, Oefening oefening, Toegangscode toegangscode)
         {
             VolgNr = volgNr;

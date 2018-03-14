@@ -17,6 +17,10 @@ namespace BreakOutBox.Controllers
             _sessieRepository = sessieRepository;
         }
 
+        #region MyRegion
+
+        #endregion
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -130,5 +134,10 @@ namespace BreakOutBox.Controllers
             }
             return RedirectToAction(nameof(SessieOverzicht), new { id = "ABC" });
         }
+
+
+
+
+
     }
 }
