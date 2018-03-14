@@ -1,7 +1,10 @@
-﻿using BreakOutBox.Models.Domain;
+﻿using BreakOutBox.Models;
+using BreakOutBox.Models.Domain;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace BreakOutBox.Data
@@ -9,13 +12,15 @@ namespace BreakOutBox.Data
     public class BreakOutBoxDataInitializer
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public BreakOutBoxDataInitializer(ApplicationDbContext dbContext)
+        public BreakOutBoxDataInitializer(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _dbContext = dbContext;
         }
 
-        public void InitializeData()
+        public async Task InitializeData()
         {
             _dbContext.Database.EnsureDeleted();
             if (_dbContext.Database.EnsureCreated())
@@ -198,18 +203,29 @@ namespace BreakOutBox.Data
 
                 #region Klas, leerkracht en sessie
                 var k = new Klas(leerlingen);
-                var lk = new Leerkracht("Tom", "Deveylder");
-                k.VoegLeerkrachtToe(lk);
+                k.VoegLeerkrachtToe(new Leerkracht("Tom", "Pieters"));
                 
                 var s = new Sessie("ABC", "Sessie1", "Maandag ochtend D klas", groepen, box, 1);
                 s.Klas = k;
                 lk.VoegSessieToe(s);
 
                 _dbContext.Sessies.Add(s);
+
+
+                await CreateUser("Tom_Pieters@school.be", "Tom_Pieters@school.be", "password", "Admin");
+
+
                 _dbContext.SaveChanges();
 
                 
                 #endregion
+            }
+
+            async Task CreateUser(string userName, string email, string password, string role)
+            {
+                var user = new ApplicationUser { UserName = userName, Email = email , SecurityStamp = Guid.NewGuid().ToString() };
+                await _userManager.CreateAsync(user, password);
+                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, role));
             }
         }
     }
