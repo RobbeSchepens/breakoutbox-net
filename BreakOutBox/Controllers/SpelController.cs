@@ -20,15 +20,19 @@ namespace BreakOutBox.Controllers
         [HttpGet]
         public IActionResult SpelSpelen()
         {
-
             int nummerGroep = 1;
             string sessieCode = "ABC"; // deze 2 moeten op een speciale manier worden geimporteerd
-
-
             Sessie s = _sessieRepository.GetBySessieCode(sessieCode);
             Groep groep = s.Groepen.ToList()[nummerGroep - 1];
 
+            // var ssvmTest = new SpelSpelenViewModel(s, groep);
+
             return View(new SpelSpelenViewModel(s, groep));
+
+            //return RedirectToAction("SpelSpelen", new {ssvm = new SpelSpelenViewModel(s, groep) });
+            // return RedirectToAction("SpelSpelen",  new { ssvm = new SpelSpelenViewModel(s, groep) });
+            // new SpelSpelenViewModel(s, groep)
+
         }
         [HttpPost]
         public IActionResult SpelSpelen(SpelSpelenViewModel ssvm)
@@ -40,8 +44,8 @@ namespace BreakOutBox.Controllers
                 {
                     try
                     {
-                     
-                        
+
+                        ssvm.VolgendeOpdracht();
                     }
                     catch
                     {

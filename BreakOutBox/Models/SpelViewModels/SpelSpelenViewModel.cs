@@ -12,7 +12,7 @@ namespace BreakOutBox.Models.SpelViewModels
     {
 
 
-        [Required]
+        //[Required]
         [Display(Name = "Toegangscode voor de volgende oefening")]
         //[Compare("55")]
         public int Toegangscode { get; set; }
@@ -23,8 +23,7 @@ namespace BreakOutBox.Models.SpelViewModels
         public Opdracht Opdracht { get; set; }
 
 
-
-        public Pad Pad => Groep.Pad;
+    
         public int AantalFouteInvoer { get; set; }      
 
 
@@ -50,13 +49,13 @@ namespace BreakOutBox.Models.SpelViewModels
 
         public Opdracht GetCurrentOpdracht()
         {         
-            return Pad.Opdrachten.ToList()[_teller];
+            return Groep.Pad.Opdrachten.ToList()[_teller];
         }
 
 
         public void VolgendeOpdracht()
         {
-           this.Opdracht = Pad.Opdrachten.ToList()[_teller++];
+           this.Opdracht = Groep.Pad.Opdrachten.ToList()[_teller++];
 
         }
 
