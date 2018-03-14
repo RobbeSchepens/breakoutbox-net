@@ -56,7 +56,7 @@ namespace BreakOutBox.Models.Domain
             _currentState = state;
         }
 
-        private void SwitchState(int st)
+        public void SwitchState(int st)
         {
             switch (st)
             {
