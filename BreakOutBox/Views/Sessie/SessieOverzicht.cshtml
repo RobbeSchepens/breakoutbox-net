@@ -1,15 +1,5 @@
 ﻿@model BreakOutBox.Models.Domain.Sessie
 @{
-    bool isEenGroepGeselecteerd = false;
-    foreach (var groep in Model.Groepen)
-    {
-        if (groep.State == 1)
-        {
-            isEenGroepGeselecteerd = true;
-        }
-    }
-}
-@{
     ViewData["Title"] = "Sessie";
 }
 
