@@ -74,6 +74,7 @@ namespace BreakOutBox
                     name: "default",
                     template: "{controller=Sessie}/{action=Index}/{id?}");
             });
+
             breakOutBoxDataInitializer.InitializeData().Wait();
         }
     }

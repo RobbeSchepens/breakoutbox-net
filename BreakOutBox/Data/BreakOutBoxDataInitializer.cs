@@ -220,7 +220,7 @@ namespace BreakOutBox.Data
             {
                 var user = new ApplicationUser { UserName = userName, Email = email , SecurityStamp = Guid.NewGuid().ToString() };
                 await _userManager.CreateAsync(user, password);
-                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, role));
+               // await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, role));
             }
         }
     }
