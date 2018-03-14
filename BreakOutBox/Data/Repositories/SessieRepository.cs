@@ -27,14 +27,29 @@ namespace BreakOutBox.Data.Repositories
         {
            
             return _sessies
-                .Include(s => s.Groepen)
+                .Include(sessie => sessie.Groepen)
                     .ThenInclude(grp => grp.Leerlingen)
-                .Include(a => a.Groepen)
-                    .ThenInclude(b => b.Pad)
 
-                .Include(s => s.Klas)
+                // includes voor Pad
+                .Include(sessie => sessie.Groepen)
+                    .ThenInclude(groep => groep.Pad)
+                        .ThenInclude(pad => pad.Opdrachten)
+                            .ThenInclude(opdr => opdr.Actie)
+                 .Include(sessie => sessie.Groepen)
+                    .ThenInclude(groep => groep.Pad)
+                        .ThenInclude(pad => pad.Opdrachten)
+                            .ThenInclude(opdr => opdr.Oefening)
+                                .ThenInclude(oefn => oefn.Vak)
+                  .Include(sessie => sessie.Groepen)
+                    .ThenInclude(groep => groep.Pad)
+                        .ThenInclude(pad => pad.Opdrachten)
+                            .ThenInclude(opdr => opdr.Toegangscode)
+
+                  
+
+                .Include(sessie => sessie.Klas)
                      .ThenInclude(k => k.Leerlingen)
-                .FirstOrDefault(s => s.Code == sessieCode);
+                .FirstOrDefault(sessie => sessie.Code == sessieCode);
 
 
             /* return _sessies
