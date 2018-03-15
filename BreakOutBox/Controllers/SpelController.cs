@@ -51,14 +51,14 @@ namespace BreakOutBox.Controllers
                     ssvm.Groep = g;
                     ssvm.Sessie = s;
 
-                    if (ssvm.Toegangscode == huidigeOpdracht.Toegangscode.Code)
+                    if (ssvm.Groepsantwoord == huidigeOpdracht.Toegangscode.Code)
                     {
                         ssvm.Opdracht = nieweOpdracht;
-                        ssvm.TellerFouteToegangscode = 0;
+                        ssvm.TellerFoutePogingen = 0;
                     }
                     else
                     {
-                        if (ssvm.TellerFouteToegangscode > 2)
+                        if (ssvm.TellerFoutePogingen > 2)
                         {
                             var i = 0;
                             // spel geblokkeerd en leerkracht moet het deblokkeren
@@ -66,12 +66,12 @@ namespace BreakOutBox.Controllers
                         else
                         {
                             ssvm.Opdracht = huidigeOpdracht;
-                            TempData["FouteCode"] = "FOUT! je hebt " + ssvm.TellerFouteToegangscode + " foute pogingen ondernomen";
+                            TempData["FouteCode"] = "FOUT! je hebt " + ssvm.TellerFoutePogingen + " foute pogingen ondernomen";
                         }
                        
                     }
 
-                    if (ssvm.TellerFouteToegangscode > 3)
+                    if (ssvm.TellerFoutePogingen > 3)
                     {
 
                     }
