@@ -209,9 +209,9 @@ namespace BreakOutBox.Data
                 #endregion
 
                 #region Klas, leerkracht en sessie
-                var k = new Klas(leerlingen);
                 var lk = new Leerkracht("Tom", "Pieters");
-                k.VoegLeerkrachtToe(lk);
+                var k = new Klas(leerlingen, lk);
+                lk.VoegKlasToe(k);
                 
                 var s = new Sessie("ABC", "Sessie1", "Maandag ochtend D klas", groepen, box, 1);
                 s.Klas = k;

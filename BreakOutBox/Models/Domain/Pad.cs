@@ -11,12 +11,11 @@ namespace BreakOutBox.Models.Domain
         public ICollection<Opdracht> Opdrachten { get; set; }
         public int GroepId { get; set; } // Voor one to one EF relatie.
         public Groep Groep { get; set; } // Voor one to one EF relatie.
-
-
+        
         public Pad()
         {
-
         }
+
         public Pad(ICollection<Opdracht> opdrachten)
         {
             Opdrachten = opdrachten;
@@ -25,14 +24,14 @@ namespace BreakOutBox.Models.Domain
         public Opdracht getNextOpdracht(Opdracht opdracht)
         {
             try
-            { }       
+            {
+            }       
             catch
-            { }           
+            {
+            }       
+            
             int indexCurrent = Opdrachten.ToList().IndexOf(opdracht);
             return Opdrachten.ToList()[indexCurrent+1];
-
         }
-
-
     }
 }

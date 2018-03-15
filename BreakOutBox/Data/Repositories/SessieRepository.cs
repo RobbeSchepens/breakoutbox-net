@@ -17,7 +17,7 @@ namespace BreakOutBox.Data.Repositories
             _context = context;
             _sessies = context.Sessies;
         }
-        
+
         public IEnumerable<Sessie> GetAll()
         {
             return _sessies.ToList();
@@ -25,7 +25,7 @@ namespace BreakOutBox.Data.Repositories
 
         public Sessie GetBySessieCode(string sessieCode)
         {
-           
+
             return _sessies
                 .Include(sessie => sessie.Groepen)
                     .ThenInclude(grp => grp.Leerlingen)
@@ -35,20 +35,19 @@ namespace BreakOutBox.Data.Repositories
                     .ThenInclude(groep => groep.Pad)
                         .ThenInclude(pad => pad.Opdrachten)
                             .ThenInclude(opdr => opdr.Actie)
-                 .Include(sessie => sessie.Groepen)
+                .Include(sessie => sessie.Groepen)
                     .ThenInclude(groep => groep.Pad)
                         .ThenInclude(pad => pad.Opdrachten)
                             .ThenInclude(opdr => opdr.Oefening)
                                 .ThenInclude(oefn => oefn.Vak)
-                  .Include(sessie => sessie.Groepen)
+                .Include(sessie => sessie.Groepen)
                     .ThenInclude(groep => groep.Pad)
                         .ThenInclude(pad => pad.Opdrachten)
                             .ThenInclude(opdr => opdr.Toegangscode)
 
-                  
 
                 .Include(sessie => sessie.Klas)
-                     .ThenInclude(k => k.Leerlingen)
+                    .ThenInclude(k => k.Leerlingen)
                 .FirstOrDefault(sessie => sessie.Code == sessieCode);
 
 
@@ -84,18 +83,10 @@ namespace BreakOutBox.Data.Repositories
 
         public ICollection<Sessie> GetSessiesByLeerkracht(Leerkracht leerkracht)
         {
-
-   
-            List<Sessie> sessiesMetKlasEnleerkracht = _sessies.Include(g => g.Groepen).Include(k => k.Klas).ThenInclude(l => l.KlasLeerkrachten).ThenInclude(kl => kl.Leerkracht).ToList();
-            List<Sessie> SessiesVanLeerkracht = sessiesMetKlasEnleerkracht.Where(s => s.Klas.Leerkrachten.ToList().Contains(leerkracht)).ToList();
-           
-
-          
-           
+            //List<Sessie> sessiesMetKlasEnleerkracht = _sessies.Include(g => g.Groepen).Include(k => k.Klas).ThenInclude(l => l.KlasLeerkrachten).ThenInclude(kl => kl.Leerkracht).ToList();
+            //List<Sessie> SessiesVanLeerkracht = sessiesMetKlasEnleerkracht.Where(s => s.Klas.Leerkrachten.ToList().Contains(leerkracht)).ToList();
+            List<Sessie> SessiesVanLeerkracht = _context.Leerkrachten.FirstOrDefault(lk => lk.LeerkrachtId == leerkracht.LeerkrachtId).Sessies.ToList();
             return SessiesVanLeerkracht;
-
-         
-         
         }
 
         public void Add(Sessie sessie)

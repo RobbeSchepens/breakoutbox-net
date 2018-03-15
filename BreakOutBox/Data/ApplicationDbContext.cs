@@ -30,7 +30,7 @@ namespace BreakOutBox.Data
             builder.ApplyConfiguration(new KlasConfiguration());
             builder.ApplyConfiguration(new LeerkrachtConfiguration());
             builder.ApplyConfiguration(new LeerlingConfiguration());
-            builder.ApplyConfiguration(new KlasLeerkrachtConfiguration());
+            //builder.ApplyConfiguration(new KlasLeerkrachtConfiguration());
             builder.ApplyConfiguration(new GroepConfiguration());
             builder.ApplyConfiguration(new PadConfiguration());
             builder.ApplyConfiguration(new OpdrachtConfiguration());

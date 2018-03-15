@@ -9,33 +9,21 @@ namespace BreakOutBox.Models.Domain
         #region Properties
         public int KlasId { get; set; }
         public ICollection<Leerling> Leerlingen { get; set; }
-        public ICollection<KlasLeerkracht> KlasLeerkrachten { get; private set; }
-        public IEnumerable<Leerkracht> Leerkrachten => KlasLeerkrachten.Select(k => k.Leerkracht);
+        public Leerkracht Leerkracht { get; set; }
         public int NrOfLeerlingen => Leerlingen.Count;
-        public int NrOfLeerkrachten => KlasLeerkrachten.Count;
         #endregion
 
         #region Constructors
         public Klas()
         {
-            KlasLeerkrachten = new HashSet<KlasLeerkracht>();
+            Leerlingen = new HashSet<Leerling>();
         }
 
-        public Klas(ICollection<Leerling> leerlingen)
+        public Klas(ICollection<Leerling> leerlingen, Leerkracht leerkracht)
         {
             Leerlingen = leerlingen;
-            KlasLeerkrachten = new HashSet<KlasLeerkracht>();
+            Leerkracht = leerkracht;
         }
         #endregion
-
-        #region Methods
-
-    
-
-        public void VoegLeerkrachtToe(Leerkracht k)
-        {
-            KlasLeerkrachten.Add(new KlasLeerkracht(this, k));
-        }
-        #endregion Methods
     }
 }
