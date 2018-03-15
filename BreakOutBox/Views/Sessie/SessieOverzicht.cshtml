@@ -4,7 +4,7 @@
 }
 
 <div class="row">
-    <div class="col-12 col">
+    <div class="col-12 col text-center">
         <h2>Sessie: @Model.Omschrijving</h2>
     </div>
 </div>
@@ -12,8 +12,8 @@
 <div class="row">
     @foreach (var groep in Model.Groepen)
     {
-        <div class="sm-12 md-6 col">
-            <h4>Groep @(groep.GroepId)</h4>
+        <div class="sm-12 md-6 col groep">
+            <h4><i class="fas fa-users fa-sm marginright"></i> Groep @(groep.GroepId)</h4>
             <ul>
                 @foreach (var leerling in groep.Leerlingen)
                 {
@@ -47,9 +47,8 @@
     }
 </div>
 <div class="row">
-    <div class="sm-12 col">
+    <div class="sm-12 col text-center">
         <p>@TempData["message"]</p>
+        <p><a asp-controller="Spel" asp-action="SpelSpelen">Simuleer leerkracht start sessie</a></p>
     </div>
 </div>
-
-<a asp-controller="Spel" asp-action="SpelSpelen">Simuleer leerkracht start sessie</a>

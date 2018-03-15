@@ -41,6 +41,7 @@
 */
 html {
     height: 100%;
+    font-size: 16px;
 }
 
 body {
@@ -48,24 +49,43 @@ body {
     margin: 0;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    /* 072 Spiky Naga www.webgradients.com */
-    /*background-image: linear-gradient(to top, #505285 0%, #585e92 12%, #65689f 25%, #7474b0 37%, #7e7ebb 50%, #8389c7 62%, #9795d4 75%, #a2a1dc 87%, #b5aee4 100%);*/
-    background: #8c545c;
-    color: white;
+    background: rgba(0,0,0,0.05);
+    background: linear-gradient(to right, #b5c4d1, #d7dbdd);
+    color: #202020;
+    /*border-top: 10px solid #202020;*/
+    font-family: 'Bree Serif', serif;
 }
 
-a, #landing, a, a:hover, a:visited, a:active, .text-danger {
+h1, h2, h3, h4, h5, h6, a, button, input, option, p, select, table, tbody, td, textarea, th, thead, tr {
+    font-family: inherit;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+a, a, a:hover, a:visited, a:active, .text-danger {
     background-image: none;
-    color: white;
+    color: #202020;
 }
 
-#landing {
+#navigatie {
     padding-top: 0;
     padding-bottom: 0;
 }
 
-#landing input {
+.inputinline input {
     display: inline-block;
+}
+
+.nav {
+    margin-bottom: 0;
+}
+
+.bgcolorwhite {
+    background-color: rgba(255,255,255,0.75);
+    box-shadow: 0 7px 4px -6px rgba(0,0,0,0.5);
+    margin-bottom: 32px;
 }
 
 ul li, ul {
@@ -74,6 +94,7 @@ ul li, ul {
     margin: 0;
     padding: 0;
     text-indent: 0px;
+    line-height: 1.4rem;
 }
 
 nav ul li {
@@ -108,15 +129,38 @@ h2, h4 {
     margin: 0;
 }
 
+h4 {
+    margin-bottom: 10px;
+    /*text-shadow: 1px 1px 0px lightgray;*/
+}
+
 footer {
     margin: 60px 0 30px 0;
 }
 
-#RememberMe {
+#RememberMe, #Toegangscode {
     display: inline;
 }
 
 input, select, button, textarea {
-    border: 2px solid white;
-    color: white;
+    border: 2px solid #202020;
+    color: #404040;
+}
+
+.groep, .groep:hover {
+    /*box-shadow: 0 10px 20px -6px #9f9f9f;
+    border: 3px solid #9f9f9f;*/
+    text-align: center;
+}
+
+.groep:hover {
+    border-color: #202020;
+}
+.marginright {
+    margin-right: 10px;
+}
+
+object {
+    width: 100%;
+    margin-bottom: 30px;
 }

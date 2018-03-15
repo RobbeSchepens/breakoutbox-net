@@ -9,29 +9,36 @@
         @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />*@
         <link href="~/css/paper.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
     </environment>
     <environment exclude="Development">
         @*<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-            asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-            asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />*@
+        asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+        asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />*@
         <link href="https://unpkg.com/papercss@1.4.1/dist/paper.min.css" rel="stylesheet"
               asp-fallback-href="~/lib/paper/paper.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
     </environment>
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 </head>
 <body>
-    <div id="top" class="container row site">
-        <nav id="landing" class="sm-12 col">
-            <ul>
-                @await Html.PartialAsync("_LoginPartial")
-            </ul>
-        </nav>
+    <div class="bgcolorwhite">
+        <div class="container">
+            <div class="row nav">
+                <nav id="navigatie" class="sm-12 col inputinline">
+                    <ul>
+                        @await Html.PartialAsync("_LoginPartial")
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </div>
     <div class="container">
         @RenderBody()
         <footer class="text-center">
+            <p><a asp-controller="Sessie" asp-action="Index">Deelnemen aan andere sessie? Klik dan hier.</a></p>
             <p>&copy; 2018 - BreakOutBox</p>
         </footer>
     </div>

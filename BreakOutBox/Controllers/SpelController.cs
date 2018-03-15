@@ -38,48 +38,53 @@ namespace BreakOutBox.Controllers
         [HttpPost]
         public IActionResult SpelSpelen(SpelSpelenViewModel ssvm)
         {
-           if(ssvm.TellerFouteToegangscode > 3)
-            {
-                
-            }
+
 
             if (ModelState.IsValid)
-            {      
-                    try
-                    {
-                        Sessie s = _sessieRepository.GetBySessieCode(ssvm.sessieId); // sessieId = sessieCode (kan nog veranderd worden)
-                        Groep g = s.Groepen.Where(a => a.GroepId == ssvm.GroepId).FirstOrDefault();
-                        Opdracht huidigeOpdracht = g.Pad.Opdrachten.Where(a => a.OpdrachtId == ssvm.OpdrachtId).FirstOrDefault();
-                        Opdracht nieweOpdracht = g.Pad.getNextOpdracht(huidigeOpdracht);
-                        ssvm.Groep = g;
-                        ssvm.Sessie = s;
+            {
+                try
+                {
+                    Sessie s = _sessieRepository.GetBySessieCode(ssvm.sessieId); // sessieId = sessieCode (kan nog veranderd worden)
+                    Groep g = s.Groepen.Where(a => a.GroepId == ssvm.GroepId).FirstOrDefault();
+                    Opdracht huidigeOpdracht = g.Pad.Opdrachten.Where(a => a.OpdrachtId == ssvm.OpdrachtId).FirstOrDefault();
+                    Opdracht nieweOpdracht = g.Pad.getNextOpdracht(huidigeOpdracht);
+                    ssvm.Groep = g;
+                    ssvm.Sessie = s;
 
-                        if (ssvm.Toegangscode == huidigeOpdracht.Toegangscode.Code)
+                    if (ssvm.Groepsantwoord == huidigeOpdracht.Toegangscode.Code)
+                    {
+                        ssvm.Opdracht = nieweOpdracht;
+                        ssvm.TellerFoutePogingen = 0;
+                    }
+                    else
+                    {
+                        if (ssvm.TellerFoutePogingen > 2)
                         {
-                            ssvm.Opdracht = nieweOpdracht;
-                            ssvm.TellerFouteToegangscode = 0;
+                            var i = 0;
+                            // spel geblokkeerd en leerkracht moet het deblokkeren
                         }
                         else
                         {
-                            if(ssvm.TellerFouteToegangscode > 2)
-                            {
-                            var i = 0;
-                             // spel geblokkeerd en leerkracht moet het deblokkeren
-                            }
-                            else
-                            {
-                                ssvm.Opdracht = huidigeOpdracht;
-                                TempData["FouteCode"] = "FOUT! je hebt " + ssvm.TellerFouteToegangscode + " foute pogingen ondernomen";
-                            }             
+                            ssvm.Opdracht = huidigeOpdracht;
+                            TempData["FouteCode"] = "FOUT! je hebt " + ssvm.TellerFoutePogingen + " foute pogingen ondernomen";
                         }
+                       
                     }
-                    catch
+
+                    if (ssvm.TellerFoutePogingen > 3)
                     {
-                        ViewData["errorGeenVOlgendeOpdracht"] = "Er is geen volgende opdracht gevonden";
+
                     }
-                    
-                
-               
+
+
+                }
+                catch
+                {
+                    ViewData["errorGeenVOlgendeOpdracht"] = "Er is geen volgende opdracht gevonden";
+                }
+
+
+
             }
             return View(ssvm);
         }
