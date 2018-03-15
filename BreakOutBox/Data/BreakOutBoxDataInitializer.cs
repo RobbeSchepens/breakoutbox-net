@@ -225,7 +225,7 @@ namespace BreakOutBox.Data
 
             async Task CreateUser(string userName, string email, string password, string role)
             {
-                var user = new ApplicationUser { UserName = userName, Email = email , SecurityStamp = Guid.NewGuid().ToString() };
+                var user = new ApplicationUser { UserName = email, Email = email , SecurityStamp = Guid.NewGuid().ToString() };
                 await _userManager.CreateAsync(user, password);
                // await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, role));
             }

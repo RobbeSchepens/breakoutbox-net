@@ -12,7 +12,7 @@ namespace BreakOutBox.Models.SpelViewModels
     {
 
 
-        //[Required]
+        [Required(ErrorMessage ="Je moet een toegangscode ingeven")]
         [Display(Name = "Toegangscode voor de volgende oefening")]   
         public int Toegangscode { get; set; }
 
