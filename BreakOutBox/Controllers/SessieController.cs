@@ -39,7 +39,7 @@ namespace BreakOutBox.Controllers
                         TempData["message"] = $"Deze sessie werd niet gevonden. Heb je de juiste code ingegeven?";
                     else
                     {
-                        if(sessie.State != 0)
+                        if (sessie.State != 0)
                             return RedirectToAction("SessieOverzicht", new { id = ivm.SessieCode });
                         else
                             TempData["message"] = $"Deze sessie is nog niet geactiveerd.";
@@ -61,12 +61,10 @@ namespace BreakOutBox.Controllers
         }
 
         [HttpGet]
-            public IActionResult SpelOverzicht(string id)
+        public IActionResult SpelOverzicht(string id)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
-
             TempData["message"] = $"Groep {id}";
-
             return View(sessie);
         }
 
@@ -83,7 +81,7 @@ namespace BreakOutBox.Controllers
                         TempData["message2"] = "Probeer opnieuw";
                         return View();
                     }
-                    return RedirectToAction("SpelOverzicht", new { id = id});
+                    return RedirectToAction("SpelOverzicht", new { id });
                 }
                 catch (Exception e)
                 {
@@ -92,7 +90,7 @@ namespace BreakOutBox.Controllers
             }
             return View();
         }
-        
+
         public IActionResult ZetGroepGereed(int groepid)
         {
             if (ModelState.IsValid)

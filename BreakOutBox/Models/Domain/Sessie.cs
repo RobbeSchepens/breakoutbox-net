@@ -24,6 +24,7 @@ namespace BreakOutBox.Models.Domain
         #region Constructors
         public Sessie()
         {
+            SwitchState(State);
         }
 
         public Sessie(string code, string naam, string omschrijving, ICollection<Groep> groepen, Box box, int state)
@@ -33,23 +34,8 @@ namespace BreakOutBox.Models.Domain
             Omschrijving = omschrijving;
             Groepen = groepen;
             Box = box;
-
-            switch (state)
-            {
-                case 0:
-                    ToState(new SessieNonActiefState(this));
-                    State = 0;
-                    break;
-                case 1:
-                    ToState(new SessieActiefState(this));
-                    State = 1;
-                    break;
-                case 2:
-                    ToState(new SessieInSpelState(this));
-                    State = 2;
-                    break;
-                default: goto case 0;
-            }
+            SwitchState(state);
+            State = state;
         }
         #endregion
 
@@ -57,6 +43,23 @@ namespace BreakOutBox.Models.Domain
         protected void ToState(SessieState state)
         {
             _currentState = state;
+        }
+
+        public void SwitchState(int st)
+        {
+            switch (st)
+            {
+                case 0:
+                    ToState(new SessieNonActiefState(this));
+                    break;
+                case 1:
+                    ToState(new SessieActiefState(this));
+                    break;
+                case 2:
+                    ToState(new SessieInSpelState(this));
+                    break;
+                default: goto case 0;
+            }
         }
 
         public void Activeer()
