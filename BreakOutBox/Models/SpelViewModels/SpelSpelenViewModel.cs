@@ -25,6 +25,7 @@ namespace BreakOutBox.Models.SpelViewModels
         public int OpdrachtId { get; set; }
         public string sessieId { get; set; }
 
+        public int TellerFouteToegangscode { get; set; }
 
         public SpelSpelenViewModel()
         {
@@ -35,6 +36,8 @@ namespace BreakOutBox.Models.SpelViewModels
             this.Sessie = sessie;
             this.Groep = groep;
             this.Opdracht = Groep.Pad.Opdrachten.ToList()[0];
+            TellerFouteToegangscode = 0;
+            
 
         }
 

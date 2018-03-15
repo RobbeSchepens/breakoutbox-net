@@ -38,35 +38,48 @@ namespace BreakOutBox.Controllers
         [HttpPost]
         public IActionResult SpelSpelen(SpelSpelenViewModel ssvm)
         {
-           
+           if(ssvm.TellerFouteToegangscode > 3)
+            {
+                
+            }
 
             if (ModelState.IsValid)
-            {
-                try
-                {
+            {      
                     try
                     {
                         Sessie s = _sessieRepository.GetBySessieCode(ssvm.sessieId); // sessieId = sessieCode (kan nog veranderd worden)
                         Groep g = s.Groepen.Where(a => a.GroepId == ssvm.GroepId).FirstOrDefault();
-
-                        Opdracht vorigeOpdracht = g.Pad.Opdrachten.Where(a => a.OpdrachtId == ssvm.OpdrachtId).FirstOrDefault();
-                        Opdracht nieweOpdracht = g.Pad.getNextOpdracht(vorigeOpdracht);
-
-                        ssvm.Opdracht = nieweOpdracht;
+                        Opdracht huidigeOpdracht = g.Pad.Opdrachten.Where(a => a.OpdrachtId == ssvm.OpdrachtId).FirstOrDefault();
+                        Opdracht nieweOpdracht = g.Pad.getNextOpdracht(huidigeOpdracht);
                         ssvm.Groep = g;
                         ssvm.Sessie = s;
 
+                        if (ssvm.Toegangscode == huidigeOpdracht.Toegangscode.Code)
+                        {
+                            ssvm.Opdracht = nieweOpdracht;
+                            ssvm.TellerFouteToegangscode = 0;
+                        }
+                        else
+                        {
+                            if(ssvm.TellerFouteToegangscode > 2)
+                            {
+                            var i = 0;
+                             // spel geblokkeerd en leerkracht moet het deblokkeren
+                            }
+                            else
+                            {
+                                ssvm.Opdracht = huidigeOpdracht;
+                                TempData["FouteCode"] = "FOUT! je hebt " + ssvm.TellerFouteToegangscode + " foute pogingen ondernomen";
+                            }             
+                        }
                     }
                     catch
                     {
                         ViewData["errorGeenVOlgendeOpdracht"] = "Er is geen volgende opdracht gevonden";
                     }
                     
-                }
-                catch (Exception e)
-                {
-                    ModelState.AddModelError("", e.Message);
-                }
+                
+               
             }
             return View(ssvm);
         }

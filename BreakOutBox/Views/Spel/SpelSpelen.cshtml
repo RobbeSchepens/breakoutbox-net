@@ -9,7 +9,7 @@
                     <h1>Break Out Box</h1>
                     <form method="post">
 
-                        <p>Oefening naam: @Model.Opdracht.Oefening.Naam</p>
+                        <p>@Model.Opdracht.Oefening.Naam</p>
                         <p>Vak: @Model.Opdracht.Oefening.Vak.Naam</p>
                         <p></p>
 
@@ -25,9 +25,10 @@
 
                         </div>
                         <p><label asp-for="Toegangscode"></label></p>
-                        <p><input asp-for="Toegangscode" type="text" class="form-control" autocomplete="off" /></p>
+                        <p><input id="Toegangscode" asp-for="Toegangscode" type="text" class="form-control" autocomplete="off" value="" /></p>
                         <p><span asp-validation-for="Toegangscode" class="text-danger"></span></p>
                         
+                        <p>@TempData["FouteCode"]</p>
                         @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
                         <p><button type="submit" class="">Ga verder</button></p>
 
@@ -35,6 +36,7 @@
                             <p><input asp-for="OpdrachtId" type="text" class="form-control" autocomplete="off" value="@Model.Opdracht.OpdrachtId"/></p>
                             <p><input asp-for="GroepId" type="text" class="form-control" autocomplete="off" value="@Model.Groep.GroepId" /></p>
                             <p><input asp-for="sessieId" type="text" class="form-control" autocomplete="off" value="@Model.Sessie.Code" /></p>
+                            <p><input asp-for="TellerFouteToegangscode" type="text" class="form-control" autocomplete="off" value="@(Model.TellerFouteToegangscode + 1)" /></p>
 
                         </div>
 
