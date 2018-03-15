@@ -1,6 +1,5 @@
 ﻿@model BreakOutBox.Models.SessieViewModels.IndexViewModel
 @{
-    Layout = null;
     ViewData["Title"] = "Welcome";
 }
 
@@ -27,33 +26,17 @@
     </environment>
 </head>
 <body>
-    <div id="top" class="container row site">
-        <nav id="landing" class="sm-12 col">
-            <ul>
-                @await Html.PartialAsync("_LoginPartial")
-            </ul>
-        </nav>
+    <div class="inputinline text-center">
+        <h1>Break Out Box</h1>
+        <form method="post">
+            <p><label asp-for="SessieCode"></label></p>
+            <p><input asp-for="SessieCode" type="text" class="form-control" autocomplete="off" /></p>
+            <p><span asp-validation-for="SessieCode" class="text-danger"></span></p>
+            <p>@TempData["message"]</p>
+            @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
+            <p><button type="submit" class="">Ga verder</button></p>
+        </form>
     </div>
-    <div class="row site">
-        <div id="landing" class="sm-12 col">
-            <div class="demo-title">
-                <div class="row flex-center">
-                    <div class="text-center">
-                        <h1>Break Out Box</h1>
-                        <form method="post">
-                            <p><label asp-for="SessieCode"></label></p>
-                            <p><input asp-for="SessieCode" type="text" class="form-control" autocomplete="off" /></p>
-                            <p><span asp-validation-for="SessieCode" class="text-danger"></span></p>
-                            <p>@TempData["message"]</p>
-                            @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
-                            <p><button type="submit" class="">Ga verder</button></p>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         @*<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>*@
