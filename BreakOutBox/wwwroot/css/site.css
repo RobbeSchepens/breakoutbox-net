@@ -144,7 +144,7 @@ footer {
 
 input, select, button, textarea {
     border: 2px solid #202020;
-    color: #404040;
+    color: #202020;
 }
 
 .groep, .groep:hover {

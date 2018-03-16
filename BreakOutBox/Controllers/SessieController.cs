@@ -53,10 +53,22 @@ namespace BreakOutBox.Controllers
             return View();
         }
 
+        //[HttpGet]
+        //public IActionResult SessieOverzicht(string id)
+        //{
+        //    Sessie sessie = _sessieRepository.GetBySessieCode(id);
+        //    return View(sessie);
+        //}
+
         [HttpGet]
-        public IActionResult SessieOverzicht(string id)
+        public IActionResult SessieOverzicht(string id, int? groepid = null)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
+            if (groepid != null)
+            {
+                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+                ViewBag.GeselecteerdeGroep = groep;
+            }
             return View(sessie);
         }
 
@@ -109,7 +121,7 @@ namespace BreakOutBox.Controllers
                     TempData["message"] = $"Deze groep werd al gekozen.";
                 }
             }
-            return RedirectToAction(nameof(SessieOverzicht), new { id = "ABC" });
+            return RedirectToAction(nameof(SessieOverzicht), new { id = "ABC", groepid });
         }
 
         public IActionResult ZetGroepNietGereed(int groepid)

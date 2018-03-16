@@ -8,8 +8,11 @@
         <h2>Sessie: @Model.Omschrijving</h2>
     </div>
 </div>
-
 <div class="row">
+    <div class="col-12 col text-center">
+        <p>Kies jouw groep en maak je klaar voor de start.</p>
+        <p>Lees ondertussen ook de spelregels door. Deze vind je onderaan de pagina.</p>
+    </div>
     @foreach (var groep in Model.Groepen)
     {
         <div class="sm-12 md-6 col groep">
@@ -26,7 +29,7 @@
                     <li>
                         @Html.ActionLink("Klik hier om de groep terug te ontgrendelen", "OntgrendelGroep", "Sessie", new { groepId = groep.GroepId }, "")
                     </li>*@
-                @if (groep.State == 0 && groep.State != 2)
+                @if (groep.State == 0 && groep.State != 2 && ViewBag.GeselecteerdeGroep == null)
                 {
                     <li>
                         <a href="@Url.Action("ZetGroepGereed", "Sessie", new { groepId = groep.GroepId })">
@@ -34,7 +37,7 @@
                         </a>
                     </li>
                 }
-                @if (groep.State == 1 && groep.State != 2)
+                @if (groep.State == 1 && groep.State != 2 && ViewBag.GeselecteerdeGroep != null && ViewBag.GeselecteerdeGroep.GroepId == groep.GroepId)
                 {
                     <li>
                         <a href="@Url.Action("ZetGroepNietGereed", "Sessie", new { groepId = groep.GroepId })">
