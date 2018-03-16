@@ -77,6 +77,8 @@ namespace BreakOutBox.Models.Domain
         {
             try
             {
+                if (_currentState is GroepGereedState)
+                    throw new Exception("Deze groep is al gekozen");
                 _currentState.ZetGereed();
                 ToState(new GroepGereedState(this));
                 State = 1;

@@ -16,11 +16,7 @@ namespace BreakOutBox.Controllers
         {
             _sessieRepository = sessieRepository;
         }
-
-        #region MyRegion
-
-        #endregion
-
+        
         [HttpGet]
         public IActionResult Index()
         {
@@ -111,6 +107,7 @@ namespace BreakOutBox.Controllers
                 {
                     Sessie sessie = _sessieRepository.GetBySessieCode(sessiecode);
                     Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+                    groep.SwitchState(groep.State);
                     groep.ZetGereed();
                     _sessieRepository.SaveChanges();
                     TempData["message"] = $"Je hebt groep {groep.GroepId} gekozen.";
@@ -119,6 +116,7 @@ namespace BreakOutBox.Controllers
                 {
                     //ModelState.AddModelError("", e.Message);
                     TempData["message"] = $"Deze groep werd al gekozen.";
+                    return RedirectToAction(nameof(SessieOverzicht), new { sessiecode });
                 }
             }
             return RedirectToAction(nameof(SessieOverzicht), new { sessiecode, groepid });
