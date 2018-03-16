@@ -8,7 +8,7 @@ namespace BreakOutBox.Models.Domain
 {
     public class Bewerking
     {
-        public BewerkingMogenlijkheden BewerkingMogenlijkheden { get; set; }
+        //public BewerkingMogenlijkheden BewerkingMogenlijkheden { get; set; }
         public double GetalBewerking { get; set; }
         public Bewerking()
         {
