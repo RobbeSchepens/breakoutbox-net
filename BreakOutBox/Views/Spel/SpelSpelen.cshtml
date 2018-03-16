@@ -3,7 +3,7 @@
     ViewData["Title"] = Model.Opdracht.Oefening.Naam;
     var progressie = Model.Groep.Pad.getProgressie(Model.Opdracht);
     var progressiePercentage = ((((decimal)progressie[1] + 1) / ((decimal)progressie[0])) * 100);
-    var progressiePercentageCompleted = System.Math.Round(progressiePercentage, 0) - ((decimal)100 / progressie[0]);
+    var progressiePercentageCompleted = (int)(System.Math.Round(progressiePercentage, 0) - ((decimal)100 / progressie[0]));
 }
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -22,7 +22,7 @@
             <p>
                 <div class="w3-container">
                     <div class="w3-light-grey" style="width:60%;margin: auto;">
-                        <div class="w3-container w3-blue w3-center" style="width:@((int)progressiePercentageCompleted)%"><span style="color:black">@(progressiePercentageCompleted)%&nbsp;correct&nbsp;opgelost</span></div>
+                        <div class="w3-container w3-blue w3-center" style="width:@((int)progressiePercentageCompleted)%"><span style="color:black">@((int)(progressiePercentageCompleted))%&nbsp;correct&nbsp;opgelost</span></div>
                     </div>
                 </div>
             </p>
