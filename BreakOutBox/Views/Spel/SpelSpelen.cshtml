@@ -1,14 +1,34 @@
 ﻿@model BreakOutBox.Models.SpelViewModels.SpelSpelenViewModel
 @{
     ViewData["Title"] = Model.Opdracht.Oefening.Naam;
+    var progressie = Model.Groep.Pad.getProgressie(Model.Opdracht);
+    var progressiePercentage = ((((decimal)progressie[1] + 1) / ((decimal)progressie[0])) * 100);
 }
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- Latest compiled and minified CSS -->
+@*width:@(progressie[1] / progressie[0])%
+<span class="sr-only"></span>*@
 
 <div class="row">
     <div class="sm-12 col text-center">
         <h2>@Model.Opdracht.Oefening.Naam</h2>
         <form method="post">
             <p>@Model.Opdracht.Oefening.Vak.Naam</p>
-            <p></p>
+
+            <p>
+              opdracht @(progressie[1] + 1) van @(progressie[0])
+            </p>
+          
+            <p>    
+
+            <div class="w3-container">
+                <div class="w3-light-grey w3-round">
+                    <div class="w3-container w3-blue w3-round" style="width:@((int)progressiePercentage)%">@(System.Math.Round(progressiePercentage, 1))%</div>
+                </div>
+            </div>
+                
+            </p>
             <div>
                 <div id="pdf">
                     <object height="750" type="application/pdf" data="~/opdrachtenG1/@Model.Opdracht.Oefening.Opgave" id="pdf_content"></object>

@@ -33,5 +33,14 @@ namespace BreakOutBox.Models.Domain
             int indexCurrent = Opdrachten.ToList().IndexOf(opdracht);
             return Opdrachten.ToList()[indexCurrent+1];
         }
+
+        public List<int> getProgressie(Opdracht huidigeOpdracht)
+        {
+            List<int> progressieList = new List<int>(); // elem 1 is het vraagnummer waaraan de groep zit, elem 2 het totaal aantal vragen
+            progressieList.Add(Opdrachten.Count);
+            progressieList.Add(Opdrachten.ToList().IndexOf(huidigeOpdracht));
+            return progressieList;
+        }
+
     }
 }
