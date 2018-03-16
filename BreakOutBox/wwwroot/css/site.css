@@ -157,7 +157,7 @@ input, select, button, textarea {
     border-color: #202020;
 }
 .marginright {
-    margin-right: 10px;
+    margin-right: 0.5em;
 }
 
 object {

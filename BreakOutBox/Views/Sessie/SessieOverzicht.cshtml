@@ -45,13 +45,21 @@
                         </a>
                     </li>
                 }
+                @if (groep.State == 1 && groep.State != 2 && ViewBag.GeselecteerdeGroep == null)
+                {
+                    <li>Een andere groep heeft deze groep al gekozen</li>
+                }
+                @if (groep.State == 2)
+                {
+                    <li>Deze groep is vergrendeld</li>
+                }
             </ul>
         </div>
     }
 </div>
 <div class="row">
     <div class="sm-12 col text-center">
-        <p>@TempData["message"]</p>
+        <p>@if (TempData.Count != 0) {<i class="fas fa-exclamation-triangle fa-sm marginright"></i> @TempData["message"]}</p>
         <p><a asp-controller="Spel" asp-action="SpelSpelen">Simuleer leerkracht start sessie</a></p>
     </div>
 </div>
