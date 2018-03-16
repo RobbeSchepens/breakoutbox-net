@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BreakOutBox.Models.Domain
+using BreakOutBox.Models.Domain;
 
 namespace BreakOutBox.Models.Domain
 {
