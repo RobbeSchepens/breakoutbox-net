@@ -91,6 +91,7 @@ namespace BreakOutBox.Data
                 for(int z = 0; z < 8; z++)
                 {
                     opdrachtenGroep1[z].Oefening.Opgave = "opdracht" + (z+1) + "G1.pdf";
+                    opdrachtenGroep1[z].Oefening.Antwoord = z + 200;
                 }
 
 
@@ -113,6 +114,7 @@ namespace BreakOutBox.Data
                 for (int i = 0; i < 8; i++)
                 {
                     opdrachtenGroep2[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i + 8];
+                    opdrachtenGroep1[i].Oefening.Antwoord = (i + 8) + 200;
                 }
                 _dbContext.SaveChanges();
 
@@ -129,6 +131,7 @@ namespace BreakOutBox.Data
                 for (int i = 0; i < 8; i++)
                 {
                     opdrachtenGroep3[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i + 16];
+                    opdrachtenGroep1[i].Oefening.Antwoord = (i + 16) + 200;
                 }
                 _dbContext.SaveChanges();
 
@@ -145,6 +148,7 @@ namespace BreakOutBox.Data
                 for (int i = 0; i < 8; i++)
                 {
                     opdrachtenGroep4[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i + 24];
+                    opdrachtenGroep1[i].Oefening.Antwoord = (i + 24) + 200;
                 }
                 _dbContext.SaveChanges();
 
@@ -161,6 +165,7 @@ namespace BreakOutBox.Data
                 for (int i = 0; i < 8; i++)
                 {
                     opdrachtenGroep5[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i + 32];
+                    opdrachtenGroep1[i].Oefening.Antwoord = (i + 32) + 200;
                 }
                 _dbContext.SaveChanges();
 
