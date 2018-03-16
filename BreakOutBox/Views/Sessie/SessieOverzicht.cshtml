@@ -87,12 +87,6 @@
             return Convert.ToBase64String(encoded);
         }
 
-        public static string Decode(string decodeMe)
-        {
-            byte[] encoded = Convert.FromBase64String(decodeMe);
-            return System.Text.Encoding.UTF8.GetString(encoded);
-        }
-
-
+       
 
 }

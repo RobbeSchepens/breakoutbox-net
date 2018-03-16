@@ -59,9 +59,7 @@ namespace BreakOutBox.Controllers
         [HttpGet]
         public IActionResult SessieOverzicht(string sessiecode, string groepid)
         {
-            
-
-
+           
             Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
             if (groepid != null)
             {
