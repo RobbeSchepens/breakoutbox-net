@@ -18,10 +18,10 @@ namespace BreakOutBox.Controllers
         }
 
         [HttpGet]
-        public IActionResult SpelSpelen(string sessiecode, int? groepid = null)
+        public IActionResult SpelSpelen(string sessiecode, string groepid)
         {
-            Sessie sessie = _sessieRepository.GetBySessieCode(sessiecode);
-            Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+            Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
+            Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid)));
             return View(new SpelSpelenViewModel(sessie, groep));
 
             //int nummerGroep = 1;
@@ -80,5 +80,10 @@ namespace BreakOutBox.Controllers
             return View(ssvm);
         }
 
+        public static string Decode(string decodeMe)
+        {
+            byte[] encoded = Convert.FromBase64String(decodeMe);
+            return System.Text.Encoding.UTF8.GetString(encoded);
+        }
     }
 }

@@ -145,9 +145,21 @@ namespace BreakOutBox.Controllers
             return RedirectToAction(nameof(SessieOverzicht), new { sessiecode });
         }
 
-        public IActionResult StartSpel(string sessiecode, int groepid)
+        public IActionResult StartSpel(string sessiecode, string groepid)
         {
+
+            sessiecode = Encode(sessiecode);
+            groepid = Encode(groepid);
+
             return RedirectToAction(nameof(SpelController.SpelSpelen), "Spel", new { sessiecode, groepid });
         }
+
+        public string Encode(string encodeMe)
+        {
+            byte[] encoded = System.Text.Encoding.UTF8.GetBytes(encodeMe);
+            return Convert.ToBase64String(encoded);
+        }
+
+        
     }
 }
