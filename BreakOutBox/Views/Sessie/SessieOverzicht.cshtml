@@ -32,7 +32,7 @@
                 @if (groep.State == 0 && groep.State != 2 && ViewBag.GeselecteerdeGroep == null)
                 {
                     <li>
-                        <a href="@Url.Action("ZetGroepGereed", "Sessie", new { sessiecode = Model.Code, groepId = groep.GroepId })">
+                        <a href="@Url.Action("ZetGroepGereed", "Sessie", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })">
                             <i class="fas fa-angle-double-right"></i> Klik hier als dit jouw groep is
                         </a>
                     </li>
@@ -40,7 +40,7 @@
                 @if (groep.State == 1 && groep.State != 2 && ViewBag.GeselecteerdeGroep != null && ViewBag.GeselecteerdeGroep.GroepId == groep.GroepId)
                 {
                     <li>
-                        <a href="@Url.Action("ZetGroepNietGereed", "Sessie", new { sessiecode = Model.Code, groepId = groep.GroepId })">
+                        <a href="@Url.Action("ZetGroepNietGereed", "Sessie", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })">
                             <i class="fas fa-angle-double-right"></i> Klik hier om de groep te deselecteren
                         </a>
                     </li>
@@ -66,7 +66,7 @@
         <p>
             @if (ViewBag.GeselecteerdeGroep != null)
             {
-                <a href="@Url.Action("StartSpel", "Sessie", new { sessiecode = Model.Code, groepId = ViewBag.GeselecteerdeGroep.GroepId.ToString() })">Simuleer leerkracht start sessie</a>
+                <a href="@Url.Action("StartSpel", "Sessie", new { sessiecode = Model.Code, groepId = Encode(ViewBag.GeselecteerdeGroep.GroepId.ToString()) })">Simuleer leerkracht start sessie</a>
             }
             @*<a asp-controller="Spel" asp-action="SpelSpelen" asp-route="">Simuleer leerkracht start sessie</a>*@
         </p>
@@ -79,3 +79,20 @@
         </div>
     </div>
 </div>
+
+@functions{ 
+ public string Encode(string encodeMe)
+        {
+            byte[] encoded = System.Text.Encoding.UTF8.GetBytes(encodeMe);
+            return Convert.ToBase64String(encoded);
+        }
+
+        public static string Decode(string decodeMe)
+        {
+            byte[] encoded = Convert.FromBase64String(decodeMe);
+            return System.Text.Encoding.UTF8.GetString(encoded);
+        }
+
+
+
+}

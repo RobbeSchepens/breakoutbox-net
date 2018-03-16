@@ -57,7 +57,7 @@ namespace BreakOutBox.Controllers
         //}
 
         [HttpGet]
-        public IActionResult SessieOverzicht(string sessiecode, int? groepid = null)
+        public IActionResult SessieOverzicht(string sessiecode, string groepid)
         {
             
 
@@ -66,8 +66,8 @@ namespace BreakOutBox.Controllers
             if (groepid != null)
             {
 
-
-                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+                groepid = (Decode(groepid)); // decoderen van groepId indien deze is gegeven
+                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                 ViewBag.GeselecteerdeGroep = groep;
             }
             return View(sessie);
@@ -106,16 +106,15 @@ namespace BreakOutBox.Controllers
         #endregion
 
         public IActionResult ZetGroepGereed(string sessiecode, string groepid)
-        {
-            
+        {          
             sessiecode = Encode(sessiecode);
-
+        
             if (ModelState.IsValid)
             {
                 try
                 {
                     Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
-                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid)));
                     groep.SwitchState(groep.State);
                     groep.ZetGereed();
                     _sessieRepository.SaveChanges();
@@ -128,6 +127,8 @@ namespace BreakOutBox.Controllers
                     return RedirectToAction(nameof(SessieOverzicht), new { sessiecode });
                 }
             }
+
+            
             return RedirectToAction(nameof(SessieOverzicht), new { sessiecode, groepid });
         }
 
@@ -141,7 +142,7 @@ namespace BreakOutBox.Controllers
                 try
                 {
                     Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
-                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid)));
                     groep.SwitchState(groep.State);
                     groep.ZetNietGereed();
                     _sessieRepository.SaveChanges();
