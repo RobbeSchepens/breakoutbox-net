@@ -164,3 +164,7 @@ object {
     width: 100%;
     margin-bottom: 30px;
 }
+
+#pdf_content {
+    box-shadow: 0 7px 4px -6px rgba(0,0,0,0.5);
+}
