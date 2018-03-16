@@ -40,7 +40,7 @@ namespace BreakOutBox.Controllers
                     else
                     {
                         if (sessie.State != 0)
-                            return RedirectToAction("SessieOverzicht", new { id = ivm.SessieCode });
+                            return RedirectToAction("SessieOverzicht", new { sessiecode = ivm.SessieCode });
                         else
                             TempData["message"] = $"Deze sessie is nog niet geactiveerd.";
                     }
@@ -54,16 +54,16 @@ namespace BreakOutBox.Controllers
         }
 
         //[HttpGet]
-        //public IActionResult SessieOverzicht(string id)
+        //public IActionResult SessieOverzicht(string sessiecode)
         //{
-        //    Sessie sessie = _sessieRepository.GetBySessieCode(id);
+        //    Sessie sessie = _sessieRepository.GetBySessieCode(sessiecode);
         //    return View(sessie);
         //}
 
         [HttpGet]
-        public IActionResult SessieOverzicht(string id, int? groepid = null)
+        public IActionResult SessieOverzicht(string sessiecode, int? groepid = null)
         {
-            Sessie sessie = _sessieRepository.GetBySessieCode(id);
+            Sessie sessie = _sessieRepository.GetBySessieCode(sessiecode);
             if (groepid != null)
             {
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
@@ -72,44 +72,44 @@ namespace BreakOutBox.Controllers
             return View(sessie);
         }
 
-        [HttpGet]
-        public IActionResult SpelOverzicht(string id)
-        {
-            Sessie sessie = _sessieRepository.GetBySessieCode(id);
-            TempData["message"] = $"Groep {id}";
-            return View(sessie);
-        }
+        //[HttpGet]
+        //public IActionResult SpelOverzicht(string sessiecode)
+        //{
+        //    Sessie sessie = _sessieRepository.GetBySessieCode(sessiecode);
+        //    TempData["message"] = $"Groep {sessiecode}";
+        //    return View(sessie);
+        //}
 
-        [HttpPost]
-        public IActionResult SpelOverzicht(IndexViewModel ivm, string id)
+        //[HttpPost]
+        //public IActionResult SpelOverzicht(IndexViewModel ivm, string sessiecode)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            Sessie sessie = _sessieRepository.GetBySessieCode(sessiecode);
+        //            if (sessie == null)
+        //            {
+        //                TempData["message2"] = "Probeer opnieuw";
+        //                return View();
+        //            }
+        //            return RedirectToAction("SpelOverzicht", new { sessiecode });
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            ModelState.AddModelError("", e.Message);
+        //        }
+        //    }
+        //    return View();
+        //}
+
+        public IActionResult ZetGroepGereed(string sessiecode, int groepid)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Sessie sessie = _sessieRepository.GetBySessieCode(id);
-                    if (sessie == null)
-                    {
-                        TempData["message2"] = "Probeer opnieuw";
-                        return View();
-                    }
-                    return RedirectToAction("SpelOverzicht", new { id });
-                }
-                catch (Exception e)
-                {
-                    ModelState.AddModelError("", e.Message);
-                }
-            }
-            return View();
-        }
-
-        public IActionResult ZetGroepGereed(int groepid)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    Sessie sessie = _sessieRepository.GetBySessieCode("ABC");
+                    Sessie sessie = _sessieRepository.GetBySessieCode(sessiecode);
                     Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
                     groep.ZetGereed();
                     _sessieRepository.SaveChanges();
@@ -121,16 +121,16 @@ namespace BreakOutBox.Controllers
                     TempData["message"] = $"Deze groep werd al gekozen.";
                 }
             }
-            return RedirectToAction(nameof(SessieOverzicht), new { id = "ABC", groepid });
+            return RedirectToAction(nameof(SessieOverzicht), new { sessiecode, groepid });
         }
 
-        public IActionResult ZetGroepNietGereed(int groepid)
+        public IActionResult ZetGroepNietGereed(string sessiecode, int groepid)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Sessie sessie = _sessieRepository.GetBySessieCode("ABC");
+                    Sessie sessie = _sessieRepository.GetBySessieCode(sessiecode);
                     Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
                     groep.SwitchState(groep.State);
                     groep.ZetNietGereed();
@@ -142,7 +142,12 @@ namespace BreakOutBox.Controllers
                     ModelState.AddModelError("", e.Message);
                 }
             }
-            return RedirectToAction(nameof(SessieOverzicht), new { id = "ABC" });
+            return RedirectToAction(nameof(SessieOverzicht), new { sessiecode });
+        }
+
+        public IActionResult StartSpel(string sessiecode, int groepid)
+        {
+            return RedirectToAction(nameof(SpelController.SpelSpelen), "Spel", new { sessiecode, groepid });
         }
     }
 }

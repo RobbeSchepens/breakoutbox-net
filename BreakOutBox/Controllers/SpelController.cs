@@ -18,28 +18,25 @@ namespace BreakOutBox.Controllers
         }
 
         [HttpGet]
-        public IActionResult SpelSpelen()
+        public IActionResult SpelSpelen(string sessiecode, int? groepid = null)
         {
-            int nummerGroep = 1;
-            string sessieCode = "ABC"; // deze 2 moeten op een speciale manier worden geimporteerd
-            Sessie s = _sessieRepository.GetBySessieCode(sessieCode);
-            Groep groep = s.Groepen.ToList()[nummerGroep - 1];
+            Sessie sessie = _sessieRepository.GetBySessieCode(sessiecode);
+            Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+            return View(new SpelSpelenViewModel(sessie, groep));
 
-
-
-
-            return View(new SpelSpelenViewModel(s, groep));
-
-            // return RedirectToAction("SpelSpelen", new {ssvm = new SpelSpelenViewModel(s, groep) });
-            // return RedirectToAction("SpelSpelen",  new { ssvm = new SpelSpelenViewModel(s, groep) });
-            // new SpelSpelenViewModel(s, groep)
-
+            //int nummerGroep = 1;
+            //string sessieCode = "ABC"; // deze 2 moeten op een speciale manier worden geimporteerd
+            //Sessie s = _sessieRepository.GetBySessieCode(sessieCode);
+            //Groep groep = s.Groepen.ToList()[nummerGroep - 1];
+            //return View(new SpelSpelenViewModel(s, groep));
+            //return RedirectToAction("SpelSpelen", new { ssvm = new SpelSpelenViewModel(s, groep) });
+            //return RedirectToAction("SpelSpelen", new { ssvm = new SpelSpelenViewModel(s, groep) });
+            //new SpelSpelenViewModel(s, groep)
         }
+
         [HttpPost]
         public IActionResult SpelSpelen(SpelSpelenViewModel ssvm)
         {
-
-
             if (ModelState.IsValid)
             {
                 try
@@ -68,23 +65,17 @@ namespace BreakOutBox.Controllers
                             ssvm.Opdracht = huidigeOpdracht;
                             TempData["FouteCode"] = "FOUT! je hebt " + ssvm.TellerFoutePogingen + " foute pogingen ondernomen";
                         }
-                       
+
                     }
 
                     if (ssvm.TellerFoutePogingen > 3)
                     {
-
                     }
-
-
                 }
                 catch
                 {
                     ViewData["errorGeenVOlgendeOpdracht"] = "Er is geen volgende opdracht gevonden";
                 }
-
-
-
             }
             return View(ssvm);
         }
