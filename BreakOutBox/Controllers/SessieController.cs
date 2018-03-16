@@ -36,7 +36,7 @@ namespace BreakOutBox.Controllers
                     else
                     {
                         if (sessie.State != 0)
-                            return RedirectToAction("SessieOverzicht", new { sessiecode = ivm.SessieCode });
+                            return RedirectToAction("SessieOverzicht", new { sessiecode = Encode(ivm.SessieCode) });
                         else
                             TempData["message"] = $"Deze sessie is nog niet geactiveerd.";
                     }
@@ -59,15 +59,20 @@ namespace BreakOutBox.Controllers
         [HttpGet]
         public IActionResult SessieOverzicht(string sessiecode, int? groepid = null)
         {
-            Sessie sessie = _sessieRepository.GetBySessieCode(sessiecode);
+            
+
+
+            Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
             if (groepid != null)
             {
+
+
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
                 ViewBag.GeselecteerdeGroep = groep;
             }
             return View(sessie);
         }
-
+        #region  commentsSpelOverzicht
         //[HttpGet]
         //public IActionResult SpelOverzicht(string sessiecode)
         //{
@@ -98,15 +103,19 @@ namespace BreakOutBox.Controllers
         //    }
         //    return View();
         //}
+        #endregion
 
-        public IActionResult ZetGroepGereed(string sessiecode, int groepid)
+        public IActionResult ZetGroepGereed(string sessiecode, string groepid)
         {
+            
+            sessiecode = Encode(sessiecode);
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Sessie sessie = _sessieRepository.GetBySessieCode(sessiecode);
-                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+                    Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
+                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                     groep.SwitchState(groep.State);
                     groep.ZetGereed();
                     _sessieRepository.SaveChanges();
@@ -122,14 +131,17 @@ namespace BreakOutBox.Controllers
             return RedirectToAction(nameof(SessieOverzicht), new { sessiecode, groepid });
         }
 
-        public IActionResult ZetGroepNietGereed(string sessiecode, int groepid)
+        public IActionResult ZetGroepNietGereed(string sessiecode, string groepid)
         {
+            sessiecode = Encode(sessiecode);
+            
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Sessie sessie = _sessieRepository.GetBySessieCode(sessiecode);
-                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+                    Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
+                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                     groep.SwitchState(groep.State);
                     groep.ZetNietGereed();
                     _sessieRepository.SaveChanges();
@@ -158,6 +170,10 @@ namespace BreakOutBox.Controllers
             return Convert.ToBase64String(encoded);
         }
 
-        
+        public static string Decode(string decodeMe)
+        {
+            byte[] encoded = Convert.FromBase64String(decodeMe);
+            return System.Text.Encoding.UTF8.GetString(encoded);
+        }
     }
 }
