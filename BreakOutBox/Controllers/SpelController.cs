@@ -48,7 +48,7 @@ namespace BreakOutBox.Controllers
                     ssvm.Groep = g;
                     ssvm.Sessie = s;
 
-                    if (ssvm.Groepsantwoord == huidigeOpdracht.Toegangscode.Code)
+                    if (ssvm.Groepsantwoord == huidigeOpdracht.Toegangscode.Code) // dit moet de uitkomst na de groepsbewerking zijn (dus samenstelling antwoord en bewerking).
                     {
                         ssvm.Opdracht = nieweOpdracht;
                         ssvm.TellerFoutePogingen = 0;
