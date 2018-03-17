@@ -50,8 +50,14 @@ namespace BreakOutBox.Controllers
 
                     if (ssvm.Groepsantwoord == huidigeOpdracht.Toegangscode.Code) // dit moet de uitkomst na de groepsbewerking zijn (dus samenstelling antwoord en bewerking).
                     {
+
+                        var oId = ssvm.Opdracht.OpdrachtId;
+                        var gId = ssvm.Groep.GroepId;
+
                         ssvm.Opdracht = nieweOpdracht;
                         ssvm.TellerFoutePogingen = 0;
+                        
+                        
 
                         //naar een scherm gaan voorr de toegangscode in te vullen (met de actie)
 
@@ -73,6 +79,7 @@ namespace BreakOutBox.Controllers
 
                     if (ssvm.TellerFoutePogingen > 3)
                     {
+                        // mag weg ?
                     }
                 }
                 catch
@@ -82,6 +89,14 @@ namespace BreakOutBox.Controllers
             }
             return View(ssvm);
         }
+
+       /* public IActionResult InvoerenToegangscode(opdrachtId)
+        {
+
+
+
+            return View(ssvm);
+        }*/
 
         public static string Decode(string decodeMe)
         {
