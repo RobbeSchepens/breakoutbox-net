@@ -37,6 +37,7 @@ namespace BreakOutBox.Controllers
         [HttpPost]
         public IActionResult SpelSpelen(SpelSpelenViewModel ssvm)
         {
+
             if (ModelState.IsValid)
             {
                 try
@@ -48,7 +49,7 @@ namespace BreakOutBox.Controllers
                     ssvm.Groep = g;
                     ssvm.Sessie = s;
 
-                    if (ssvm.Groepsantwoord == huidigeOpdracht.Toegangscode.Code) // dit moet de uitkomst na de groepsbewerking zijn (dus samenstelling antwoord en bewerking).
+                    if (ssvm.Groepsantwoord.ToString() == huidigeOpdracht.Oefening.Antwoord.ToString()) // dit moet de uitkomst na de groepsbewerking zijn (dus samenstelling antwoord en bewerking).
                     {
                         ssvm.Opdracht = nieweOpdracht;
                         ssvm.TellerFoutePogingen = 0;
