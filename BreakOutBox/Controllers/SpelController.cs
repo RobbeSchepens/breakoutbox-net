@@ -52,6 +52,9 @@ namespace BreakOutBox.Controllers
                     {
                         ssvm.Opdracht = nieweOpdracht;
                         ssvm.TellerFoutePogingen = 0;
+
+                        //naar een scherm gaan voorr de toegangscode in te vullen (met de actie)
+
                     }
                     else
                     {
