@@ -65,7 +65,7 @@ namespace BreakOutBox.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Leerkracht");
                 }
                 if (result.RequiresTwoFactor)
                 {
