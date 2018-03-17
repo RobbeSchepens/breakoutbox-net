@@ -72,8 +72,8 @@
             if (@(Model.Opdracht.Oefening.Antwoord.ToString()) == document.getElementById("Toegangscode").value) {
                 
                 swal({
-                    title: "Toegangscode",
-                    text: @Model.Opdracht.Actie.Omschrijving.ToString(),
+                    title: "Toegangscode volgende oefening",
+                    text: "placeholder actie", // werkt niet @*@Model.Opdracht.Actie.Omschrijving.ToString()*@
                     type: "input",
                     showCancelButton: true,
                     closeOnConfirm: false,
