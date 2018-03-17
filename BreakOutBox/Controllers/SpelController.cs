@@ -50,10 +50,6 @@ namespace BreakOutBox.Controllers
 
                     if (ssvm.Groepsantwoord == huidigeOpdracht.Toegangscode.Code) // dit moet de uitkomst na de groepsbewerking zijn (dus samenstelling antwoord en bewerking).
                     {
-
-                        var oId = ssvm.Opdracht.OpdrachtId;
-                        var gId = ssvm.Groep.GroepId;
-
                         ssvm.Opdracht = nieweOpdracht;
                         ssvm.TellerFoutePogingen = 0;
                         

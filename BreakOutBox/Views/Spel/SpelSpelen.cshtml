@@ -8,7 +8,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <head>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ 
+   
+   
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    
+   
     
 </head>
 <!-- Latest compiled and minified CSS -->
@@ -18,7 +25,7 @@
 <div class="row">
     <div class="sm-12 col text-center">
         <h2>@Model.Opdracht.Oefening.Naam</h2>
-        <form method="post">
+        <form method="post" id="formAntwoord">
             <p><h4>@(Model.Opdracht.Oefening.Vak.Naam)</h4></p>
             <p>
                 <h5> opdracht @(progressie[1] + 1) van @(progressie[0])</h5>
@@ -41,7 +48,14 @@
             <p><span asp-validation-for="Groepsantwoord" class="text-danger"></span></p>
             <p>@TempData["FouteCode"]</p>
             @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
-            <p><button type="submit" class="" >Ga verder</button></p>
+
+
+
+            <p><button type="button" class="" onclick="promalert()" id="buttonVerzenden">Ga verder</button></p>
+
+
+
+
             @if (Model.TellerFoutePogingen == 3)
             {
                 <div>
@@ -62,28 +76,65 @@
 @section scripts {
     <script asp-src-include="lib/jquery-validation/dist/jquery.validate.js"></script>
     <script asp-src-include="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-}
-<!DOCTYPE html>
-<html>
-<head>
 
-    <script src="alert/dist/sweetalert-dev.js"></script>
-    <link rel="stylesheet" href="alert/dist/sweetalert.css">
 
-    <style>
-        .divclass {
-            background: #415665;
-            height: 50px;
-            width: 200px;
-            border-radius: 15px;
-            padding: 20px;
-            font-size: 22px;
-            color: #fff;
+   
+    <script>
+        function promalert() {
+
+            if (@(Model.Opdracht.Oefening.Antwoord.ToString()) == document.getElementById("Toegangscode").value) {
+
+                console.log("ja");
+
+
+
+
+                swal({
+                    title: "Toegangscode",
+                    text: @(Model.Opdracht.Actie.Omschrijving.ToString()),
+                    type: "input",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    animation: "slide-from-top",
+                    inputPlaceholder: "Write something"
+                },
+                    function (inputValue) {
+                        if (inputValue === false) return false;
+
+                        if (inputValue === "") {
+                            swal.showInputError("You need to write something!");
+                            return false
+                        }
+
+
+                        swal("Nice!", "You wrote: " + inputValue, "success");
+                    });
+
+
+
+
+
+            } else {
+                console.log(@(Model.Opdracht.Oefening.Antwoord.ToString()));
+                console.log("niet juist");
+
+            }
+
+
+
+
         }
-    </style>
-</head>
-<body>  
-  
-</body>
-</html>
+    </script>
+       
+
+
+    
+
+
+
+}
+    
+
+
+
 

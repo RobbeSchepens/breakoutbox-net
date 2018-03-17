@@ -41,7 +41,7 @@ namespace BreakOutBox.Data
 
                 for (var i = 0; i < 8; i++)
                 {
-                    acties.Add(new Actie("pak ballon " + i));
+                    acties.Add(new Actie("pak ballon " + (i + 1)));
                 }
 
                 // OEFENINGEN
