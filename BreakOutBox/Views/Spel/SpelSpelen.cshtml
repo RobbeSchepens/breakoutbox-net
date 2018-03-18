@@ -6,14 +6,15 @@
     var progressiePercentageCompleted = (int)(System.Math.Round(progressiePercentage, 0) - ((decimal)100 / progressie[0]));
 }
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+<script src="~/js/site.js"></script>
 <!-- Latest compiled and minified CSS -->
 @*width:@(progressie[1] / progressie[0])%
-<span class="sr-only"></span>*@
+    <span class="sr-only"></span>*@
 
 <div class="row">
     <div class="sm-12 col text-center">
-        <h2>@Model.Opdracht.Oefening.Naam</h2>
+        <h2>@ViewData["Title"]</h2>
         <form method="post">
             <p><h4>@(Model.Opdracht.Oefening.Vak.Naam)</h4></p>
             <p>
@@ -26,10 +27,12 @@
                     </div>
                 </div>
             </p>
-          
+
             <div>
                 <div id="pdf">
                     <object height="750" type="application/pdf" data="~/opdrachtenG1/@Model.Opdracht.Oefening.Opgave" id="pdf_content"></object>
+                    <object height="750" type="application/pdf" data="~/algemenepdfs/Theorie.pdf" id="pdf_hulp" style="display:none"></object>
+                    
                 </div>
             </div>
             <p><label asp-for="Groepsantwoord"></label></p>
@@ -37,13 +40,20 @@
             <p><span asp-validation-for="Groepsantwoord" class="text-danger"></span></p>
             <p>@TempData["FouteCode"]</p>
             @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
-            <p><button type="submit" class="">Ga verder</button></p>
-            @if (Model.TellerFoutePogingen == 3)
-            {
-                <div>
-                    <p><button type="button">Feedback</button></p>
-                </div>
-            }
+
+            <div>
+                <button type="submit" class="">Ga verder</button>
+                @if (Model.TellerFoutePogingen >= 1)
+                {
+                    <button onclick="hulp()" type="button">Hulp nodig?</button>
+                }
+                @if(Model.TellerFoutePogingen == 3)
+                {
+
+
+                }
+            </div>
+
             <div hidden>
                 <p><input asp-for="OpdrachtId" type="text" class="form-control" autocomplete="off" value="@Model.Opdracht.OpdrachtId" /></p>
                 <p><input asp-for="GroepId" type="text" class="form-control" autocomplete="off" value="@Model.Groep.GroepId" /></p>

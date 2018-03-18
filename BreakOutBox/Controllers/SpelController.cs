@@ -58,22 +58,27 @@ namespace BreakOutBox.Controllers
                     }
                     else
                     {
-                        if (ssvm.TellerFoutePogingen > 2)
-                        {
-                            var i = 0;
-                            // spel geblokkeerd en leerkracht moet het deblokkeren
-                        }
-                        else
-                        {
+                        //if (ssvm.TellerFoutePogingen > 2)
+                        //{
+                        //    var i = 0;
+                        //    // spel geblokkeerd en leerkracht moet het deblokkeren
+                        //}
+                        //else
+                        //{
                             ssvm.Opdracht = huidigeOpdracht;
                             TempData["FouteCode"] = "FOUT! je hebt " + ssvm.TellerFoutePogingen + " foute pogingen ondernomen";
+                        //}
+
+                        if(ssvm.TellerFoutePogingen >= 3)
+                        {
+                                
                         }
 
                     }
 
-                    if (ssvm.TellerFoutePogingen > 3)
-                    {
-                    }
+                    //if (ssvm.TellerFoutePogingen > 3)
+                    //{
+                    //}
                 }
                 catch
                 {
