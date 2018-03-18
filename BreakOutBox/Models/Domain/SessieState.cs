@@ -8,6 +8,7 @@ namespace BreakOutBox.Models.Domain
     public abstract class SessieState
     {
         protected Sessie _sessie;
+        public abstract String Beschrijving { get; set; }
 
         protected SessieState(Sessie sessie)
         {
@@ -17,5 +18,7 @@ namespace BreakOutBox.Models.Domain
         public abstract void Activeer();
         public abstract void Deactiveer(ICollection<Groep> groepen);
         public abstract void StartSpel(ICollection<Groep> groepen);
+        public abstract void Blokkeer();
+        public abstract void Deblokkeer();
     }
 }

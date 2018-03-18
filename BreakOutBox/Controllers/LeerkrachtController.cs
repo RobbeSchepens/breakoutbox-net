@@ -33,7 +33,7 @@ namespace BreakOutBox.Controllers
             Leerkracht lk = _leerkrachtRepository.GetByVolledigeNaam(tokens[0], tokens[1]); // de leerkreacht die vebonden staat met de huidige user
             List<Sessie> sessiesVanLeerkracht = lk.Sessies.ToList();
 
-            ViewData["LeerkrachtNaam"] = lk.Voornaam + " " + lk.Achternaam; 
+            ViewData["LeerkrachtNaam"] = lk.Voornaam + " " + lk.Achternaam;
 
             return View(sessiesVanLeerkracht);
         }
@@ -45,6 +45,12 @@ namespace BreakOutBox.Controllers
 
             return View(_sessieRepository.GetBySessieCode(id));
         }
+
+        //public IActionResult ActiveerSessie(Sessie sessie)
+        //{
+        //    sessie.Activeer();
+        //    return RedirectToAction(nameof(OverzichtGroepenInSessie));
+        //}
 
     }
 }

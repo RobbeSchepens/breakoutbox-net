@@ -18,6 +18,7 @@
         <th>Code</th>
         <th>Omschrijving</th>
         <th>Aantal groepen</th>
+        <th>Status</th>
     </tr>
     @{int i = 1;}
     @foreach (var item in Model)
@@ -28,7 +29,8 @@
             <td align="center">@(item.Code)</td>
             <td align="center">@(item.Omschrijving)</td>
             <td align="center">@(item.Groepen.Count)</td>
-            <td><a asp-controller="Leerkracht" asp-action="OverzichtGroepenInSessie" asp-route-id="@item.Code"><i class="fa fa-arrow-right" style="color:lightgreen"></i></a></td>
+            <td align="center">@(item.GetState().Beschrijving)</td>
+            <td><a asp-controller="Leerkracht" asp-action="OverzichtGroepenInSessie" asp-route-id="@item.Code"><i class="fa fa-arrow-right" style="color:darkgreen"></i></a></td>
         </tr>
     }
 </table>

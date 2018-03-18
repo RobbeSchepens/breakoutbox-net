@@ -28,7 +28,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void Ontgrendel()
         {
-            // ...
+            this._groep.SwitchState(1);
         }
     }
 }

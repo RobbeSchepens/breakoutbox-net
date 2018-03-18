@@ -17,21 +17,32 @@
     <div class="row">
         <div class="col-12 col">
             <h2>Sessie: @Model.Omschrijving</h2>
-        </div>
-    </div>
-    <div class="row">
+            <h4>Status: @Model.GetState().Beschrijving</h4>
+            
+                    </div>
+            
+                </div>
+            
+                <div class="row">
         @foreach (var groep in Model.Groepen)
-        {
+                    {
             <div class="sm-12 md-6 col">
                 <h4>Groep @(groep.GroepId)<i class="fas fa-times" style="color:#ff2121;margin-left:10px"></i>@*<i class="fas fa-check" style="margin-left:10px;color:lightgreen"></i>*@</h4>
                 <ul>
                     @foreach (var leerling in groep.Leerlingen)
                     {
-                        <li>@(leerling.Voornaam + leerling.Achternaam)</li>
+                        <li>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
                     }
                 </ul>
             </div>
         }
     </div>
+    @*<div class="float-right text-center">
+        @Model.State
+        @if (Model.State == 0)
+            {
+                <a asp-controller="Leerkracht" asp-action="ActiveerSessie">Activeer</a>
+            }
+    </div>*@
 </body>
 
