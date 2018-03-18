@@ -24,7 +24,7 @@ namespace BreakOutBox.Models.Domain
         #region Constructors
         public Sessie()
         {
-            SwitchState(0);
+            SwitchState(State);
         }
         public Sessie(string code, string naam, string omschrijving, ICollection<Groep> groepen, Box box, int state)
         {
@@ -34,6 +34,7 @@ namespace BreakOutBox.Models.Domain
             Groepen = groepen;
             Box = box;
             SwitchState(state);
+            State = state;
         }
         #endregion
 

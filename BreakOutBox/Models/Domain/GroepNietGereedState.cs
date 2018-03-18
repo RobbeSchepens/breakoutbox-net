@@ -23,7 +23,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void Vergrendel()
         {
-            throw new Exception("Groep is niet gereed!");
+            this._groep.SwitchState(2);
         }
 
         public override void Ontgrendel()
