@@ -102,10 +102,18 @@
                     console.log("Antwoord en toegangscode");
                     console.log(@Model.Opdracht.Oefening.Antwoord.ToString());
                     console.log(@(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString()));
+                    delay();
                     document.getElementById("formAntwoord").submit();
 
             }
         }
+
+        function delay() {
+            setTimeout(function () {     
+            }, 1500);
+        }
+
+
     </script>
        
 

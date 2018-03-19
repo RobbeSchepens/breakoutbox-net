@@ -28,8 +28,6 @@ namespace BreakOutBox.Controllers
             int index = tokens[1].LastIndexOf("@");
             if (index > 0)
                 tokens[1] = tokens[1].Substring(0, index);
-
-
             Leerkracht lk = _leerkrachtRepository.GetByVolledigeNaam(tokens[0], tokens[1]); // de leerkreacht die vebonden staat met de huidige user
             List<Sessie> sessiesVanLeerkracht = lk.Sessies.ToList();
 
