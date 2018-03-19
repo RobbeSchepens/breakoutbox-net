@@ -12,6 +12,7 @@ namespace BreakOutBox.Models.Domain
         public string Achternaam { get; set; }
         public ICollection<Sessie> Sessies { get; set; }
         public ICollection<Klas> Klassen { get; set; }
+        public string Email { get; set; }
 
         public Leerkracht()
         {
@@ -19,12 +20,13 @@ namespace BreakOutBox.Models.Domain
             Klassen = new HashSet<Klas>();
         }
 
-        public Leerkracht(string voornaam, string achternaam)
+        public Leerkracht(string voornaam, string achternaam, string email)
         {
             Voornaam = voornaam;
             Achternaam = achternaam;
             Sessies = new HashSet<Sessie>();
             Klassen = new HashSet<Klas>();
+            Email = email;
         }
 
         public void VoegSessieToe(Sessie sessie)
