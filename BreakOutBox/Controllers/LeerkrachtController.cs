@@ -29,6 +29,11 @@ namespace BreakOutBox.Controllers
             Leerkracht lk = _leerkrachtRepository.GetByVolledigeNaam(tokens[0], tokens[1]); // de leerkracht die vebonden staat met de huidige user
             List<Sessie> sessiesVanLeerkracht = lk.Sessies.ToList();
 
+            foreach(Sessie sessie in sessiesVanLeerkracht)
+            {
+                sessie.SwitchState(sessie.State);
+            }
+
             ViewData["LeerkrachtNaam"] = lk.Voornaam + " " + lk.Achternaam;
 
             return View(sessiesVanLeerkracht);
@@ -41,10 +46,44 @@ namespace BreakOutBox.Controllers
             return View(sessie);
         }
 
-        //public IActionResult ActiveerSessie(Sessie sessie)
-        //{
-        //    sessie.Activeer();
-        //    return RedirectToAction(nameof(OverzichtGroepenInSessie));
-        //}
+        public IActionResult ActiveerSessie(string id)
+        {
+            Sessie sessie = _sessieRepository.GetBySessieCode(id);
+            sessie.Activeer();
+            _sessieRepository.SaveChanges();
+            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+        }
+
+        public IActionResult DeactiveerSessie(string id)
+        {
+            Sessie sessie = _sessieRepository.GetBySessieCode(id);
+            sessie.Deactiveer();
+            _sessieRepository.SaveChanges();
+            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+        }
+
+        public IActionResult BlokkeerSessie(string id)
+        {
+            Sessie sessie = _sessieRepository.GetBySessieCode(id);
+            sessie.Blokkeer();
+            _sessieRepository.SaveChanges();
+            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+        }
+
+        public IActionResult DeblokkeerSessie(string id)
+        {
+            Sessie sessie = _sessieRepository.GetBySessieCode(id);
+            sessie.Deblokkeer();
+            _sessieRepository.SaveChanges();
+            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+        }
+
+        public IActionResult StartSpelSessie(string id)
+        {
+            Sessie sessie = _sessieRepository.GetBySessieCode(id);
+            sessie.StartSpel();
+            _sessieRepository.SaveChanges();
+            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+        }
     }
 }
