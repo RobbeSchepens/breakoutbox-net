@@ -49,6 +49,7 @@ namespace BreakOutBox.Controllers
         public IActionResult ActiveerSessie(string id)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
+            sessie.SwitchState(sessie.State);
             sessie.Activeer();
             _sessieRepository.SaveChanges();
             return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
@@ -57,6 +58,7 @@ namespace BreakOutBox.Controllers
         public IActionResult DeactiveerSessie(string id)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
+            sessie.SwitchState(sessie.State);
             sessie.Deactiveer();
             _sessieRepository.SaveChanges();
             return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
@@ -65,6 +67,7 @@ namespace BreakOutBox.Controllers
         public IActionResult BlokkeerSessie(string id)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
+            sessie.SwitchState(sessie.State);
             sessie.Blokkeer();
             _sessieRepository.SaveChanges();
             return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
@@ -73,6 +76,7 @@ namespace BreakOutBox.Controllers
         public IActionResult DeblokkeerSessie(string id)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
+            sessie.SwitchState(sessie.State);
             sessie.Deblokkeer();
             _sessieRepository.SaveChanges();
             return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
@@ -81,6 +85,7 @@ namespace BreakOutBox.Controllers
         public IActionResult StartSpelSessie(string id)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
+            sessie.SwitchState(sessie.State);
             sessie.StartSpel();
             _sessieRepository.SaveChanges();
             return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
