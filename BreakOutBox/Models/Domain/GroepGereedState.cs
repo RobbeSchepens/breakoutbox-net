@@ -18,12 +18,12 @@ namespace BreakOutBox.Models.Domain
 
         public override void ZetNietGereed()
         {
-            // ...
+            this._groep.SwitchState(0);
         }
 
         public override void Vergrendel()
         {
-            // ...
+            this._groep.SwitchState(2);
         }
 
         public override void Ontgrendel()

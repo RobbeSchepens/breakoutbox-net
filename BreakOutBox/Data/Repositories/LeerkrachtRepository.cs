@@ -20,11 +20,10 @@ namespace BreakOutBox.Data.Repositories
 
         public Leerkracht GetByVolledigeNaam(string voornaam, string achternaam)
         {
-
-
-
-            return _leerkrachten.Where(lk => lk.Voornaam == voornaam && lk.Achternaam == achternaam).FirstOrDefault();
+            return _leerkrachten.Where(lk => lk.Voornaam == voornaam && lk.Achternaam == achternaam).Include(lk => lk.Sessies).ThenInclude(ses => ses.Groepen).FirstOrDefault();
         }
+
+        
 
         public void SaveChanges()
         {

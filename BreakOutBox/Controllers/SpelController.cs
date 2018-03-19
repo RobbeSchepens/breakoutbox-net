@@ -37,6 +37,7 @@ namespace BreakOutBox.Controllers
         [HttpPost]
         public IActionResult SpelSpelen(SpelSpelenViewModel ssvm)
         {
+
             if (ModelState.IsValid)
             {
                 try
@@ -48,10 +49,12 @@ namespace BreakOutBox.Controllers
                     ssvm.Groep = g;
                     ssvm.Sessie = s;
 
-                    if (ssvm.Groepsantwoord == huidigeOpdracht.Toegangscode.Code) // dit moet de uitkomst na de groepsbewerking zijn (dus samenstelling antwoord en bewerking).
+                    if (ssvm.Groepsantwoord.ToString() == huidigeOpdracht.Oefening.Antwoord.ToString()) // dit moet de uitkomst na de groepsbewerking zijn (dus samenstelling antwoord en bewerking).
                     {
                         ssvm.Opdracht = nieweOpdracht;
                         ssvm.TellerFoutePogingen = 0;
+                        
+                        
 
                         //naar een scherm gaan voorr de toegangscode in te vullen (met de actie)
 
@@ -76,9 +79,7 @@ namespace BreakOutBox.Controllers
 
                     }
 
-                    //if (ssvm.TellerFoutePogingen > 3)
-                    //{
-                    //}
+                  
                 }
                 catch
                 {
@@ -87,6 +88,14 @@ namespace BreakOutBox.Controllers
             }
             return View(ssvm);
         }
+
+       /* public IActionResult InvoerenToegangscode(opdrachtId)
+        {
+
+
+
+            return View(ssvm);
+        }*/
 
         public static string Decode(string decodeMe)
         {

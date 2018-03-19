@@ -65,7 +65,7 @@ namespace BreakOutBox.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Leerkracht");
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -247,7 +247,7 @@ namespace BreakOutBox.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(SessieController.Index), "Sessie");
         }
 
         [HttpPost]

@@ -41,7 +41,7 @@ namespace BreakOutBox.Data
 
                 for (var i = 0; i < 8; i++)
                 {
-                    acties.Add(new Actie("pak ballon " + i));
+                    acties.Add(new Actie("pak ballon " + (i + 1)));
                 }
 
                 // OEFENINGEN
@@ -223,7 +223,7 @@ namespace BreakOutBox.Data
                 lk.VoegSessieToe(s);
 
                 _dbContext.Sessies.Add(s);
-                await CreateUser("Tom_Pieters@school.be", "Tom_Pieters@school.be", "password", "leerkrachtAuth");
+                await CreateUser("Tom_Pieters@school.be", "Tom_Pieters@school.be", "P@ssword1!", "leerkrachtAuth");
                 _dbContext.SaveChanges();
                 #endregion
             }

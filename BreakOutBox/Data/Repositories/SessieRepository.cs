@@ -85,8 +85,8 @@ namespace BreakOutBox.Data.Repositories
         {
             //List<Sessie> sessiesMetKlasEnleerkracht = _sessies.Include(g => g.Groepen).Include(k => k.Klas).ThenInclude(l => l.KlasLeerkrachten).ThenInclude(kl => kl.Leerkracht).ToList();
             //List<Sessie> SessiesVanLeerkracht = sessiesMetKlasEnleerkracht.Where(s => s.Klas.Leerkrachten.ToList().Contains(leerkracht)).ToList();
-            List<Sessie> SessiesVanLeerkracht = _context.Leerkrachten.FirstOrDefault(lk => lk.LeerkrachtId == leerkracht.LeerkrachtId).Sessies.ToList();
-            return SessiesVanLeerkracht;
+            // List<Sessie> SessiesVanLeerkracht = 
+            return null; 
         }
 
         public void Add(Sessie sessie)

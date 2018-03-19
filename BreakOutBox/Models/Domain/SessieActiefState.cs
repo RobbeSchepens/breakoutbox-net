@@ -7,8 +7,10 @@ namespace BreakOutBox.Models.Domain
 {
     public class SessieActiefState : SessieState
     {
+        public override string Beschrijving { get; set; }
         public SessieActiefState(Sessie sessie) : base(sessie)
         {
+            Beschrijving = "Actief";
         }
 
         public override void Activeer()
@@ -22,6 +24,7 @@ namespace BreakOutBox.Models.Domain
             {
                 g.Ontgrendel();
             }
+            _sessie.SwitchState(0);
         }
 
         public override void StartSpel(ICollection<Groep> groepen)
@@ -30,6 +33,17 @@ namespace BreakOutBox.Models.Domain
             {
                 g.Vergrendel();
             }
+            _sessie.SwitchState(2);
+        }
+
+        public override void Blokkeer()
+        {
+            _sessie.SwitchState(3);
+        }
+
+        public override void Deblokkeer()
+        {
+            throw new Exception("Sessie is niet geblokkeerd!");
         }
     }
 }

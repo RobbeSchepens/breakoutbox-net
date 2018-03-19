@@ -1,12 +1,18 @@
 ﻿@model BreakOutBox.Models.SpelViewModels.SpelSpelenViewModel
 @{
-    ViewData["Title"] = Model.Opdracht.Oefening.Naam;
+
     var progressie = Model.Groep.Pad.getProgressie(Model.Opdracht);
     var progressiePercentage = ((((decimal)progressie[1] + 1) / ((decimal)progressie[0])) * 100);
     var progressiePercentageCompleted = (int)(System.Math.Round(progressiePercentage, 0) - ((decimal)100 / progressie[0]));
 }
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<head>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+</head>
 <script src="~/js/site.js"></script>
 <!-- Latest compiled and minified CSS -->
 @*width:@(progressie[1] / progressie[0])%
@@ -14,14 +20,18 @@
 
 <div class="row">
     <div class="sm-12 col text-center">
-        <h2>@ViewData["Title"]</h2>
-        <form method="post">
+        <h2>@Model.Opdracht.Oefening.Naam</h2>
+        <form method="post" id="fromAntwoord" name="formAntwoord">
             <p><h4>@(Model.Opdracht.Oefening.Vak.Naam)</h4></p>
             <p>
                 <h5> opdracht @(progressie[1] + 1) van @(progressie[0])</h5>
             </p>
             <p>
-                <div class="w3-container">
+                Antwoord deze opdr: @Model.Opdracht.Oefening.Antwoord.ToString() <br />
+                Toegangscode volgende Opdr: @(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString())
+            </p>
+            <p>
+                <div class="w3-container" onclick="">
                     <div class="w3-light-grey" style="width:60%;margin: auto;">
                         <div class="w3-container w3-blue w3-center" style="width:@((int)progressiePercentageCompleted)%"><span style="color:black">@((int)(progressiePercentageCompleted))%&nbsp;correct&nbsp;opgelost</span></div>
                     </div>
@@ -32,7 +42,7 @@
                 <div id="pdf">
                     <object height="750" type="application/pdf" data="~/opdrachtenG1/@Model.Opdracht.Oefening.Opgave" id="pdf_content"></object>
                     <object height="750" type="application/pdf" data="~/algemenepdfs/Theorie.pdf" id="pdf_hulp" style="display:none"></object>
-                    
+
                 </div>
             </div>
             <p><label asp-for="Groepsantwoord"></label></p>
@@ -40,20 +50,16 @@
             <p><span asp-validation-for="Groepsantwoord" class="text-danger"></span></p>
             <p>@TempData["FouteCode"]</p>
             @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
-
-            <div>
-                <button type="submit" class="">Ga verder</button>
-                @if (Model.TellerFoutePogingen >= 1)
-                {
-                    <button onclick="hulp()" type="button">Hulp nodig?</button>
-                }
-                @if(Model.TellerFoutePogingen == 3)
-                {
+            <p><button type="submit" class="" onclick="promalert()">Ga verder</button></p>
+            @if (Model.TellerFoutePogingen >= 1)
+            {
+            <button onclick="hulp()" type="button">Hulp nodig?</button>
+            }
+            @if(Model.TellerFoutePogingen == 3)
+            {
 
 
-                }
-            </div>
-
+            }
             <div hidden>
                 <p><input asp-for="OpdrachtId" type="text" class="form-control" autocomplete="off" value="@Model.Opdracht.OpdrachtId" /></p>
                 <p><input asp-for="GroepId" type="text" class="form-control" autocomplete="off" value="@Model.Groep.GroepId" /></p>
@@ -67,4 +73,57 @@
 @section scripts {
     <script asp-src-include="lib/jquery-validation/dist/jquery.validate.js"></script>
     <script asp-src-include="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        function promalert() {
+            if (@(Model.Opdracht.Oefening.Antwoord.ToString()) == document.getElementById("Toegangscode").value) {
+                swal({
+                    title: "Toegangscode volgende oefening",
+                    text: "placeholder actie", // werkt niet @*@Model.Opdracht.Actie.Omschrijving.ToString()*@
+                    type: "input",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    animation: "slide-from-top",
+                    inputPlaceholder: "Toegangscode"
+                },
+                    function (inputValue) {
+                        var j = @(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString());
+                        if (inputValue === false) return false;
+
+                        if (inputValue === "") {
+                            swal.showInputError("You need to write something!");
+                            return false
+                        }
+                        if (!(inputValue == j)){
+                            swal.showInputError("Dit is niet de juiste toegangscode");
+                            console.log("inputvalue1 :" + inputValue);
+                            console.log("inputvalue2 :" + j);
+                            return false
+                        }
+
+                        swal("Juist!", "Op naar de volgende oefening!", );
+                        setTimeout(delaySubmit, 3000);
+                    }, );
+            } else {
+                    console.log("Antwoord en toegangscode");
+                    console.log(@Model.Opdracht.Oefening.Antwoord.ToString());
+                    console.log(@(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString()));
+                    document.getElementById("formAntwoord").submit();
+            }
+        }
+        function delaySubmit() {
+            document.getElementById("formAntwoord").submit();
+        }
+    </script>
+
+
+
+
+
+
+
 }
+
+
+
+
+

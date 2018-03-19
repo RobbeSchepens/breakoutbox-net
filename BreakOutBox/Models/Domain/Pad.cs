@@ -25,13 +25,18 @@ namespace BreakOutBox.Models.Domain
         {
             try
             {
+
+                int indexCurrent = Opdrachten.ToList().IndexOf(opdracht);
+                return Opdrachten.ToList()[indexCurrent + 1];
             }       
             catch
             {
+
+                return new Opdracht();
+
             }       
             
-            int indexCurrent = Opdrachten.ToList().IndexOf(opdracht);
-            return Opdrachten.ToList()[indexCurrent+1];
+          
         }
 
         public List<int> getProgressie(Opdracht huidigeOpdracht)
