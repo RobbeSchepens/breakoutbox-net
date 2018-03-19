@@ -46,7 +46,11 @@
             <p><span asp-validation-for="Groepsantwoord" class="text-danger"></span></p>
             <p>@TempData["FouteCode"]</p>
             @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
+
+
             <p><button type="button" class="" onclick="promalert()" id="buttonVerzenden">Ga verder</button></p>
+
+
             @if (Model.TellerFoutePogingen == 3)
             {
                 <div>
@@ -64,10 +68,17 @@
     </div>
 </div>
 
+
 @section scripts {
     <script asp-src-include="lib/jquery-validation/dist/jquery.validate.js"></script>
     <script asp-src-include="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script>
+
+       
+           
+       
+
+
         function promalert() {
             if (@(Model.Opdracht.Oefening.Antwoord.ToString()) == document.getElementById("Toegangscode").value) {
                 
