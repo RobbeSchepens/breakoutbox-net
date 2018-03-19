@@ -13,7 +13,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void ZetGereed()
         {
-            // ...
+            this._groep.SwitchState(1);
         }
 
         public override void ZetNietGereed()
@@ -23,7 +23,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void Vergrendel()
         {
-            // ... 
+            this._groep.SwitchState(2);
         }
 
         public override void Ontgrendel()

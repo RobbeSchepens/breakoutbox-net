@@ -26,7 +26,6 @@ namespace BreakOutBox.Models.Domain
         {
             SwitchState(State);
         }
-
         public Sessie(string code, string naam, string omschrijving, ICollection<Groep> groepen, Box box, int state)
         {
             Code = code;
@@ -51,12 +50,19 @@ namespace BreakOutBox.Models.Domain
             {
                 case 0:
                     ToState(new SessieNonActiefState(this));
+                    State = 0;
                     break;
                 case 1:
                     ToState(new SessieActiefState(this));
+                    State = 1;
                     break;
                 case 2:
                     ToState(new SessieInSpelState(this));
+                    State = 2;
+                    break;
+                case 3:
+                    ToState(new SessieGeblokkeerdState(this));
+                    State = 3;
                     break;
                 default: goto case 0;
             }
@@ -67,8 +73,6 @@ namespace BreakOutBox.Models.Domain
             try
             {
                 _currentState.Activeer();
-                ToState(new SessieActiefState(this));
-                State = 1;
             }
             catch (Exception e)
             {
@@ -81,8 +85,6 @@ namespace BreakOutBox.Models.Domain
             try
             {
                 _currentState.Deactiveer(Groepen);
-                ToState(new SessieNonActiefState(this));
-                State = 0;
             }
             catch (Exception e)
             {
@@ -95,13 +97,40 @@ namespace BreakOutBox.Models.Domain
             try
             {
                 _currentState.StartSpel(Groepen);
-                ToState(new SessieInSpelState(this));
-                State = 2;
             }
             catch (Exception e)
             {
                 throw;
             }
+        }
+
+        public void Blokkeer()
+        {
+            try
+            {
+                _currentState.Blokkeer();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public void Deblokkeer()
+        {
+            try
+            {
+                _currentState.Deblokkeer();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public SessieState GetState()
+        {
+            return _currentState;
         }
         #endregion
     }
