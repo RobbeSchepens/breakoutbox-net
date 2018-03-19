@@ -59,17 +59,16 @@ namespace BreakOutBox.Controllers
         [HttpGet]
         public IActionResult SessieOverzicht(string sessiecode, string groepid)
         {
-           
             Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
             if (groepid != null)
             {
-
                 groepid = (Decode(groepid)); // decoderen van groepId indien deze is gegeven
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                 ViewBag.GeselecteerdeGroep = groep;
             }
             return View(sessie);
         }
+
         #region  commentsSpelOverzicht
         //[HttpGet]
         //public IActionResult SpelOverzicht(string sessiecode)
@@ -125,7 +124,6 @@ namespace BreakOutBox.Controllers
                     return RedirectToAction(nameof(SessieOverzicht), new { sessiecode });
                 }
             }
-
             
             return RedirectToAction(nameof(SessieOverzicht), new { sessiecode, groepid });
         }
@@ -133,7 +131,6 @@ namespace BreakOutBox.Controllers
         public IActionResult ZetGroepNietGereed(string sessiecode, string groepid)
         {
             sessiecode = Encode(sessiecode);
-            
 
             if (ModelState.IsValid)
             {
@@ -159,7 +156,6 @@ namespace BreakOutBox.Controllers
 
             sessiecode = Encode(sessiecode);
             groepid = Encode(groepid);
-
             return RedirectToAction(nameof(SpelController.SpelSpelen), "Spel", new { sessiecode, groepid });
         }
 

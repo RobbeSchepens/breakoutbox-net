@@ -1,16 +1,16 @@
 ﻿@model BreakOutBox.Models.SpelViewModels.SpelSpelenViewModel
 @{
-   
+
     var progressie = Model.Groep.Pad.getProgressie(Model.Opdracht);
     var progressiePercentage = ((((decimal)progressie[1] + 1) / ((decimal)progressie[0])) * 100);
     var progressiePercentageCompleted = (int)(System.Math.Round(progressiePercentage, 0) - ((decimal)100 / progressie[0]));
 }
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<head>  
+<head>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 </head>
 <!-- Latest compiled and minified CSS -->
 @*width:@(progressie[1] / progressie[0])%
@@ -28,7 +28,6 @@
                 Antwoord deze opdr: @Model.Opdracht.Oefening.Antwoord.ToString() <br />
                 Toegangscode volgende Opdr: @(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString())
             </p>
-
             <p>
                 <div class="w3-container" onclick="">
                     <div class="w3-light-grey" style="width:60%;margin: auto;">
@@ -46,42 +45,29 @@
             <p><span asp-validation-for="Groepsantwoord" class="text-danger"></span></p>
             <p>@TempData["FouteCode"]</p>
             @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
-
-
             <p><button type="button" class="" onclick="promalert()" id="buttonVerzenden">Ga verder</button></p>
-
-
             @if (Model.TellerFoutePogingen == 3)
             {
                 <div>
                     <p><button type="button">Feedback</button></p>
                 </div>
             }
-                <div hidden>
-                    <p><input asp-for="OpdrachtId" type="text" class="form-control" autocomplete="off" value="@Model.Opdracht.OpdrachtId" /></p>
-                    <p><input asp-for="GroepId" type="text" class="form-control" autocomplete="off" value="@Model.Groep.GroepId" /></p>
-                    <p><input asp-for="sessieId" type="text" class="form-control" autocomplete="off" value="@Model.Sessie.Code" /></p>
-                    <p><input asp-for="TellerFoutePogingen" type="text" class="form-control" autocomplete="off" value="@(Model.TellerFoutePogingen + 1)" /></p>
-                    
-                </div>
+            <div hidden>
+                <p><input asp-for="OpdrachtId" type="text" class="form-control" autocomplete="off" value="@Model.Opdracht.OpdrachtId" /></p>
+                <p><input asp-for="GroepId" type="text" class="form-control" autocomplete="off" value="@Model.Groep.GroepId" /></p>
+                <p><input asp-for="sessieId" type="text" class="form-control" autocomplete="off" value="@Model.Sessie.Code" /></p>
+                <p><input asp-for="TellerFoutePogingen" type="text" class="form-control" autocomplete="off" value="@(Model.TellerFoutePogingen + 1)" /></p>
+            </div>
         </form>
     </div>
 </div>
-
 
 @section scripts {
     <script asp-src-include="lib/jquery-validation/dist/jquery.validate.js"></script>
     <script asp-src-include="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script>
-
-       
-           
-       
-
-
         function promalert() {
             if (@(Model.Opdracht.Oefening.Antwoord.ToString()) == document.getElementById("Toegangscode").value) {
-                
                 swal({
                     title: "Toegangscode volgende oefening",
                     text: "placeholder actie", // werkt niet @*@Model.Opdracht.Actie.Omschrijving.ToString()*@
@@ -105,37 +91,30 @@
                             console.log("inputvalue2 :" + j);
                             return false
                         }
-                    
+
                         swal("Juist!", "Op naar de volgende oefening!", );
                         setTimeout(delaySubmit, 3000);
-
-                        
                     }, );
             } else {
                     console.log("Antwoord en toegangscode");
                     console.log(@Model.Opdracht.Oefening.Antwoord.ToString());
                     console.log(@(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString()));
-                    
                     document.getElementById("formAntwoord").submit();
-
             }
         }
-
-        function delaySubmit() {       
+        function delaySubmit() {
             document.getElementById("formAntwoord").submit();
         }
-
-
     </script>
-       
 
 
-    
+
+
 
 
 
 }
-    
+
 
 
 

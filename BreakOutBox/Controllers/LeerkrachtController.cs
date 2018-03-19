@@ -1,10 +1,8 @@
-﻿using System;
+﻿using BreakOutBox.Models.Domain;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using BreakOutBox.Models.Domain;
-using Microsoft.AspNet.Identity;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 namespace BreakOutBox.Controllers
@@ -27,9 +25,8 @@ namespace BreakOutBox.Controllers
             int index = tokens[1].LastIndexOf("@");
             if (index > 0)
                 tokens[1] = tokens[1].Substring(0, index);
-
-
-            Leerkracht lk = _leerkrachtRepository.GetByVolledigeNaam(tokens[0], tokens[1]); // de leerkreacht die vebonden staat met de huidige user
+            
+            Leerkracht lk = _leerkrachtRepository.GetByVolledigeNaam(tokens[0], tokens[1]); // de leerkracht die vebonden staat met de huidige user
             List<Sessie> sessiesVanLeerkracht = lk.Sessies.ToList();
 
             ViewData["LeerkrachtNaam"] = lk.Voornaam + " " + lk.Achternaam;
@@ -39,7 +36,9 @@ namespace BreakOutBox.Controllers
 
         public IActionResult OverzichtGroepenInSessie(string id)
         {
-            return View(_sessieRepository.GetBySessieCode(id));
+            Sessie sessie = _sessieRepository.GetBySessieCode(id);
+            sessie.SwitchState(sessie.State);
+            return View(sessie);
         }
 
         //public IActionResult ActiveerSessie(Sessie sessie)
@@ -47,6 +46,5 @@ namespace BreakOutBox.Controllers
         //    sessie.Activeer();
         //    return RedirectToAction(nameof(OverzichtGroepenInSessie));
         //}
-
     }
 }
