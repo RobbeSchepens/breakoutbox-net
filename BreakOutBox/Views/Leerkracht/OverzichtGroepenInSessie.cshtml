@@ -2,44 +2,32 @@
 @{
     ViewData["Title"] = "Overzicht";
 }
-<head>
 
-    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-</head>
-
-<style>
-    .fas fa-times {
-        color: red;
-    }
-</style>
-
-<body>
-    <div class="row">
-        <div class="col-12 col">
-            <h2>Sessie: @Model.Omschrijving</h2>
-            <h4>Status: @Model.GetState().Beschrijving</h4>
-        </div>
+<div class="row">
+    <div class="col-12 col text-center">
+        <h2>Sessie: @Model.Omschrijving</h2>
+        <br>
+        <h4>Status: @Model.GetState().Beschrijving</h4>
     </div>
-    <div class="row">
-        @foreach (var groep in Model.Groepen)
-        {
-            <div class="sm-12 md-6 col">
-                <h4>Groep @(groep.GroepId)<i class="fas fa-times" style="color:#ff2121;margin-left:10px"></i>@*<i class="fas fa-check" style="margin-left:10px;color:lightgreen"></i>*@</h4>
-                <ul>
-                    @foreach (var leerling in groep.Leerlingen)
-                    {
-                        <li>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
-                    }
-                </ul>
-            </div>
-        }
-    </div>
-    @*<div class="float-right text-center">
-            @Model.State
-            @if (Model.State == 0)
+</div>
+<div class="row">
+    @foreach (var groep in Model.Groepen)
+    {
+        <div class="sm-12 md-6 col groep">
+            <h4><i class="fas fa-users fa-sm marginright"></i> Groep @(groep.GroepId)<i class="fas fa-times fa-sm erroricon"></i>@*<i class="fas fa-check fa-sm"></i>*@</h4>
+            <ul>
+                @foreach (var leerling in groep.Leerlingen)
                 {
-                    <a asp-controller="Leerkracht" asp-action="ActiveerSessie">Activeer</a>
+                    <li>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
                 }
-        </div>*@
-</body>
-
+            </ul>
+        </div>
+    }
+</div>
+@*<div class="float-right text-center">
+        @Model.State
+        @if (Model.State == 0)
+            {
+                <a asp-controller="Leerkracht" asp-action="ActiveerSessie">Activeer</a>
+            }
+    </div>*@
