@@ -214,7 +214,7 @@ namespace BreakOutBox.Data
                 #endregion
 
                 #region Klas, leerkracht en sessie
-                var lk = new Leerkracht("Tom", "Pieters");
+                var lk = new Leerkracht("Tom", "Pieters", "Tom_Pieters@school.be");
                 var k = new Klas(leerlingen, lk);
                 lk.VoegKlasToe(k);
                 

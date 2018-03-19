@@ -21,12 +21,11 @@ namespace BreakOutBox.Controllers
 
         public IActionResult Index()
         {
-            string[] tokens = User.Identity.GetUserName().Split('_');
+            /*string[] tokens = User.Identity.GetUserName().Split('_');
             int index = tokens[1].LastIndexOf("@");
             if (index > 0)
-                tokens[1] = tokens[1].Substring(0, index);
-            
-            Leerkracht lk = _leerkrachtRepository.GetByVolledigeNaam(tokens[0], tokens[1]); // de leerkracht die vebonden staat met de huidige user
+                tokens[1] = tokens[1].Substring(0, index);*/           
+            Leerkracht lk = _leerkrachtRepository.GetByEmail(User.Identity.GetUserName()); // de leerkracht die vebonden staat met de huidige user
             List<Sessie> sessiesVanLeerkracht = lk.Sessies.ToList();
 
             foreach(Sessie sessie in sessiesVanLeerkracht)
