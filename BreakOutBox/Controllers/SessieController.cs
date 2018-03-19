@@ -124,7 +124,6 @@ namespace BreakOutBox.Controllers
                     return RedirectToAction(nameof(SessieOverzicht), new { sessiecode });
                 }
             }
-            
             return RedirectToAction(nameof(SessieOverzicht), new { sessiecode, groepid });
         }
 
@@ -153,7 +152,6 @@ namespace BreakOutBox.Controllers
 
         public IActionResult StartSpel(string sessiecode, string groepid)
         {
-
             sessiecode = Encode(sessiecode);
             groepid = Encode(groepid);
             return RedirectToAction(nameof(SpelController.SpelSpelen), "Spel", new { sessiecode, groepid });
