@@ -10,6 +10,7 @@ namespace BreakOutBox.Models.SpelViewModels
 {
     public class SpelSpelenViewModel
     {
+        [Required(ErrorMessage ="Dit mag niet leeg zijn")]
         [Display(Name = "Antwoord op de oefening")]   
         public int Groepsantwoord { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿@model BreakOutBox.Models.SpelViewModels.SpelSpelenViewModel
 @{
-    ViewData["Title"] = Model.Opdracht.Oefening.Naam;
+   
     var progressie = Model.Groep.Pad.getProgressie(Model.Opdracht);
     var progressiePercentage = ((((decimal)progressie[1] + 1) / ((decimal)progressie[0])) * 100);
     var progressiePercentageCompleted = (int)(System.Math.Round(progressiePercentage, 0) - ((decimal)100 / progressie[0]));
@@ -94,23 +94,24 @@
                             console.log("inputvalue2 :" + j);
                             return false
                         }
-                        swal("Juist!", "Op naar de volgende oefening!");
+                    
+                        swal("Juist!", "Op naar de volgende oefening!", );
+                        setTimeout(delaySubmit, 3000);
+
                         
-                        document.getElementById("formAntwoord").submit();
                     }, );
             } else {
                     console.log("Antwoord en toegangscode");
                     console.log(@Model.Opdracht.Oefening.Antwoord.ToString());
                     console.log(@(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString()));
-                    delay();
+                    
                     document.getElementById("formAntwoord").submit();
 
             }
         }
 
-        function delay() {
-            setTimeout(function () {     
-            }, 1500);
+        function delaySubmit() {       
+            document.getElementById("formAntwoord").submit();
         }
 
 
