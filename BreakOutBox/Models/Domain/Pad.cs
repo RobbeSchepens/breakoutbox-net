@@ -31,8 +31,12 @@ namespace BreakOutBox.Models.Domain
             }       
             catch
             {
+                var actie = new Actie();
+                var oef = new Oefening();
+                var toegCode = new Toegangscode();
 
-                return new Opdracht();
+                new Opdracht();
+                int volgNr, Actie actie, Oefening oefening, Toegangscode toegangscode
 
             }       
             
