@@ -51,7 +51,7 @@
 
             <p>@TempData["FouteCode"]</p>
             @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
-            <p><button type="submit" class="" onclick="promalert()">Ga verder</button></p>
+            <p><button type="button" class="" onclick="promalert()">Ga verder</button></p>
             @if (Model.TellerFoutePogingen >= 1)
             {
             <button onclick="hulp()" type="button">Hulp nodig?</button>
