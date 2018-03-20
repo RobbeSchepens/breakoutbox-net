@@ -99,76 +99,75 @@ namespace BreakOutBox.Data
                 {
                     opdrachtenGroep1[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i];
                 }
-                _dbContext.SaveChanges();
+            
 
                 var opdrachtenGroep2 = new List<Opdracht>{ // lijst met alle opdrachten van groep2 (7, 6, 5, 4, 3, 2, 1, 8)
-                    new Opdracht(9,null,oef[6],toe[8]),
-                    new Opdracht(10,null,oef[5],toe[9]),
-                    new Opdracht(11,null,oef[4],toe[10]),
-                    new Opdracht(12,null,oef[3],toe[11]),
-                    new Opdracht(13,null,oef[2],toe[12]),
-                    new Opdracht(14,null,oef[1],toe[13]),
-                    new Opdracht(15,null,oef[0],toe[14]),
-                    new Opdracht(16,null,oef[7],toe[15])
+                    new Opdracht(9,act[0],oef[6],toe[8]),
+                    new Opdracht(10,act[1],oef[5],toe[9]),
+                    new Opdracht(11,act[2],oef[4],toe[10]),
+                    new Opdracht(12,act[3],oef[3],toe[11]),
+                    new Opdracht(13,act[4],oef[2],toe[12]),
+                    new Opdracht(14,act[5],oef[1],toe[13]),
+                    new Opdracht(15,act[6],oef[0],toe[14]),
+                    new Opdracht(16,act[7],oef[7],toe[15])
                 };
                 for (int i = 0; i < 8; i++)
                 {
                     opdrachtenGroep2[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i + 8];
                     opdrachtenGroep1[i].Oefening.Antwoord = (i + 8) + 200;
                 }
-                _dbContext.SaveChanges();
+                
 
                 var opdrachtenGroep3 = new List<Opdracht>{ // lijst met alle opdrachten van groep3 (3, 5, 7, 1, 2, 4, 6, 8)
-                    new Opdracht(17,null,oef[2],toe[16]),
-                    new Opdracht(18,null,oef[4],toe[17]),
-                    new Opdracht(19,null,oef[6],toe[18]),
-                    new Opdracht(20,null,oef[0],toe[19]),
-                    new Opdracht(21,null,oef[1],toe[20]),
-                    new Opdracht(22,null,oef[3],toe[21]),
-                    new Opdracht(23,null,oef[5],toe[22]),
-                    new Opdracht(24,null,oef[7],toe[23])
+                    new Opdracht(17,act[0],oef[2],toe[16]),
+                    new Opdracht(18,act[1],oef[4],toe[17]),
+                    new Opdracht(19,act[2],oef[6],toe[18]),
+                    new Opdracht(20,act[3],oef[0],toe[19]),
+                    new Opdracht(21,act[4],oef[1],toe[20]),
+                    new Opdracht(22,act[5],oef[3],toe[21]),
+                    new Opdracht(23,act[6],oef[5],toe[22]),
+                    new Opdracht(24,act[7],oef[7],toe[23])
                 };
                 for (int i = 0; i < 8; i++)
                 {
                     opdrachtenGroep3[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i + 16];
                     opdrachtenGroep1[i].Oefening.Antwoord = (i + 16) + 200;
                 }
-                _dbContext.SaveChanges();
+            
 
                 var opdrachtenGroep4 = new List<Opdracht>{ // lijst met alle opdrachten van groep4 ( 6, 2, 5, 1, 4, 7, 3, 8 )
-                    new Opdracht(25,null,oef[5],toe[24]),
-                    new Opdracht(26,null,oef[1],toe[25]),
-                    new Opdracht(27,null,oef[4],toe[26]),
-                    new Opdracht(28,null,oef[0],toe[27]),
-                    new Opdracht(29,null,oef[3],toe[28]),
-                    new Opdracht(30,null,oef[6],toe[29]),
-                    new Opdracht(31,null,oef[2],toe[30]),
-                    new Opdracht(32,null,oef[7],toe[31])
+                    new Opdracht(25,act[0],oef[5],toe[24]),
+                    new Opdracht(26,act[1],oef[1],toe[25]),
+                    new Opdracht(27,act[2],oef[4],toe[26]),
+                    new Opdracht(28,act[3],oef[0],toe[27]),
+                    new Opdracht(29,act[4],oef[3],toe[28]),
+                    new Opdracht(30,act[5],oef[6],toe[29]),
+                    new Opdracht(31,act[6],oef[2],toe[30]),
+                    new Opdracht(32,act[7],oef[7],toe[31])
                 };
                 for (int i = 0; i < 8; i++)
                 {
                     opdrachtenGroep4[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i + 24];
                     opdrachtenGroep1[i].Oefening.Antwoord = (i + 24) + 200;
                 }
-                _dbContext.SaveChanges();
+               
 
                 var opdrachtenGroep5 = new List<Opdracht>{ // lijst met alle opdrachten van groep5 (4, 3, 6, 2, 7, 5, 1, 8)
-                    new Opdracht(33,null,oef[3],toe[32]),
-                    new Opdracht(34,null,oef[2],toe[33]),
-                    new Opdracht(35,null,oef[5],toe[34]),
-                    new Opdracht(36,null,oef[1],toe[35]),
-                    new Opdracht(37,null,oef[6],toe[36]),
-                    new Opdracht(38,null,oef[4],toe[37]),
-                    new Opdracht(39,null,oef[0],toe[38]),
-                    new Opdracht(40,null,oef[7],toe[39])
+                    new Opdracht(33,act[0],oef[3],toe[32]),
+                    new Opdracht(34,act[1],oef[2],toe[33]),
+                    new Opdracht(35,act[2],oef[5],toe[34]),
+                    new Opdracht(36,act[3],oef[1],toe[35]),
+                    new Opdracht(37,act[4],oef[6],toe[36]),
+                    new Opdracht(38,act[5],oef[4],toe[37]),
+                    new Opdracht(39,act[6],oef[0],toe[38]),
+                    new Opdracht(40,act[7],oef[7],toe[39])
                 };
                 for (int i = 0; i < 8; i++)
                 {
                     opdrachtenGroep5[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i + 32];
                     opdrachtenGroep1[i].Oefening.Antwoord = (i + 32) + 200;
                 }
-                _dbContext.SaveChanges();
-
+               
                 var paden = new List<Pad> { // elk pad heeft zijn eigen volgorde van vragen (region: LijstenMetOpdrachtenPerGroep)
                     new Pad(opdrachtenGroep1),
                     new Pad(opdrachtenGroep2),
@@ -176,7 +175,7 @@ namespace BreakOutBox.Data
                     new Pad(opdrachtenGroep4),
                     new Pad(opdrachtenGroep5)
                 };
-                _dbContext.SaveChanges();
+              
                 #endregion
 
                 #region Leerlingen en groepen

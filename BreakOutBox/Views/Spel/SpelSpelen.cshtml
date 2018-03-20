@@ -4,6 +4,7 @@
     var progressie = Model.Groep.Pad.getProgressie(Model.Opdracht);
     var progressiePercentage = ((((decimal)progressie[1] + 1) / ((decimal)progressie[0])) * 100);
     var progressiePercentageCompleted = (int)(System.Math.Round(progressiePercentage, 0) - ((decimal)100 / progressie[0]));
+
 }
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -84,10 +85,36 @@
             }
 
 
-            if (@(Model.Opdracht.Oefening.Antwoord.ToString()) == document.getElementById("Toegangscode").value) {           
+            if (@(Model.Opdracht.Oefening.Antwoord.ToString()) == document.getElementById("Toegangscode").value) {
+                if (@(progressie[1] + 1) == @(progressie[0])){
+
+                    swal({
+                        title: 'Juist! doe het volgende om de schatkist te vinden',
+                        text: 'Placeholder actie finaal', // @*'@(Model.Opdracht.Actie.Omschrijving.ToString())'*@
+
+                        showCancelButton: false,
+                        confirmButtonText: 'sluit het spel'
+                    },
+                        function () {
+                            @(Url.Action("Sessie", "Index"))
+                        });
+
+
+
+
+                    //window.location.href = "/{controller}/{action}/{params}";
+
+                    console.log("hier na wachten");
+
+                }
+
+
+
+
+
                 swal({
                     title: "Toegangscode volgende oefening",
-                    text: "placeholder actie", // werkt niet @*@Model.Opdracht.Actie.Omschrijving.ToString()*@
+                    text: 'placeholder', @*/@Model.Opdracht.Actie.Omschrijving.ToString()*@
                     type: "input",
                     showCancelButton: true,
                     closeOnConfirm: false,

@@ -10,6 +10,7 @@ namespace BreakOutBox.Models.Domain
     {
         //public BewerkingMogenlijkheden BewerkingMogenlijkheden { get; set; }
         public double GetalBewerking { get; set; }
+        public Opdracht Opdracht { get; set; } // Voor one to one EF relatie
         public Bewerking()
         {
             
