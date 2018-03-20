@@ -43,7 +43,8 @@
             </div>
             <p><label asp-for="Groepsantwoord"></label></p>
             <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
-            <p><span asp-validation-for="Groepsantwoord" class="text-danger"></span></p>
+            <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
+
             <p>@TempData["FouteCode"]</p>
             @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
 
@@ -80,8 +81,14 @@
 
 
         function promalert() {
-            if (@(Model.Opdracht.Oefening.Antwoord.ToString()) == document.getElementById("Toegangscode").value) {
-                
+
+            if (document.getElementById("Toegangscode").value == null || document.getElementById("Toegangscode").value == ""){
+                document.getElementById('foutTeksvakLeeg').innerHTML = "Toegangscode mag niet leeg zijn"
+                return;
+            }
+
+
+            if (@(Model.Opdracht.Oefening.Antwoord.ToString()) == document.getElementById("Toegangscode").value) {           
                 swal({
                     title: "Toegangscode volgende oefening",
                     text: "placeholder actie", // werkt niet @*@Model.Opdracht.Actie.Omschrijving.ToString()*@
