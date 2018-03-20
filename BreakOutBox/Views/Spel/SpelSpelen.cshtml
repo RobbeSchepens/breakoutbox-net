@@ -83,17 +83,31 @@
                 return;
             }
 
+            if (@(Model.Opdracht.Oefening.Antwoord.ToString()) == document.getElementById("Toegangscode").value) {
 
-            if (@(Model.Opdracht.Oefening.Antwoord.ToString()) == document.getElementById("Toegangscode").value) {           
-                swal({
+                 if (@(progressie[1] + 1) == @(progressie[0])){
+                    swal({
+                        title: 'Juist! doe het volgende om de schatkist te vinden',
+                        text: '@Model.Opdracht.Actie.Omschrijving.ToString()',
+
+                        showCancelButton: false,
+                        confirmButtonText: 'sluit het spel'
+                    },
+                        function () {
+                            console.log("hier");
+                            window.location.href = "/Sessie/Index";
+
+                        });
+                 } else {
+                    swal({
                     title: "Toegangscode volgende oefening",
-                    text: "placeholder actie", // werkt niet @*@Model.Opdracht.Actie.Omschrijving.ToString()*@
+                    text: "@Model.Opdracht.Actie.Omschrijving.ToString()", // werkt niet @*@Model.Opdracht.Actie.Omschrijving.ToString()*@
                     type: "input",
                     showCancelButton: true,
                     closeOnConfirm: false,
                     animation: "slide-from-top",
                     inputPlaceholder: "Toegangscode"
-                },
+                    },
                     function (inputValue) {
                         var j = @(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString());
                         if (inputValue === false) return false;
@@ -112,6 +126,7 @@
                         swal("Juist!", "Op naar de volgende oefening!", );
                         setTimeout(delaySubmit, 1000);
                     }, );
+                 }
             } else {
                     console.log("Antwoord en toegangscode");
                     console.log(@Model.Opdracht.Oefening.Antwoord.ToString());

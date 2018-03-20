@@ -10,6 +10,9 @@ namespace BreakOutBox.Data.Mappers
         {
             builder.ToTable("Actie");
             builder.Property(t => t.Omschrijving).IsRequired().HasMaxLength(100);
+
+
+
         }
     }
 }
