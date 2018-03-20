@@ -35,8 +35,8 @@ namespace BreakOutBox.Models.Domain
                 var oef = new Oefening();
                 var toegCode = new Toegangscode();
 
-                new Opdracht();
-                int volgNr, Actie actie, Oefening oefening, Toegangscode toegangscode
+                return new Opdracht();
+                //int volgNr, Actie actie, Oefening oefening, Toegangscode toegangscode
 
             }       
             
