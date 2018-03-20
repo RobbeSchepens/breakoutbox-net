@@ -8,6 +8,8 @@ namespace BreakOutBox.Models.Domain
     public interface ILeerkrachtRepository
     {
         Leerkracht GetByVolledigeNaam(string voornaam, string achternaam);
+        Leerkracht GetByEmail(string email);
+
 
         void SaveChanges();
 

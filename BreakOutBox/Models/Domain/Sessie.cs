@@ -72,7 +72,7 @@ namespace BreakOutBox.Models.Domain
         {
             try
             {
-                _currentState.Activeer();
+                this._currentState.Activeer();
             }
             catch (Exception e)
             {
@@ -84,7 +84,7 @@ namespace BreakOutBox.Models.Domain
         {
             try
             {
-                _currentState.Deactiveer(Groepen);
+                this._currentState.Deactiveer(Groepen);
             }
             catch (Exception e)
             {
@@ -96,7 +96,7 @@ namespace BreakOutBox.Models.Domain
         {
             try
             {
-                _currentState.StartSpel(Groepen);
+                this._currentState.StartSpel(Groepen);
             }
             catch (Exception e)
             {
@@ -108,7 +108,7 @@ namespace BreakOutBox.Models.Domain
         {
             try
             {
-                _currentState.Blokkeer();
+                this._currentState.Blokkeer();
             }
             catch (Exception e)
             {
@@ -120,7 +120,7 @@ namespace BreakOutBox.Models.Domain
         {
             try
             {
-                _currentState.Deblokkeer();
+                this._currentState.Deblokkeer();
             }
             catch (Exception e)
             {
@@ -130,7 +130,7 @@ namespace BreakOutBox.Models.Domain
 
         public SessieState GetState()
         {
-            return _currentState;
+            return this._currentState;
         }
         #endregion
     }
