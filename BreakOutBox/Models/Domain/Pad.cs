@@ -31,11 +31,11 @@ namespace BreakOutBox.Models.Domain
             }       
             catch
             {
-                var actie = new Actie();
-                var oef = new Oefening();
-                var toegCode = new Toegangscode();
+                var actie = new Actie("");
+                var oef = new Oefening("","",0,new Vak(""));
+                var toegCode = new Toegangscode(0);
 
-                return new Opdracht();
+                return new Opdracht(20000, actie,oef,toegCode);
                 //int volgNr, Actie actie, Oefening oefening, Toegangscode toegangscode
 
             }       
