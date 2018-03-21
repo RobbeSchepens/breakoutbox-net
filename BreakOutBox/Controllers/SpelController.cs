@@ -72,10 +72,23 @@ namespace BreakOutBox.Controllers
                             TempData["FouteCode"] = "FOUT! je hebt " + ssvm.TellerFoutePogingen + " foute pogingen ondernomen";
                         //}
 
-                        if(ssvm.TellerFoutePogingen >= 3)
+                        if(ssvm.TellerFoutePogingen >= 2)
                         {
-                                
+
+                            Groep groep = s.Groepen.Where(a => a.GroepId == ssvm.GroepId).FirstOrDefault();
+                            groep.SwitchState(groep.State);
+                            groep.Blokkeer();
+                            _sessieRepository.SaveChanges();
+
+
+
+                            //Sessie sessie = _sessieRepository.GetBySessieCode(id);
+                            //sessie.SwitchState(sessie.State);
+                            //sessie.Blokkeer();
+                            //_sessieRepository.SaveChanges();
+                            //return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
                         }
+                        
 
                     }
 
@@ -88,7 +101,6 @@ namespace BreakOutBox.Controllers
             }
             return View(ssvm);
         }
-
        /* public IActionResult InvoerenToegangscode(opdrachtId)
         {
 
