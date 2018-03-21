@@ -9,6 +9,8 @@ namespace BreakOutBox.Models.Domain
     {
         protected Groep _groep;
 
+        public abstract string Beschrijving { get; set; }
+
         protected GroepState(Groep groep)
         {
             _groep = groep;
@@ -18,5 +20,7 @@ namespace BreakOutBox.Models.Domain
         public abstract void ZetNietGereed();
         public abstract void Vergrendel();
         public abstract void Ontgrendel();
+        public abstract void Blokkeer();
+        public abstract void DeBlokkeer();
     }
 }

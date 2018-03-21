@@ -5,42 +5,43 @@ using System.Threading.Tasks;
 
 namespace BreakOutBox.Models.Domain
 {
-    public class GroepNietGereedState : GroepState
+    public class GroepGeblokkeerdState : GroepState
     {
         public override string Beschrijving { get; set; }
-        public GroepNietGereedState(Groep groep) : base(groep)
+
+        public GroepGeblokkeerdState(Groep groep) : base(groep)
         {
-            Beschrijving = "Niet klaar";
+            Beschrijving = "Geblokkeerd";
         }
 
         public override void ZetGereed()
         {
-            _groep.SwitchState(1);
+            throw new Exception("Groep is geblokkeerd!");
         }
 
         public override void ZetNietGereed()
         {
-            throw new Exception("De groep is al niet-gereed.");
+            throw new Exception("Groep is geblokkeerd!");
         }
 
         public override void Vergrendel()
         {
-            _groep.SwitchState(2);
+            throw new Exception("Groep is geblokkeerd!");
         }
 
         public override void Ontgrendel()
         {
-            throw new Exception("De groep is niet vergrendeld.");
+            throw new Exception("Groep is geblokkeerd!");
         }
 
         public override void Blokkeer()
         {
-            throw new Exception("De groep is nog niet klaar.");
+            throw new Exception("Groep is al geblokkeerd!");
         }
 
         public override void DeBlokkeer()
         {
-            throw new Exception("De groep is niet geblokkeerd.");
+            _groep.SwitchState(2);
         }
     }
 }

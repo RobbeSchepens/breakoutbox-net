@@ -62,12 +62,19 @@ namespace BreakOutBox.Models.Domain
             {
                 case 0:
                     ToState(new GroepNietGereedState(this));
+                    State = 0;
                     break;
                 case 1:
                     ToState(new GroepGereedState(this));
+                    State = 1;
                     break;
                 case 2:
                     ToState(new GroepVergrendeldState(this));
+                    State = 2;
+                    break;
+                case 3:
+                    ToState(new GroepGeblokkeerdState(this));
+                    State = 3;
                     break;
                 default: goto case 0;
             }
@@ -77,11 +84,7 @@ namespace BreakOutBox.Models.Domain
         {
             try
             {
-                if (_currentState is GroepGereedState)
-                    throw new Exception("Deze groep is al gekozen");
                 _currentState.ZetGereed();
-                ToState(new GroepGereedState(this));
-                State = 1;
             }
             catch (Exception e)
             {
@@ -94,8 +97,6 @@ namespace BreakOutBox.Models.Domain
             try
             {
                 _currentState.ZetNietGereed();
-                ToState(new GroepNietGereedState(this));
-                State = 0;
             }
             catch (Exception e)
             {
@@ -108,8 +109,6 @@ namespace BreakOutBox.Models.Domain
             try
             {
                 _currentState.Vergrendel();
-                ToState(new GroepVergrendeldState(this));
-                State = 2;
             }
             catch (Exception e)
             {
@@ -122,8 +121,30 @@ namespace BreakOutBox.Models.Domain
             try
             {
                 _currentState.Ontgrendel();
-                ToState(new GroepNietGereedState(this));
-                State = 0;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public void Blokkeer()
+        {
+            try
+            {
+                _currentState.Blokkeer();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public void DeBlokkeer()
+        {
+            try
+            {
+                _currentState.DeBlokkeer();
             }
             catch (Exception e)
             {

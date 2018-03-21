@@ -7,8 +7,10 @@ namespace BreakOutBox.Models.Domain
 {
     public class GroepGereedState : GroepState
     {
+        public override string Beschrijving { get; set; }
         public GroepGereedState(Groep groep) : base(groep)
         {
+            Beschrijving = "Klaar";
         }
 
         public override void ZetGereed()
@@ -18,17 +20,27 @@ namespace BreakOutBox.Models.Domain
 
         public override void ZetNietGereed()
         {
-            this._groep.SwitchState(0);
+            _groep.SwitchState(0);
         }
 
         public override void Vergrendel()
         {
-            this._groep.SwitchState(2);
+            _groep.SwitchState(2);
         }
 
         public override void Ontgrendel()
         {
             throw new Exception("De groep is niet vergrendeld.");
+        }
+
+        public override void Blokkeer()
+        {
+            throw new Exception("De groep is nog niet vergrendeld.");
+        }
+
+        public override void DeBlokkeer()
+        {
+            throw new Exception("De groep is niet geblokkeerd.");
         }
     }
 }
