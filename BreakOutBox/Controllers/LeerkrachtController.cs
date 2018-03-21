@@ -1,6 +1,7 @@
 ﻿using BreakOutBox.Models.Domain;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -46,6 +47,10 @@ namespace BreakOutBox.Controllers
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
             sessie.SwitchState(sessie.State);
+            foreach (Groep groep in sessie.Groepen)
+            {
+                groep.SwitchState(groep.State);
+            }
             return View(sessie);
         }
 
@@ -94,19 +99,24 @@ namespace BreakOutBox.Controllers
             return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
         }
 
-        public IActionResult OverZichtGroep(int groepID, string sessieId)
+        public IActionResult OverzichtGroep(int id1, string code)
         {
-            Sessie sessie = _sessieRepository.GetBySessieCode(sessieId);
-            sessie.SwitchState(sessie.State);
-            Groep groep = null;
-            foreach(Groep gr in sessie.Groepen)
+            if (ModelState.IsValid)
             {
-                if(gr.GroepId == groepID)
+                try
                 {
-                    groep = gr;
+                    Sessie sessie = _sessieRepository.GetBySessieCode(code);
+                    sessie.SwitchState(sessie.State);
+                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == id1);
+                    groep.SwitchState(groep.State);
+                    return View(groep);
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", e.Message);
                 }
             }
-            return View(groep);
+            return View();
         }
     }
 }
