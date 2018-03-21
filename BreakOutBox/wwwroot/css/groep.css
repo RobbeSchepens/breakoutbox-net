@@ -46,6 +46,7 @@
 
 .groep .icons a {
     color: rgb(54, 54, 54);
+    margin: 0 6px;
 }
 
 @media only screen and (min-width:992px) {
@@ -57,7 +58,7 @@
         max-width: 46%;
     }
 
-    .groep:nth-of-type(odd) {
+    .groep:nth-of-type(even) {
         margin-right: 0;
     }
 }
