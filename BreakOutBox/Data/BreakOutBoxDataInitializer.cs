@@ -205,9 +205,9 @@ namespace BreakOutBox.Data
                 };
 
                 var groepen = new List<Groep> {
-                  new Groep(paden[0], leerlingen.GetRange(0, 4), 1),
+                  new Groep(paden[0], leerlingen.GetRange(0, 4), 0),
                   new Groep(paden[1], leerlingen.GetRange(4, 4), 0),
-                  new Groep(paden[2], leerlingen.GetRange(8, 4), 0),
+                  new Groep(paden[2], leerlingen.GetRange(8, 4), 1),
                   new Groep(paden[3], leerlingen.GetRange(12, 4), 1),
                   new Groep(paden[4], leerlingen.GetRange(16, 4), 2)
                 };
