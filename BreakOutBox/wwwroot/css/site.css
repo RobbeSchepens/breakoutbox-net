@@ -39,29 +39,30 @@
     ONZE EIGEN CSS KOMT HIERONDER
     =============================
 */
-html {
-    height: 100%;
-    font-size: 16px;
-}
-
 body {
     height: 100%;
+    font-size: 16px;
     margin: 0;
-    background-repeat: no-repeat;
+    /*background-repeat: no-repeat;
     background-attachment: fixed;
     background: rgba(0,0,0,0.05);
-    background: linear-gradient(to right, #b5c4d1, #d7dbdd);
+    background: linear-gradient(to right, #b5c4d1, #d7dbdd);*/
     color: #202020;
     /*border-top: 10px solid #202020;*/
-    font-family: 'Bree Serif', serif;
+    /*font-family: 'Bree Serif', serif;*/
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6, a, button, input, option, p, select, table, tbody, td, textarea, th, thead, tr {
     font-family: inherit;
 }
 
+h1 {
+    font-size: 3em;
+}
+
 h2 {
-    font-size: 2.5rem;
+    font-size: 2em;
 }
 
 a, a, a:hover, a:visited, a:active, .text-danger {
@@ -83,9 +84,10 @@ a, a, a:hover, a:visited, a:active, .text-danger {
 }
 
 .bgcolorwhite {
-    background-color: rgba(255,255,255,0.75);
-    box-shadow: 0 7px 4px -6px rgba(0,0,0,0.5);
+    /*background-color: rgba(255,255,255,0.75);
+    box-shadow: 0 7px 4px -6px rgba(0,0,0,0.5);*/
     margin-bottom: 32px;
+    background: rgb(54, 54, 54);
 }
 
 ul li, ul {
@@ -114,11 +116,15 @@ nav {
     text-align: right;
 }
 
-nav a {
+nav a, nav a:hover, nav a:visited, nav a:active {
     padding: 20px 0;
     line-height: 60px;
+    color: white;
 }
 
+nav a:hover {
+    font-weight: inherit;
+}
 
 .navbar-right {
     right: 0;
@@ -147,15 +153,15 @@ input, select, button, textarea {
     color: #202020;
 }
 
-.groep, .groep:hover {
+/*.groep, .groep:hover {
     /*box-shadow: 0 10px 20px -6px #9f9f9f;
-    border: 3px solid #9f9f9f;*/
+    border: 3px solid #9f9f9f;
     text-align: center;
 }
 
 .groep:hover {
     border-color: #202020;
-}
+}*/
 .marginright {
     margin-right: 0.5em;
 }
@@ -183,4 +189,8 @@ object {
 .correcticon {
     margin-left: 0.5em;
     color: #69985d;
+}
+
+.tip {
+    font-size: 0.5em;
 }

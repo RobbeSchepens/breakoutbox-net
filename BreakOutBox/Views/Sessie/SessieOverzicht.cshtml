@@ -9,51 +9,46 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-12 col text-center">
+    <div class="col-12 col">
         <p>Kies jouw groep en maak je klaar voor de start.</p>
         <p>Lees ondertussen ook de spelregels door. Deze vind je onderaan de pagina.</p>
     </div>
     @foreach (var groep in Model.Groepen)
     {
-        <div class="sm-12 md-6 col groep">
-            <h4><i class="fas fa-users fa-sm marginright"></i> Groep @(groep.GroepId)</h4>
+        <div class="sm-12 md-6 groep">
+            <span class="header"><i class="fas fa-users fa-fw icon"></i>Groep #@(groep.GroepId)</span>
             <ul>
                 @foreach (var leerling in groep.Leerlingen)
                 {
-                    <li>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
+                    <li><i class="far fa-user fa-fw icon"></i>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
                 }
-                <li><p></p></li>
-                @*<li>
-                        @Html.ActionLink("Klik hier als dit jouw groepje is", "VergrendelGroep", "Sessie", new { groepId = groep.GroepId }, "")
-                    </li>
-                    <li>
-                        @Html.ActionLink("Klik hier om de groep terug te ontgrendelen", "OntgrendelGroep", "Sessie", new { groepId = groep.GroepId }, "")
-                    </li>*@
+            </ul>
+            <span class="icons">
                 @if (groep.State == 0 && groep.State != 2 && ViewBag.GeselecteerdeGroep == null)
                 {
-                    <li>
-                        <a href="@Url.Action("ZetGroepGereed", "Sessie", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })">
-                            <i class="fas fa-angle-double-right"></i> Klik hier als dit jouw groep is
-                        </a>
-                    </li>
+                    <a href="@Url.Action("ZetGroepGereed", "Sessie", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Klik hier als dit jouw groep is">
+                        <i class="far fa-square"></i>
+                    </a>
                 }
                 @if (groep.State == 1 && groep.State != 2 && ViewBag.GeselecteerdeGroep != null && ViewBag.GeselecteerdeGroep.GroepId == groep.GroepId)
                 {
-                    <li>
-                        <a href="@Url.Action("ZetGroepNietGereed", "Sessie", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })">
-                            <i class="fas fa-angle-double-right"></i> Klik hier om de groep te deselecteren
-                        </a>
-                    </li>
+                    <a href="@Url.Action("ZetGroepNietGereed", "Sessie", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Klik hier om deze groep te deselecteren">
+                        <i class="far fa-check-square"></i>
+                    </a>
                 }
                 @if (groep.State == 1 && groep.State != 2 && ViewBag.GeselecteerdeGroep == null)
                 {
-                    <li>Een andere groep heeft deze groep al gekozen</li>
+                    <a href="#" class="tip brown" title="Een andere groep heeft deze groep al geselecteerd">
+                        <i class="far fa-times-circle"></i>
+                    </a>
                 }
                 @if (groep.State == 2)
                 {
-                    <li>Deze groep is vergrendeld</li>
+                    <a href="#" class="tip brown" title="Deze groep is vergrendeld">
+                        <i class="fas fa-lock"></i>
+                    </a>
                 }
-            </ul>
+            </span>
         </div>
     }
 </div>
