@@ -23,32 +23,13 @@
                 }
             </ul>
             <span class="icons">
-                @if (groep.State == 0 && groep.State != 2 && ViewBag.GeselecteerdeGroep == null)
-                {
-                    <a href="#" class="tip brown" title="Klik hier als dit jouw groep is">
-                        <i class="far fa-square"></i>
-                    </a>
-                }
-                @if (groep.State == 1 && groep.State != 2 && ViewBag.GeselecteerdeGroep != null && ViewBag.GeselecteerdeGroep.GroepId == groep.GroepId)
-                {
-                    <a href="#" class="tip brown" title="Klik hier om deze groep te deselecteren">
-                        <i class="far fa-check-square"></i>
-                    </a>
-                }
-                @if (groep.State == 1 && groep.State != 2 && ViewBag.GeselecteerdeGroep == null)
-                {
-                    <a href="#" class="tip brown" title="Een andere groep heeft deze groep al geselecteerd">
-                        <i class="far fa-times-circle"></i>
-                    </a>
-                }
-                @if (groep.State == 2)
-                {
-                    <a href="#" class="tip brown" title="Deze groep is vergrendeld">
-                        <i class="fas fa-lock"></i>
-                    </a>
-                }
+                <a asp-controller="Leerkracht" asp-action="OverzichtGroep" asp-route-id1="@groep.GroepId" asp-route-code="@Model.Code" class="tip brown" title="Bekijk de details voor deze groep">
+                    <i class="fas fa-info-circle"></i>
+                </a>
+                <a asp-controller="Leerkracht" asp-action="OverzichtGroep" asp-route-id1="@groep.GroepId" asp-route-code="@Model.Code" class="tip brown" title="Bekijk de details voor deze groep">
+                    <i class="fas fa-info-circle"></i>
+                </a>
             </span>
-            <h6><a asp-controller="Leerkracht" asp-action="OverzichtGroep" asp-route-id1="@groep.GroepId" asp-route-code="@Model.Code">Details<i class="fa fa-arrow-right" style="color:darkgreen"></i></a></h6>
         </div>
     }
 </div>
