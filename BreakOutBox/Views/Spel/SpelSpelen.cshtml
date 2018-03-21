@@ -45,22 +45,33 @@
 
                 </div>
             </div>
-            <p><label asp-for="Groepsantwoord"></label></p>
-            <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
-            <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
+            <div>
+                <div id="Antwoord">
+                    <p><label asp-for="Groepsantwoord"></label></p>
+                    <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
+                    <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
 
-            <p>@TempData["FouteCode"]</p>
-            @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
-            <p><button type="button" class="" onclick="promalert()">Ga verder</button></p>
-            @if (Model.TellerFoutePogingen >= 1)
-            {
-            <button onclick="hulp()" type="button">Hulp nodig?</button>
-            }
-            @if(Model.TellerFoutePogingen == 3)
-            {
+                    <p>@TempData["FouteCode"]</p>
+                    @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
 
+                    <button type="button" class="" id="GaVerder" onclick="promalert()">Ga verder</button>
+                </div>
 
-            }
+                <div>
+                    <div id="Opnieuw" style="display:none">
+                        <p>Te veel foute antwoorden, vraag hulp aan de leerkracht.</p>
+
+                        @*button om terug te gaan naar het overzicht als de groep geblokkeerd is*@
+                        <button  type="submit" asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.Sessie.Code">Probeer opnieuw.</button>
+                    </div>
+                   
+                    @if (Model.TellerFoutePogingen >= 1)
+                    {
+                        <button onclick="hulp()" type="button">Hulp nodig?</button>
+                    }
+                </div>
+            </div>
+
             <div hidden>
                 <p><input asp-for="OpdrachtId" type="text" class="form-control" autocomplete="off" value="@Model.Opdracht.OpdrachtId" /></p>
                 <p><input asp-for="GroepId" type="text" class="form-control" autocomplete="off" value="@Model.Groep.GroepId" /></p>
@@ -76,6 +87,7 @@
     <script asp-src-include="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script>
         function promalert() {
+            //blokkeerGroep();
 
             if (document.getElementById("Toegangscode").value == null || document.getElementById("Toegangscode").value == "") {
                 console.log("in de if leeg");
@@ -128,15 +140,39 @@
                     }, );
                  }
             } else {
+                if (@Model.TellerFoutePogingen >= 2) {
+                    document.getElementById("Antwoord").style.display = 'none';
+                    document.getElementById("Opnieuw").style.display = 'block';
+
+                }
+                else {
                     console.log("Antwoord en toegangscode");
                     console.log(@Model.Opdracht.Oefening.Antwoord.ToString());
                     console.log(@(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString()));
                     document.getElementById("formAntwoord").submit();
+                }
             }
+
+
+
+
         }
         function delaySubmit() {
             document.getElementById("formAntwoord").submit();
         }
+        @*function blokkeerGroep() {
+            if (@Model.TellerFoutePogingen >= 2) {
+                console.log("Test");
+
+                document.getElementById("Antwoord").style.display = 'none';
+
+                document.getElementById("GaVerder").style.display = 'none';
+                document.getElementById("Stop").style.display = 'block';
+                document.getElementById("Toegangscode").style.display = 'block';
+                document.getElementById("Antwoord").style.display = 'block';
+            }
+
+        }*@
     </script>
 
 
