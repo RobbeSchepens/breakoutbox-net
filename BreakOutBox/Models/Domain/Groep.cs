@@ -152,6 +152,11 @@ namespace BreakOutBox.Models.Domain
             }
         }
 
+        public GroepState GetState()
+        {
+            return _currentState;
+        }
+
         public void VoegLeerlingToe(Leerling leerling)
         {
             if (Leerlingen.Count == 4)

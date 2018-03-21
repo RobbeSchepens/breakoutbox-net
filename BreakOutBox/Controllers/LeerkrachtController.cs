@@ -31,6 +31,10 @@ namespace BreakOutBox.Controllers
             foreach(Sessie sessie in sessiesVanLeerkracht)
             {
                 sessie.SwitchState(sessie.State);
+                foreach(Groep groep in sessie.Groepen)
+                {
+                    groep.SwitchState(groep.State);
+                }
             }
 
             ViewData["LeerkrachtNaam"] = lk.Voornaam + " " + lk.Achternaam;
@@ -88,6 +92,21 @@ namespace BreakOutBox.Controllers
             sessie.StartSpel();
             _sessieRepository.SaveChanges();
             return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+        }
+
+        public IActionResult OverZichtGroep(int groepID, string sessieId)
+        {
+            Sessie sessie = _sessieRepository.GetBySessieCode(sessieId);
+            sessie.SwitchState(sessie.State);
+            Groep groep = null;
+            foreach(Groep gr in sessie.Groepen)
+            {
+                if(gr.GroepId == groepID)
+                {
+                    groep = gr;
+                }
+            }
+            return View(groep);
         }
     }
 }
