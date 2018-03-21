@@ -70,24 +70,8 @@ a, a, a:hover, a:visited, a:active, .text-danger {
     color: #202020;
 }
 
-#navigatie {
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
 .inputinline input {
     display: inline-block;
-}
-
-.nav {
-    margin-bottom: 0;
-}
-
-.bgcolorwhite {
-    /*background-color: rgba(255,255,255,0.75);
-    box-shadow: 0 7px 4px -6px rgba(0,0,0,0.5);*/
-    margin-bottom: 32px;
-    background: rgb(54, 54, 54);
 }
 
 ul li, ul {
@@ -99,17 +83,36 @@ ul li, ul {
     line-height: 1.4rem;
 }
 
-nav ul li {
-    display: inline-block;
-    margin-left: 30px;
-}
-
 ul li::before {
     content: none;
 }
 
 a:hover {
     font-weight: bold;
+}
+
+/* 
+    ========= NAVIGATIE ==========
+*/
+.bgcolorwhite {
+    /*background-color: rgba(255,255,255,0.75);
+    box-shadow: 0 7px 4px -6px rgba(0,0,0,0.5);*/
+    margin-bottom: 32px;
+    background: rgb(54, 54, 54);
+}
+
+#navigatie {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.nav {
+    margin-bottom: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-left: 30px;
 }
 
 nav {
@@ -130,6 +133,15 @@ nav a:hover {
     right: 0;
     left: auto;
 }
+
+nav button {
+    color: white;
+    border-color: white;
+}
+
+/* 
+    =========== andere ==========
+*/
 
 h2, h4 {
     margin: 0;
@@ -153,15 +165,6 @@ input, select, button, textarea {
     color: #202020;
 }
 
-/*.groep, .groep:hover {
-    /*box-shadow: 0 10px 20px -6px #9f9f9f;
-    border: 3px solid #9f9f9f;
-    text-align: center;
-}
-
-.groep:hover {
-    border-color: #202020;
-}*/
 .marginright {
     margin-right: 0.5em;
 }
