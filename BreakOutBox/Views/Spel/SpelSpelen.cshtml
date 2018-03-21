@@ -27,16 +27,15 @@
                 <h5> opdracht @(progressie[1] + 1) van @(progressie[0])</h5>
             </p>
             <p>
-                Antwoord deze opdr: @Model.Opdracht.Oefening.Antwoord.ToString() <br />
-                Toegangscode volgende Opdr: @(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString())
+               
             </p>
-            <p>
+            @*<p>
                 <div class="w3-container" onclick="">
                     <div class="w3-light-grey" style="width:60%;margin: auto;">
-                        <div class="w3-container w3-blue w3-center" style="width:@((int)progressiePercentageCompleted)%"><span style="color:black">@((int)(progressiePercentageCompleted))%&nbsp;correct&nbsp;opgelost</span></div>
+                        <div class="w3-container w3-blue w3-center" style="width:@((int)progressiePercentageCompleted)%"><span style="color:black">a</span></div>
                     </div>
                 </div>
-            </p>
+            </p>*@
 
             <div>
                 <div id="pdf">
@@ -75,6 +74,9 @@
     <script asp-src-include="lib/jquery-validation/dist/jquery.validate.js"></script>
     <script asp-src-include="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script>
+        console.log(@Model.Opdracht.Oefening.Antwoord.ToString());
+        console.log(@(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString()));
+        
         function promalert() {
 
             if (document.getElementById("Toegangscode").value == null || document.getElementById("Toegangscode").value == "") {
