@@ -1,9 +1,10 @@
 ﻿@model BreakOutBox.Models.SpelViewModels.SpelSpelenViewModel
 @{
 
-    var progressie = Model.Groep.Pad.getProgressie(Model.Opdracht);
-    var progressiePercentage = ((((decimal)progressie[1] + 1) / ((decimal)progressie[0])) * 100);
-    var progressiePercentageCompleted = (int)(System.Math.Round(progressiePercentage, 0) - ((decimal)100 / progressie[0]));
+    var progressie = Model.ProgressieInPad;
+
+    //var progressiePercentage = ((((decimal)progressie[1] + 1) / ((decimal)progressie[0])) * 100);
+    //var progressiePercentageCompleted = (int)(System.Math.Round(progressiePercentage, 0) - ((decimal)100 / progressie[0]));
 }
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -59,7 +60,7 @@
                     <p>@TempData["FouteCode"]</p>
                     @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
 
-                    <button type="button" class="" id="GaVerder" onclick="promalert()">Ga verder</button>
+                    <button type="submit" class="" id="GaVerder" onclick="">Ga verder</button>
                 </div>
 
                 <div>
@@ -67,21 +68,20 @@
                         <p>Te veel foute antwoorden, vraag hulp aan de leerkracht.</p>
 
                         @*button om terug te gaan naar het overzicht als de groep geblokkeerd is*@
-                        <button  type="submit" asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.Sessie.Code">Probeer opnieuw.</button>
+                        @*<button  type="submit" asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.Sessie.Code">Probeer opnieuw.</button>*@
                     </div>
                    
-                    @if (Model.TellerFoutePogingen >= 1)
+                    @*@if (Model.TellerFoutePogingen >= 1)
                     {
                         <button onclick="hulp()" type="button">Hulp nodig?</button>
-                    }
+                    }*@
                 </div>
             </div>
 
             <div hidden>
-                <p><input asp-for="OpdrachtId" type="text" class="form-control" autocomplete="off" value="@Model.Opdracht.OpdrachtId" /></p>
-                <p><input asp-for="GroepId" type="text" class="form-control" autocomplete="off" value="@Model.Groep.GroepId" /></p>
-                <p><input asp-for="sessieId" type="text" class="form-control" autocomplete="off" value="@Model.Sessie.Code" /></p>
-                <p><input asp-for="TellerFoutePogingen" type="text" class="form-control" autocomplete="off" value="@(Model.TellerFoutePogingen + 1)" /></p>
+               
+                <p><input asp-for="GroepId" type="text" class="form-control" autocomplete="off" value="@(Model.GroepId)" /></p>
+              
             </div>
         </form>
     </div>
@@ -91,100 +91,67 @@
     <script asp-src-include="lib/jquery-validation/dist/jquery.validate.js"></script>
     <script asp-src-include="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     
-
     <script>
-        console.log("Antwoord " + @Model.Opdracht.Oefening.Antwoord.ToString());
+        console.log("Antwoord " + @(Model.Opdracht.Oefening.Antwoord.ToString()));
+        console.log("Toegangscode " + @(Model.ToegangscodeVolgendeOefening.ToString()));
+        if ("@(Model.JuistGeantwoordOpgave)" == "True") {
+            document.getElementById("Toegangscode").value = (@(Model.Opdracht.Oefening.Antwoord.ToString()));
+            groepsantwoordJuist();
+
+        }
+
+        console.log("bool " + '@(Model.JuistGeantwoordOpgave)');
+        console.log("bool " + '@(Model.JuistGeantwoordtoegangscode)');
+
+
+
+
+
+
+        function groepsantwoordJuist() {
+            swal({ // de swal van alle oefeningen
+                title: "Toegangscode volgende oefening",
+                text: "@Model.Opdracht.Actie.Omschrijving.ToString()",
+                type: "input",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                animation: "slide-from-top",
+                inputPlaceholder: "Toegangscode"
+            },
+                function (inputValue) {
+                    var j = @(Model.ToegangscodeVolgendeOefening);
+                    if (inputValue === false) return false;
+
+                    if (inputValue === "") {
+                        swal.showInputError("You need to write something!");
+                        return false
+                    }
+                    if (!(inputValue == j)) {
+                        swal.showInputError("Dit is niet de juiste toegangscode");
+                        console.log("inputvalue1 :" + inputValue);
+                        console.log("inputvalue2 :" + j);
+                        return false
+                    }
+                    swal("Juist!", "Op naar de volgende oefening!", );
+                        @(Model.JuistGeantwoordtoegangscode) = true;
+                    setTimeout(delaySubmit, 1000);
+                }, );
+
+        }
+
+    function delaySubmit() {
+        document.getElementById("formAntwoord").submit();
+    }
+
+
+
+    </script>
+    <script>
+        @*console.log("Antwoord " + @Model.Opdracht.Oefening.Antwoord.ToString());
         console.log("Toegangscode " +@(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString()));
-        console.log("progressie% completed " + @((int)progressiePercentageCompleted));    
+        console.log("progressie% completed " + @((int)progressiePercentageCompleted));*@    
     </script>
-    <script>       
-        function promalert() {
-
-            if (document.getElementById("Toegangscode").value == null || document.getElementById("Toegangscode").value == "") {
-                console.log("in de if leeg");
-                document.getElementById('foutTeksvakLeeg').innerHTML = "Toegangscode mag niet leeg zijn";
-                return;
-            }
-
-            if (@(Model.Opdracht.Oefening.Antwoord.ToString()) == document.getElementById("Toegangscode").value) {
-
-                 if (@(progressie[1] + 1) == @(progressie[0])){
-                    swal({
-                        title: 'Juist! doe het volgende om de schatkist te vinden',
-                        text: '@Model.Opdracht.Actie.Omschrijving.ToString()',
-
-                        showCancelButton: false,
-                        confirmButtonText: 'sluit het spel'
-                    },
-                        function () {
-                            console.log("hier");
-                            window.location.href = "/Sessie/Index";
-
-                        });
-                 } else {
-                    swal({
-                    title: "Toegangscode volgende oefening",
-                    text: "@Model.Opdracht.Actie.Omschrijving.ToString()", // werkt niet @*@Model.Opdracht.Actie.Omschrijving.ToString()*@
-                    type: "input",
-                    showCancelButton: true,
-                    closeOnConfirm: false,
-                    animation: "slide-from-top",
-                    inputPlaceholder: "Toegangscode"
-                    },
-                    function (inputValue) {
-                        var j = @(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString());
-                        if (inputValue === false) return false;
-
-                        if (inputValue === "") {
-                            swal.showInputError("You need to write something!");
-                            return false
-                        }
-                        if (!(inputValue == j)){
-                            swal.showInputError("Dit is niet de juiste toegangscode");
-                            console.log("inputvalue1 :" + inputValue);
-                            console.log("inputvalue2 :" + j);
-                            return false
-                        }
-
-                        swal("Juist!", "Op naar de volgende oefening!", );
-                        setTimeout(delaySubmit, 1000);
-                    }, );
-                 }
-            } else {
-                if (@Model.TellerFoutePogingen >= 2) {
-                    document.getElementById("Antwoord").style.display = 'none';
-                    document.getElementById("Opnieuw").style.display = 'block';
-
-                }
-                else {
-                    console.log("Antwoord en toegangscode");
-                    console.log(@Model.Opdracht.Oefening.Antwoord.ToString());
-                    console.log(@(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString()));
-                    document.getElementById("formAntwoord").submit();
-                }
-            }
-
-
-
-
-        }
-        function delaySubmit() {
-            document.getElementById("formAntwoord").submit();
-        }
-        @*function blokkeerGroep() {
-            if (@Model.TellerFoutePogingen >= 2) {
-                console.log("Test");
-
-                document.getElementById("Antwoord").style.display = 'none';
-
-                document.getElementById("GaVerder").style.display = 'none';
-                document.getElementById("Stop").style.display = 'block';
-                document.getElementById("Toegangscode").style.display = 'block';
-                document.getElementById("Antwoord").style.display = 'block';
-            }
-
-        }*@
-    </script>
+   
 
 
 

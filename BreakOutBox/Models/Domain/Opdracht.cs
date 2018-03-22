@@ -10,6 +10,7 @@ namespace BreakOutBox.Models.Domain
         public Actie Actie { get; set; } // UIT BOX
         public Oefening Oefening { get; set; } // UIT BOX
         public Toegangscode Toegangscode { get; set; } // UIT BOX
+        public int foutePogingen { get; set; }
 
 
         public Opdracht()
@@ -24,14 +25,17 @@ namespace BreakOutBox.Models.Domain
             Toegangscode = toegangscode;
             Opgelost = false;
         }
+        
 
-        public void isOpgelost(string antwoordVanGroep)
+
+        public bool isOpgelost(string antwoordVanGroep)
         {
             if(antwoordVanGroep == Oefening.Antwoord.ToString())
             {
-                Opgelost = true;
+                
+                return true;
             }
-
+            return false;
         }
     }
 }
