@@ -70,7 +70,7 @@ namespace BreakOutBox.Controllers
                         if (ssvm.TellerFoutePogingen >= 2)
                         {
                             Groep groep = s.Groepen.Where(a => a.GroepId == ssvm.GroepId).FirstOrDefault();
-                            groep.SwitchState(groep.State);
+                            groep.SwitchState(3);
                             groep.Blokkeer();
                             _sessieRepository.SaveChanges();
                             //Sessie sessie = _sessieRepository.GetBySessieCode(id);
@@ -88,6 +88,15 @@ namespace BreakOutBox.Controllers
             }
             return View(ssvm);
         }
+
+        public IActionResult Opnieuw(string sessiecode, string groepid, SpelSpelenViewModel ssvm)
+        {
+            Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
+            Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid)));
+            ssvm.TellerFoutePogingen = 0;
+            return View(new SpelSpelenViewModel(sessie, groep));
+        }
+
        /* public IActionResult InvoerenToegangscode(opdrachtId)
         {
 

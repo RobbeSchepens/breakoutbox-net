@@ -48,29 +48,32 @@
 
                 </div>
             </div>
-            <div>
-                <div id="Antwoord">
-                    <p><label asp-for="Groepsantwoord"></label></p>
-                    <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
-                    <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
 
-                    <p>@TempData["FouteCode"]</p>
-                    @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
+            <div id="Antwoord">
+                <p><label asp-for="Groepsantwoord"></label></p>
+                <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
+                <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
 
-                    <button type="button" class="" id="GaVerder" onclick="promalert()">Ga verder</button>
-                </div>
+                <p>@TempData["FouteCode"]</p>
+                @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
 
-                <div id="Opnieuw">
-                    @if (Model.TellerFoutePogingen > 2)
-                    {
-                        <p>Te veel foute antwoorden, vraag hulp aan de leerkracht.</p>
-                        <button onclick="hulp()" type="button">Hulp nodig?</button>
-                        @*button om terug te gaan naar het overzicht als de groep geblokkeerd is*@
-                        <button type="submit" asp-controller="Spel" asp-action="Opnieuw" asp-route-sessiecode="@Model.Sessie.Code">Probeer opnieuw.</button>
-                    }
+                <button type="button" class="" id="GaVerder" onclick="promalert()">Ga verder</button>
+            </div>
 
-                </div>
+            <div id="Opnieuw" style="display:none">
+                <p>Te veel foute antwoorden, vraag hulp aan de leerkracht.</p>
+                <button onclick="hulp()" type="button">Hulp nodig?</button>
+                @*button om terug te gaan naar het overzicht als de groep geblokkeerd is*@
 
+                @if (Model.Groep.State == 3)
+                {
+                    <p>Je bent geblokkeerd.</p>
+                    <button type="submit" asp-controller="Spel" asp-action="Opnieuw" asp-route-sessiecode="@Model.Sessie.Code" asp-route-groepid="@Model.Groep.GroepId">Probeer opnieuw.</button>
+                }
+                else
+                {
+                    <button type="submit" asp-controller="Spel" asp-action="SpelSpelen" asp-route-sessiecode="@Model.Sessie.Code">Probeer opnieuw.</button>
+                }
 
             </div>
 
@@ -93,6 +96,7 @@
         console.log("Antwoord " + @Model.Opdracht.Oefening.Antwoord.ToString());
         console.log("Toegangscode " +@(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString()));
         console.log("progressie% completed " + @((int)progressiePercentageCompleted));
+        console.log("State " +@Model.Groep.State);
     </script>
     <script>
 
@@ -151,7 +155,8 @@
             } else {
                 if (@Model.TellerFoutePogingen >= 2) {
                     document.getElementById("Antwoord").style.display = 'none';
-                    document.getElementById("Opnieuw").stile.display = 'block';
+                    document.getElementById("Opnieuw").style.display = 'block';
+                    console.log("Teller " +@Model.TellerFoutePogingen);
 
                 }
                 else {
@@ -169,6 +174,11 @@
         function delaySubmit() {
             document.getElementById("formAntwoord").submit();
         }
+
+
+
+
+
         @*function blokkeerGroep() {
             if (@Model.TellerFoutePogingen >= 2) {
                 console.log("Test");
@@ -183,12 +193,6 @@
 
         }*@
     </script>
-
-
-
-
-
-
 
 }
 
