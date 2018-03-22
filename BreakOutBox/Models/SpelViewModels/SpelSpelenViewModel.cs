@@ -27,16 +27,16 @@ namespace BreakOutBox.Models.SpelViewModels
 
         public int GroepId { get; set; }
 
-        /*public Sessie Sessie { get; set; }
+        public Sessie Sessie { get; set; }
         public Groep Groep { get; set; }
-        p*/
+        
 
         /*public int GroepId { get; set; }
         public int OpdrachtId { get; set; }
         public string sessieId { get; set; }*/
 
-        /*public int TellerFoutePogingen { get; set; }
-        */
+        public int TellerFoutePogingen { get; set; }
+        
         public SpelSpelenViewModel()
         {
             JuistGeantwoordOpgave = false;
