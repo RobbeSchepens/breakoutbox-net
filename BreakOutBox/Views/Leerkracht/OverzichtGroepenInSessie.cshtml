@@ -23,9 +23,38 @@
                 }
             </ul>
             <span class="icons">
-                <a asp-controller="Leerkracht" asp-action="OverzichtGroep" asp-route-id1="@groep.GroepId" asp-route-code="@Model.Code" class="tip brown" title="Bekijk de details voor deze groep">
-                    <i class="fas fa-info-circle"></i>
-                </a>
+                @switch (groep.State)
+                {
+                    case 0: // NietGereedState
+                        <a href="@Url.Action("ZetGroepGereed", "Leerkracht", new { id = Model.Code, groepid = groep.GroepId })" class="tip brown" title="Zet deze groep op gereed">
+                            <i class="far fa-check-square"></i>
+                        </a>
+                        <a href="@Url.Action("VergrendelGroep", "Leerkracht", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Vergrendel deze groep">
+                            <i class="fas fa-lock"></i>
+                        </a>
+                        break;
+                    case 1: // GereedState
+                        <a href="@Url.Action("ZetGroepNietGereed", "Leerkracht", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Zet deze groep op niet-gereed">
+                            <i class="far fa-square"></i>
+                        </a>
+                        <a href="@Url.Action("VergrendelGroep", "Leerkracht", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Vergrendel deze groep">
+                            <i class="fas fa-lock"></i>
+                        </a>
+                        break;
+                    case 2: // VergrendeldState
+                        <a href="@Url.Action("OntgrendelGroep", "Leerkracht", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Ontgrendel deze groep">
+                            <i class="fas fa-unlock"></i>
+                        </a>
+                        <a href="@Url.Action("BlokkeerGroep", "Leerkracht", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Blokkeer deze groep">
+                            <i class="far fa-times-circle"></i>
+                        </a>
+                        break;
+                    case 3: // GeblokkeerdState
+                        <a href="@Url.Action("DeblokkeerGroep", "Leerkracht", new { sessiecode = Model.Code, groepid = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Deblokkeer deze groep">
+                            <i class="far fa-check-circle"></i>
+                        </a>
+                        break;
+                }
                 <a asp-controller="Leerkracht" asp-action="OverzichtGroep" asp-route-id1="@groep.GroepId" asp-route-code="@Model.Code" class="tip brown" title="Bekijk de details voor deze groep">
                     <i class="fas fa-info-circle"></i>
                 </a>
@@ -34,31 +63,32 @@
     }
 </div>
 <div class="float-right text-center">
-    @if (Model.State == 0) //NonActiefState
-    {
-        <form>
-            <button asp-controller="Leerkracht" asp-action="ActiveerSessie" asp-route-id="@Model.Code" class="">Activeer</button>
-        </form>
-    }
-    @if (Model.State == 1) //ActiefState
-    {
-        <form>
-            <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" asp-route-id="@Model.Code" class="">Deactiveer</button>
-            <button asp-controller="Leerkracht" asp-action="BlokkeerSessie" asp-route-id="@Model.Code" class="">Blokkeer</button>
-            <button asp-controller="Leerkracht" asp-action="StartSpelSessie" asp-route-id="@Model.Code" class="">Start</button>
-        </form>
-    }
-    @if (Model.State == 2) //InSpelState
-    {
-        <form>
-            <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" asp-route-id="@Model.Code" class="">Deactiveer</button>
-            <button asp-controller="Leerkracht" asp-action="Blokkeer" asp-route-id="@Model.Code" class="">Blokkeer</button>
-        </form>
-    }
-    @if (Model.State == 3) //GeblokkeerdState
-    {
-        <form>
-            <button asp-controller="Leerkracht" asp-action="DeblokkeerSessie" asp-route-id="@Model.Code" class="">Deblokkeer</button>
-        </form>
-    }
+    <form>
+        @switch (Model.State)
+        {
+            case 0: // NonActiefState
+                <button asp-controller="Leerkracht" asp-action="ActiveerSessie" asp-route-id="@Model.Code" class="">Activeer</button>
+                break;
+            case 1: // ActiefState
+                <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" asp-route-id="@Model.Code" class="">Deactiveer</button>
+                <button asp-controller="Leerkracht" asp-action="BlokkeerSessie" asp-route-id="@Model.Code" class="">Blokkeer</button>
+                <button asp-controller="Leerkracht" asp-action="StartSpelSessie" asp-route-id="@Model.Code" class="">Start</button>
+                break;
+            case 2: // InSpelState
+                <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" asp-route-id="@Model.Code" class="">Deactiveer</button>
+                <button asp-controller="Leerkracht" asp-action="Blokkeer" asp-route-id="@Model.Code" class="">Blokkeer</button>
+                break;
+            case 3: // GeblokkeerdState
+                <button asp-controller="Leerkracht" asp-action="DeblokkeerSessie" asp-route-id="@Model.Code" class="">Deblokkeer</button>
+                break;
+        }
+    </form>
 </div>
+
+@functions{
+    public string Encode(string encodeMe)
+    {
+        byte[] encoded = System.Text.Encoding.UTF8.GetBytes(encodeMe);
+        return Convert.ToBase64String(encoded);
+    }
+}

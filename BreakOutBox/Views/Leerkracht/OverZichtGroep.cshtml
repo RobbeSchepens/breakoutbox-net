@@ -15,34 +15,27 @@
         </ul>
         <br>
     </div>
-    <div class="float-right text-center">
-        @if (Model.State == 0) //NietGereedState
-        {
+    <div class="float-right text-center groepdetails">
         <form>
-            <button>Zet gereed</button>
-            <button>Vergrendel</button>
+            @switch (Model.State)
+            {
+                case 0: // NietGereedState
+                    <button>Zet gereed</button>
+                    <button>Vergrendel</button>
+                    break;
+                case 1: // GereedState
+                    <button>Zet niet gereed</button>
+                    <button>Vergrendel</button>
+                    break;
+                case 2: // VergrendeldState
+                    <button>Ontgrendel</button>
+                    <button>Blokkeer</button>
+                    break;
+                case 3: // GeblokkeerdState
+                    <button>Deblokkeer</button>
+                    break;
+            }
         </form>
-        }
-        @if (Model.State == 1) //GereedState
-        {
-        <form>
-            <button>Zet niet gereed</button>
-            <button>Vergrendel</button>
-        </form>
-        }
-        @if (Model.State == 2) //VergrendeldState
-        {
-        <form>
-            <button>Ontgrendel</button>
-            <button>Blokkeer</button>
-        </form>
-        }
-        @if (Model.State == 3) //GeblokkeerdState
-        {
-            <form>
-                <button>Deblokkeer</button>
-            </form>
-        }
     </div>
 </div>
 

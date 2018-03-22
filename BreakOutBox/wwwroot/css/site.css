@@ -74,6 +74,10 @@ a, a, a:hover, a:visited, a:active, .text-danger {
     display: inline-block;
 }
 
+.groepdetails button {
+    display: inline-block;
+}
+
 ul li, ul {
     text-decoration: none;
     list-style-type: none;
@@ -83,9 +87,9 @@ ul li, ul {
     line-height: 1.4rem;
 }
 
-ul li::before {
-    content: none;
-}
+    ul li::before {
+        content: none;
+    }
 
 a:hover {
     font-weight: bold;
@@ -119,15 +123,15 @@ nav {
     text-align: right;
 }
 
-nav a, nav a:hover, nav a:visited, nav a:active {
-    padding: 20px 0;
-    line-height: 60px;
-    color: white;
-}
+    nav a, nav a:hover, nav a:visited, nav a:active {
+        padding: 20px 0;
+        line-height: 60px;
+        color: white;
+    }
 
-nav a:hover {
-    font-weight: inherit;
-}
+        nav a:hover {
+            font-weight: inherit;
+        }
 
 .navbar-right {
     right: 0;
@@ -177,6 +181,7 @@ object {
 #pdf_content {
     box-shadow: 0 7px 4px -6px rgba(0,0,0,0.5);
 }
+
 }
 
 #pdf_hulp {
@@ -195,5 +200,37 @@ object {
 }
 
 .tip {
-    font-size: 0.5em;
+}
+
+.knop {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: inherit;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: rgba(54,54,54,0.85);
+    border-radius: .25rem;
+    border: 1px solid rgba(54,54,54, 0.85);
+    border-top-color: rgba(54,54,54, 0.65);
+    border-bottom-color: rgba(54,54,54, 1);
+    height: 2.25rem;
+    line-height: calc(2.25rem - 2px);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    padding: 0 .75em;
+    cursor: pointer;
+    display: inline-block;
+    -webkit-transition: all .1s;
+    transition: all .1s;
+}
+
+.knop:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: rgba(54,54,54, 0.75);
 }

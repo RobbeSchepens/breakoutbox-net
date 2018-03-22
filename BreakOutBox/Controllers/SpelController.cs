@@ -37,7 +37,6 @@ namespace BreakOutBox.Controllers
         [HttpPost]
         public IActionResult SpelSpelen(SpelSpelenViewModel ssvm)
         {
-
             if (ModelState.IsValid)
             {
                 try
@@ -53,11 +52,7 @@ namespace BreakOutBox.Controllers
                     {
                         ssvm.Opdracht = nieweOpdracht;
                         ssvm.TellerFoutePogingen = 0;
-                        
-                        
-
                         //naar een scherm gaan voorr de toegangscode in te vullen (met de actie)
-
                     }
                     else
                     {
@@ -68,31 +63,23 @@ namespace BreakOutBox.Controllers
                         //}
                         //else
                         //{
-                            ssvm.Opdracht = huidigeOpdracht;
-                            TempData["FouteCode"] = "FOUT! je hebt " + ssvm.TellerFoutePogingen + " foute pogingen ondernomen";
+                        ssvm.Opdracht = huidigeOpdracht;
+                        TempData["FouteCode"] = "FOUT! je hebt " + ssvm.TellerFoutePogingen + " foute pogingen ondernomen";
                         //}
 
-                        if(ssvm.TellerFoutePogingen >= 2)
+                        if (ssvm.TellerFoutePogingen >= 2)
                         {
-
                             Groep groep = s.Groepen.Where(a => a.GroepId == ssvm.GroepId).FirstOrDefault();
                             groep.SwitchState(groep.State);
                             groep.Blokkeer();
                             _sessieRepository.SaveChanges();
-
-
-
                             //Sessie sessie = _sessieRepository.GetBySessieCode(id);
                             //sessie.SwitchState(sessie.State);
                             //sessie.Blokkeer();
                             //_sessieRepository.SaveChanges();
                             //return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
                         }
-                        
-
                     }
-
-                  
                 }
                 catch
                 {
@@ -101,13 +88,10 @@ namespace BreakOutBox.Controllers
             }
             return View(ssvm);
         }
-       /* public IActionResult InvoerenToegangscode(opdrachtId)
-        {
-
-
-
-            return View(ssvm);
-        }*/
+        /* public IActionResult InvoerenToegangscode(opdrachtId)
+         {
+             return View(ssvm);
+         }*/
 
         public static string Decode(string decodeMe)
         {
