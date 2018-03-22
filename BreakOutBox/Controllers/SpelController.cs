@@ -31,14 +31,6 @@ namespace BreakOutBox.Controllers
             ssvm.GroepId = groep.GroepId;
             return View(ssvm);
 
-            //int nummerGroep = 1;
-            //string sessieCode = "ABC"; // deze 2 moeten op een speciale manier worden geimporteerd
-            //Sessie s = _sessieRepository.GetBySessieCode(sessieCode);
-            //Groep groep = s.Groepen.ToList()[nummerGroep - 1];
-            //return View(new SpelSpelenViewModel(s, groep));
-            //return RedirectToAction("SpelSpelen", new { ssvm = new SpelSpelenViewModel(s, groep) });
-            //return RedirectToAction("SpelSpelen", new { ssvm = new SpelSpelenViewModel(s, groep) });
-            //new SpelSpelenViewModel(s, groep)
         }
 
         [HttpPost]
@@ -52,16 +44,12 @@ namespace BreakOutBox.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
-                    
-
+                {                   
                     if (groep.Pad.getCurrentOpdracht().isOpgelost(ssvm.Groepsantwoord))
                     {
                         ssvm.JuistGeantwoordOpgave = true;
                         ssvm.JuistGeantwoordtoegangscode = false;
                     }
-                     
-
                     if (ssvm.JuistGeantwoordOpgave) // er is een juist antwoord gegeven
                     {
                         if(ssvm.JuistGeantwoordtoegangscodeString == "True")
@@ -90,14 +78,7 @@ namespace BreakOutBox.Controllers
                             ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
                             return View(ssvm);
                         }
-                        
-
-                        /*
-                        ssvm.Opdracht = groep.Pad.getNextOpdracht();
-                        ssvm.ProgressieInPad = groep.Pad.getProgressie();
-                        ssvm.JuistGeantwoord = false;
-                        ssvm.Groepsantwoord = "";*/
-
+                                    
                     }
                     else // er is geen juist antwoord gegeven
                     {
