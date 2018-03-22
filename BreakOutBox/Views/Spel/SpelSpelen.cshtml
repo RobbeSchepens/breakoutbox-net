@@ -96,6 +96,7 @@
         console.log("Toegangscode " + @(Model.ToegangscodeVolgendeOefening.ToString()));
         if ("@(Model.JuistGeantwoordOpgave)" == "True") {
             document.getElementById("Toegangscode").value = (@(Model.Opdracht.Oefening.Antwoord.ToString()));
+            @Model.JuistGeantwoordtoegangscode = true;
             groepsantwoordJuist();
 
         }
