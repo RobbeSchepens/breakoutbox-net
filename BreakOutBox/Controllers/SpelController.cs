@@ -101,6 +101,14 @@ namespace BreakOutBox.Controllers
             }
             return View(ssvm);
         }
+
+        public IActionResult Opnieuw (SpelSpelenViewModel ssvm, string sessiecode, string groepid)
+        {
+            Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
+            Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid)));
+            ssvm.TellerFoutePogingen = 0;
+            return View(new SpelSpelenViewModel(sessie, groep));
+        }
        /* public IActionResult InvoerenToegangscode(opdrachtId)
         {
 
