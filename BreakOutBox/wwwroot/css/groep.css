@@ -2,8 +2,7 @@
 =========== GROEP ===========
 */
 .groep {
-    box-shadow: 0 4px 6px 0 hsla(0,0%,0%,0.2);
-    /*max-width: 400px;*/
+    box-shadow: 0 2px 8px 0 hsla(0,0%,0%,0.2);
     margin: 20px;
     border-radius: 7px;
     border-bottom: 3px solid rgb(54, 54, 54);
