@@ -152,24 +152,35 @@
                         @(Model.JuistGeantwoordtoegangscode) = true;
                     setTimeout(delaySubmit, 1000);
                 }, );
-
-
-
             }
-
-
-
-
-
         }
-
     function delaySubmit() {
         document.getElementById("formAntwoord").submit();
     }
 
+    </script>
+
+    <script>
+
+        function blokkeerGroep() {
+            if (@Model.TellerFoutePogingen >= 2) {
+                console.log("Test");
+
+                document.getElementById("Antwoord").style.display = 'none';
+
+                document.getElementById("GaVerder").style.display = 'none';
+                document.getElementById("Stop").style.display = 'block';
+                document.getElementById("Toegangscode").style.display = 'block';
+                document.getElementById("Antwoord").style.display = 'block';
+            }
+        }
+
 
 
     </script>
+
+
+
     <script>
         @*console.log("Antwoord " + @Model.Opdracht.Oefening.Antwoord.ToString());
         console.log("Toegangscode " +@(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString()));
