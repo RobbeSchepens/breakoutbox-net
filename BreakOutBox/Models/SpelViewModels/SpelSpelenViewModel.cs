@@ -13,8 +13,13 @@ namespace BreakOutBox.Models.SpelViewModels
         [Required(ErrorMessage = "Dit mag niet leeg zijn")]
         [Display(Name = "Antwoord op de oefening")]
         public string Groepsantwoord { get; set; }
+
         public bool JuistGeantwoordOpgave { get; set; }
+        public string JuistGeantwoordOpgaveString { get; set; }
+
         public bool JuistGeantwoordtoegangscode { get; set; }
+        public string JuistGeantwoordtoegangscodeString { get; set; }
+
         public List<int> ProgressieInPad { get; set; }
         public Opdracht Opdracht { get; set; }
         public string ToegangscodeVolgendeOefening { get; set; }
@@ -41,5 +46,17 @@ namespace BreakOutBox.Models.SpelViewModels
         public SpelSpelenViewModel(Sessie sessie, Groep groep)
         {
         }
+        public bool convertTextToBool(string text)
+        {
+            if (text == "True")
+                return true;
+            if (text == "False")
+                return false;
+
+            return false;
+
+        }
+
+
     }
 }

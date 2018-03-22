@@ -53,19 +53,31 @@ namespace BreakOutBox.Controllers
             {
                 try
                 {
+                    
+
                     if (groep.Pad.getCurrentOpdracht().isOpgelost(ssvm.Groepsantwoord))
                     {
                         ssvm.JuistGeantwoordOpgave = true;
                         ssvm.JuistGeantwoordtoegangscode = false;
                     }
+                     
 
                     if (ssvm.JuistGeantwoordOpgave) // er is een juist antwoord gegeven
                     {
+                        if(ssvm.JuistGeantwoordtoegangscodeString == "True")
+                        {
+                            ssvm.JuistGeantwoordtoegangscode = ssvm.convertTextToBool(ssvm.JuistGeantwoordtoegangscodeString);
+                        }
+
                         if (ssvm.JuistGeantwoordtoegangscode) // toegangscode en oplossing juist
                         {
                             groep.Pad.getCurrentOpdracht().Opgelost = true;
                             _sessieRepository.SaveChanges();
+                            ssvm.Opdracht = groep.Pad.getCurrentOpdracht();/////
+                            ssvm.ProgressieInPad = groep.Pad.getProgressie();
+                            ssvm.JuistGeantwoordOpgave = false;
                             ssvm.JuistGeantwoordtoegangscode = false;
+                            ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
                             return View(ssvm);
                         }
                         else // enkel antwoord juist
@@ -73,6 +85,7 @@ namespace BreakOutBox.Controllers
                             ssvm.Opdracht = groep.Pad.getCurrentOpdracht();
                             _sessieRepository.SaveChanges();
                             ssvm.JuistGeantwoordOpgave = true;
+                            
                             ssvm.ProgressieInPad = groep.Pad.getProgressie();
                             ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
                             return View(ssvm);
@@ -97,7 +110,7 @@ namespace BreakOutBox.Controllers
                             ssvm.Opdracht = groep.Pad.getCurrentOpdracht();
                             ssvm.JuistGeantwoordOpgave = false;
                             ssvm.JuistGeantwoordtoegangscode = false;
-                            ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();// mag later weg, voor console.log()
+                            ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
 
                             TempData["FouteCode"] = "FOUT! je hebt " + groep.Pad.getCurrentOpdracht().foutePogingen + " foute pogingen ondernomen";
                             return View(ssvm);

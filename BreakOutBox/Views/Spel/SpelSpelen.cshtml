@@ -81,6 +81,8 @@
             <div hidden>
                
                 <p><input asp-for="GroepId" type="text" class="form-control" autocomplete="off" value="@(Model.GroepId)" /></p>
+                <p><input asp-for="JuistGeantwoordtoegangscodeString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordtoegangscodeStringId"/></p>
+                <p><input asp-for="JuistGeantwoordOpgaveString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordOpgaveStringId" /></p>
               
             </div>
         </form>
@@ -96,21 +98,34 @@
         console.log("Toegangscode " + @(Model.ToegangscodeVolgendeOefening.ToString()));
         if ("@(Model.JuistGeantwoordOpgave)" == "True") {
             document.getElementById("Toegangscode").value = (@(Model.Opdracht.Oefening.Antwoord.ToString()));
-            @Model.JuistGeantwoordtoegangscode = true;
+
+            document.getElementById("JuistGeantwoordtoegangscodeStringId").value = "True";
+
+
+
+
             groepsantwoordJuist();
-
         }
-
         console.log("bool " + '@(Model.JuistGeantwoordOpgave)');
         console.log("bool " + '@(Model.JuistGeantwoordtoegangscode)');
 
-
-
-
-
-
         function groepsantwoordJuist() {
-            swal({ // de swal van alle oefeningen
+
+            if (@(progressie[1] + 1) == @(progressie[0])){
+                    swal({
+                        title: 'Juist! Schatkist gevonden!',
+                        text: '',
+
+                        showCancelButton: false,
+                        confirmButtonText: 'sluit het spel'
+                    },
+                        function () {
+                            console.log("hier");
+                            window.location.href = "/Sessie/Index";
+
+                        });
+            } else {
+                swal({ // de swal van alle oefeningen
                 title: "Toegangscode volgende oefening",
                 text: "@Model.Opdracht.Actie.Omschrijving.ToString()",
                 type: "input",
@@ -137,6 +152,14 @@
                         @(Model.JuistGeantwoordtoegangscode) = true;
                     setTimeout(delaySubmit, 1000);
                 }, );
+
+
+
+            }
+
+
+
+
 
         }
 
