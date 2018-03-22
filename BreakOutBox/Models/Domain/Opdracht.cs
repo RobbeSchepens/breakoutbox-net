@@ -6,6 +6,7 @@ namespace BreakOutBox.Models.Domain
     {
         public int OpdrachtId { get; set; }
         public int VolgNr { get; set; }
+        public bool Opgelost { get; set; }
         public Actie Actie { get; set; } // UIT BOX
         public Oefening Oefening { get; set; } // UIT BOX
         public Toegangscode Toegangscode { get; set; } // UIT BOX
@@ -21,6 +22,16 @@ namespace BreakOutBox.Models.Domain
             Actie = actie;
             Oefening = oefening;
             Toegangscode = toegangscode;
+            Opgelost = false;
+        }
+
+        public void isOpgelost(string antwoordVanGroep)
+        {
+            if(antwoordVanGroep == Oefening.Antwoord.ToString())
+            {
+                Opgelost = true;
+            }
+
         }
     }
 }

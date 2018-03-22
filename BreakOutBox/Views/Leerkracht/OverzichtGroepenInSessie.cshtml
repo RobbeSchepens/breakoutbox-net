@@ -26,7 +26,7 @@
                 @switch (groep.State)
                 {
                     case 0: // NietGereedState
-                        <a href="@Url.Action("ZetGroepGereed", "Leerkracht", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Zet deze groep op gereed">
+                        <a href="@Url.Action("ZetGroepGereed", "Leerkracht", new { id = Model.Code, groepid = groep.GroepId })" class="tip brown" title="Zet deze groep op gereed">
                             <i class="far fa-check-square"></i>
                         </a>
                         <a href="@Url.Action("VergrendelGroep", "Leerkracht", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Vergrendel deze groep">
@@ -50,7 +50,7 @@
                         </a>
                         break;
                     case 3: // GeblokkeerdState
-                        <a href="@Url.Action("DeblokkeerGroep", "Leerkracht", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Deblokkeer deze groep">
+                        <a href="@Url.Action("DeblokkeerGroep", "Leerkracht", new { sessiecode = Model.Code, groepid = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Deblokkeer deze groep">
                             <i class="far fa-check-circle"></i>
                         </a>
                         break;

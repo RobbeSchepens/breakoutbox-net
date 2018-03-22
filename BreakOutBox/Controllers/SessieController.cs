@@ -16,7 +16,7 @@ namespace BreakOutBox.Controllers
         {
             _sessieRepository = sessieRepository;
         }
-        
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -103,9 +103,9 @@ namespace BreakOutBox.Controllers
         #endregion
 
         public IActionResult ZetGroepGereed(string sessiecode, string groepid)
-        {          
+        {
             sessiecode = Encode(sessiecode);
-        
+
             if (ModelState.IsValid)
             {
                 try

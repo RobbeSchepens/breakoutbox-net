@@ -118,5 +118,42 @@ namespace BreakOutBox.Controllers
             }
             return View();
         }
+
+        public IActionResult ZetGroepGereed(string id, int groepid)
+        {
+            //sessiecode = Encode(sessiecode);
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Sessie sessie = _sessieRepository.GetBySessieCode(Decode(id));
+                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+                    groep.SwitchState(groep.State);
+                    groep.ZetGereed();
+                    _sessieRepository.SaveChanges();
+                    TempData["message"] = $"Je hebt groep {groep.GroepId} gekozen.";
+                }
+                catch (Exception e)
+                {
+                    //ModelState.AddModelError("", e.Message);
+                    TempData["message"] = $"Deze groep werd al gekozen.";
+                }
+            }
+            //return View(nameof(LeerkrachtController.Index), "Leerkracht");
+            return RedirectToAction(nameof(OverzichtGroepenInSessie), "Leerkracht", new { id });
+        }
+
+        public string Encode(string encodeMe)
+        {
+            byte[] encoded = System.Text.Encoding.UTF8.GetBytes(encodeMe);
+            return Convert.ToBase64String(encoded);
+        }
+
+        public static string Decode(string decodeMe)
+        {
+            byte[] encoded = Convert.FromBase64String(decodeMe);
+            return System.Text.Encoding.UTF8.GetString(encoded);
+        }
     }
 }
