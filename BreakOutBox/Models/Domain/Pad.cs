@@ -21,15 +21,14 @@ namespace BreakOutBox.Models.Domain
             Opdrachten = opdrachten;
         }
 
-        public Opdracht getNextOpdracht(Opdracht opdracht)
+        public Opdracht getNextOpdracht()
         {
             try
             {
-
-                int indexCurrent = Opdrachten.ToList().IndexOf(opdracht);
+                int indexCurrent = Opdrachten.ToList().IndexOf(getCurrentOpdracht());
                 return Opdrachten.ToList()[indexCurrent + 1];
             }       
-            catch
+            catch // in catch als laatste oefeningn
             {
                 var actie = new Actie("");
                 var oef = new Oefening("","",0,new Vak(""));
@@ -37,17 +36,29 @@ namespace BreakOutBox.Models.Domain
 
                 return new Opdracht(20000, actie,oef,toegCode);
                 //int volgNr, Actie actie, Oefening oefening, Toegangscode toegangscode
-
-            }       
-            
-          
+            }                  
         }
 
-        public List<int> getProgressie(Opdracht huidigeOpdracht)
+        public Opdracht getCurrentOpdracht()
+        {
+            return Opdrachten.Where(t => !t.Opgelost).FirstOrDefault();
+
+        }
+        public bool CheckToegangscode(string toegangscode)
+        {
+            if (toegangscode == getNextOpdracht().Toegangscode.Code.ToString())
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        public List<int> getProgressie()
         {
             List<int> progressieList = new List<int>(); // elem 1 is het vraagnummer waaraan de groep zit, elem 2 het totaal aantal vragen
             progressieList.Add(Opdrachten.Count);
-            progressieList.Add(Opdrachten.ToList().IndexOf(huidigeOpdracht));
+            progressieList.Add(Opdrachten.ToList().IndexOf(getCurrentOpdracht()));
             return progressieList;
         }
 
