@@ -61,7 +61,7 @@
                 <p>@TempData["FouteCode"]</p>
                 @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
 
-                <button type="submit" class="" id="GaVerder" onclick="">Ga verder</button>
+                <button type="submit" class="" id="GaVerder" onclick="hulp()">Ga verder</button>
             </div>
 
 
@@ -80,18 +80,13 @@
                     else
                     {
                         @*button om terug te gaan naar het overzicht als de groep geblokkeerd is*@
-                        @*<button type="submit" asp-controller="Spel" asp-action="SpelSpelen" asp-route-sessiecode="@Model.Sessie.Code">Probeer opnieuw.</button>
+            @*<button type="submit" asp-controller="Spel" asp-action="SpelSpelen" asp-route-sessiecode="@Model.Sessie.Code">Probeer opnieuw.</button>
+                        }
                     }
-                }
 
 
-            </div>*@
+                </div>*@
 
-            @if(Model.Groep.State == 3)
-            {
-
-
-            }
 
             <div hidden>
 
@@ -112,8 +107,7 @@
     <script>
         console.log("Antwoord " + @(Model.Opdracht.Oefening.Antwoord.ToString()));
         console.log("Toegangscode " + @(Model.ToegangscodeVolgendeOefening.ToString()));
-        console.log("FoutePogingen " + @(Model.TellerFoutePogingen));
-        console.log("FoutePogingenV2 " + @(Model.Groep.Pad.getCurrentOpdracht().foutePogingen)
+        console.log("State " + @Model.Groep.State);
         console.log("Antwoord met toegangscode: " + @(Model.Opdracht.Oefening.AntwoordMetGroepsbewerking()));
 
         if ("@(Model.JuistGeantwoordOpgave)" == "True") {
@@ -122,6 +116,9 @@
             document.getElementById("JuistGeantwoordtoegangscodeStringId").value = "True";
 
             groepsantwoordJuist();
+        } else {
+            @Model.State
+
         }
         console.log("bool " + '@(Model.JuistGeantwoordOpgave)');
         console.log("bool " + '@(Model.JuistGeantwoordtoegangscode)');
@@ -174,16 +171,17 @@
         }
 
         function hulp() {
-
-            swal({ // de swal van alle oefeningen
-                title: "Theorie",
-                text: "@Model.Opdracht.Actie.Omschrijving.ToString()",
-                type: "input",
-                showCancelButton: true,
-                closeOnConfirm: false,
-                animation: "slide-from-top",
-                //inputPlaceholder: "Toegangscode"
-            });
+            if (@Model.State == 3) {
+                swal({ // de swal van alle oefeningen
+                    title: "Theorie",
+                    text: "@Model.Opdracht.Actie.Omschrijving.ToString()",
+                    type: "input",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    animation: "slide-from-top",
+                    //inputPlaceholder: "Toegangscode"
+                });
+            }
         }
     function delaySubmit() {
         document.getElementById("formAntwoord").submit();

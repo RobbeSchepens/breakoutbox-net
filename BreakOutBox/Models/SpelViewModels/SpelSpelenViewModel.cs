@@ -29,7 +29,9 @@ namespace BreakOutBox.Models.SpelViewModels
 
         public Sessie Sessie { get; set; }
         public Groep Groep { get; set; }
-        
+
+        public int State { get; set; }
+
 
         /*public int GroepId { get; set; }
         public int OpdrachtId { get; set; }
@@ -41,6 +43,7 @@ namespace BreakOutBox.Models.SpelViewModels
         {
             JuistGeantwoordOpgave = false;
             JuistGeantwoordtoegangscode = false;
+            State = 0;
         }
 
         public SpelSpelenViewModel(Sessie sessie, Groep groep)

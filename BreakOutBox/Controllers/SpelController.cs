@@ -44,6 +44,7 @@ namespace BreakOutBox.Controllers
             Sessie sessie = _sessieRepository.GetBySessieCode("ABC");
             Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == ssvm.GroepId);
             // vervangen door filter
+            TempData["State"] = groep.State;
 
             if (ModelState.IsValid)
             {
@@ -105,7 +106,7 @@ namespace BreakOutBox.Controllers
                             sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
 
                             groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid)));
-                            groep.SwitchState(groep.State);
+                            groep.SwitchState(3);
                             groep.Blokkeer();
                             _sessieRepository.SaveChanges();
 
