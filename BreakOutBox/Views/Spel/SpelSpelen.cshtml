@@ -107,7 +107,7 @@
     <script>
         console.log("Antwoord " + @(Model.Opdracht.Oefening.Antwoord.ToString()));
         console.log("Toegangscode " + @(Model.ToegangscodeVolgendeOefening.ToString()));
-        console.log("State " + @Model.Groep.State);
+        console.log("State " + @Model.Sessie.State);
         console.log("Antwoord met toegangscode: " + @(Model.Opdracht.Oefening.AntwoordMetGroepsbewerking()));
 
         if ("@(Model.JuistGeantwoordOpgave)" == "True") {
