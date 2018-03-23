@@ -5,9 +5,13 @@ using System.Threading.Tasks;
 using BreakOutBox.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 using BreakOutBox.Models.SpelViewModels;
+//using BreakOutBox.Filters
 
 namespace BreakOutBox.Controllers
 {
+
+
+    //[ServiceFilter(typeof(SessieFilter))]
     public class SpelController : Controller
     {
         private readonly ISessieRepository _sessieRepository;
