@@ -20,7 +20,7 @@
     </style>
 
 </head>
-<script src="~/js/site.js"></script>
+@*<script src="~/js/site.js"></script>*@
 <!-- Latest compiled and minified CSS -->
 @*width:@(progressie[1] / progressie[0])%
     <span class="sr-only"></span>*@
@@ -61,22 +61,34 @@
                 <button type="submit" class="" id="GaVerder" onclick="">Ga verder</button>
             </div>
 
-            <div id="Opnieuw" style="display:none">
-                <p>Te veel foute antwoorden, vraag hulp aan de leerkracht.</p>
-                <button onclick="hulp()" type="button">Hulp nodig?</button>
-                @*button om terug te gaan naar het overzicht als de groep geblokkeerd is*@
 
-                @*@if (Model.Groep.State == 3)
+
+            @*<div id="Opnieuw" style="display:none">
+                @if (Model.Groep.Pad.getCurrentOpdracht().foutePogingen == 3)
+                {
+                    <p>Te veel foute antwoorden, vraag hulp aan de leerkracht.</p>
+                    <button onclick="hulp()" type="button">Hulp nodig?</button>
+
+                    @if (Model.Groep.State == 3)
                     {
-                    <p>Je bent geblokkeerd.</p>
-                    <button type="submit" asp-controller="Spel" asp-action="Opnieuw" asp-route-sessiecode="@Model.Sessie.Code" asp-route-groepid="@Model.Groep.GroepId">Probeer opnieuw.</button>
+                        <p>Je bent geblokkeerd.</p>
+                        <button type="submit" asp-controller="Spel" asp-action="Opnieuw" asp-route-sessiecode="@Model.Sessie.Code" asp-route-groepid="@Model.Groep.GroepId">Probeer opnieuw.</button>
                     }
                     else
                     {
-                    <button type="submit" asp-controller="Spel" asp-action="SpelSpelen" asp-route-sessiecode="@Model.Sessie.Code">Probeer opnieuw.</button>
-                    }*@
+                        @*button om terug te gaan naar het overzicht als de groep geblokkeerd is*@
+                        @*<button type="submit" asp-controller="Spel" asp-action="SpelSpelen" asp-route-sessiecode="@Model.Sessie.Code">Probeer opnieuw.</button>
+                    }
+                }
 
-            </div>
+
+            </div>*@
+
+            @if(Model.Groep.State == 3)
+            {
+
+
+            }
 
             <div hidden>
 
@@ -97,12 +109,19 @@
     <script>
         console.log("Antwoord " + @(Model.Opdracht.Oefening.Antwoord.ToString()));
         console.log("Toegangscode " + @(Model.ToegangscodeVolgendeOefening.ToString()));
+        console.log("FoutePogingen " + @(Model.TellerFoutePogingen));
+        console.log("FoutePogingenV2 " + @(Model.Groep.Pad.getCurrentOpdracht().foutePogingen)
         if ("@(Model.JuistGeantwoordOpgave)" == "True") {
             document.getElementById("Toegangscode").value = (@(Model.Opdracht.Oefening.Antwoord.ToString()));
 
             document.getElementById("JuistGeantwoordtoegangscodeStringId").value = "True";
 
             groepsantwoordJuist();
+        }
+        else {
+            @Model.Groep.Pad.getCurrentOpdracht().foutePogingen += 1;
+            @Model.TellerFoutePogingen += 1;
+
         }
         console.log("bool " + '@(Model.JuistGeantwoordOpgave)');
         console.log("bool " + '@(Model.JuistGeantwoordtoegangscode)');
@@ -146,12 +165,25 @@
                         console.log("inputvalue2 :" + j);
                         return false
                     }
-         
+
                     swal("Juist!", "Op naar de volgende oefening!", );
                         @(Model.JuistGeantwoordtoegangscode) = true;
                     setTimeout(delaySubmit, 1000);
                 }, );
             }
+        }
+
+        function hulp() {
+
+            swal({ // de swal van alle oefeningen
+                title: "Theorie",
+                text: "@Model.Opdracht.Actie.Omschrijving.ToString()",
+                type: "input",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                animation: "slide-from-top",
+                //inputPlaceholder: "Toegangscode"
+            });
         }
     function delaySubmit() {
         document.getElementById("formAntwoord").submit();

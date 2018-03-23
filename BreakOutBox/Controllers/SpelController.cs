@@ -34,7 +34,7 @@ namespace BreakOutBox.Controllers
         }
 
         [HttpPost]
-        public IActionResult SpelSpelen(/*Groep groep,*/ SpelSpelenViewModel ssvm) // met die filter groep doorgeven (en ook sessie mss)
+        public IActionResult SpelSpelen(/*Groep groep,*/ SpelSpelenViewModel ssvm, string sessiecode, string groepid) // met die filter groep doorgeven (en ook sessie mss)
         {
             // vervangen door filter, sessie moet niet megegeven worden enkel groep
             Sessie sessie = _sessieRepository.GetBySessieCode("ABC");
@@ -98,6 +98,12 @@ namespace BreakOutBox.Controllers
                         }
                         else
                         {
+                            sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
+
+                            groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid)));
+                            groep.SwitchState(groep.State);
+                            groep.Blokkeer();
+                            _sessieRepository.SaveChanges();
 
                         }                      
                     }
