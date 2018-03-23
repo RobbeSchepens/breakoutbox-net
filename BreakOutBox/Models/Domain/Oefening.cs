@@ -42,11 +42,11 @@ namespace BreakOutBox.Models.Domain
             if (antw.Contains("+"))
                 return (Antwoord + getalInString).ToString();
             if (antw.Contains("-"))
-                return (Antwoord + getalInString).ToString();
+                return (Antwoord - getalInString).ToString();
             if (antw.Contains("*"))
-                return (Antwoord + getalInString).ToString();
+                return (Antwoord * getalInString).ToString();
             if (antw.Contains("/"))
-                return (Antwoord + getalInString).ToString();
+                return (Antwoord / getalInString).ToString();
           
 
             return "fout";
