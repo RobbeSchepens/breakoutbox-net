@@ -30,7 +30,7 @@ namespace BreakOutBox.Models.Domain
 
         public bool isOpgelost(string antwoordVanGroep)
         {
-            if(antwoordVanGroep == Oefening.Antwoord.ToString())
+            if(antwoordVanGroep == Oefening.AntwoordMetGroepsbewerking())
             {
                 
                 return true;

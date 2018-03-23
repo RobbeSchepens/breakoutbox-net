@@ -34,6 +34,9 @@
             <p>
                 <h5>opdracht @(progressie[1] + 1) van de @(progressie[0])</h5>
             </p>
+            <p>
+                Groepsbewerking: @(Model.Opdracht.Oefening.Groepsbewerking.ToString())
+            </p>
 
             @*<p>
                     <div class="w3-container" onclick="">
@@ -97,13 +100,16 @@
     <script>
         console.log("Antwoord " + @(Model.Opdracht.Oefening.Antwoord.ToString()));
         console.log("Toegangscode " + @(Model.ToegangscodeVolgendeOefening.ToString()));
+        console.log("Antwoord met toegangscode: " + @(Model.Opdracht.Oefening.AntwoordMetGroepsbewerking()));
+
         if ("@(Model.JuistGeantwoordOpgave)" == "True") {
-            document.getElementById("Toegangscode").value = (@(Model.Opdracht.Oefening.Antwoord.ToString()));
+            document.getElementById("Toegangscode").value = (@(Model.Opdracht.Oefening.AntwoordMetGroepsbewerking().ToString()));
 
             document.getElementById("JuistGeantwoordtoegangscodeStringId").value = "True";
 
             groepsantwoordJuist();
         }
+
         console.log("bool " + '@(Model.JuistGeantwoordOpgave)');
         console.log("bool " + '@(Model.JuistGeantwoordtoegangscode)');
 

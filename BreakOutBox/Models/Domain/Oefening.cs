@@ -32,20 +32,20 @@ namespace BreakOutBox.Models.Domain
 
         public string AntwoordMetGroepsbewerking()
         {
-            string antw = Antwoord.ToString(); ;
+            string grpBew = Groepsbewerking.ToString().ToLower(); ;
 
            
             string resultString = Regex.Match(Groepsbewerking, @"\d+").Value;
             int getalInString = Int32.Parse(resultString);
 
 
-            if (antw.Contains("+"))
+            if (grpBew.Contains("tel"))
                 return (Antwoord + getalInString).ToString();
-            if (antw.Contains("-"))
+            if (grpBew.Contains("trek"))
                 return (Antwoord - getalInString).ToString();
-            if (antw.Contains("*"))
+            if (grpBew.Contains("vermenigvuldig"))
                 return (Antwoord * getalInString).ToString();
-            if (antw.Contains("/"))
+            if (grpBew.Contains("deel"))
                 return (Antwoord / getalInString).ToString();
           
 
