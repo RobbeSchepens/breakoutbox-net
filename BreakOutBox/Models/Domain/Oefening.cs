@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BreakOutBox.Models.Domain
@@ -28,5 +29,30 @@ namespace BreakOutBox.Models.Domain
             Antwoord = antwoord;
             Vak = vak;
         }
+
+        public string AntwoordMetGroepsbewerking()
+        {
+            string grpBew = Groepsbewerking.ToString().ToLower(); ;
+
+           
+            string resultString = Regex.Match(Groepsbewerking, @"\d+").Value;
+            int getalInString = Int32.Parse(resultString);
+
+
+            if (grpBew.Contains("tel"))
+                return (Antwoord + getalInString).ToString();
+            if (grpBew.Contains("trek"))
+                return (Antwoord - getalInString).ToString();
+            if (grpBew.Contains("vermenigvuldig"))
+                return (Antwoord * getalInString).ToString();
+            if (grpBew.Contains("deel"))
+                return (Antwoord / getalInString).ToString();
+          
+
+            return "fout";
+
+        }
+
+
     }
 }
