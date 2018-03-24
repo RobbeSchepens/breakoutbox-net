@@ -34,15 +34,6 @@ namespace BreakOutBox.Controllers
             return View(ssvm);
         }
 
-        public SpelSpelenViewModel geefSsvmAangepastTerug(SpelSpelenViewModel ssvm, Opdracht opdracht, bool juistGeantwoordOpgave, bool juistGeantwoordtoegangscode, string toegangscodeVolgendeOefening, List<int> progressieInPad)
-        {
-            ssvm.Opdracht = opdracht;
-            ssvm.JuistGeantwoordOpgave = juistGeantwoordOpgave;
-            ssvm.JuistGeantwoordtoegangscode = juistGeantwoordtoegangscode;
-            ssvm.ToegangscodeVolgendeOefening = toegangscodeVolgendeOefening;
-            ssvm.ProgressieInPad = progressieInPad;
-            return ssvm;
-        }
 
         [HttpPost]
         public IActionResult SpelSpelen(/*Groep groep,*/ SpelSpelenViewModel ssvm, string sessiecode, string groepid) // met die filter groep doorgeven (en ook sessie mss)
@@ -198,6 +189,16 @@ namespace BreakOutBox.Controllers
         {
             byte[] encoded = Convert.FromBase64String(decodeMe);
             return System.Text.Encoding.UTF8.GetString(encoded);
+        }
+
+        public SpelSpelenViewModel geefSsvmAangepastTerug(SpelSpelenViewModel ssvm, Opdracht opdracht, bool juistGeantwoordOpgave, bool juistGeantwoordtoegangscode, string toegangscodeVolgendeOefening, List<int> progressieInPad)
+        {
+            ssvm.Opdracht = opdracht;
+            ssvm.JuistGeantwoordOpgave = juistGeantwoordOpgave;
+            ssvm.JuistGeantwoordtoegangscode = juistGeantwoordtoegangscode;
+            ssvm.ToegangscodeVolgendeOefening = toegangscodeVolgendeOefening;
+            ssvm.ProgressieInPad = progressieInPad;
+            return ssvm;
         }
     }
 }
