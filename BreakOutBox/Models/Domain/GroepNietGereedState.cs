@@ -8,6 +8,7 @@ namespace BreakOutBox.Models.Domain
     public class GroepNietGereedState : GroepState
     {
         public override string Beschrijving { get; set; }
+
         public GroepNietGereedState(Groep groep) : base(groep)
         {
             Beschrijving = "Niet klaar";

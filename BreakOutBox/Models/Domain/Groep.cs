@@ -32,7 +32,7 @@ namespace BreakOutBox.Models.Domain
             get { return _state; }
             set {
                 _state = value;
-                SwitchState(value);
+                SwitchState(_state);
             }
         }
         #endregion Properties
@@ -46,7 +46,6 @@ namespace BreakOutBox.Models.Domain
         {
             Pad = pad;
             Leerlingen = leerlingen;
-            SwitchState(state);
             State = state;
         }
 
@@ -68,19 +67,15 @@ namespace BreakOutBox.Models.Domain
             {
                 case 0:
                     ToState(new GroepNietGereedState(this));
-                    State = 0;
                     break;
                 case 1:
                     ToState(new GroepGereedState(this));
-                    State = 1;
                     break;
                 case 2:
                     ToState(new GroepVergrendeldState(this));
-                    State = 2;
                     break;
                 case 3:
                     ToState(new GroepGeblokkeerdState(this));
-                    State = 3;
                     break;
                 default: goto case 0;
             }

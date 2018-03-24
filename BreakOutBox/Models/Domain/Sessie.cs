@@ -25,7 +25,7 @@ namespace BreakOutBox.Models.Domain
             set
             {
                 _state = value;
-                SwitchState(value);
+                SwitchState(_state);
             }
         }
         #endregion
@@ -42,7 +42,6 @@ namespace BreakOutBox.Models.Domain
             Omschrijving = omschrijving;
             Groepen = groepen;
             Box = box;
-            SwitchState(state);
             State = state;
         }
         #endregion
@@ -59,19 +58,15 @@ namespace BreakOutBox.Models.Domain
             {
                 case 0:
                     ToState(new SessieNonActiefState(this));
-                    State = 0;
                     break;
                 case 1:
                     ToState(new SessieActiefState(this));
-                    State = 1;
                     break;
                 case 2:
                     ToState(new SessieInSpelState(this));
-                    State = 2;
                     break;
                 case 3:
                     ToState(new SessieGeblokkeerdState(this));
-                    State = 3;
                     break;
                 default: goto case 0;
             }
