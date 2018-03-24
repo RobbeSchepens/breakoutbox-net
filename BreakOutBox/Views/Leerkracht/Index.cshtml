@@ -4,15 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
-<head>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-</head>
 <h3>Sessies van @ViewData["LeerkrachtNaam"]</h3>
 <table>
-
     <tr>
         <th>Nr.</th>
         <th>Code</th>
@@ -23,7 +16,6 @@
     @{int i = 1;}
     @foreach (var item in Model)
     {
-
         <tr class="c">
             <td align="center">@(i++).</td>
             <td align="center">@(item.Code)</td>

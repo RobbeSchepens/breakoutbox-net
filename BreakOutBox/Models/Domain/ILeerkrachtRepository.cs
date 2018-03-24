@@ -9,10 +9,7 @@ namespace BreakOutBox.Models.Domain
     {
         Leerkracht GetByVolledigeNaam(string voornaam, string achternaam);
         Leerkracht GetByEmail(string email);
-
-
         void SaveChanges();
-
     }
 
 

@@ -28,8 +28,6 @@ namespace BreakOutBox.Data.Repositories
             return _leerkrachten.Where(lk => lk.Voornaam == voornaam && lk.Achternaam == achternaam).Include(lk => lk.Sessies).ThenInclude(ses => ses.Groepen).FirstOrDefault();
         }
 
-        
-
         public void SaveChanges()
         {
             _context.SaveChanges();

@@ -30,23 +30,13 @@ namespace BreakOutBox.Data
             builder.ApplyConfiguration(new KlasConfiguration());
             builder.ApplyConfiguration(new LeerkrachtConfiguration());
             builder.ApplyConfiguration(new LeerlingConfiguration());
-            //builder.ApplyConfiguration(new KlasLeerkrachtConfiguration());
             builder.ApplyConfiguration(new GroepConfiguration());
             builder.ApplyConfiguration(new PadConfiguration());
             builder.ApplyConfiguration(new OpdrachtConfiguration());
-            //builder.ApplyConfiguration(new PadOpdrachtConfiguration());
-            //builder.ApplyConfiguration(new PadActieConfiguration());
             builder.ApplyConfiguration(new BoxConfiguration());
             builder.ApplyConfiguration(new ActieConfiguration());
             builder.ApplyConfiguration(new OefeningConfiguration());
             builder.ApplyConfiguration(new ToegangscodeConfiguration());
-            //builder.ApplyConfiguration(new GroepsbewerkingConfiguration());
-            //builder.ApplyConfiguration(new FeedbackConfiguration());
-            //builder.ApplyConfiguration(new OpgaveConfiguration());
-            //builder.ApplyConfiguration(new OpgaveVraagConfiguration());
-            //builder.ApplyConfiguration(new BoxActieConfiguration());
-            //builder.ApplyConfiguration(new BoxOefeningConfiguration());
-            //builder.ApplyConfiguration(new BoxToegangscodeConfiguration());
         }
     }
 }

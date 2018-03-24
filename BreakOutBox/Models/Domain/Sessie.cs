@@ -24,8 +24,8 @@ namespace BreakOutBox.Models.Domain
             get { return _state; }
             set
             {
+                SwitchState(value);
                 _state = value;
-                SwitchState(_state);
             }
         }
         #endregion
@@ -134,7 +134,7 @@ namespace BreakOutBox.Models.Domain
 
         public SessieState GetState()
         {
-            return this._currentState;
+            return _currentState;
         }
         #endregion
     }
