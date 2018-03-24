@@ -26,7 +26,7 @@ namespace BreakOutBox.Models.Domain
         //}
         public int GroepId { get; set; }
         public ICollection<Leerling> Leerlingen { get; set; }
-        public int NrOfLeerlingen => Leerlingen.Count;
+        //public int NrOfLeerlingen => Leerlingen.Count;
         public Pad Pad { get; set; }
         public int State {
             get { return _state; }

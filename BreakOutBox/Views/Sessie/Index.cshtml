@@ -5,7 +5,7 @@
 
 <div class="inputinline text-center">
     <h1>Break Out Box</h1>
-    <form method="post">
+    <form asp-action="SessieOverzicht">
         <p><label asp-for="SessieCode"></label></p>
         <p><input asp-for="SessieCode" type="text" class="form-control" autocomplete="off" /></p>
         <p><span asp-validation-for="SessieCode" class="text-danger"></span></p>

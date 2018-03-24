@@ -48,7 +48,8 @@ namespace BreakOutBox
             services.AddScoped<ISessieRepository, SessieRepository>();
             services.AddScoped<ILeerkrachtRepository, LeerkrachtRepository>();
             services.AddScoped<BreakOutBoxDataInitializer>();
-            services.AddScoped<SessieFilter>();
+            services.AddScoped<SessieDeelnemenFilter>();
+            services.AddScoped<SessieSessionFilter>();
             services.AddScoped<LeerkrachtFilter>();
             services.AddSession();
             services.AddMvc();
@@ -69,13 +70,15 @@ namespace BreakOutBox
             }
 
             app.UseStaticFiles();
+            app.UseStatusCodePages();
+            app.UseSession();
             app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Sessie}/{action=Index}/{id?}/{id2?}");
+                    template: "{controller=Home}/{action=Index}/{id?}/{id2?}");
             });
 
             breakOutBoxDataInitializer.InitializeData().Wait();

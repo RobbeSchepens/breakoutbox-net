@@ -6,9 +6,11 @@ using BreakOutBox.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 using BreakOutBox.Models.SessieViewModels;
 using Microsoft.AspNetCore.Authorization;
+using BreakOutBox.Filters;
 
 namespace BreakOutBox.Controllers
 {
+    [ServiceFilter(typeof(SessieSessionFilter))]
     public class SessieController : Controller
     {
         private readonly ISessieRepository _sessieRepository;
@@ -18,7 +20,6 @@ namespace BreakOutBox.Controllers
             _sessieRepository = sessieRepository;
         }
         
-        [HttpGet]
         public IActionResult Index()
         {
             return View(new IndexViewModel());
@@ -49,15 +50,11 @@ namespace BreakOutBox.Controllers
             }
             return View();
         }
-
-        [HttpGet]
-        public IActionResult SessieOverzicht(string sessiecode, string groepid)
+        
+        public IActionResult SessieOverzicht(Sessie sessie, Groep groep)
         {
-            Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
-            if (groepid != null)
+            if (groep.Leerlingen != null)
             {
-                groepid = (Decode(groepid)); // decoderen van groepId indien deze is gegeven
-                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                 ViewBag.GeselecteerdeGroep = groep;
             }
             return View(sessie);

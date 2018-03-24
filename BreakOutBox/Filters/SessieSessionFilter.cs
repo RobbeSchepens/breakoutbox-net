@@ -8,13 +8,13 @@ using System.Linq;
 namespace BreakOutBox.Filters
 {
     [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
-    public class SessieFilter : ActionFilterAttribute
+    public class SessieSessionFilter : ActionFilterAttribute
     {
         private readonly ISessieRepository _sessieRepository;
         private Sessie _sessie;
         private Groep _groep;
 
-        public SessieFilter(ISessieRepository sessieRepository)
+        public SessieSessionFilter(ISessieRepository sessieRepository)
         {
             _sessieRepository = sessieRepository;
         }
@@ -40,35 +40,36 @@ namespace BreakOutBox.Filters
             base.OnActionExecuting(context);
         }
 
-        public override void OnActionExecuted(ActionExecutedContext context)
-        {
-            WriteSessieToSession(_sessie, context.HttpContext);
-            WriteGroepToSession(_groep, context.HttpContext);
-            base.OnActionExecuted(context);
-        }
+        //public override void OnActionExecuted(ActionExecutedContext context)
+        //{
+        //    //WriteSessieToSession(_sessie, context.HttpContext);
+        //    WriteGroepToSession(_groep, context.HttpContext);
+        //    base.OnActionExecuted(context);
+        //}
 
         private string ReadSessieFromSession(HttpContext context)
         {
-            string sessiecode = context.Session.GetString("sessie") == null ?
-                null : JsonConvert.DeserializeObject<string>(context.Session.GetString("sessie"));
+            //string sessiecode = context.Session.GetString("sessiecode") == null ?
+            //    null : JsonConvert.DeserializeObject<string>(context.Session.GetString("sessiecode"));
+            string sessiecode = context.Session.GetString("sessiecode");
             return sessiecode;
         }
 
-        private void WriteSessieToSession(Sessie sessie, HttpContext context)
-        {
-            context.Session.SetString("sessie", JsonConvert.SerializeObject(sessie.Code));
-        }
+        //private void WriteSessieToSession(Sessie sessie, HttpContext context)
+        //{
+        //    context.Session.SetString("sessiecode", JsonConvert.SerializeObject(sessie.Code));
+        //}
 
         private string ReadGroepFromSession(HttpContext context)
         {
-            string groepid = context.Session.GetString("groep") == null ?
-                null : JsonConvert.DeserializeObject<string>(context.Session.GetString("sessie"));
+            string groepid = context.Session.GetString("groepid") == null ?
+                null : JsonConvert.DeserializeObject<string>(context.Session.GetString("groepid"));
             return groepid;
         }
 
         private void WriteGroepToSession(Groep groep, HttpContext context)
         {
-            context.Session.SetString("groep", JsonConvert.SerializeObject(groep.GroepId));
+            context.Session.SetString("groepid", JsonConvert.SerializeObject(groep.GroepId));
         }
     }
 }

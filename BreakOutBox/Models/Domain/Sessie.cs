@@ -17,7 +17,7 @@ namespace BreakOutBox.Models.Domain
         public string Omschrijving { get; set; }
         public Klas Klas { get; set; }
         public ICollection<Groep> Groepen { get; set; }
-        public int NrOfGroepen => Groepen.Count;
+        //public int NrOfGroepen => Groepen.Count;
         public Box Box { get; private set; } // Box uit Java met alle oefeningen in
         public int State
         {
