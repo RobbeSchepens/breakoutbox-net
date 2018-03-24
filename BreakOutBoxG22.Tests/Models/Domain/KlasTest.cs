@@ -9,6 +9,8 @@ namespace BreakOutBoxG22.Tests.Models
 {
     public class KlasTest
     {
+
+        #region oudeComments
         //private readonly Klas _klas1;
 
         //public KlasTest()
@@ -75,6 +77,8 @@ namespace BreakOutBoxG22.Tests.Models
         //    Leerkracht aLeerkracht = new Leerkracht("not", "exist");
         //    Assert.Throws<ArgumentException>(() => _klas1.VerwijderLeerkracht(aLeerkracht));
         //}
-        //#endregion
+        #endregion
+
+
     }
 }

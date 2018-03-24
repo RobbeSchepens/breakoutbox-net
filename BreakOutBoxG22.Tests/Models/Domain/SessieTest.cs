@@ -7,6 +7,7 @@ namespace BreakOutBoxG22.Tests.Models
 {
     public class SessieTest
     {
+        #region oudeComments
         //private readonly Sessie _sessie1;
 
         //public SessieTest()
@@ -58,5 +59,7 @@ namespace BreakOutBoxG22.Tests.Models
         //    Assert.Equal(nrOfGroepenBeforeAdd - 1, _sessie1.NrOfGroepen);
         //}
         //#endregion
+        #endregion
+
     }
 }

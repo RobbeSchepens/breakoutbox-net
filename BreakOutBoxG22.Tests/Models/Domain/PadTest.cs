@@ -9,6 +9,8 @@ namespace BreakOutBoxG22.Tests.Models
 {
     public class PadTest
     {
+
+        #region OudeComments
         //private readonly Pad _pad1;
 
         //public PadTest()
@@ -81,5 +83,7 @@ namespace BreakOutBoxG22.Tests.Models
         //    Assert.Equal(nrOfActiesBeforeAdd - 1, _pad1.NrOfActies);
         //}
         //#endregion
+        #endregion
+
     }
 }

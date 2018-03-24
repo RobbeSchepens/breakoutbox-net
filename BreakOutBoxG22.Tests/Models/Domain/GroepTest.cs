@@ -9,6 +9,9 @@ namespace BreakOutBoxG22.Tests.Models
 {
     public class GroepTest
     {
+
+
+        #region oudeComments
         //private readonly Groep _groep1;
 
         //public GroepTest()
@@ -74,6 +77,7 @@ namespace BreakOutBoxG22.Tests.Models
         //    Leerling aLeerling = new Leerling("Jow", "Chocow");
         //    Assert.Throws<ArgumentException>(() => _groep1.VerwijderLeerling(aLeerling));
         //}
-        //#endregion
+        #endregion
+
     }
 }

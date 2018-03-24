@@ -64,7 +64,7 @@ namespace BreakOutBox.Data
                     oefeningen[i-1].Feedback = "TheorieOefening" + i + ".pdf";
                 }
 
-                Box box = new Box(acties, oefeningen, toegangscodes);
+                Box box = new Box(acties, oefeningen, toegangscodes, "Een box met diverse oefeningen", "BoxNaam");
                 #endregion
 
                 #region Opdrachten opvullen en in pad steken
