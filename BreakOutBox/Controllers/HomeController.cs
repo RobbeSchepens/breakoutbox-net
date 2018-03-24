@@ -9,6 +9,7 @@ using BreakOutBox.Models.Domain;
 using BreakOutBox.Models.SessieViewModels;
 using BreakOutBox.Filters;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace BreakOutBox.Controllers
 {
@@ -23,7 +24,7 @@ namespace BreakOutBox.Controllers
 
         public IActionResult Index()
         {
-            ViewData["Message"] = "Your application description page.";
+            //ViewData["Message"] = "Your application description page.";
             return View();
         }
 
@@ -58,7 +59,7 @@ namespace BreakOutBox.Controllers
                         TempData["message"] = $"Deze sessie werd niet gevonden. Heb je de juiste code ingegeven?";
                     else
                     {
-                        HttpContext.Session.SetString("sessiecode", sessie.Code);
+                        HttpContext.Session.SetString("sessiecode", JsonConvert.SerializeObject(sessie.Code));
 
                         if (sessie.State != 0)
                             return RedirectToAction(nameof(SessieController.SessieOverzicht), "Sessie", new { sessiecode = SessieCode });

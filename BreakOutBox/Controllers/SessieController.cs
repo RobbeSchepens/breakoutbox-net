@@ -10,7 +10,6 @@ using BreakOutBox.Filters;
 
 namespace BreakOutBox.Controllers
 {
-    [ServiceFilter(typeof(SessieSessionFilter))]
     public class SessieController : Controller
     {
         private readonly ISessieRepository _sessieRepository;
@@ -50,7 +49,8 @@ namespace BreakOutBox.Controllers
             }
             return View();
         }
-        
+
+        [ServiceFilter(typeof(GroepSessionFilter))]
         public IActionResult SessieOverzicht(Sessie sessie, Groep groep)
         {
             if (groep.Leerlingen != null)

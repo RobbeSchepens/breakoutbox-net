@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace BreakOutBox.Models.Domain
@@ -24,6 +25,7 @@ namespace BreakOutBox.Models.Domain
         //        _name = value;
         //    }
         //}
+        [JsonProperty]
         public int GroepId { get; set; }
         public ICollection<Leerling> Leerlingen { get; set; }
         //public int NrOfLeerlingen => Leerlingen.Count;

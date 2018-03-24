@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace BreakOutBox.Models.Domain
@@ -12,6 +13,7 @@ namespace BreakOutBox.Models.Domain
 
         #region Properties
         //public int SessieId { get; set; }
+        [JsonProperty]
         public string Code { get; set; }
         public string Naam { get; set; }
         public string Omschrijving { get; set; }
