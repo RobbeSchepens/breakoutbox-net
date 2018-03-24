@@ -8,6 +8,7 @@ namespace BreakOutBox.Models.Domain
     public class GroepVergrendeldState : GroepState
     {
         public override string Beschrijving { get; set; }
+
         public GroepVergrendeldState(Groep groep) : base(groep)
         {
             Beschrijving = "Vergrendeld";
@@ -30,12 +31,12 @@ namespace BreakOutBox.Models.Domain
 
         public override void Ontgrendel()
         {
-            _groep.SwitchState(1);
+            _groep.State = 1;
         }
 
         public override void Blokkeer()
         {
-            _groep.SwitchState(3);
+            _groep.State = 3;
         }
 
         public override void DeBlokkeer()

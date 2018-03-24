@@ -8,6 +8,7 @@ namespace BreakOutBox.Models.Domain
     public class SessieNonActiefState : SessieState
     {
         public override string Beschrijving { get; set; }
+
         public SessieNonActiefState(Sessie sessie) : base(sessie)
         {
             Beschrijving = "Inactief";
@@ -15,7 +16,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void Activeer()
         {
-            _sessie.SwitchState(1);
+            _sessie.State = 1;
         }
 
         public override void Deactiveer(ICollection<Groep> groepen)

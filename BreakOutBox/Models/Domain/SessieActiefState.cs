@@ -8,6 +8,7 @@ namespace BreakOutBox.Models.Domain
     public class SessieActiefState : SessieState
     {
         public override string Beschrijving { get; set; }
+
         public SessieActiefState(Sessie sessie) : base(sessie)
         {
             Beschrijving = "Actief";
@@ -20,25 +21,25 @@ namespace BreakOutBox.Models.Domain
 
         public override void Deactiveer(ICollection<Groep> groepen)
         {
-            foreach (Groep g in groepen)
-            {
-                g.Ontgrendel();
-            }
-            _sessie.SwitchState(0);
+            //foreach (Groep g in groepen)
+            //{
+            //    g.Vergrendel();
+            //}
+            _sessie.State = 0;
         }
 
         public override void StartSpel(ICollection<Groep> groepen)
         {
-            foreach (Groep g in groepen)
-            {
-                g.Vergrendel();
-            }
-            _sessie.SwitchState(2);
+            //foreach (Groep g in groepen)
+            //{
+            //    g.Vergrendel();
+            //}
+            _sessie.State = 2;
         }
 
         public override void Blokkeer()
         {
-            _sessie.SwitchState(3);
+            _sessie.State = 3;
         }
 
         public override void Deblokkeer()

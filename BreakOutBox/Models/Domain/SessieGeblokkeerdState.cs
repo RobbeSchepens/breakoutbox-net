@@ -16,7 +16,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void Deblokkeer()
         {
-            _sessie.SwitchState(2);
+            _sessie.State = 2;
         }
 
         public override void Activeer()

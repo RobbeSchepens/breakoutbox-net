@@ -41,7 +41,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void DeBlokkeer()
         {
-            _groep.SwitchState(2);
+            _groep.State = 2;
         }
     }
 }
