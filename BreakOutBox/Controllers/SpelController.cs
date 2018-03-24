@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BreakOutBox.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 using BreakOutBox.Models.SpelViewModels;
+using System.IO;
 //using BreakOutBox.Filters
 
 namespace BreakOutBox.Controllers
@@ -28,7 +29,7 @@ namespace BreakOutBox.Controllers
 
             Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid))); // er moet een groep binnenkomen
             SpelSpelenViewModel ssvm = new SpelSpelenViewModel();
-            
+
             ssvm.ProgressieInPad = groep.Pad.getProgressie();
             ssvm.Opdracht = groep.Pad.getCurrentOpdracht();
             ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
@@ -44,12 +45,11 @@ namespace BreakOutBox.Controllers
             Sessie sessie = _sessieRepository.GetBySessieCode("ABC");
             Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == ssvm.GroepId);
             // vervangen door filter
-            TempData["State"] = groep.State;
 
             if (ModelState.IsValid)
             {
                 try
-                {                   
+                {
                     if (groep.Pad.getCurrentOpdracht().isOpgelost(ssvm.Groepsantwoord))
                     {
                         ssvm.JuistGeantwoordOpgave = true;
@@ -57,7 +57,7 @@ namespace BreakOutBox.Controllers
                     }
                     if (ssvm.JuistGeantwoordOpgave) // er is een juist antwoord gegeven
                     {
-                        if(ssvm.JuistGeantwoordtoegangscodeString == "True")
+                        if (ssvm.JuistGeantwoordtoegangscodeString == "True")
                         {
                             ssvm.JuistGeantwoordtoegangscode = ssvm.convertTextToBool(ssvm.JuistGeantwoordtoegangscodeString);
                         }
@@ -78,16 +78,16 @@ namespace BreakOutBox.Controllers
                             ssvm.Opdracht = groep.Pad.getCurrentOpdracht();
                             _sessieRepository.SaveChanges();
                             ssvm.JuistGeantwoordOpgave = true;
-                            
+
                             ssvm.ProgressieInPad = groep.Pad.getProgressie();
                             ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
                             return View(ssvm);
                         }
-                                    
+
                     }
                     else // er is geen juist antwoord gegeven
                     {
-                        if (groep.Pad.getCurrentOpdracht().foutePogingen <= 2)
+                        if (groep.Pad.getCurrentOpdracht().foutePogingen <= 1)
                         {
                             groep.Pad.getCurrentOpdracht().Opgelost = false;   // de vraag blijft op onOpgelost staan       
                             groep.Pad.getCurrentOpdracht().foutePogingen++; // foutpogingen +1 wanneer fout antwoord
@@ -99,18 +99,28 @@ namespace BreakOutBox.Controllers
                             ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
 
                             TempData["FouteCode"] = "FOUT! je hebt " + groep.Pad.getCurrentOpdracht().foutePogingen + " foute pogingen ondernomen";
+                            TempData["State"] = groep.State;
                             return View(ssvm);
                         }
-                        else
+                        else //if(groep.Pad.getCurrentOpdracht().foutePogingen >= 3)
                         {
-                            sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
 
-                            groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid)));
                             groep.SwitchState(3);
-                            groep.Blokkeer();
-                            _sessieRepository.SaveChanges();
+                            //  groep.Blokkeer();
+                            groep.Pad.getCurrentOpdracht().Opgelost = false;   // de vraag blijft op onOpgelost staan 
+                            groep.Pad.getCurrentOpdracht().foutePogingen += 1;
+                            ssvm.ProgressieInPad = groep.Pad.getProgressie();
+                            ssvm.Opdracht = groep.Pad.getCurrentOpdracht();
+                            ssvm.JuistGeantwoordOpgave = false;
+                            ssvm.JuistGeantwoordtoegangscode = false;
+                            ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
 
-                        }                      
+                            TempData["State"] = groep.State;
+                            _sessieRepository.SaveChanges();
+                            return View(ssvm);
+
+
+                        }
                     }
 
                     #region Comments
@@ -165,21 +175,38 @@ namespace BreakOutBox.Controllers
             return View();
         }
 
+
         public IActionResult Opnieuw(string sessiecode, string groepid, SpelSpelenViewModel ssvm)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
             Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid)));
-            ssvm.TellerFoutePogingen = 0;
-            return View(new SpelSpelenViewModel(sessie, groep));
+
+            if (groep.State != 1)
+            {
+                return RedirectToAction(nameof(SpelSpelenViewModel));
+            }
+            else
+            {
+                ssvm.Opdracht.foutePogingen = 0;
+                groep.Pad.getCurrentOpdracht().Opgelost = false;
+                ssvm.ProgressieInPad = groep.Pad.getProgressie();
+                ssvm.Opdracht = groep.Pad.getCurrentOpdracht();
+                ssvm.JuistGeantwoordOpgave = false;
+                ssvm.JuistGeantwoordtoegangscode = false;
+                ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
+
+                return View(new SpelSpelenViewModel(sessie, groep));
+            }
+
         }
 
-       /* public IActionResult InvoerenToegangscode(opdrachtId)
-        {
+        /* public IActionResult InvoerenToegangscode(opdrachtId)
+         {
 
 
 
-            return View(ssvm);
-        }*/
+             return View(ssvm);
+         }*/
 
         public static string Decode(string decodeMe)
         {

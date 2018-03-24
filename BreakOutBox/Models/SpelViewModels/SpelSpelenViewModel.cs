@@ -26,7 +26,7 @@ namespace BreakOutBox.Models.SpelViewModels
 
 
         public int GroepId { get; set; }
-
+        public string SessieCode { get; set; }
         public Sessie Sessie { get; set; }
         public Groep Groep { get; set; }
 
@@ -35,7 +35,7 @@ namespace BreakOutBox.Models.SpelViewModels
 
         /*public int GroepId { get; set; }
         public int OpdrachtId { get; set; }
-        public string sessieId { get; set; }*/
+        */
 
         public int TellerFoutePogingen { get; set; }
         
