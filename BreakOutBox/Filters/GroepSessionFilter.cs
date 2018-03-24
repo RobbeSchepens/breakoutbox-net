@@ -25,7 +25,7 @@ namespace BreakOutBox.Filters
                 throw new Exception("Er is geen sessiecode in de Session variabele.");
             else
             {
-                Sessie sessie = _sessieRepository.GetBySessieCode(ReadGroepFromSession(context.HttpContext));
+                _sessie = _sessieRepository.GetBySessieCode(ReadSessieFromSession(context.HttpContext));
                 context.ActionArguments["sessie"] = _sessie;
 
                 if (ReadGroepFromSession(context.HttpContext) == null)

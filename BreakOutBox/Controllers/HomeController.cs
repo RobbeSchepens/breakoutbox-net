@@ -62,7 +62,7 @@ namespace BreakOutBox.Controllers
                         HttpContext.Session.SetString("sessiecode", JsonConvert.SerializeObject(sessie.Code));
 
                         if (sessie.State != 0)
-                            return RedirectToAction(nameof(SessieController.SessieOverzicht), "Sessie", new { sessiecode = SessieCode });
+                            return RedirectToAction(nameof(SessieController.SessieOverzicht), "Sessie");
                         else
                             TempData["message"] = $"Deze sessie is nog niet geactiveerd.";
                     }
