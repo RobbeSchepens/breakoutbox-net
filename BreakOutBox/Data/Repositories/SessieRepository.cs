@@ -25,12 +25,9 @@ namespace BreakOutBox.Data.Repositories
 
         public Sessie GetBySessieCode(string sessieCode)
         {
-
             return _sessies
                 .Include(sessie => sessie.Groepen)
                     .ThenInclude(grp => grp.Leerlingen)
-
-                // includes voor Pad
                 .Include(sessie => sessie.Groepen)
                     .ThenInclude(groep => groep.Pad)
                         .ThenInclude(pad => pad.Opdrachten)
@@ -44,49 +41,9 @@ namespace BreakOutBox.Data.Repositories
                     .ThenInclude(groep => groep.Pad)
                         .ThenInclude(pad => pad.Opdrachten)
                             .ThenInclude(opdr => opdr.Toegangscode)
-
-
                 .Include(sessie => sessie.Klas)
                     .ThenInclude(k => k.Leerlingen)
                 .FirstOrDefault(sessie => sessie.Code == sessieCode);
-
-
-            /* return _sessies
-                 .Include(s => s.Klas)
-                     .ThenInclude(k => k.Leerlingen)
-                 .Include(s => s.Klas)
-                     .ThenInclude(k => k.KlasLeerkrachten)
-                 .Include(s => s.Groepen)
-                     .ThenInclude(grp => grp.Leerlingen)
-                 .Include(s => s.Groepen)
-                     .ThenInclude(grp => grp.Paden)
-                     .ThenInclude(pad => pad.Opdrachten)
-                     .ThenInclude(opdr => opdr.Oefeningen)
-                     .ThenInclude(oef => oef.Opgave)
-                     .ThenInclude(Opgave => Opgave.Vragen)
-                 .Include(s => s.Groepen)
-                     .ThenInclude(grp => grp.Paden)
-                     .ThenInclude(pad => pad.Opdrachten)
-                     .ThenInclude(opdr => opdr.Oefeningen)
-                     .ThenInclude(oef => oef.Feedback)
-                 .Include(s => s.Groepen)
-                     .ThenInclude(grp => grp.Paden)
-                     .ThenInclude(pad => pad.Opdrachten)
-                     .ThenInclude(opdr => opdr.Oefeningen)
-                     .ThenInclude(oef => oef.Groepsbewerkingen)
-
-                 .Include(s => s.Groepen)
-                     .ThenInclude(grp => grp.Paden)
-                     .ThenInclude(pad => pad.Acties)
-                 .FirstOrDefault(s => s.Code == sessieCode);*/
-        }
-
-        public ICollection<Sessie> GetSessiesByLeerkracht(Leerkracht leerkracht)
-        {
-            //List<Sessie> sessiesMetKlasEnleerkracht = _sessies.Include(g => g.Groepen).Include(k => k.Klas).ThenInclude(l => l.KlasLeerkrachten).ThenInclude(kl => kl.Leerkracht).ToList();
-            //List<Sessie> SessiesVanLeerkracht = sessiesMetKlasEnleerkracht.Where(s => s.Klas.Leerkrachten.ToList().Contains(leerkracht)).ToList();
-            // List<Sessie> SessiesVanLeerkracht = 
-            return null; 
         }
 
         public void Add(Sessie sessie)

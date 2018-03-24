@@ -11,6 +11,4 @@ namespace BreakOutBox.Models.Domain
         Leerkracht GetByEmail(string email);
         void SaveChanges();
     }
-
-
 }

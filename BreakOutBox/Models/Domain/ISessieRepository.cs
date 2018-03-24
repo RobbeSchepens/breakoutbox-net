@@ -9,7 +9,6 @@ namespace BreakOutBox.Models.Domain
     {
         IEnumerable<Sessie> GetAll();
         Sessie GetBySessieCode(string sessieCode);
-        ICollection<Sessie> GetSessiesByLeerkracht(Leerkracht leerkracht);
         void Add(Sessie sessie);
         void Delete(Sessie sessie);
         void SaveChanges();
