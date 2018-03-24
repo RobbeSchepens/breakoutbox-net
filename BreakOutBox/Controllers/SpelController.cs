@@ -33,6 +33,19 @@ namespace BreakOutBox.Controllers
             ssvm.GroepId = groep.GroepId;
             return View(ssvm);
         }
+       
+
+        public SpelSpelenViewModel geefSsvmAangepastTerug(SpelSpelenViewModel ssvm, Opdracht opdracht, bool juistGeantwoordOpgave, bool juistGeantwoordtoegangscode, string toegangscodeVolgendeOefening, List<int> progressieInPad)
+        {
+
+            ssvm.Opdracht = opdracht;
+            ssvm.JuistGeantwoordOpgave = juistGeantwoordOpgave;
+            ssvm.JuistGeantwoordtoegangscode = juistGeantwoordtoegangscode;
+            ssvm.ToegangscodeVolgendeOefening = toegangscodeVolgendeOefening;
+            ssvm.ProgressieInPad = progressieInPad;
+
+            return ssvm;
+        }
 
         [HttpPost]
         public IActionResult SpelSpelen(/*Groep groep,*/ SpelSpelenViewModel ssvm, string sessiecode, string groepid) // met die filter groep doorgeven (en ook sessie mss)
@@ -62,21 +75,13 @@ namespace BreakOutBox.Controllers
                         {
                             groep.Pad.getCurrentOpdracht().Opgelost = true;
                             _sessieRepository.SaveChanges();
-                            ssvm.Opdracht = groep.Pad.getCurrentOpdracht();/////
-                            ssvm.ProgressieInPad = groep.Pad.getProgressie();
-                            ssvm.JuistGeantwoordOpgave = false;
-                            ssvm.JuistGeantwoordtoegangscode = false;
-                            ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
+                            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(),false , false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
                             return View(ssvm);
                         }
                         else // enkel antwoord juist
-                        {
-                            ssvm.Opdracht = groep.Pad.getCurrentOpdracht();
+                        {                       
                             _sessieRepository.SaveChanges();
-                            ssvm.JuistGeantwoordOpgave = true;
-
-                            ssvm.ProgressieInPad = groep.Pad.getProgressie();
-                            ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
+                            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(),true,ssvm.JuistGeantwoordtoegangscode, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
                             return View(ssvm);
                         }
                     }
@@ -84,16 +89,13 @@ namespace BreakOutBox.Controllers
                     {
                         if (groep.Pad.getCurrentOpdracht().foutePogingen <= 1)
                         {
-                            groep.Pad.getCurrentOpdracht().Opgelost = false;   // de vraag blijft op onOpgelost staan       
+                            groep.Pad.getCurrentOpdracht().Opgelost = false;   // de vraag blijft op onOpgelost staan
                             groep.Pad.getCurrentOpdracht().foutePogingen++; // foutpogingen +1 wanneer fout antwoord
                             _sessieRepository.SaveChanges();
-                            ssvm.ProgressieInPad = groep.Pad.getProgressie();
-                            ssvm.Opdracht = groep.Pad.getCurrentOpdracht();
-                            ssvm.JuistGeantwoordOpgave = false;
-                            ssvm.JuistGeantwoordtoegangscode = false;
-                            ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
-
+                            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());                        
                             TempData["FouteCode"] = "FOUT! je hebt " + groep.Pad.getCurrentOpdracht().foutePogingen + " foute pogingen ondernomen";
+
+
                             TempData["State"] = groep.State;
                             return View(ssvm);
                         }
@@ -200,16 +202,7 @@ namespace BreakOutBox.Controllers
          }*/
 
 
-        public SpelSpelenViewModel geefSsvmAangepastTerug(SpelSpelenViewModel ssvm, Opdracht opdracht, int foutePogingen, bool isVraagOpgelost, List<int> progressieInPad, bool juistGeantwoordOpOpgave, bool juistGeantwoordOpToegangscode, string toegangsCodeVolgendeOefening)
-        {
-
-            ssvm.Opdracht = opdracht;
-
-
-
-
-            return ssvm;
-        } 
+       
 
 
 
