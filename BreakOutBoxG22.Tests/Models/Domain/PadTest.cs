@@ -4,11 +4,36 @@ using System.Text;
 using System.Linq;
 using Xunit;
 using BreakOutBox.Models.Domain;
+using BreakOutBoxG22.Tests.Data;
 
 namespace BreakOutBoxG22.Tests.Models
 {
     public class PadTest
     {
+        private readonly Pad _pad;
+        private readonly Opdracht _opdracht;
+        //private readonly Mock<IGebruikersRepository> _mockGebruikersRepository;
+
+        public PadTest()
+        {
+            DummyApplicationDbContext context = new DummyApplicationDbContext();
+
+        }
+        
+        [Fact]
+        public void volgendeOpdracht_when_getNextOpdracht()
+        {
+
+
+
+            //Assert.Equal();
+        }
+
+
+        
+
+
+
 
         #region OudeComments
         //private readonly Pad _pad1;
