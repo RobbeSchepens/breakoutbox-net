@@ -33,17 +33,14 @@ namespace BreakOutBox.Controllers
             ssvm.GroepId = groep.GroepId;
             return View(ssvm);
         }
-       
 
         public SpelSpelenViewModel geefSsvmAangepastTerug(SpelSpelenViewModel ssvm, Opdracht opdracht, bool juistGeantwoordOpgave, bool juistGeantwoordtoegangscode, string toegangscodeVolgendeOefening, List<int> progressieInPad)
         {
-
             ssvm.Opdracht = opdracht;
             ssvm.JuistGeantwoordOpgave = juistGeantwoordOpgave;
             ssvm.JuistGeantwoordtoegangscode = juistGeantwoordtoegangscode;
             ssvm.ToegangscodeVolgendeOefening = toegangscodeVolgendeOefening;
             ssvm.ProgressieInPad = progressieInPad;
-
             return ssvm;
         }
 
@@ -75,13 +72,13 @@ namespace BreakOutBox.Controllers
                         {
                             groep.Pad.getCurrentOpdracht().Opgelost = true;
                             _sessieRepository.SaveChanges();
-                            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(),false , false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
+                            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
                             return View(ssvm);
                         }
                         else // enkel antwoord juist
-                        {                       
+                        {
                             _sessieRepository.SaveChanges();
-                            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(),true,ssvm.JuistGeantwoordtoegangscode, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
+                            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), true, ssvm.JuistGeantwoordtoegangscode, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
                             return View(ssvm);
                         }
                     }
@@ -92,7 +89,7 @@ namespace BreakOutBox.Controllers
                             groep.Pad.getCurrentOpdracht().Opgelost = false;   // de vraag blijft op onOpgelost staan
                             groep.Pad.getCurrentOpdracht().foutePogingen++; // foutpogingen +1 wanneer fout antwoord
                             _sessieRepository.SaveChanges();
-                            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());                        
+                            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
                             TempData["FouteCode"] = "FOUT! je hebt " + groep.Pad.getCurrentOpdracht().foutePogingen + " foute pogingen ondernomen";
 
 
@@ -101,7 +98,6 @@ namespace BreakOutBox.Controllers
                         }
                         else //if(groep.Pad.getCurrentOpdracht().foutePogingen >= 3)
                         {
-
                             //groep.SwitchState(3);
                             //  groep.Blokkeer();
                             groep.Pad.getCurrentOpdracht().Opgelost = false;   // de vraag blijft op onOpgelost staan 
@@ -166,8 +162,7 @@ namespace BreakOutBox.Controllers
             }
             return View();
         }
-
-        #region MyRegion
+        
         public IActionResult Opnieuw(string sessiecode, string groepid, SpelSpelenViewModel ssvm)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
@@ -190,8 +185,6 @@ namespace BreakOutBox.Controllers
                 return View(new SpelSpelenViewModel(sessie, groep));
             }
         }
-        #endregion
-
 
         /* public IActionResult InvoerenToegangscode(opdrachtId)
          {
@@ -200,11 +193,6 @@ namespace BreakOutBox.Controllers
 
              return View(ssvm);
          }*/
-
-
-       
-
-
 
         public static string Decode(string decodeMe)
         {
