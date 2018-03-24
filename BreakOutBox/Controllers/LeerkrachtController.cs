@@ -22,42 +22,21 @@ namespace BreakOutBox.Controllers
 
         public IActionResult Index()
         {
-            /*string[] tokens = User.Identity.GetUserName().Split('_');
-            int index = tokens[1].LastIndexOf("@");
-            if (index > 0)
-                tokens[1] = tokens[1].Substring(0, index);*/           
             Leerkracht lk = _leerkrachtRepository.GetByEmail(User.Identity.GetUserName()); // de leerkracht die vebonden staat met de huidige user
             List<Sessie> sessiesVanLeerkracht = lk.Sessies.ToList();
-
-            foreach(Sessie sessie in sessiesVanLeerkracht)
-            {
-                sessie.SwitchState(sessie.State);
-                foreach(Groep groep in sessie.Groepen)
-                {
-                    groep.SwitchState(groep.State);
-                }
-            }
-
             ViewData["LeerkrachtNaam"] = lk.Voornaam + " " + lk.Achternaam;
-
             return View(sessiesVanLeerkracht);
         }
 
         public IActionResult OverzichtGroepenInSessie(string id)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
-            sessie.SwitchState(sessie.State);
-            foreach (Groep groep in sessie.Groepen)
-            {
-                groep.SwitchState(groep.State);
-            }
             return View(sessie);
         }
 
         public IActionResult ActiveerSessie(string id)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
-            sessie.SwitchState(sessie.State);
             sessie.Activeer();
             _sessieRepository.SaveChanges();
             return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
@@ -66,7 +45,6 @@ namespace BreakOutBox.Controllers
         public IActionResult DeactiveerSessie(string id)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
-            sessie.SwitchState(sessie.State);
             sessie.Deactiveer();
             _sessieRepository.SaveChanges();
             return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
@@ -75,7 +53,6 @@ namespace BreakOutBox.Controllers
         public IActionResult BlokkeerSessie(string id)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
-            sessie.SwitchState(sessie.State);
             sessie.Blokkeer();
             _sessieRepository.SaveChanges();
             return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
@@ -84,7 +61,6 @@ namespace BreakOutBox.Controllers
         public IActionResult DeblokkeerSessie(string id)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
-            sessie.SwitchState(sessie.State);
             sessie.Deblokkeer();
             _sessieRepository.SaveChanges();
             return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
@@ -93,7 +69,6 @@ namespace BreakOutBox.Controllers
         public IActionResult StartSpelSessie(string id)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(id);
-            sessie.SwitchState(sessie.State);
             sessie.StartSpel();
             _sessieRepository.SaveChanges();
             return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
@@ -106,9 +81,7 @@ namespace BreakOutBox.Controllers
                 try
                 {
                     Sessie sessie = _sessieRepository.GetBySessieCode(code);
-                    sessie.SwitchState(sessie.State);
                     Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == id1);
-                    groep.SwitchState(groep.State);
                     return View(groep);
                 }
                 catch (Exception e)
@@ -129,7 +102,6 @@ namespace BreakOutBox.Controllers
                 {
                     Sessie sessie = _sessieRepository.GetBySessieCode(Decode(id));
                     Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
-                    groep.SwitchState(groep.State);
                     groep.ZetGereed();
                     _sessieRepository.SaveChanges();
                     TempData["message"] = $"Je hebt groep {groep.GroepId} gekozen.";

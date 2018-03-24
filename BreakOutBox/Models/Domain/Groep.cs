@@ -8,6 +8,7 @@ namespace BreakOutBox.Models.Domain
         #region Fields
         //private string _name;
         private GroepState _currentState;
+        private int _state;
         #endregion
 
         #region Properties
@@ -27,13 +28,18 @@ namespace BreakOutBox.Models.Domain
         public ICollection<Leerling> Leerlingen { get; set; }
         public int NrOfLeerlingen => Leerlingen.Count;
         public Pad Pad { get; set; }
-        public int State { get; set; }
+        public int State {
+            get { return _state; }
+            set {
+                _state = value;
+                SwitchState(value);
+            }
+        }
         #endregion Properties
 
         #region Constructors
         public Groep()
         {
-            SwitchState(State);
         }
 
         public Groep(Pad pad, ICollection<Leerling> leerlingen, int state)

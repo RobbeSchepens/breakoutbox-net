@@ -48,36 +48,36 @@
                     </div>
                 </p>*@
 
-                <div>
-                    <div id="pdf">
-                        <object height="750" type="application/pdf" data="~/opdrachtenG1/@Model.Opdracht.Oefening.Opgave" id="pdf_content"></object>
-                        @*<object height="750" type="application/pdf" data="~/algemenepdfs/Theorie.pdf" id="pdf_hulp" style="display:none"></object>*@
-
-                    </div>
-                </div>
-                <div id="Antwoord">
-                    
-                        <p><label asp-for="Groepsantwoord"></label></p>
-                        <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
-                        <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
-
-                        <p>@TempData["FouteCode"]</p>
-                        @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
-
-                        <button type="submit" class="" id="GaVerder">Ga verder</button>
-                    }
-                    else
-                    {
-                        <button type="submit" style="font-size:22px" onClick="window.location.reload()"> <i class="fa">&#xf021;</i></button>
-                        <button type="button" id="Feedback" onclick="hulp()">Feeback</button>
-                        <button type="submit" style="font-size:22px" asp-controller="Spel" asp-action="Opnieuw" asp-route-sessiecode="@Model.SessieCode" asp-route-groepid="@Model.GroepId"> <i class="fa">&#xf021;</i></button>
-                        @*<input type="image" src="" name="saveForm" class="fa fa-refresh btTxt submit" id="saveForm" value="Refresh Page" onClick="window.location.reload()" />*@
-
-
-                    }
+            <div>
+                <div id="pdf">
+                    <object height="750" type="application/pdf" data="~/opdrachtenG1/@Model.Opdracht.Oefening.Opgave" id="pdf_content"></object>
+                    @*<object height="750" type="application/pdf" data="~/algemenepdfs/Theorie.pdf" id="pdf_hulp" style="display:none"></object>*@
 
                 </div>
-        
+            </div>
+            <div id="Antwoord">
+
+                <p><label asp-for="Groepsantwoord"></label></p>
+                <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
+                <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
+
+                <p>@TempData["FouteCode"]</p>
+                @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
+
+                <button type="submit" class="" id="GaVerder">Ga verder</button>
+                }
+                else
+                {
+                <button type="submit" style="font-size:22px" onClick="window.location.reload()"> <i class="fa">&#xf021;</i></button>
+                <button type="button" id="Feedback" onclick="hulp()">Feeback</button>
+                <button type="submit" style="font-size:22px" asp-controller="Spel" asp-action="Opnieuw" asp-route-sessiecode="@Model.SessieCode" asp-route-groepid="@Model.GroepId"> <i class="fa">&#xf021;</i></button>
+                @*<input type="image" src="" name="saveForm" class="fa fa-refresh btTxt submit" id="saveForm" value="Refresh Page" onClick="window.location.reload()" />*@
+
+
+                }
+
+            </div>
+
 
 
             @*<div id="Opnieuw" style="display:none">
@@ -140,7 +140,7 @@
                 groepsantwoordJuist();
             }
             else {
-                geblokkeerd();  
+                geblokkeerd();
             }
         console.log("bool " + '@(Model.JuistGeantwoordOpgave)');
         console.log("bool " + '@(Model.JuistGeantwoordtoegangscode)');

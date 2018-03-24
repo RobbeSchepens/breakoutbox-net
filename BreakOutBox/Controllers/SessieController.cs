@@ -112,7 +112,6 @@ namespace BreakOutBox.Controllers
                 {
                     Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
                     Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid)));
-                    groep.SwitchState(groep.State);
                     groep.ZetGereed();
                     _sessieRepository.SaveChanges();
                     TempData["message"] = $"Je hebt groep {groep.GroepId} gekozen.";
@@ -137,7 +136,6 @@ namespace BreakOutBox.Controllers
                 {
                     Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
                     Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid)));
-                    groep.SwitchState(groep.State);
                     groep.ZetNietGereed();
                     _sessieRepository.SaveChanges();
                     TempData["message"] = $"Groep {groep.GroepId} is nu terug beschikbaar.";

@@ -7,6 +7,7 @@ namespace BreakOutBox.Models.Domain
     {
         #region Fields
         private SessieState _currentState;
+        private int _state;
         #endregion
 
         #region Properties
@@ -18,14 +19,22 @@ namespace BreakOutBox.Models.Domain
         public ICollection<Groep> Groepen { get; set; }
         public int NrOfGroepen => Groepen.Count;
         public Box Box { get; private set; } // Box uit Java met alle oefeningen in
-        public int State { get; set; }
+        public int State
+        {
+            get { return _state; }
+            set
+            {
+                _state = value;
+                SwitchState(value);
+            }
+        }
         #endregion
 
         #region Constructors
         public Sessie()
         {
-            SwitchState(State);
         }
+
         public Sessie(string code, string naam, string omschrijving, ICollection<Groep> groepen, Box box, int state)
         {
             Code = code;
