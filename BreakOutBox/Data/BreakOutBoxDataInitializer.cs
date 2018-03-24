@@ -25,6 +25,8 @@ namespace BreakOutBox.Data
             _dbContext.Database.EnsureDeleted();
             if (_dbContext.Database.EnsureCreated())
             {
+                await InitializeLeerkrachten();
+
                 #region Box aanmaken
                 // TOEGANGSCODES
                 // deze code geeft aan wat je volgende oefening is (bv. de code die je in een balon terugvind)
@@ -223,17 +225,25 @@ namespace BreakOutBox.Data
                 lk.VoegSessieToe(s);
 
                 _dbContext.Sessies.Add(s);
-                await CreateUser("Tom_Pieters@school.be", "Tom_Pieters@school.be", "P@ssword1!", "leerkrachtAuth");
+                //await CreateUser("Tom_Pieters@school.be", "Tom_Pieters@school.be", "P@ssword1!", "leerkracht");
                 _dbContext.SaveChanges();
                 #endregion
             }
 
-            async Task CreateUser(string userName, string email, string password, string role)
-            {
-                var user = new ApplicationUser { UserName = email, Email = email , SecurityStamp = Guid.NewGuid().ToString() };
-                await _userManager.CreateAsync(user, password);
-               // await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, role));
-            }
+            //async Task CreateUser(string userName, string email, string password, string role)
+            //{
+            //    var user = new ApplicationUser { UserName = email, Email = email , SecurityStamp = Guid.NewGuid().ToString() };
+            //    await _userManager.CreateAsync(user, password);
+            //   // await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, role));
+            //}
+        }
+
+        private async Task InitializeLeerkrachten()
+        {
+            string eMailAddress = "Tom_Pieters@school.be";
+            ApplicationUser leerkracht = new ApplicationUser { UserName = eMailAddress, Email = eMailAddress };
+            await _userManager.CreateAsync(leerkracht, "P@ssword1!");
+            await _userManager.AddClaimAsync(leerkracht, new Claim(ClaimTypes.Role, "leerkracht"));
         }
     }
 }

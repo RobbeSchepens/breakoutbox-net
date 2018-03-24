@@ -14,6 +14,7 @@ using BreakOutBox.Services;
 using BreakOutBox.Models.Domain;
 using BreakOutBox.Data.Repositories;
 using System.Security.Claims;
+using BreakOutBox.Filters;
 
 namespace BreakOutBox
 {
@@ -37,18 +38,18 @@ namespace BreakOutBox
                 .AddDefaultTokenProviders();
 
             services.AddAuthorization(options => {
-                options.AddPolicy("leerkrachtAuth", policy => policy.RequireClaim(ClaimTypes.Role, "leerkrachtAuth"));
-               
+                options.AddPolicy("leerkrachtAuth", policy => policy.RequireClaim(ClaimTypes.Role, "leerkracht"));
             });
+
+            //services.ConfigureApplicationCookie(options => options.AccessDeniedPath = "/Leerkracht/Index");
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();         
             services.AddScoped<ISessieRepository, SessieRepository>();
             services.AddScoped<ILeerkrachtRepository, LeerkrachtRepository>();
             services.AddScoped<BreakOutBoxDataInitializer>();
-
-            //services .addscoped<SessieFilter> scoped filter
-
+            services.AddScoped<SessieFilter>();
+            services.AddScoped<LeerkrachtFilter>();
             services.AddSession();
             services.AddMvc();
         }
@@ -68,7 +69,6 @@ namespace BreakOutBox
             }
 
             app.UseStaticFiles();
-
             app.UseAuthentication();
 
             app.UseMvc(routes =>

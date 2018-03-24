@@ -4,7 +4,7 @@ using System;
 
 namespace BreakOutBox.Filters
 {
-    [AttributeUsageAttribute(AttributeTargets.All, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
     public class LeerkrachtFilter : ActionFilterAttribute
     {
         private readonly ILeerkrachtRepository _leerkrachtRepository;

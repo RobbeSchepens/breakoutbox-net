@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BreakOutBox.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 using BreakOutBox.Models.SessieViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BreakOutBox.Controllers
 {
@@ -16,13 +17,13 @@ namespace BreakOutBox.Controllers
         {
             _sessieRepository = sessieRepository;
         }
-
+        
         [HttpGet]
         public IActionResult Index()
         {
             return View(new IndexViewModel());
         }
-
+        
         [HttpPost]
         public IActionResult Index(IndexViewModel ivm)
         {
