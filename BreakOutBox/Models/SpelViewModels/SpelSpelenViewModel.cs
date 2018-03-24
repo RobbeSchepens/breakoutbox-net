@@ -24,19 +24,20 @@ namespace BreakOutBox.Models.SpelViewModels
         public Opdracht Opdracht { get; set; }
         public string ToegangscodeVolgendeOefening { get; set; }
 
-
         public int GroepId { get; set; }
         public string SessieCode { get; set; }
+
+
+
+        // props hieronder mogen allemaal weg
+        
+
         public Sessie Sessie { get; set; }
         public Groep Groep { get; set; }
-
         public int State { get; set; }
-
-
         /*public int GroepId { get; set; }
         public int OpdrachtId { get; set; }
         */
-
         public int TellerFoutePogingen { get; set; }
         
         public SpelSpelenViewModel()

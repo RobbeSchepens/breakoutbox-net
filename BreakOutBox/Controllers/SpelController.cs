@@ -165,7 +165,7 @@ namespace BreakOutBox.Controllers
             return View();
         }
 
-
+        #region MyRegion
         public IActionResult Opnieuw(string sessiecode, string groepid, SpelSpelenViewModel ssvm)
         {
             Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
@@ -188,6 +188,8 @@ namespace BreakOutBox.Controllers
                 return View(new SpelSpelenViewModel(sessie, groep));
             }
         }
+        #endregion
+
 
         /* public IActionResult InvoerenToegangscode(opdrachtId)
          {
@@ -196,6 +198,20 @@ namespace BreakOutBox.Controllers
 
              return View(ssvm);
          }*/
+
+
+        public SpelSpelenViewModel geefSsvmAangepastTerug(SpelSpelenViewModel ssvm, Opdracht opdracht, int foutePogingen, bool isVraagOpgelost, List<int> progressieInPad, bool juistGeantwoordOpOpgave, bool juistGeantwoordOpToegangscode, string toegangsCodeVolgendeOefening)
+        {
+
+            ssvm.Opdracht = opdracht;
+
+
+
+
+            return ssvm;
+        } 
+
+
 
         public static string Decode(string decodeMe)
         {
