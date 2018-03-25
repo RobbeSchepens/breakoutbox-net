@@ -37,12 +37,27 @@
                     Stap2: Voer deze groepsbewerking uit <br /> op het antwoord.  <br /> Groepsbewerking: @(Model.Opdracht.Oefening.Groepsbewerking.ToString()).
                 </p>
                 <p><label asp-for="Groepsantwoord"></label></p>
-                <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
-                <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
+                <p>Foute pogingen @Model.Opdracht.foutePogingen</p>
+                @if (Model.Opdracht.foutePogingen < 3)
+                {
 
-                <p><button type="submit" class="" id="GaVerder">Ga verder</button></p>
+                    
+                    <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
+                    <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
+                    <span asp-validation-for=""
+                    <button type="submit" class="" id="GaVerder">Ga verder</button>
+            
+                    <p style="color:red">@TempData["FouteCode"]</p>
+                }
+                else
+                {
 
-                <p style="color:red">@TempData["FouteCode"]</p>
+                    <button type="submit" style="font-size:22px" onClick="window.location.reload()"> <i class="fa">&#xf021;</i></button>
+                    <button type="button" id="Feedback" onclick="hulp()">Feeback</button>
+                    <button type="submit" style="font-size:22px" asp-controller="Spel" asp-action="Opnieuw" asp-route-sessiecode="@Model.SessieCode" asp-route-groepid="@Model.GroepId"> <i class="fa">&#xf021;</i></button>
+                    @*<input type="image" src="" name="saveForm" class="fa fa-refresh btTxt submit" id="saveForm" value="Refresh Page" onClick="window.location.reload()" />*@
+                }
+
 
             </div>
 
@@ -110,51 +125,51 @@
         //<button type="submit" style="font-size:22px" onClick="window.location.reload()"> <i class="fa">&#xf021;</i></button>
         //<button type="button" id="Feedback" onclick="hulp()">Feeback</button>
         //<button type="submit" style="font-size:22px" asp-controller="Spel" asp-action="Opnieuw" asp-route-sessiecode="@Model.SessieCode" asp-route-groepid="@Model.GroepId"> <i class="fa">&#xf021;</i></button>*@
-        //@*<input type = "image" src="" name="saveForm" class="fa fa-refresh btTxt submit" id="saveForm" value="Refresh Page" onClick="window.location.reload()" />*@
+    @*<input type = "image" src="" name="saveForm" class="fa fa-refresh btTxt submit" id="saveForm" value="Refresh Page" onClick="window.location.reload()" />*@
 
 
-        @*}
+    @*}
 
-            </div>*@
+        </div>*@
 
 
 
-        @*<div id = "Opnieuw" style="display:none">
-                            @if(Model.Groep.Pad.getCurrentOpdracht().foutePogingen == 3)
-            {
-                                < p > Te veel foute antwoorden, vraag hulp aan de leerkracht.</ p >
+    @*<div id = "Opnieuw" style="display:none">
+                        @if(Model.Groep.Pad.getCurrentOpdracht().foutePogingen == 3)
+        {
+                            < p > Te veel foute antwoorden, vraag hulp aan de leerkracht.</ p >
 
-                                   < button onclick = "hulp()" type = "button" > Hulp nodig ?</ button >
+                               < button onclick = "hulp()" type = "button" > Hulp nodig ?</ button >
 
-                                          @if(Model.Groep.State == 3)
-                                {
-                                    < p > Je bent geblokkeerd.</ p >
+                                      @if(Model.Groep.State == 3)
+                            {
+                                < p > Je bent geblokkeerd.</ p >
 
-                                       < button type = "submit" asp - controller = "Spel" asp - action = "Opnieuw" asp - route - sessiecode = "@Model.Sessie.Code" asp - route - groepid = "@Model.Groep.GroepId" > Probeer opnieuw.</ button >
+                                   < button type = "submit" asp - controller = "Spel" asp - action = "Opnieuw" asp - route - sessiecode = "@Model.Sessie.Code" asp - route - groepid = "@Model.Groep.GroepId" > Probeer opnieuw.</ button >
+                            }
+                            else
+                            {
+                                @*button om terug te gaan naar het overzicht als de groep geblokkeerd is *@
+    @*< button type = "submit" asp - controller = "Spel" asp - action = "SpelSpelen" asp - route - sessiecode = "@Model.Sessie.Code" > Probeer opnieuw.</ button >
                                 }
-                                else
-                                {
-                                    @*button om terug te gaan naar het overzicht als de groep geblokkeerd is *@
-        @*< button type = "submit" asp - controller = "Spel" asp - action = "SpelSpelen" asp - route - sessiecode = "@Model.Sessie.Code" > Probeer opnieuw.</ button >
-                                    }
-            }
+        }
 
 
-                            </div>*@
+                        </div>*@
 
 
-        @*<div hidden>
+    @*<div hidden>
 
-                            <p><input asp-for="GroepId" type="text" class="form-control" autocomplete="off" value="@(Model.GroepId)" /></p>
-                            <p><input asp-for="JuistGeantwoordtoegangscodeString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordtoegangscodeStringId" /></p>
-                            <p><input asp-for="JuistGeantwoordOpgaveString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordOpgaveStringId" /></p>
+                        <p><input asp-for="GroepId" type="text" class="form-control" autocomplete="off" value="@(Model.GroepId)" /></p>
+                        <p><input asp-for="JuistGeantwoordtoegangscodeString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordtoegangscodeStringId" /></p>
+                        <p><input asp-for="JuistGeantwoordOpgaveString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordOpgaveStringId" /></p>
 
-                        </div>
+                    </div>
 
-                        </form>
-                </div>
-            </div>*@
-        </div>
+                    </form>
+            </div>
+        </div>*@
+</div>
 
 
 
@@ -269,7 +284,7 @@
                 function () {
                     window.location.reload();
 
-                }
+                });
 
 
         }
