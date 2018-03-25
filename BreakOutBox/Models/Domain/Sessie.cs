@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace BreakOutBox.Models.Domain
@@ -12,12 +13,13 @@ namespace BreakOutBox.Models.Domain
 
         #region Properties
         //public int SessieId { get; set; }
+        [JsonProperty]
         public string Code { get; set; }
         public string Naam { get; set; }
         public string Omschrijving { get; set; }
         public Klas Klas { get; set; }
         public ICollection<Groep> Groepen { get; set; }
-        public int NrOfGroepen => Groepen.Count;
+        //public int NrOfGroepen => Groepen.Count;
         public Box Box { get; private set; } // Box uit Java met alle oefeningen in
         public int State
         {
