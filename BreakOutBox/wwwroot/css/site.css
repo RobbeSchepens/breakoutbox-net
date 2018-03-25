@@ -87,9 +87,9 @@ ul li, ul {
     line-height: 1.4rem;
 }
 
-    ul li::before {
-        content: none;
-    }
+ul li::before {
+    content: none;
+}
 
 a:hover {
     font-weight: bold;
@@ -99,10 +99,8 @@ a:hover {
     ========= NAVIGATIE ==========
 */
 .bgcolorwhite {
-    /*background-color: rgba(255,255,255,0.75);
-    box-shadow: 0 7px 4px -6px rgba(0,0,0,0.5);*/
     margin-bottom: 32px;
-    background: rgb(54, 54, 54);
+    background: rgb(72, 151, 190);
 }
 
 #navigatie {
@@ -123,15 +121,15 @@ nav {
     text-align: right;
 }
 
-    nav a, nav a:hover, nav a:visited, nav a:active {
-        padding: 20px 0;
-        line-height: 60px;
-        color: white;
-    }
+nav a, nav a:hover, nav a:visited, nav a:active {
+    padding: 20px 0;
+    line-height: 60px;
+    color: white;
+}
 
-        nav a:hover {
-            font-weight: inherit;
-        }
+nav a:hover {
+    font-weight: inherit;
+}
 
 .navbar-right {
     right: 0;

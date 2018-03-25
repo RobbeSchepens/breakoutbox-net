@@ -112,12 +112,15 @@ namespace BreakOutBox.Controllers
         }
 
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
-        public IActionResult OverzichtGroep(Sessie sessie, Groep groep)
+        public IActionResult OverzichtGroep(Sessie sessie, Groep groep, string groepid)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    // Cookie toewijzen
+                    HttpContext.Session.SetString("groepid", JsonConvert.SerializeObject(groepid));
+
                     return View(groep);
                 }
                 catch (Exception e)

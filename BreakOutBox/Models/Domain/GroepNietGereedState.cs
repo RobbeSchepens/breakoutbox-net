@@ -11,7 +11,7 @@ namespace BreakOutBox.Models.Domain
 
         public GroepNietGereedState(Groep groep) : base(groep)
         {
-            Beschrijving = "Niet klaar";
+            Beschrijving = "nog niet gekozen";
         }
 
         public override void ZetGereed()

@@ -1,63 +1,91 @@
 ﻿/* 
 =========== GROEP ===========
 */
+body {
+    margin: 0;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.container {
+    width: 70%;
+    margin: 0 auto;
+}
+
+nav {
+    background: rgb(72, 151, 190);
+    height: 60px;
+}
+
+ul, li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
 .groep {
-    box-shadow: 0 2px 8px 0 hsla(0,0%,0%,0.2);
-    margin: 20px;
-    border-radius: 7px;
-    border-bottom: 3px solid rgb(54, 54, 54);
+    max-width: 600px;
+    border: 2px solid rgb(72, 151, 190);
 }
 
 .groep ul {
-    padding: 5px 0;
+    padding: 0 0 3px 0;
 }
 
 .groep li {
-    line-height: 2em;
-    padding: 0 24px;
+    line-height: 1.8em;
+    font-size: 0.9em;
+    padding: 0 0.8em;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.groep li:first-of-type {
+    font-weight: bold;
+    color: white;
+    background: rgb(72, 151, 190);
+    line-height: 2.2em;
+    margin-bottom: 2px;
+    padding-bottom: 2px;
+}
+
+.groep li:last-of-type {
+    border-bottom: none;
 }
 
 .groep .icon {
-    margin-right: 1.2em;
+    margin-right: 0.6em;
 }
 
 .groep span {
     display: block;
-    padding: 0 24px;
+    padding: 0 0.8em;
 }
 
 .groep .header {
     font-weight: bold;
     font-size: 1em;
     line-height: 3.5em;
-    background: rgb(54, 54, 54);
+    background: rgb(72, 151, 190);
     color: white;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
     margin-bottom: 10px;
 }
 
 .groep .icons {
     font-size: 2em;
     text-align: center;
-    margin-bottom: 8px;
 }
 
-.groep .icons a {
-    color: rgb(54, 54, 54);
-    margin: 0 6px;
+.groep a {
+    color: rgb(58, 121, 152);
+    text-decoration: none;
 }
 
-@media only screen and (min-width:992px) {
+/*@media only screen and (min-width:992px) {
     .md-6 {
         -webkit-box-flex: 0;
-        -webkit-flex: 0 0 46%;
-        -ms-flex: 0 0 46%;
-        flex: 0 0 46%;
-        max-width: 46%;
+        -webkit-flex: 0 0 50%;
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
     }
-
-    .groep:nth-of-type(even) {
-        margin-right: 0;
-    }
-}
+}*/

@@ -13,52 +13,60 @@
 <div class="row">
     @foreach (var groep in Model.Groepen)
     {
-        <div class="sm-12 md-6 groep">
-            <span class="header"><i class="fas fa-users fa-fw icon"></i>Groep #@(groep.GroepId)</span>
+        <div class="sm-12 md-6 lg-4 groep">
             <ul>
-                <li><i class="far fa-question-circle fa-fw icon"></i>@groep.GetState().Beschrijving</li>
+                <li><i class="fas fa-users fa-fw icon"></i>Groep #@(groep.GroepId) is @groep.GetState().Beschrijving</li>
                 @foreach (var leerling in groep.Leerlingen)
                 {
                     <li><i class="far fa-user fa-fw icon"></i>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
                 }
-            </ul>
-            <span class="icons">
                 @switch (groep.State)
                 {
                     case 0: // NietGereedState
-                        <a href="@Url.Action("ZetGroepGereed", "Leerkracht", new { id = Model.Code, groepid = groep.GroepId })" class="tip brown" title="Zet deze groep op gereed">
-                            <i class="far fa-check-square"></i>
-                        </a>
-                        <a href="@Url.Action("VergrendelGroep", "Leerkracht", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Vergrendel deze groep">
-                            <i class="fas fa-lock"></i>
-                        </a>
+                        <li>
+                            <a href="@Url.Action("ZetGroepGereed", "Leerkracht", new { groepid = groep.GroepId })" class="tip" title="Zet deze groep op gereed">
+                                Zet deze groep op gekozen.
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("VergrendelGroep", "Leerkracht", new { groepid = groep.GroepId })" class="tip" title="Vergrendel deze groep">
+                                Vergrendel deze groep.
+                            </a>
+                        </li>
                         break;
                     case 1: // GereedState
-                        <a href="@Url.Action("ZetGroepNietGereed", "Leerkracht", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Zet deze groep op niet-gereed">
-                            <i class="far fa-square"></i>
-                        </a>
-                        <a href="@Url.Action("VergrendelGroep", "Leerkracht", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Vergrendel deze groep">
-                            <i class="fas fa-lock"></i>
-                        </a>
+                        <li>
+                            <a href="@Url.Action("ZetGroepNietGereed", "Leerkracht", new { groepid = groep.GroepId })" class="tip" title="Zet deze groep op niet-gereed">
+                                Zet deze groep op niet-gekozen.
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("VergrendelGroep", "Leerkracht", new { groepid = groep.GroepId })" class="tip" title="Vergrendel deze groep">
+                                Vergrendel deze groep.
+                            </a>
+                        </li>
                         break;
                     case 2: // VergrendeldState
-                        <a href="@Url.Action("OntgrendelGroep", "Leerkracht", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Ontgrendel deze groep">
-                            <i class="fas fa-unlock"></i>
-                        </a>
-                        <a href="@Url.Action("BlokkeerGroep", "Leerkracht", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Blokkeer deze groep">
-                            <i class="far fa-times-circle"></i>
-                        </a>
+                        <li>
+                            <a href="@Url.Action("OntgrendelGroep", "Leerkracht", new { groepid = groep.GroepId })" class="tip" title="Ontgrendel deze groep">
+                                Ontgrendel deze groep.
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("BlokkeerGroep", "Leerkracht", new { groepid = groep.GroepId })" class="tip" title="Blokkeer deze groep">
+                                Blokkeer deze groep.
+                            </a>
+                        </li>
                         break;
                     case 3: // GeblokkeerdState
-                        <a href="@Url.Action("DeblokkeerGroep", "Leerkracht", new { sessiecode = Model.Code, groepid = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Deblokkeer deze groep">
-                            <i class="far fa-check-circle"></i>
-                        </a>
+                        <li>
+                            <a href="@Url.Action("DeblokkeerGroep", "Leerkracht", new { groepid = groep.GroepId })" class="tip" title="Deblokkeer deze groep">
+                                Deblokkeer deze groep.
+                            </a>
+                        </li>
                         break;
                 }
-                <a asp-controller="Leerkracht" asp-action="OverzichtGroep" asp-route-id1="@groep.GroepId" asp-route-code="@Model.Code" class="tip brown" title="Bekijk de details voor deze groep">
-                    <i class="fas fa-info-circle"></i>
-                </a>
-            </span>
+            </ul>
         </div>
     }
 </div>

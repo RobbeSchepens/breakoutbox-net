@@ -15,40 +15,30 @@
     </div>
     @foreach (var groep in Model.Groepen)
     {
-        <div class="sm-12 md-6 groep">
-            <span class="header"><i class="fas fa-users fa-fw icon"></i>Groep #@(groep.GroepId)</span>
+        <div class="sm-12 md-4 groep">
             <ul>
+                <li><i class="fas fa-users fa-fw icon"></i>Groep #@(groep.GroepId)</li>
                 @foreach (var leerling in groep.Leerlingen)
                 {
                     <li><i class="far fa-user fa-fw icon"></i>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
                 }
-            </ul>
-            <span class="icons">
                 @if (groep.State == 0 && groep.State != 2 && ViewBag.GeselecteerdeGroep == null)
                 {
-                    <a href="@Url.Action("ZetGroepGereed", "Sessie", new { groepid = groep.GroepId.ToString() })" class="tip brown" title="Klik hier als dit jouw groep is">
-                        <i class="far fa-square"></i>
-                    </a>
+                    <li><a href="@Url.Action("ZetGroepGereed", "Sessie", new { groepid = groep.GroepId.ToString() })" class="tip" title="Klik hier als dit jouw groep is">Dit is mijn groepje</a></li>
                 }
                 @if (groep.State == 1 && groep.State != 2 && ViewBag.GeselecteerdeGroep != null && ViewBag.GeselecteerdeGroep.GroepId == groep.GroepId)
                 {
-                    <a href="@Url.Action("ZetGroepNietGereed", "Sessie")" class="tip brown" title="Klik hier om deze groep te deselecteren">
-                        <i class="far fa-check-square"></i>
-                    </a>
+                    <li><a href="@Url.Action("ZetGroepNietGereed", "Sessie")" class="tip" title="Klik hier om deze groep te deselecteren">Deze groep deselecteren</a></li>
                 }
                 @if (groep.State == 1 && groep.State != 2 && ViewBag.GeselecteerdeGroep == null)
                 {
-                    <a href="#" class="tip brown" title="Een andere groep heeft deze groep al geselecteerd">
-                        <i class="far fa-times-circle"></i>
-                    </a>
+                    <li>Deze groep is niet beschikbaar</li>
                 }
                 @if (groep.State == 2)
                 {
-                    <a href="#" class="tip brown" title="Deze groep is vergrendeld">
-                        <i class="fas fa-lock"></i>
-                    </a>
+                    <li>Deze groep is vergrendeld</li>
                 }
-            </span>
+            </ul>
         </div>
     }
 </div>
@@ -63,7 +53,6 @@
             {
                 <a href="@Url.Action("StartSpel", "Sessie", new { groepid = ViewBag.GeselecteerdeGroep.GroepId.ToString() })">Start de eerste opdracht</a>
             }
-            @*<a asp-controller="Spel" asp-action="SpelSpelen" asp-route="">Simuleer leerkracht start sessie</a>*@
         </p>
     </div>
 </div>

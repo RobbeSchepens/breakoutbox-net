@@ -11,7 +11,7 @@ namespace BreakOutBox.Models.Domain
 
         public GroepGereedState(Groep groep) : base(groep)
         {
-            Beschrijving = "Klaar";
+            Beschrijving = "gekozen";
         }
 
         public override void ZetGereed()
