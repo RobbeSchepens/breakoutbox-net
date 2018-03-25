@@ -41,7 +41,7 @@ namespace BreakOutBox
                 options.AddPolicy("leerkrachtAuth", policy => policy.RequireClaim(ClaimTypes.Role, "leerkracht"));
             });
 
-            //services.ConfigureApplicationCookie(options => options.AccessDeniedPath = "/Leerkracht/Index");
+            services.ConfigureApplicationCookie(options => options.AccessDeniedPath = "/Leerkracht/Index");
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();         
