@@ -19,10 +19,12 @@ namespace BreakOutBox.Controllers
         public IActionResult SpelSpelen(Sessie sessie, Groep groep)
         {
             SpelSpelenViewModel ssvm = new SpelSpelenViewModel();
-            ssvm.ProgressieInPad = groep.Pad.getProgressie();
-            ssvm.Opdracht = groep.Pad.getCurrentOpdracht();
-            ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
-            ssvm.GroepId = groep.GroepId;
+            ssvm = geefSsvmAangepastTerug(ssvm, 
+                groep.Pad.getCurrentOpdracht(), 
+                ssvm.JuistGeantwoordOpgave = ssvm.JuistGeantwoordOpgave, 
+                ssvm.JuistGeantwoordtoegangscode = ssvm.JuistGeantwoordtoegangscode, 
+                groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), 
+                groep.Pad.getProgressie());
             return View(ssvm);
         }
 
