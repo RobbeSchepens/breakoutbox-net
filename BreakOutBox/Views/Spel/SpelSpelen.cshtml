@@ -44,7 +44,7 @@
                     
                     <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
                     <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
-                    <span asp-validation-for=""
+
                     <button type="submit" class="" id="GaVerder">Ga verder</button>
             
                     <p style="color:red">@TempData["FouteCode"]</p>
@@ -263,7 +263,7 @@
                 animation: "slide-from-top",
             },
                 function () {
-                    window.open("/algemenepdfs/Theorie.pdf");
+                    window.location.href = "http://example.com/new_url";
                 });
 
                 console.log("Gelukt");
