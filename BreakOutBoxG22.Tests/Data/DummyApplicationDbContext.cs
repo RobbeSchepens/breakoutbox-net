@@ -9,6 +9,8 @@ namespace BreakOutBoxG22.Tests.Data
 {
     public class DummyApplicationDbContext
     {
+        private readonly Pad _pad;
+
 
 
         public DummyApplicationDbContext()
@@ -52,7 +54,7 @@ namespace BreakOutBoxG22.Tests.Data
             Box box = new Box(acties, oefeningen, toegangscodes, "Een box met diverse oefeningen", "BoxNaam");
 
 
-            #region Opdrachten opvullen en in pad steken
+           
             // GROEPSBEWERKINGEN
             var lijstMetGroepsbewerkingen = new List<String>();
             for (int i = 50; i < 90; i++)
@@ -164,8 +166,9 @@ namespace BreakOutBoxG22.Tests.Data
                     new Pad(opdrachtenGroep5)
                 };
 
-            #endregion
+            _pad = paden[0];
 
+           
             #region Leerlingen en groepen
             var leerlingen = new List<Leerling>{
                     new Leerling("Andrea", "Van Dijk"),
@@ -200,7 +203,7 @@ namespace BreakOutBoxG22.Tests.Data
                 };
             #endregion
 
-            #region Klas, leerkracht en sessie
+          
             var lk = new Leerkracht("Tom", "Pieters", "Tom_Pieters@school.be");
             var k = new Klas(leerlingen, lk);
             lk.VoegKlasToe(k);
@@ -210,88 +213,21 @@ namespace BreakOutBoxG22.Tests.Data
             lk.VoegSessieToe(s);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
-        //public IEnumerable<Oefening> Oefeningen { get; }
-        //public Brewer Bavik { get; }
-        //public Brewer Moortgat { get; }
-        //public Brewer DeLeeuw { get; }
-        //public Beer BavikPils { get; }
-        //public Beer Wittekerke { get; }
-        //public Location Bavikhove { get; }
-        //public Customer CustomerJan { get; }
-        //public Cart CartFilled { get; }
 
-        //public DummyApplicationDbContext()
-        //{
-        //    int oefeningId = 1;
-        //    int brewerId = 1;
-        //    Bavikhove = new Location { Name = "Bavikhove", PostalCode = "8531" };
-        //    Location puurs = new Location { Name = "Puurs", PostalCode = "2870" };
-        //    Location leuven = new Location { Name = "Leuven", PostalCode = "3000" };
+        public Pad Pad => _pad;
 
-        //    Locations = new[] { Bavikhove, puurs, leuven };
 
-        //    Bavik = new Brewer("Bavik", Bavikhove, "Rijksweg 33") { BrewerId = brewerId++ };
-        //    Bavik.AddBeer("Bavik Pils", 5.2, 1.0M).BeerId = beerId++;
-        //    Bavik.AddBeer("Wittekerke", 5.0, 2.0M).BeerId = beerId++;
-        //    Bavik.Turnover = 20000000;
-        //    BavikPils = Bavik.Beers.FirstOrDefault(b => b.Name == "Bavik Pils");
-        //    Wittekerke = Bavik.Beers.FirstOrDefault(b => b.Name == "Wittekerke");
 
-        //    Moortgat = new Brewer("Duvel Moortgat", puurs, "Breendonkdorp 28") { BrewerId = brewerId++ };
-        //    Moortgat.AddBeer("Duvel", 8.5, 2.0M).BeerId = beerId;
 
-        //    DeLeeuw = new Brewer("De Leeuw") { BrewerId = brewerId };
-        //    DeLeeuw.Turnover = 50000;
 
-        //    Brewers = new[] { DeLeeuw, Moortgat, Bavik };
 
-        //    Beers = Brewers.SelectMany(b => b.Beers).OrderBy(be => be.Name);
 
-        //    CartFilled = new Cart();
-        //    CartFilled.AddLine(Wittekerke, 5);
-        //    CustomerJan = new Customer
-        //    {
-        //        Email = "jan@hogent.be",
-        //        FirstName = "Jan",
-        //        Name = "De man",
-        //        Location = Bavikhove,
-        //        Street = "Bavikhovestraat"
-        //    };
+
+
+
+
+    
     }
 }
     
-

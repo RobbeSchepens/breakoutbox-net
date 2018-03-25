@@ -10,27 +10,30 @@ namespace BreakOutBoxG22.Tests.Models
 {
     public class PadTest
     {
+        private readonly DummyApplicationDbContext _dummyContext = new DummyApplicationDbContext();
         private readonly Pad _pad;
         private readonly Opdracht _opdracht;
         //private readonly Mock<IGebruikersRepository> _mockGebruikersRepository;
 
         public PadTest()
         {
-            DummyApplicationDbContext context = new DummyApplicationDbContext();
+           
 
         }
         
         [Fact]
         public void volgendeOpdracht_when_getNextOpdracht()
         {
-
+            
 
 
             //Assert.Equal();
         }
-
-
+        [Fact]
         
+
+
+
 
 
 

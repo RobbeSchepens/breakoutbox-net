@@ -14,105 +14,151 @@
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-
-
-
-
     <style>
+        .container {
+        }
     </style>
-
 </head>
-@*<script src="~/js/site.js"></script>*@
-<!-- Latest compiled and minified CSS -->
-@*width:@(progressie[1] / progressie[0])%
-    <span class="sr-only"></span>*@
+
+<body>
+    <form method="post" id="formAntwoord" name="formAntwoord">
 
 
-<div class="row">
-    <div class="sm-12 col text-center">
-        <h2 style="text-decoration:underline">@Model.Opdracht.Oefening.Naam</h2>
-        <form method="post" id="formAntwoord" name="formAntwoord">
-            <p><h4 style="text-decoration: underline">@(Model.Opdracht.Oefening.Vak.Naam)</h4></p>
-            <p>
-                <h5>opdracht @(progressie[1] + 1) van de @(progressie[0])</h5>
-            </p>
-            <p>
-                Groepsbewerking: @(Model.Opdracht.Oefening.Groepsbewerking.ToString())
-            </p>
+        <div style="text-align:center;">
+            <div style="float:left;">
+                <h2 style="text-decoration:underline"> @Model.Opdracht.Oefening.Naam </h2>
 
-            @*<p>
-                    <div class="w3-container" onclick="">
-                        <div class="w3-light-grey" style="width:60%;margin: auto;">
-                            <div class="w3-container w3-blue w3-center" style="width:@((int)progressiePercentageCompleted)%"><span style="color:black">@((int)(progressiePercentageCompleted))%&nbsp;correct&nbsp;opgelost</span></div>
-                        </div>
-                    </div>
-                </p>*@
-
-            <div>
-                <div id="pdf">
-                    <object height="750" type="application/pdf" data="~/opdrachtenG1/@Model.Opdracht.Oefening.Opgave" id="pdf_content"></object>
-                    @*<object height="750" type="application/pdf" data="~/algemenepdfs/Theorie.pdf" id="pdf_hulp" style="display:none"></object>*@
-
-                </div>
-            </div>
-            <div id="Antwoord">
-
+                <h4 style="text-decoration: underline">@(Model.Opdracht.Oefening.Vak.Naam)</h4>
+                <p>
+                    <h5>Progressie: Opdracht @(progressie[1] + 1) van de @(progressie[0]).</h5>
+                </p>
+                <p>Stap1: Maak de oefening</p>
+                <p>
+                    Stap2: Voer deze groepsbewerking uit <br /> op het antwoord.  <br /> Groepsbewerking: @(Model.Opdracht.Oefening.Groepsbewerking.ToString()).
+                </p>
                 <p><label asp-for="Groepsantwoord"></label></p>
                 <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
                 <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
 
-                <p>@TempData["FouteCode"]</p>
-                @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
+                <p><button type="submit" class="" id="GaVerder">Ga verder</button></p>
 
-                <button type="submit" class="" id="GaVerder">Ga verder</button>
-                }
-                else
-                {
-                <button type="submit" style="font-size:22px" onClick="window.location.reload()"> <i class="fa">&#xf021;</i></button>
-                <button type="button" id="Feedback" onclick="hulp()">Feeback</button>
-                <button type="submit" style="font-size:22px" asp-controller="Spel" asp-action="Opnieuw" asp-route-sessiecode="@Model.SessieCode" asp-route-groepid="@Model.GroepId"> <i class="fa">&#xf021;</i></button>
-                @*<input type="image" src="" name="saveForm" class="fa fa-refresh btTxt submit" id="saveForm" value="Refresh Page" onClick="window.location.reload()" />*@
-
-
-                }
+                <p style="color:red">@TempData["FouteCode"]</p>
 
             </div>
 
 
-
-            @*<div id="Opnieuw" style="display:none">
-                @if (Model.Groep.Pad.getCurrentOpdracht().foutePogingen == 3)
-                {
-                    <p>Te veel foute antwoorden, vraag hulp aan de leerkracht.</p>
-                    <button onclick="hulp()" type="button">Hulp nodig?</button>
-
-                    @if (Model.Groep.State == 3)
-                    {
-                        <p>Je bent geblokkeerd.</p>
-                        <button type="submit" asp-controller="Spel" asp-action="Opnieuw" asp-route-sessiecode="@Model.Sessie.Code" asp-route-groepid="@Model.Groep.GroepId">Probeer opnieuw.</button>
-                    }
-                    else
-                    {
-                        @*button om terug te gaan naar het overzicht als de groep geblokkeerd is*@
-            @*<button type="submit" asp-controller="Spel" asp-action="SpelSpelen" asp-route-sessiecode="@Model.Sessie.Code">Probeer opnieuw.</button>
-                        }
-                    }
+        </div>
 
 
-                </div>*@
+
+        @*//--------------------------------------------*@
 
 
-            <div hidden>
 
-                <p><input asp-for="GroepId" type="text" class="form-control" autocomplete="off" value="@(Model.GroepId)" /></p>
-                <p><input asp-for="JuistGeantwoordtoegangscodeString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordtoegangscodeStringId" /></p>
-                <p><input asp-for="JuistGeantwoordOpgaveString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordOpgaveStringId" /></p>
+        <div style="float:right;width: 55%">
 
-            </div>
+            <object height="750" type="application/pdf" data="~/opdrachtenG1/@Model.Opdracht.Oefening.Opgave" id="pdf_content"></object>
 
-        </form>
-    </div>
-</div>
+        </div>
+
+        <div style="clear:both"></div>
+    </form>
+</body>
+
+<div>
+    @*<div class="row">
+        <div class="sm-12 col text-center">
+            <h2 style="text-decoration:underline">
+                @Model.Opdracht.Oefening.Naam </ h2 >
+                < form method="post" id="formAntwoord" name="formAntwoord">
+                <p><h4 style="text-decoration: underline">@(Model.Opdracht.Oefening.Vak.Naam)</h4></p>
+                <p>
+                    <h5>opdracht @(progressie[1] + 1) van de @(progressie[0])</h5>
+                </p>
+                <p>
+                    Groepsbewerking: @(Model.Opdracht.Oefening.Groepsbewerking.ToString())
+                </p>
+
+                @*<p>
+                        <div class="w3-container" onclick="">
+                            <div class="w3-light-grey" style="width:60%;margin: auto;">
+                                <div class="w3-container w3-blue w3-center" style="width:@((int)progressiePercentageCompleted)%"><span style = "color:black" >@((int)(progressiePercentageCompleted))%&nbsp;correct&nbsp;opgelost</span></div>
+                            </div>
+                        </div>
+                    </p>*@
+
+    @*<div>
+        <div id="pdf">
+            < object height="750" type="application/pdf" data="~/opdrachtenG1/@Model.Opdracht.Oefening.Opgave" id="pdf_content"></object>*@
+    @*<object height = "750" type="application/pdf" data="~/algemenepdfs/Theorie.pdf" id="pdf_hulp" style="display:none"></object>*@
+
+    @*</div>
+        </div>
+        <div id="Antwoord">
+
+            <p><label asp-for="Groepsantwoord"></label></p>
+            <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
+            <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
+
+            <p>@TempData["FouteCode"]</p>
+            @*<p><a asp-controller="Sessie" asp-action="SessieOverzicht" asp-route-id="@Model.SessieCode" class="btn btn-default">Ga verder</a></p>*@
+
+    @*<button type="submit" class="" id="GaVerder">Ga verder</button>
+        }
+        //else
+        //{
+        //<button type="submit" style="font-size:22px" onClick="window.location.reload()"> <i class="fa">&#xf021;</i></button>
+        //<button type="button" id="Feedback" onclick="hulp()">Feeback</button>
+        //<button type="submit" style="font-size:22px" asp-controller="Spel" asp-action="Opnieuw" asp-route-sessiecode="@Model.SessieCode" asp-route-groepid="@Model.GroepId"> <i class="fa">&#xf021;</i></button>*@
+        //@*<input type = "image" src="" name="saveForm" class="fa fa-refresh btTxt submit" id="saveForm" value="Refresh Page" onClick="window.location.reload()" />*@
+
+
+        @*}
+
+            </div>*@
+
+
+
+        @*<div id = "Opnieuw" style="display:none">
+                            @if(Model.Groep.Pad.getCurrentOpdracht().foutePogingen == 3)
+            {
+                                < p > Te veel foute antwoorden, vraag hulp aan de leerkracht.</ p >
+
+                                   < button onclick = "hulp()" type = "button" > Hulp nodig ?</ button >
+
+                                          @if(Model.Groep.State == 3)
+                                {
+                                    < p > Je bent geblokkeerd.</ p >
+
+                                       < button type = "submit" asp - controller = "Spel" asp - action = "Opnieuw" asp - route - sessiecode = "@Model.Sessie.Code" asp - route - groepid = "@Model.Groep.GroepId" > Probeer opnieuw.</ button >
+                                }
+                                else
+                                {
+                                    @*button om terug te gaan naar het overzicht als de groep geblokkeerd is *@
+        @*< button type = "submit" asp - controller = "Spel" asp - action = "SpelSpelen" asp - route - sessiecode = "@Model.Sessie.Code" > Probeer opnieuw.</ button >
+                                    }
+            }
+
+
+                            </div>*@
+
+
+        @*<div hidden>
+
+                            <p><input asp-for="GroepId" type="text" class="form-control" autocomplete="off" value="@(Model.GroepId)" /></p>
+                            <p><input asp-for="JuistGeantwoordtoegangscodeString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordtoegangscodeStringId" /></p>
+                            <p><input asp-for="JuistGeantwoordOpgaveString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordOpgaveStringId" /></p>
+
+                        </div>
+
+                        </form>
+                </div>
+            </div>*@
+        </div>
+
+
+
+
 
 @section scripts {
     <script asp-src-include="lib/jquery-validation/dist/jquery.validate.js"></script>
@@ -234,10 +280,6 @@
     }
 
     </script>
-
-
-
-
     <script>
         @*console.log("Antwoord " + @Model.Opdracht.Oefening.Antwoord.ToString());
         console.log("Toegangscode " +@(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString()));
@@ -246,7 +288,12 @@
 
 }
 
+<div hidden>
 
+    <p><input asp-for="GroepId" type="text" class="form-control" autocomplete="off" value="@(Model.GroepId)" /></p>
+    <p><input asp-for="JuistGeantwoordtoegangscodeString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordtoegangscodeStringId" /></p>
+    <p><input asp-for="JuistGeantwoordOpgaveString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordOpgaveStringId" /></p>
 
+</div>
 
 
