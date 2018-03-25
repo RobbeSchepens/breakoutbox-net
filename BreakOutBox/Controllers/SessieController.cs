@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using BreakOutBox.Models.SessieViewModels;
 using Microsoft.AspNetCore.Authorization;
 using BreakOutBox.Filters;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace BreakOutBox.Controllers
 {
@@ -18,28 +20,77 @@ namespace BreakOutBox.Controllers
         {
             _sessieRepository = sessieRepository;
         }
-        
-        public IActionResult Index()
+
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult SessieOverzicht(Sessie sessie, Groep groep)
         {
-            return View(new IndexViewModel());
+            // Check of de cookie "groepid" leeg is.
+            if (HttpContext.Session.GetString("groepid") != null)
+            {
+                ViewBag.GeselecteerdeGroep = groep;
+            }
+            return View(sessie);
         }
-        
-        [HttpPost]
-        public IActionResult Index(IndexViewModel ivm)
+
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult ZetGroepGereed(Sessie sessie, Groep groep, string groepid)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Sessie sessie = _sessieRepository.GetBySessieCode(ivm.SessieCode);
-                    if (sessie == null)
-                        TempData["message"] = $"Deze sessie werd niet gevonden. Heb je de juiste code ingegeven?";
+                    // Check of de cookie "groepid" leeg is.
+                    if (HttpContext.Session.GetString("groepid") == null)
+                    {
+                        // Cookie toewijzen
+                        HttpContext.Session.SetString("groepid", JsonConvert.SerializeObject(groepid));
+                        groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                        groep.SwitchState(groep.State);
+
+                        // State veranderen
+                        groep.ZetGereed();
+                        _sessieRepository.SaveChanges();
+
+                        // Boodschap
+                        TempData["message"] = $"Je hebt groep {groep.GroepId} gekozen.";
+                    }
                     else
                     {
-                        if (sessie.State != 0)
-                            return RedirectToAction("SessieOverzicht", new { sessiecode = Encode(ivm.SessieCode) });
-                        else
-                            TempData["message"] = $"Deze sessie is nog niet geactiveerd.";
+                        TempData["message"] = $"Je hebt al een groep gekozen.";
+                    }
+                }
+                catch (Exception e)
+                {
+                    //ModelState.AddModelError("", e.Message);
+                    TempData["message"] = $"Deze groep werd al gekozen.";
+                }
+            }
+            return RedirectToAction(nameof(SessieOverzicht));
+        }
+
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult ZetGroepNietGereed(Sessie sessie, Groep groep)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Check of de cookie "groepid" leeg is.
+                    if (HttpContext.Session.GetString("groepid") != null)
+                    {
+                        // State veranderen
+                        groep.ZetNietGereed();
+                        _sessieRepository.SaveChanges();
+
+                        // Cookie leegmaken
+                        HttpContext.Session.Remove("groepid");
+
+                        // Boodschap
+                        TempData["message"] = $"Groep {groep.GroepId} is nu terug beschikbaar.";
+                    }
+                    else
+                    {
+                        TempData["message"] = $"Je hebt geen groep gereed gezet.";
                     }
                 }
                 catch (Exception e)
@@ -47,65 +98,7 @@ namespace BreakOutBox.Controllers
                     ModelState.AddModelError("", e.Message);
                 }
             }
-            return View();
-        }
-
-        [ServiceFilter(typeof(GroepSessionFilter))]
-        public IActionResult SessieOverzicht(Sessie sessie, Groep groep)
-        {
-            if (groep.Leerlingen != null)
-            {
-                ViewBag.GeselecteerdeGroep = groep;
-            }
-            return View(sessie);
-        }
-
-        public IActionResult ZetGroepGereed(string sessiecode, string groepid)
-        {
-            sessiecode = Encode(sessiecode);
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
-                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid)));
-                    groep.SwitchState(groep.State);
-                    groep.ZetGereed();
-                    _sessieRepository.SaveChanges();
-                    TempData["message"] = $"Je hebt groep {groep.GroepId} gekozen.";
-                }
-                catch (Exception e)
-                {
-                    //ModelState.AddModelError("", e.Message);
-                    TempData["message"] = $"Deze groep werd al gekozen.";
-                    return RedirectToAction(nameof(SessieOverzicht), new { sessiecode });
-                }
-            }
-            return RedirectToAction(nameof(SessieOverzicht), new { sessiecode, groepid });
-        }
-
-        public IActionResult ZetGroepNietGereed(string sessiecode, string groepid)
-        {
-            sessiecode = Encode(sessiecode);
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
-                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid)));
-                    groep.SwitchState(groep.State);
-                    groep.ZetNietGereed();
-                    _sessieRepository.SaveChanges();
-                    TempData["message"] = $"Groep {groep.GroepId} is nu terug beschikbaar.";
-                }
-                catch (Exception e)
-                {
-                    ModelState.AddModelError("", e.Message);
-                }
-            }
-            return RedirectToAction(nameof(SessieOverzicht), new { sessiecode });
+            return RedirectToAction(nameof(SessieOverzicht));
         }
 
         public IActionResult StartSpel(string sessiecode, string groepid)

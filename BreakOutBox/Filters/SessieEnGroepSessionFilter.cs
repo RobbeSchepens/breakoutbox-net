@@ -8,22 +8,19 @@ using System.Linq;
 namespace BreakOutBox.Filters
 {
     [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
-    public class GroepSessionFilter : ActionFilterAttribute
+    public class SessieEnGroepSessionFilter : ActionFilterAttribute
     {
         private readonly ISessieRepository _sessieRepository;
         private Sessie _sessie;
         private Groep _groep;
-        private string _groepid;
 
-        public GroepSessionFilter(ISessieRepository sessieRepository)
+        public SessieEnGroepSessionFilter(ISessieRepository sessieRepository)
         {
             _sessieRepository = sessieRepository;
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            _groepid = Convert.ToString(context.ActionArguments["groepid"]);
-
             if (ReadSessieFromSession(context.HttpContext) == null)
                 throw new Exception("Er is geen sessiecode in de Session variabele.");
             else
@@ -32,18 +29,13 @@ namespace BreakOutBox.Filters
                 _sessie.SwitchState(_sessie.State);
                 context.ActionArguments["sessie"] = _sessie;
 
-                if (ReadGroepFromSession(context.HttpContext) == null)
-                    _groep = null;
-                //throw new Exception("Er is geen groepid in de Session variabele.");
-                else
+                if (ReadGroepFromSession(context.HttpContext) != null)
                 {
                     _groep = _sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(ReadGroepFromSession(context.HttpContext)));
                     _groep.SwitchState(_groep.State);
                     context.ActionArguments["groep"] = _groep;
                 }
             }
-
-            WriteGroepToSession(_groepid, context.HttpContext);
             base.OnActionExecuting(context);
         }
 
@@ -59,9 +51,9 @@ namespace BreakOutBox.Filters
             return groepid;
         }
 
-        private void WriteGroepToSession(string groepid, HttpContext context)
+        private void WriteGroepToSession(Groep groep, HttpContext context)
         {
-            context.Session.SetString("sessiecode", JsonConvert.SerializeObject(groepid));
+            context.Session.SetString("groepid", JsonConvert.SerializeObject(groep.GroepId));
         }
     }
 }

@@ -26,13 +26,13 @@
             <span class="icons">
                 @if (groep.State == 0 && groep.State != 2 && ViewBag.GeselecteerdeGroep == null)
                 {
-                    <a href="@Url.Action("ZetGroepGereed", "Sessie", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Klik hier als dit jouw groep is">
+                    <a href="@Url.Action("ZetGroepGereed", "Sessie", new { groepid = groep.GroepId.ToString() })" class="tip brown" title="Klik hier als dit jouw groep is">
                         <i class="far fa-square"></i>
                     </a>
                 }
                 @if (groep.State == 1 && groep.State != 2 && ViewBag.GeselecteerdeGroep != null && ViewBag.GeselecteerdeGroep.GroepId == groep.GroepId)
                 {
-                    <a href="@Url.Action("ZetGroepNietGereed", "Sessie", new { sessiecode = Model.Code, groepId = Encode(groep.GroepId.ToString()) })" class="tip brown" title="Klik hier om deze groep te deselecteren">
+                    <a href="@Url.Action("ZetGroepNietGereed", "Sessie")" class="tip brown" title="Klik hier om deze groep te deselecteren">
                         <i class="far fa-check-square"></i>
                     </a>
                 }
@@ -61,7 +61,7 @@
         <p>
             @if (ViewBag.GeselecteerdeGroep != null)
             {
-                <a href="@Url.Action("StartSpel", "Sessie", new { sessiecode = Model.Code, groepId = ViewBag.GeselecteerdeGroep.GroepId.ToString() })">Start de eerste opdracht</a>
+                <a href="@Url.Action("StartSpel", "Sessie", new { groepid = ViewBag.GeselecteerdeGroep.GroepId.ToString() })">Start de eerste opdracht</a>
             }
             @*<a asp-controller="Spel" asp-action="SpelSpelen" asp-route="">Simuleer leerkracht start sessie</a>*@
         </p>
