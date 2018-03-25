@@ -7,6 +7,8 @@ namespace BreakOutBox.Models.Domain
 {
     public class Pad
     {
+        public int _voortgang;
+
         public int PadId { get; set; }
         public ICollection<Opdracht> Opdrachten { get; set; }
         public int GroepId { get; set; } // Voor one to one EF relatie.

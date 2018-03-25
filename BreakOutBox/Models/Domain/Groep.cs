@@ -35,6 +35,10 @@ namespace BreakOutBox.Models.Domain
                 SwitchState(_state);
             }
         }
+        public int Voortgang
+        {
+            get { return Pad.getProgressie()[1]; }
+        }
         #endregion Properties
 
         #region Constructors
