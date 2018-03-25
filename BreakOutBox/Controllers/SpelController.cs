@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BreakOutBox.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 using BreakOutBox.Models.SpelViewModels;
-using System.IO;
-//using BreakOutBox.Filters
+using BreakOutBox.Filters;
 
 namespace BreakOutBox.Controllers
 {
-    //[ServiceFilter(typeof(SessieFilter))]
     public class SpelController : Controller
     {
         private readonly ISessieRepository _sessieRepository;
@@ -20,27 +15,31 @@ namespace BreakOutBox.Controllers
             _sessieRepository = sessieRepository;
         }
 
-        [HttpGet]
-        public IActionResult SpelSpelen(string sessiecode, string groepid)
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult SpelSpelen(Sessie sessie, Groep groep)
         {
-            Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
-            Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid))); // er moet een groep binnenkomen
             SpelSpelenViewModel ssvm = new SpelSpelenViewModel();
-
-            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), ssvm.JuistGeantwoordOpgave = ssvm.JuistGeantwoordOpgave, ssvm.JuistGeantwoordtoegangscode = ssvm.JuistGeantwoordtoegangscode, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
-          
+            ssvm.ProgressieInPad = groep.Pad.getProgressie();
+            ssvm.Opdracht = groep.Pad.getCurrentOpdracht();
+            ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
+            ssvm.GroepId = groep.GroepId;
             return View(ssvm);
         }
 
+        public SpelSpelenViewModel geefSsvmAangepastTerug(SpelSpelenViewModel ssvm, Opdracht opdracht, bool juistGeantwoordOpgave, bool juistGeantwoordtoegangscode, string toegangscodeVolgendeOefening, List<int> progressieInPad)
+        {
+            ssvm.Opdracht = opdracht;
+            ssvm.JuistGeantwoordOpgave = juistGeantwoordOpgave;
+            ssvm.JuistGeantwoordtoegangscode = juistGeantwoordtoegangscode;
+            ssvm.ToegangscodeVolgendeOefening = toegangscodeVolgendeOefening;
+            ssvm.ProgressieInPad = progressieInPad;
+            return ssvm;
+        }
 
         [HttpPost]
-        public IActionResult SpelSpelen(/*Groep groep,*/ SpelSpelenViewModel ssvm, string sessiecode, string groepid) // met die filter groep doorgeven (en ook sessie mss)
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult SpelSpelen(/*Groep groep,*/ SpelSpelenViewModel ssvm, Sessie sessie, Groep groep) // met die filter groep doorgeven (en ook sessie mss)
         {
-            // vervangen door filter, sessie moet niet megegeven worden enkel groep
-            Sessie sessie = _sessieRepository.GetBySessieCode("ABC");
-            Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == ssvm.GroepId);
-            // vervangen door filter
-
             if (ModelState.IsValid)
             {
                 try
@@ -151,14 +150,13 @@ namespace BreakOutBox.Controllers
             }
             return View();
         }
-        
-        public IActionResult Opnieuw(string sessiecode, string groepid, SpelSpelenViewModel ssvm)
-        {
-            Sessie sessie = _sessieRepository.GetBySessieCode(Decode(sessiecode));
-            Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(Decode(groepid)));
 
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult Opnieuw(Sessie sessie, Groep groep, SpelSpelenViewModel ssvm)
+        {
             if (groep.State != 1)
             {
+                TempData["message"] = $"Deze groep is niet gereed.";
                 return RedirectToAction(nameof(SpelSpelenViewModel));
             }
             else
@@ -182,21 +180,5 @@ namespace BreakOutBox.Controllers
 
              return View(ssvm);
          }*/
-
-        public static string Decode(string decodeMe)
-        {
-            byte[] encoded = Convert.FromBase64String(decodeMe);
-            return System.Text.Encoding.UTF8.GetString(encoded);
-        }
-
-        public SpelSpelenViewModel geefSsvmAangepastTerug(SpelSpelenViewModel ssvm, Opdracht opdracht, bool juistGeantwoordOpgave, bool juistGeantwoordtoegangscode, string toegangscodeVolgendeOefening, List<int> progressieInPad)
-        {
-            ssvm.Opdracht = opdracht;
-            ssvm.JuistGeantwoordOpgave = juistGeantwoordOpgave;
-            ssvm.JuistGeantwoordtoegangscode = juistGeantwoordtoegangscode;
-            ssvm.ToegangscodeVolgendeOefening = toegangscodeVolgendeOefening;
-            ssvm.ProgressieInPad = progressieInPad;
-            return ssvm;
-        }
     }
 }

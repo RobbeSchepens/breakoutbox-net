@@ -1,3 +1,15 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model BreakOutBox.Models.SessieViewModels.IndexViewModel
+@{
+    ViewData["Title"] = "Welcome";
 }
+
+<div class="inputinline text-center">
+    <h1>Break Out Box</h1>
+    <form asp-action="EnterSessie">
+        <p><label asp-for="SessieCode"></label></p>
+        <p><input asp-for="SessieCode" type="text" class="form-control" autocomplete="off" /></p>
+        <p><span asp-validation-for="SessieCode" class="text-danger"></span></p>
+        <p>@TempData["message"]</p>
+        <p><button type="submit" class="">Ga verder</button></p>
+    </form>
+</div>
