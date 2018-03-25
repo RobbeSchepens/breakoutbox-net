@@ -25,14 +25,27 @@ namespace BreakOutBox.Filters
                 throw new Exception("Er is geen sessiecode in de Session variabele.");
             else
             {
+                // Sessieobject opvragen uit repository aan de hand van cookie "sessiecode".
                 _sessie = _sessieRepository.GetBySessieCode(ReadSessieFromSession(context.HttpContext));
                 _sessie.SwitchState(_sessie.State);
+
+                // Deze switchstate dient om de _currentState van elke groep goed te zetten. 
+                // Staat ook in de setter van Groep.State maar doet niet zijn ding.
+                foreach (Groep groep in _sessie.Groepen)
+                {
+                    groep.SwitchState(groep.State);
+                }
+
+                // Toekennen aan argumenten van de action method. Vang je op via (Sessie sessie). 
                 context.ActionArguments["sessie"] = _sessie;
 
+                // Check of de cookie "groepid" leeg is.
                 if (ReadGroepFromSession(context.HttpContext) != null)
                 {
+                    // Gekozen groepobject halen uit sessie.
                     _groep = _sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(ReadGroepFromSession(context.HttpContext)));
-                    _groep.SwitchState(_groep.State);
+
+                    // Toekennen aan argumenten van de action method.
                     context.ActionArguments["groep"] = _groep;
                 }
             }
@@ -46,6 +59,7 @@ namespace BreakOutBox.Filters
 
         private string ReadGroepFromSession(HttpContext context)
         {
+            // Check of de cookie "groepid" leeg is.
             string groepid = context.Session.GetString("groepid") == null ?
                 null : JsonConvert.DeserializeObject<string>(context.Session.GetString("groepid"));
             return groepid;

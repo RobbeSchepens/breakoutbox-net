@@ -1,4 +1,5 @@
-﻿using BreakOutBox.Models.Domain;
+﻿using BreakOutBox.Filters;
+using BreakOutBox.Models.Domain;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,90 +23,76 @@ namespace BreakOutBox.Controllers
             _leerkrachtRepository = leerkrachtRepository;
         }
 
-        public IActionResult Index()
+        [ServiceFilter(typeof(LeerkrachtFilter))]
+        public IActionResult Index(Leerkracht leerkracht)
         {
-            Leerkracht lk = _leerkrachtRepository.GetByEmail(User.Identity.GetUserName()); // de leerkracht die vebonden staat met de huidige user
-            List<Sessie> sessiesVanLeerkracht = lk.Sessies.ToList();
-
-            foreach (Sessie sessie in sessiesVanLeerkracht)
-            {
-                sessie.SwitchState(sessie.State);
-                foreach (Groep groep in sessie.Groepen)
-                {
-                    groep.SwitchState(groep.State);
-                }
-            }
-
-            ViewData["LeerkrachtNaam"] = lk.Voornaam + " " + lk.Achternaam;
-            return View(sessiesVanLeerkracht);
+            ViewData["LeerkrachtNaam"] = leerkracht.Voornaam + " " + leerkracht.Achternaam;
+            return View(leerkracht);
         }
 
-        public IActionResult OverzichtGroepenInSessie(string id)
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult OverzichtGroepenInSessie(Sessie sessie)
         {
-            Sessie sessie = _sessieRepository.GetBySessieCode(id);
-            sessie.SwitchState(sessie.State);
-            foreach (Groep groep in sessie.Groepen)
-            {
-                groep.SwitchState(groep.State);
-            }
             return View(sessie);
         }
 
-        public IActionResult ActiveerSessie(string id)
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult ActiveerSessie(Sessie sessie)
         {
-            Sessie sessie = _sessieRepository.GetBySessieCode(id);
-            sessie.SwitchState(sessie.State);
+            // State veranderen
             sessie.Activeer();
             _sessieRepository.SaveChanges();
-            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+
+            return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
 
-        public IActionResult DeactiveerSessie(string id)
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult DeactiveerSessie(Sessie sessie)
         {
-            Sessie sessie = _sessieRepository.GetBySessieCode(id);
-            sessie.SwitchState(sessie.State);
+            // State veranderen
             sessie.Deactiveer();
             _sessieRepository.SaveChanges();
-            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+
+            return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
 
-        public IActionResult BlokkeerSessie(string id)
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult BlokkeerSessie(Sessie sessie)
         {
-            Sessie sessie = _sessieRepository.GetBySessieCode(id);
-            sessie.SwitchState(sessie.State);
+            // State veranderen
             sessie.Blokkeer();
             _sessieRepository.SaveChanges();
-            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+
+            return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
 
-        public IActionResult DeblokkeerSessie(string id)
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult DeblokkeerSessie(Sessie sessie)
         {
-            Sessie sessie = _sessieRepository.GetBySessieCode(id);
-            sessie.SwitchState(sessie.State);
+            // State veranderen
             sessie.Deblokkeer();
             _sessieRepository.SaveChanges();
-            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+
+            return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
 
-        public IActionResult StartSpelSessie(string id)
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult StartSpelSessie(Sessie sessie)
         {
-            Sessie sessie = _sessieRepository.GetBySessieCode(id);
-            sessie.SwitchState(sessie.State);
+            // State veranderen
             sessie.StartSpel();
             _sessieRepository.SaveChanges();
-            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+
+            return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
 
-        public IActionResult OverzichtGroep(int id1, string code)
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult OverzichtGroep(Sessie sessie, Groep groep)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Sessie sessie = _sessieRepository.GetBySessieCode(code);
-                    sessie.SwitchState(sessie.State);
-                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == id1);
-                    groep.SwitchState(groep.State);
                     return View(groep);
                 }
                 catch (Exception e)
@@ -116,18 +103,13 @@ namespace BreakOutBox.Controllers
             return View();
         }
 
-        public IActionResult ZetGroepGereed(string id, int groepid)
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult ZetGroepGereed(Sessie sessie, Groep groep)
         {
-            //sessiecode = Encode(sessiecode);
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Sessie sessie = _sessieRepository.GetBySessieCode(Decode(id));
-                    sessie.SwitchState(sessie.State);
-                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
-                    groep.SwitchState(groep.State);
                     groep.ZetGereed();
                     _sessieRepository.SaveChanges();
                     TempData["message"] = $"Je hebt groep {groep.GroepId} gekozen.";
@@ -139,19 +121,7 @@ namespace BreakOutBox.Controllers
                 }
             }
             //return View(nameof(LeerkrachtController.Index), "Leerkracht");
-            return RedirectToAction(nameof(OverzichtGroepenInSessie), "Leerkracht", new { id });
-        }
-
-        public string Encode(string encodeMe)
-        {
-            byte[] encoded = System.Text.Encoding.UTF8.GetBytes(encodeMe);
-            return Convert.ToBase64String(encoded);
-        }
-
-        public static string Decode(string decodeMe)
-        {
-            byte[] encoded = Convert.FromBase64String(decodeMe);
-            return System.Text.Encoding.UTF8.GetString(encoded);
+            return RedirectToAction(nameof(OverzichtGroepenInSessie), "Leerkracht");
         }
     }
 }

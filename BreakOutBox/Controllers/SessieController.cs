@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 
 namespace BreakOutBox.Controllers
 {
+    [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
     public class SessieController : Controller
     {
         private readonly ISessieRepository _sessieRepository;
@@ -20,19 +21,18 @@ namespace BreakOutBox.Controllers
         {
             _sessieRepository = sessieRepository;
         }
-
-        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        
         public IActionResult SessieOverzicht(Sessie sessie, Groep groep)
         {
             // Check of de cookie "groepid" leeg is.
             if (HttpContext.Session.GetString("groepid") != null)
             {
+                // Geef een extra object mee aan de view via ViewBag
                 ViewBag.GeselecteerdeGroep = groep;
             }
             return View(sessie);
         }
-
-        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        
         public IActionResult ZetGroepGereed(Sessie sessie, Groep groep, string groepid)
         {
             if (ModelState.IsValid)
@@ -44,10 +44,10 @@ namespace BreakOutBox.Controllers
                     {
                         // Cookie toewijzen
                         HttpContext.Session.SetString("groepid", JsonConvert.SerializeObject(groepid));
-                        groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                        groep.SwitchState(groep.State);
 
                         // State veranderen
+                        groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                        groep.SwitchState(groep.State);
                         groep.ZetGereed();
                         _sessieRepository.SaveChanges();
 
@@ -67,8 +67,7 @@ namespace BreakOutBox.Controllers
             }
             return RedirectToAction(nameof(SessieOverzicht));
         }
-
-        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        
         public IActionResult ZetGroepNietGereed(Sessie sessie, Groep groep)
         {
             if (ModelState.IsValid)
@@ -101,23 +100,29 @@ namespace BreakOutBox.Controllers
             return RedirectToAction(nameof(SessieOverzicht));
         }
 
-        public IActionResult StartSpel(string sessiecode, string groepid)
+        public IActionResult StartSpel(Sessie sessie, Groep groep)
         {
-            sessiecode = Encode(sessiecode);
-            groepid = Encode(groepid);
-            return RedirectToAction(nameof(SpelController.SpelSpelen), "Spel", new { sessiecode, groepid });
-        }
-
-        public string Encode(string encodeMe)
-        {
-            byte[] encoded = System.Text.Encoding.UTF8.GetBytes(encodeMe);
-            return Convert.ToBase64String(encoded);
-        }
-
-        public static string Decode(string decodeMe)
-        {
-            byte[] encoded = Convert.FromBase64String(decodeMe);
-            return System.Text.Encoding.UTF8.GetString(encoded);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Check of de cookie "groepid" leeg is.
+                    if (HttpContext.Session.GetString("groepid") != null)
+                    {
+                        // Naar SpelController
+                        return RedirectToAction(nameof(SpelController.SpelSpelen), "Spel");
+                    }
+                    else
+                    {
+                        TempData["message"] = $"Je hebt geen groep gekozen. Je kunt het spel niet spelen zonder groep.";
+                    }
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", e.Message);
+                }
+            }
+            return RedirectToAction(nameof(SessieOverzicht));
         }
     }
 }
