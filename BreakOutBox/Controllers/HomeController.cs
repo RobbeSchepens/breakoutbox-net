@@ -73,7 +73,7 @@ namespace BreakOutBox.Controllers
                     ModelState.AddModelError("", e.Message);
                 }
             }
-            return View();
+            return View("Index");
         }
     }
 }

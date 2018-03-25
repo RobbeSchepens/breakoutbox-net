@@ -11,7 +11,7 @@ namespace BreakOutBox.Models.Domain
 
         public GroepVergrendeldState(Groep groep) : base(groep)
         {
-            Beschrijving = "Vergrendeld";
+            Beschrijving = "vergrendeld";
         }
 
         public override void ZetGereed()
