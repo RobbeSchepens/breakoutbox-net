@@ -78,8 +78,8 @@ namespace BreakOutBox.Controllers
                         {
                             groep.Pad.getCurrentOpdracht().Opgelost = false;   // de vraag blijft op onOpgelost staan
                             groep.Pad.getCurrentOpdracht().foutePogingen++; // foutpogingen +1 wanneer fout antwoord
-                            _sessieRepository.SaveChanges();
                             ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
+                            _sessieRepository.SaveChanges();
                             TempData["FouteCode"] = "FOUT! je hebt " + groep.Pad.getCurrentOpdracht().foutePogingen + " foute pogingen ondernomen";
 
 
@@ -88,19 +88,21 @@ namespace BreakOutBox.Controllers
                         }
                         else //if(groep.Pad.getCurrentOpdracht().foutePogingen >= 3)
                         {
-                            //groep.SwitchState(3);
-                            //  groep.Blokkeer();
-                            groep.Pad.getCurrentOpdracht().Opgelost = false;   // de vraag blijft op onOpgelost staan 
-                            groep.Pad.getCurrentOpdracht().foutePogingen += 1;
-                            ssvm.ProgressieInPad = groep.Pad.getProgressie();
-                            ssvm.Opdracht = groep.Pad.getCurrentOpdracht();
-                            ssvm.JuistGeantwoordOpgave = false;
-                            ssvm.JuistGeantwoordtoegangscode = false;
-                            ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
+                            groep.SwitchState(3);
+                            //groep.Blokkeer();
+                            //groep.Pad.getCurrentOpdracht().Opgelost = false;   // de vraag blijft op onOpgelost staan 
+                            //groep.Pad.getCurrentOpdracht().foutePogingen ++;
+                            //ssvm.ProgressieInPad = groep.Pad.getProgressie();
+                            //ssvm.Opdracht = groep.Pad.getCurrentOpdracht();
+                            //ssvm.JuistGeantwoordOpgave = false;
+                            //ssvm.JuistGeantwoordtoegangscode = false;
+                            //ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
+
+                            //ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
 
                             TempData["State"] = groep.State;
                             _sessieRepository.SaveChanges();
-                            return View(ssvm);
+                            return RedirectToAction(nameof(Feedback));
                         }
                     }
 
@@ -173,6 +175,12 @@ namespace BreakOutBox.Controllers
 
                 return View(new SpelSpelenViewModel(sessie, groep));
             }
+        }
+
+        public IActionResult Feedback(SpelSpelenViewModel ssvm, Sessie sessie, Groep groep)
+        {
+            TempData["State"] = groep.State;
+            return View(ssvm);
         }
 
         /* public IActionResult InvoerenToegangscode(opdrachtId)
