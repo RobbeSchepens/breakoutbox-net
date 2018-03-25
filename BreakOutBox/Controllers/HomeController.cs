@@ -55,10 +55,9 @@ namespace BreakOutBox.Controllers
                 try
                 {
                     Sessie sessie = _sessieRepository.GetBySessieCode(SessieCode);
-                    if (sessie == null)
-                        TempData["message"] = $"Deze sessie werd niet gevonden. Heb je de juiste code ingegeven?";
-                    else
+                    if (sessie != null)
                     {
+                        // Cookie toewijzen
                         HttpContext.Session.SetString("sessiecode", JsonConvert.SerializeObject(sessie.Code));
 
                         if (sessie.State != 0)
@@ -66,6 +65,8 @@ namespace BreakOutBox.Controllers
                         else
                             TempData["message"] = $"Deze sessie is nog niet geactiveerd.";
                     }
+                    else
+                        TempData["message"] = $"Deze sessie werd niet gevonden. Heb je de juiste code ingegeven?";
                 }
                 catch (Exception e)
                 {

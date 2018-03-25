@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BreakOutBox.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 using BreakOutBox.Models.SpelViewModels;
-using System.IO;
 using BreakOutBox.Filters;
-//using BreakOutBox.Filters
 
 namespace BreakOutBox.Controllers
 {

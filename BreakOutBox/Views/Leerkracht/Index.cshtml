@@ -22,21 +22,7 @@
             <td align="center">@(item.Omschrijving)</td>
             <td align="center">@(item.Groepen.Count)</td>
             <td align="center">@(item.GetState().Beschrijving)</td>
-            <td><a asp-controller="Leerkracht" asp-action="OverzichtGroepenInSessie" asp-route-id="@item.Code"><i class="fa fa-arrow-right" style="color:darkgreen"></i></a></td>
+            <td><a asp-controller="Leerkracht" asp-action="OverzichtGroepenInSessie" asp-route-sessiecode="@item.Code"><i class="fa fa-arrow-right" style="color:darkgreen"></i></a></td>
         </tr>
     }
 </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

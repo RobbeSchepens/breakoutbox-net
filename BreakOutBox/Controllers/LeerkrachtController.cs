@@ -2,16 +2,16 @@
 using BreakOutBox.Models.Domain;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 namespace BreakOutBox.Controllers
 {
-    //[AutoValidateAntiforgeryToken]
-    //[Authorize(Policy = "leerkrachtAuth")]
+    [AutoValidateAntiforgeryToken]
+    [Authorize(Policy = "leerkrachtAuth")]
     public class LeerkrachtController : Controller
     {
         private readonly ISessieRepository _sessieRepository;
@@ -27,13 +27,38 @@ namespace BreakOutBox.Controllers
         public IActionResult Index(Leerkracht leerkracht)
         {
             ViewData["LeerkrachtNaam"] = leerkracht.Voornaam + " " + leerkracht.Achternaam;
-            return View(leerkracht);
+            return View(leerkracht.Sessies.ToList());
         }
 
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
-        public IActionResult OverzichtGroepenInSessie(Sessie sessie)
+        public IActionResult OverzichtGroepenInSessie(Sessie sessie, string sessiecode)
         {
-            return View(sessie);
+            //Sessie sessie;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Check of de cookie "sessiecode" leeg is.
+                    if (HttpContext.Session.GetString("sessiecode") == null)
+                    {
+                        // Cookie toewijzen
+                        HttpContext.Session.SetString("sessiecode", JsonConvert.SerializeObject(sessiecode));
+
+                        sessie = _sessieRepository.GetBySessieCode(sessiecode);
+                        sessie.SwitchState(sessie.State);
+                        foreach (Groep groep in sessie.Groepen)
+                        {
+                            groep.SwitchState(groep.State);
+                        }
+                    }
+                    return View(sessie);
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", e.Message);
+                }
+            }
+            return View();
         }
 
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
