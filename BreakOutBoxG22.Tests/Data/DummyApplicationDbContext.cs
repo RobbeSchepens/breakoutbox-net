@@ -9,14 +9,28 @@ namespace BreakOutBoxG22.Tests.Data
 {
     public class DummyApplicationDbContext
     {
+        //bevat alle testgevallen : 
+        //Brewer Bavik - alle gegevens zijn ingevuld
+        //Brewer Moortgat - sommige gegevens zijn nog null
+        //Brewer DeLeeuw bevat geen bieren.
+        public IEnumerable<Sessie> Sessies { get; }
+        public IEnumerable<Groep> Groepen { get; }
+        public IEnumerable<Leerkracht> Leerkrachten { get; }
+        public IEnumerable<Vak> Vakken { get; }
+        public Sessie SessieGoed { get; }
+        public Sessie SessieGroepenLeeg { get; }
+        public Sessie SessieInSpel { get; }
+        public Vak Wiskunde { get; }
         private readonly Pad _pad;
-
-
 
         public DummyApplicationDbContext()
         {
-
-
+            Wiskunde = new Vak { Naam = "Wiskunde" };
+            Vak chemie = new Vak { Naam = "Chemie" };
+            Vak informatica = new Vak { Naam = "Informatica" };
+            Vakken = new[] { Wiskunde, chemie, informatica };
+            
+            #region SessieGoed (zoals in data initializer)
             var toegangscodes = new List<Toegangscode>();
 
             for (var i = 100; i < 140; i++)
@@ -53,8 +67,6 @@ namespace BreakOutBoxG22.Tests.Data
 
             Box box = new Box(acties, oefeningen, toegangscodes, "Een box met diverse oefeningen", "BoxNaam");
 
-
-           
             // GROEPSBEWERKINGEN
             var lijstMetGroepsbewerkingen = new List<String>();
             for (int i = 50; i < 90; i++)
@@ -82,13 +94,11 @@ namespace BreakOutBoxG22.Tests.Data
                 opdrachtenGroep1[z].Oefening.Opgave = "opdracht" + (z + 1) + "G1.pdf";
                 opdrachtenGroep1[z].Oefening.Antwoord = z + 200;
             }
-
-
+            
             for (int i = 0; i < 8; i++)
             {
                 opdrachtenGroep1[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i];
             }
-
 
             var opdrachtenGroep2 = new List<Opdracht>{ // lijst met alle opdrachten van groep2 (7, 6, 5, 4, 3, 2, 1, 8)
                     new Opdracht(9,act[8],oef[6],toe[8]),
@@ -100,12 +110,12 @@ namespace BreakOutBoxG22.Tests.Data
                     new Opdracht(15,act[14],oef[0],toe[14]),
                     new Opdracht(16,act[15],oef[7],toe[15])
                 };
+
             for (int i = 0; i < 8; i++)
             {
                 opdrachtenGroep2[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i + 8];
                 opdrachtenGroep1[i].Oefening.Antwoord = (i + 8) + 200;
             }
-
 
             var opdrachtenGroep3 = new List<Opdracht>{ // lijst met alle opdrachten van groep3 (3, 5, 7, 1, 2, 4, 6, 8)
                     new Opdracht(17,act[16],oef[2],toe[16]),
@@ -134,13 +144,13 @@ namespace BreakOutBoxG22.Tests.Data
                     new Opdracht(31,act[30],oef[2],toe[30]),
                     new Opdracht(32,act[31],oef[7],toe[31])
                 };
+
             for (int i = 0; i < 8; i++)
             {
                 opdrachtenGroep4[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i + 24];
                 opdrachtenGroep1[i].Oefening.Antwoord = (i + 24) + 200;
             }
-
-
+            
             var opdrachtenGroep5 = new List<Opdracht>{ // lijst met alle opdrachten van groep5 (4, 3, 6, 2, 7, 5, 1, 8)
                     new Opdracht(33,act[32],oef[3],toe[32]),
                     new Opdracht(34,act[33],oef[2],toe[33]),
@@ -151,13 +161,13 @@ namespace BreakOutBoxG22.Tests.Data
                     new Opdracht(39,act[38],oef[0],toe[38]),
                     new Opdracht(40,act[39],oef[7],toe[39])
                 };
+            
             for (int i = 0; i < 8; i++)
             {
                 opdrachtenGroep5[i].Oefening.Groepsbewerking = lijstMetGroepsbewerkingen[i + 32];
                 opdrachtenGroep1[i].Oefening.Antwoord = (i + 32) + 200;
             }
-
-
+            
             var paden = new List<Pad> { // elk pad heeft zijn eigen volgorde van vragen (region: LijstenMetOpdrachtenPerGroep)
                     new Pad(opdrachtenGroep1),
                     new Pad(opdrachtenGroep2),
@@ -167,9 +177,7 @@ namespace BreakOutBoxG22.Tests.Data
                 };
 
             _pad = paden[0];
-
-           
-            #region Leerlingen en groepen
+            
             var leerlingen = new List<Leerling>{
                     new Leerling("Andrea", "Van Dijk"),
                     new Leerling("Henk", "Bakker"),
@@ -201,9 +209,7 @@ namespace BreakOutBoxG22.Tests.Data
                   new Groep(paden[3], leerlingen.GetRange(12, 4), 1),
                   new Groep(paden[4], leerlingen.GetRange(16, 4), 2)
                 };
-            #endregion
-
-          
+            
             var lk = new Leerkracht("Tom", "Pieters", "Tom_Pieters@school.be");
             var k = new Klas(leerlingen, lk);
             lk.VoegKlasToe(k);
@@ -211,23 +217,10 @@ namespace BreakOutBoxG22.Tests.Data
             var s = new Sessie("ABC", "Sessie1", "Maandag ochtend D klas", groepen, box, 1);
             s.Klas = k;
             lk.VoegSessieToe(s);
-
-
+            #endregion
         }
 
         public Pad Pad => _pad;
-
-
-
-
-
-
-
-
-
-
-
-    
     }
 }
-    
+
