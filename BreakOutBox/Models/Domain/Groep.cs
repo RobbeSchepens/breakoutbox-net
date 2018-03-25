@@ -7,28 +7,14 @@ namespace BreakOutBox.Models.Domain
     public class Groep
     {
         #region Fields
-        //private string _name;
         private GroepState _currentState;
         private int _state;
         #endregion
 
         #region Properties
-        //public string Naam {
-        //    get
-        //    {
-        //        return _name;
-        //    }
-        //    private set
-        //    {
-        //        if (string.IsNullOrWhiteSpace(value))
-        //            throw new ArgumentException("De naam van de groep mag niet leeg zijn of spaties bevatten.");
-        //        _name = value;
-        //    }
-        //}
         [JsonProperty]
         public int GroepId { get; set; }
         public ICollection<Leerling> Leerlingen { get; set; }
-        //public int NrOfLeerlingen => Leerlingen.Count;
         public Pad Pad { get; set; }
         public int State {
             get { return _state; }
@@ -37,10 +23,10 @@ namespace BreakOutBox.Models.Domain
                 SwitchState(_state);
             }
         }
-        public int Voortgang
-        {
-            get { return Pad.getProgressie()[1]; }
-        }
+        //public int Voortgang
+        //{
+        //    get { return Pad.getProgressie()[1]; }
+        //}
         #endregion Properties
 
         #region Constructors
@@ -54,11 +40,6 @@ namespace BreakOutBox.Models.Domain
             Leerlingen = leerlingen;
             State = state;
         }
-
-        //public Groep(string naam) : this()
-        //{
-        //    Naam = naam;
-        //}
         #endregion Constructors
 
         #region Methods
@@ -107,7 +88,7 @@ namespace BreakOutBox.Models.Domain
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
             }
         }
 
@@ -119,7 +100,7 @@ namespace BreakOutBox.Models.Domain
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
             }
         }
 
@@ -131,7 +112,7 @@ namespace BreakOutBox.Models.Domain
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
             }
         }
 
@@ -143,7 +124,7 @@ namespace BreakOutBox.Models.Domain
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
             }
         }
 
@@ -155,7 +136,7 @@ namespace BreakOutBox.Models.Domain
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
             }
         }
 
