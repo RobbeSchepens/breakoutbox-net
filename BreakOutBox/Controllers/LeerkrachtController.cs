@@ -124,7 +124,7 @@ namespace BreakOutBox.Controllers
             {
                 try
                 {
-                    Sessie sessie = _sessieRepository.GetBySessieCode(Decode(id));
+                    Sessie sessie = _sessieRepository.GetBySessieCode(Decode(id)); //Waarom wordt hier gedecode?
                     sessie.SwitchState(sessie.State);
                     Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
                     groep.SwitchState(groep.State);
@@ -139,7 +139,139 @@ namespace BreakOutBox.Controllers
                 }
             }
             //return View(nameof(LeerkrachtController.Index), "Leerkracht");
-            return RedirectToAction(nameof(OverzichtGroepenInSessie), "Leerkracht", new { id });
+            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+        }
+
+        public IActionResult BlokkeerGroep(string id, int groepid)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Sessie sessie = _sessieRepository.GetBySessieCode(id);
+                    sessie.SwitchState(sessie.State);
+                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+                    groep.SwitchState(groep.State);
+                    groep.Blokkeer();
+                    _sessieRepository.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    //ModelState.AddModelError("", e.Message);
+                    TempData["message"] = $"Deze groep kon niet geblokkeerd worden.";
+                }
+            }
+            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+        }
+
+        public IActionResult DeBlokkeerGroep(string id, int groepid)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Sessie sessie = _sessieRepository.GetBySessieCode(id);
+                    sessie.SwitchState(sessie.State);
+                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+                    groep.SwitchState(groep.State);
+                    groep.DeBlokkeer();
+                    _sessieRepository.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    //ModelState.AddModelError("", e.Message);
+                    TempData["message"] = $"Deze groep kon niet gedeblokkeerd worden.";
+                }
+            }
+            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+        }
+
+        public IActionResult OntgrendelGroep(string id, int groepid)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Sessie sessie = _sessieRepository.GetBySessieCode(id);
+                    sessie.SwitchState(sessie.State);
+                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+                    groep.SwitchState(groep.State);
+                    groep.Ontgrendel();
+                    _sessieRepository.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    //ModelState.AddModelError("", e.Message);
+                    TempData["message"] = $"Deze groep kon niet ontgrendeld worden.";
+                }
+            }
+            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+        }
+
+        public IActionResult VergrendelGroep(string id, int groepid)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Sessie sessie = _sessieRepository.GetBySessieCode(id);
+                    sessie.SwitchState(sessie.State);
+                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+                    groep.SwitchState(groep.State);
+                    groep.Vergrendel();
+                    _sessieRepository.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    //ModelState.AddModelError("", e.Message);
+                    TempData["message"] = $"Deze groep kon niet vergrendeld worden.";
+                }
+            }
+            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+        }
+
+        public IActionResult ZetGroepGereed2(string id, int groepid)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Sessie sessie = _sessieRepository.GetBySessieCode(id);
+                    sessie.SwitchState(sessie.State);
+                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+                    groep.SwitchState(groep.State);
+                    groep.ZetGereed();
+                    _sessieRepository.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    //ModelState.AddModelError("", e.Message);
+                    TempData["message"] = $"Deze groep kon niet klaar gezet worden worden.";
+                }
+            }
+            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
+        }
+
+        public IActionResult ZetGroepNietGereed(string id, int groepid)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Sessie sessie = _sessieRepository.GetBySessieCode(id);
+                    sessie.SwitchState(sessie.State);
+                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == groepid);
+                    groep.SwitchState(groep.State);
+                    groep.ZetNietGereed();
+                    _sessieRepository.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    //ModelState.AddModelError("", e.Message);
+                    TempData["message"] = $"Deze groep kon niet onklaar gezet worden.";
+                }
+            }
+            return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
         }
 
         public string Encode(string encodeMe)

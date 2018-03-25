@@ -37,7 +37,7 @@ namespace BreakOutBox.Models.Domain
         }
         public int Voortgang
         {
-            get { return Pad.getProgressie()[1]; }
+            get { return Pad.getProgressie()[1] + 1; }
         }
         #endregion Properties
 

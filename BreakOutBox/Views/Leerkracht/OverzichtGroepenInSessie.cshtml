@@ -10,13 +10,36 @@
         <h4>Status: @Model.GetState().Beschrijving</h4>
     </div>
 </div>
-<div class="row">
+<div class="text-center margin-bottom">
+    <form>
+        @switch (Model.State)
+        {
+            case 0: // NonActiefState
+                <button asp-controller="Leerkracht" asp-action="ActiveerSessie" asp-route-id="@Model.Code" class="">Activeer</button>
+                break;
+            case 1: // ActiefState
+                <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" asp-route-id="@Model.Code" class="">Deactiveer</button>
+                <button asp-controller="Leerkracht" asp-action="BlokkeerSessie" asp-route-id="@Model.Code" class="">Blokkeer</button>
+                <button asp-controller="Leerkracht" asp-action="StartSpelSessie" asp-route-id="@Model.Code" class="">Start</button>
+                break;
+            case 2: // InSpelState
+                <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" asp-route-id="@Model.Code" class="">Deactiveer</button>
+                <button asp-controller="Leerkracht" asp-action="Blokkeer" asp-route-id="@Model.Code" class="">Blokkeer</button>
+                break;
+            case 3: // GeblokkeerdState
+                <button asp-controller="Leerkracht" asp-action="DeblokkeerSessie" asp-route-id="@Model.Code" class="">Deblokkeer</button>
+                break;
+        }
+    </form>
+</div>
+@*<div class="row">
     @foreach (var groep in Model.Groepen)
     {
         <div class="sm-12 md-6 groep">
             <span class="header"><i class="fas fa-users fa-fw icon"></i>Groep #@(groep.GroepId)</span>
             <ul>
                 <li><i class="far fa-question-circle fa-fw icon"></i>@groep.GetState().Beschrijving</li>
+                <li>Vraag @groep.Voortgang van de @groep.Pad.Opdrachten.Count</li>
                 @foreach (var leerling in groep.Leerlingen)
                 {
                     <li><i class="far fa-user fa-fw icon"></i>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
@@ -61,29 +84,63 @@
             </span>
         </div>
     }
-</div>
-<div class="float-right text-center">
-    <form>
-        @switch (Model.State)
+</div>*@
+<div class="row">
+    <table>
+        <tr>
+            <th>Groep</th>
+            <th>Leerlingen</th>
+            <th>Status</th>
+            <th>Voortgang</th>
+            <th>Beheer</th>
+        </tr>
+        @foreach(var groep in Model.Groepen)
         {
-            case 0: // NonActiefState
-                <button asp-controller="Leerkracht" asp-action="ActiveerSessie" asp-route-id="@Model.Code" class="">Activeer</button>
-                break;
-            case 1: // ActiefState
-                <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" asp-route-id="@Model.Code" class="">Deactiveer</button>
-                <button asp-controller="Leerkracht" asp-action="BlokkeerSessie" asp-route-id="@Model.Code" class="">Blokkeer</button>
-                <button asp-controller="Leerkracht" asp-action="StartSpelSessie" asp-route-id="@Model.Code" class="">Start</button>
-                break;
-            case 2: // InSpelState
-                <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" asp-route-id="@Model.Code" class="">Deactiveer</button>
-                <button asp-controller="Leerkracht" asp-action="Blokkeer" asp-route-id="@Model.Code" class="">Blokkeer</button>
-                break;
-            case 3: // GeblokkeerdState
-                <button asp-controller="Leerkracht" asp-action="DeblokkeerSessie" asp-route-id="@Model.Code" class="">Deblokkeer</button>
-                break;
+            <tr class="text-center">
+                <td>
+                    Groep #@groep.GroepId
+                </td>
+                <td>
+                    <ul>
+                        @foreach (var leerling in groep.Leerlingen)
+                        {
+                            <li>@leerling.Voornaam @leerling.Achternaam</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    @groep.GetState().Beschrijving
+                </td>
+                <td>
+                    Vraag @groep.Voortgang van de @groep.Pad.Opdrachten.Count
+                </td>
+                <td>
+                    <ul>
+                        @switch (groep.State)
+                        {
+                            case 0: // NietGereedState
+                                <li><a asp-controller="Leerkracht" asp-action="ZetGroepGereed2" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Zet gereed</a></li>
+                                <li><a asp-controller="Leerkracht" asp-action="VergrendelGroep" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Vergrendel</a></li>
+                                break;
+                            case 1: // GereedState
+                                <li><a asp-controller="Leerkracht" asp-action="ZetGroepNietGereed" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Zet niet gereed</a></li>
+                                <li><a asp-controller="Leerkracht" asp-action="VergrendelGroep" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Vergrendel</a></li>
+                                break;
+                            case 2: // VergrendeldState
+                                <li><a asp-controller="Leerkracht" asp-action="OntgrendelGroep" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Ontgrendel</a></li>
+                                <li><a asp-controller="Leerkracht" asp-action="BlokkeerGroep" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Blokkeer</a></li>
+                                break;
+                            case 3: // GeblokkeerdState
+                                <li><a asp-controller="Leerkracht" asp-action="DeblokkeerGroep" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Deblokkeer</a></li>
+                                break;
+                        }
+                    </ul>
+                </td>
+            </tr>
         }
-    </form>
+    </table>
 </div>
+
 
 @functions{
     public string Encode(string encodeMe)
