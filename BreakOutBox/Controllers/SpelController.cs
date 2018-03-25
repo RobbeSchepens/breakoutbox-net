@@ -19,11 +19,11 @@ namespace BreakOutBox.Controllers
         public IActionResult SpelSpelen(Sessie sessie, Groep groep)
         {
             SpelSpelenViewModel ssvm = new SpelSpelenViewModel();
-            ssvm = geefSsvmAangepastTerug(ssvm, 
-                groep.Pad.getCurrentOpdracht(), 
-                ssvm.JuistGeantwoordOpgave = ssvm.JuistGeantwoordOpgave, 
-                ssvm.JuistGeantwoordtoegangscode = ssvm.JuistGeantwoordtoegangscode, 
-                groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), 
+            ssvm = geefSsvmAangepastTerug(ssvm,
+                groep.Pad.getCurrentOpdracht(),
+                ssvm.JuistGeantwoordOpgave = ssvm.JuistGeantwoordOpgave,
+                ssvm.JuistGeantwoordtoegangscode = ssvm.JuistGeantwoordtoegangscode,
+                groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(),
                 groep.Pad.getProgressie());
             return View(ssvm);
         }
@@ -88,8 +88,9 @@ namespace BreakOutBox.Controllers
                         }
                         else //if(groep.Pad.getCurrentOpdracht().foutePogingen >= 3)
                         {
-                            groep.SwitchState(3);
                             //groep.Blokkeer();
+                            groep.SwitchState(3);
+
                             //groep.Pad.getCurrentOpdracht().Opgelost = false;   // de vraag blijft op onOpgelost staan 
                             //groep.Pad.getCurrentOpdracht().foutePogingen ++;
                             //ssvm.ProgressieInPad = groep.Pad.getProgressie();
@@ -177,18 +178,28 @@ namespace BreakOutBox.Controllers
             }
         }
 
-        public IActionResult Feedback(SpelSpelenViewModel ssvm, Sessie sessie, Groep groep)
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult Feedback(SpelSpelenViewModel ssvm, Groep groep)
         {
             TempData["State"] = groep.State;
-            return View(ssvm);
+            if (groep.State != 3 || groep.State != 2)
+            {
+                ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
+                return RedirectToAction(nameof(SpelSpelen));
+            }
+            else
+            {
+                return View(ssvm);
+            }
+
         }
 
-        /* public IActionResult InvoerenToegangscode(opdrachtId)
-         {
+            /* public IActionResult InvoerenToegangscode(opdrachtId)
+             {
 
 
 
-             return View(ssvm);
-         }*/
-    }
+                 return View(ssvm);
+             }*/
+        }
 }

@@ -7,7 +7,7 @@
     //var progressiePercentageCompleted = (int)(System.Math.Round(progressiePercentage, 0) - ((decimal)100 / progressie[0]));
 }
 <meta name="viewport" content="width=device-width, initial-scale=1">
-@*<meta http-equiv="refresh" content="15">*@
+<meta http-equiv="refresh" content="25">
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <head>
@@ -38,8 +38,9 @@
                 </p>
                 <p><label asp-for="Groepsantwoord"></label></p>
                 <p>Foute pogingen @Model.Opdracht.foutePogingen</p>
-                @if (Model.Opdracht.foutePogingen < 3)
-                {
+                <p>State: @TempData["State"]</p>
+                @*@if (Model.Opdracht.foutePogingen < 3)
+                {*@
 
                     
                     <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
@@ -48,15 +49,15 @@
                     <button type="submit" class="" id="GaVerder">Ga verder</button>
             
                     <p style="color:red">@TempData["FouteCode"]</p>
-                }
-                else
+                    
+                @*else
                 {
 
                     <button type="submit" style="font-size:22px" onClick="window.location.reload()"> <i class="fa">&#xf021;</i></button>
                     <button type="button" id="Feedback" onclick="hulp()">Feeback</button>
                     <button type="submit" style="font-size:22px" asp-controller="Spel" asp-action="Opnieuw" asp-route-sessiecode="@Model.SessieCode" asp-route-groepid="@Model.GroepId"> <i class="fa">&#xf021;</i></button>
                     @*<input type="image" src="" name="saveForm" class="fa fa-refresh btTxt submit" id="saveForm" value="Refresh Page" onClick="window.location.reload()" />*@
-                }
+                
 
 
             </div>
