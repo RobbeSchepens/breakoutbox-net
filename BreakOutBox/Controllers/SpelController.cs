@@ -121,6 +121,7 @@ namespace BreakOutBox.Controllers
             if (groep.State != 1)
             {
                 TempData["message"] = $"Deze groep is niet gereed.";
+                TempData["State"] = groep.State;
                 return RedirectToAction(nameof(SpelSpelenViewModel));
             }
             else
