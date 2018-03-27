@@ -1,9 +1,4 @@
-﻿using BreakOutBox.Models.Domain;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BreakOutBox.Models.SessieViewModels
 {
@@ -17,11 +12,5 @@ namespace BreakOutBox.Models.SessieViewModels
         public IndexViewModel()
         {
         }
-       /* public IndexViewModel(Sessie s)
-        {
-            s.Code = SessieCode;
-        }*/
     }
 }
-
-

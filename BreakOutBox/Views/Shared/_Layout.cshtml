@@ -67,7 +67,6 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
-    @RenderSection("Scripts", required: false)
     <script>
         tippy('.tip', {
             delay: 100,
@@ -78,5 +77,6 @@
             animation: 'shift-away'
         })
     </script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

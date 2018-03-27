@@ -1,10 +1,6 @@
 ﻿using BreakOutBox.Models.Domain;
-using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BreakOutBox.Models.SpelViewModels
 {
@@ -26,18 +22,13 @@ namespace BreakOutBox.Models.SpelViewModels
 
         public int GroepId { get; set; }
         public string SessieCode { get; set; }
-
-
-
-        // props hieronder mogen allemaal weg
         
-
+        // props hieronder mogen allemaal weg
         public Sessie Sessie { get; set; }
         public Groep Groep { get; set; }
         public int State { get; set; }
-        /*public int GroepId { get; set; }
-        public int OpdrachtId { get; set; }
-        */
+        //public int GroepId { get; set; }
+        //public int OpdrachtId { get; set; }
         public int TellerFoutePogingen { get; set; }
         
         public SpelSpelenViewModel()
@@ -50,6 +41,7 @@ namespace BreakOutBox.Models.SpelViewModels
         public SpelSpelenViewModel(Sessie sessie, Groep groep)
         {
         }
+
         public bool convertTextToBool(string text)
         {
             if (text == "True")
@@ -58,9 +50,6 @@ namespace BreakOutBox.Models.SpelViewModels
                 return false;
 
             return false;
-
         }
-
-
     }
 }

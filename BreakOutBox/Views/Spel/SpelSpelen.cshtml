@@ -42,7 +42,7 @@
                     <button type="submit" style="font-size:22px" onClick="window.location.reload()"> <i class="fa">&#xf021;</i></button>
                     <button type="button" id="Feedback" onclick="hulp()">Feeback</button>
                     <button type="submit" style="font-size:22px" asp-controller="Spel" asp-action="Opnieuw" asp-route-sessiecode="@Model.SessieCode" asp-route-groepid="@Model.GroepId"> <i class="fa">&#xf021;</i></button>
-                    <input type="image" src="" name="saveForm" class="fa fa-refresh btTxt submit" id="saveForm" value="Refresh Page" onClick="window.location.reload()" />
+                    @*<input type="image" src="" name="saveForm" class="fa fa-refresh btTxt submit" id="saveForm" value="Refresh Page" onClick="window.location.reload()" />*@
                 }
             </div>
         </div>
@@ -64,9 +64,7 @@
         console.log("Teller " + @Model.Opdracht.foutePogingen);
         console.log("Progressie " + @progressie[0] + " " + @progressie[1]);
         console.log("State " + @TempData["State"]);
-        console.log("SessieCode " + @Model.SessieCode);
-        @*console.log("SessieCode " +@Model.Sessie.Code);*@
-        @*console.log("GroepId " +@Model.Groep.GroepId);*@
+        //console.log("SessieCode " + @Model.SessieCode);
         console.log("GroepId " +@Model.GroepId);
 
         if ("@(Model.JuistGeantwoordOpgave)" == "True") {
@@ -79,8 +77,9 @@
             else {
                 geblokkeerd();
             }
-        console.log("bool " + '@(Model.JuistGeantwoordOpgave)');
-        console.log("bool " + '@(Model.JuistGeantwoordtoegangscode)');
+            console.log("bool " + '@(Model.JuistGeantwoordOpgave)');
+            console.log("bool " + '@(Model.JuistGeantwoordtoegangscode)');
+        }
 
         function groepsantwoordJuist() {
 
@@ -161,11 +160,6 @@
     function delaySubmit() {
         document.getElementById("formAntwoord").submit();
     }
-    </script>
-    <script>
-        @*console.log("Antwoord " + @Model.Opdracht.Oefening.Antwoord.ToString());
-        console.log("Toegangscode " +@(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString()));
-        console.log("progressie% completed " + @((int)progressiePercentageCompleted));*@
     </script>
 }
 
