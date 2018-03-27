@@ -81,8 +81,6 @@ namespace BreakOutBox.Controllers
                             ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
                             _sessieRepository.SaveChanges();
                             TempData["FouteCode"] = "FOUT! je hebt " + groep.Pad.getCurrentOpdracht().foutePogingen + " foute pogingen ondernomen";
-
-
                             TempData["State"] = groep.State;
                             return View(ssvm);
                         }
@@ -97,7 +95,6 @@ namespace BreakOutBox.Controllers
                             //ssvm.JuistGeantwoordOpgave = false;
                             //ssvm.JuistGeantwoordtoegangscode = false;
                             //ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
-
                             //ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
 
                             TempData["State"] = groep.State;
@@ -105,47 +102,6 @@ namespace BreakOutBox.Controllers
                             return RedirectToAction(nameof(Feedback));
                         }
                     }
-
-                    #region Comments
-                    /*
-                  Sessie s = _sessieRepository.GetBySessieCode(ssvm.sessieId); // sessieId = sessieCode (kan nog veranderd worden)
-                  Groep g = s.Groepen.Where(a => a.GroepId == ssvm.GroepId).FirstOrDefault();
-                  Opdracht huidigeOpdracht = g.Pad.Opdrachten.Where(a => a.OpdrachtId == ssvm.OpdrachtId).FirstOrDefault();
-                  Opdracht nieweOpdracht = g.Pad.getNextOpdracht(huidigeOpdracht);
-                  ssvm.Groep = g;
-                  ssvm.Sessie = s;
-
-                  if (ssvm.Groepsantwoord.ToString() == huidigeOpdracht.Oefening.Antwoord.ToString()) // dit moet de uitkomst na de groepsbewerking zijn (dus samenstelling antwoord en bewerking).
-                  {
-                      ssvm.Opdracht = nieweOpdracht;
-                      ssvm.TellerFoutePogingen = 0;
-                      //naar een scherm gaan voorr de toegangscode in te vullen (met de actie)
-                  }
-                  else
-                  {
-                      //if (ssvm.TellerFoutePogingen > 2)
-                      //{
-                      //    var i = 0;
-                      //    // spel geblokkeerd en leerkracht moet het deblokkeren
-                      //}
-                      //else
-                      //{
-                      ssvm.Opdracht = huidigeOpdracht;
-                      TempData["FouteCode"] = "FOUT! je hebt " + ssvm.TellerFoutePogingen + " foute pogingen ondernomen";
-                      //}
-
-                      if (ssvm.TellerFoutePogingen >= 2)
-                      {
-                          Groep groep = s.Groepen.Where(a => a.GroepId == ssvm.GroepId).FirstOrDefault();
-                          groep.Blokkeer();
-                          _sessieRepository.SaveChanges();
-                          //Sessie sessie = _sessieRepository.GetBySessieCode(id);
-                          //sessie.Blokkeer();
-                          //_sessieRepository.SaveChanges();
-                          //return RedirectToAction(nameof(OverzichtGroepenInSessie), new { id });
-                      }
-                  }*/
-                    #endregion
                 }
                 catch
                 {
@@ -177,18 +133,11 @@ namespace BreakOutBox.Controllers
             }
         }
 
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
         public IActionResult Feedback(SpelSpelenViewModel ssvm, Sessie sessie, Groep groep)
         {
             TempData["State"] = groep.State;
             return View(ssvm);
         }
-
-        /* public IActionResult InvoerenToegangscode(opdrachtId)
-         {
-
-
-
-             return View(ssvm);
-         }*/
     }
 }
