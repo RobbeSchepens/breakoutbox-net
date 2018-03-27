@@ -34,7 +34,7 @@
                 {
                     <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
                     <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
-                    <button type="submit" class="" id="GaVerder">Ga verder</button>
+                    <button type="submit" class="" id="GaVerder">Geef antwoord in</button>
                     <p style="color:red">@TempData["FouteCode"]</p>
                 }
                 else
@@ -82,54 +82,51 @@
         }
 
         function groepsantwoordJuist() {
-
             if (@(progressie[1] + 1) == @(progressie[0])){
-                    swal({
-                        title: 'Juist! Schatkist gevonden!',
-                        text: '',
-
-                        showCancelButton: false,
-                        confirmButtonText: 'sluit het spel'
-                    },
-                        function () {
-                            console.log("hier");
-                            window.location.href = "/Sessie/Index";
-
-                        });
+                swal({
+                    title: 'Juist! Schatkist gevonden!',
+                    text: '',
+                    showCancelButton: false,
+                    confirmButtonText: 'sluit het spel'
+                },
+                function () {
+                    console.log("hier");
+                    window.location.href = "/Sessie/Index";
+                });
             } else {
                 swal({ // de swal van alle oefeningen
-                title: "Toegangscode volgende oefening",
-                text: "@Model.Opdracht.Actie.Omschrijving.ToString()",
-                type: "input",
-                showCancelButton: true,
-                closeOnConfirm: false,
-                animation: "slide-from-top",
-                inputPlaceholder: "Toegangscode"
-            },
+                    title: "Toegangscode volgende oefening",
+                    text: "@Model.Opdracht.Actie.Omschrijving.ToString()",
+                    type: "input",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    animation: "slide-from-top",
+                    inputPlaceholder: "Toegangscode"
+                },
                 function (inputValue) {
                     var j = @(Model.ToegangscodeVolgendeOefening);
                     if (inputValue === false) return false;
 
                     if (inputValue === "") {
                         swal.showInputError("You need to write something!");
-                        return false
+                        return false;
                     }
                     if (!(inputValue == j)) {
                         swal.showInputError("Dit is niet de juiste toegangscode");
                         console.log("inputvalue1 :" + inputValue);
                         console.log("inputvalue2 :" + j);
-                        return false
+                        return false;
                     }
 
                     swal("Juist!", "Op naar de volgende oefening!", );
                         @(Model.JuistGeantwoordtoegangscode) = true;
                     setTimeout(delaySubmit, 1000);
-                }, );
+                });
             }
         }
 
         function hulp() {
-          swal({
+            swal({
                 title: "Feedback",
                 type: "info",
                 showCancelButton: false,
@@ -137,10 +134,10 @@
                 confirmButtonText: "Theorie pdf",
                 animation: "slide-from-top",
             },
-                function () {
-                    window.location.href = "http://example.com/new_url";
-                });
-                console.log("Gelukt");
+            function () {
+                window.location.href = "http://example.com/new_url";
+            });
+            console.log("Gelukt");
         }
 
         function geblokkeerd() {
@@ -157,9 +154,9 @@
             });
         }
 
-    function delaySubmit() {
-        document.getElementById("formAntwoord").submit();
-    }
+        function delaySubmit() {
+            document.getElementById("formAntwoord").submit();
+        }
     </script>
 }
 
@@ -168,5 +165,3 @@
     <p><input asp-for="JuistGeantwoordtoegangscodeString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordtoegangscodeStringId" /></p>
     <p><input asp-for="JuistGeantwoordOpgaveString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordOpgaveStringId" /></p>
 </div>
-
-

@@ -33,7 +33,6 @@ namespace BreakOutBox.Controllers
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
         public IActionResult OverzichtGroepenInSessie(Sessie sessie, string sessiecode)
         {
-            //Sessie sessie;
             if (ModelState.IsValid)
             {
                 try
