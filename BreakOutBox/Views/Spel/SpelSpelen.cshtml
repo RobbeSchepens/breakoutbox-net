@@ -50,6 +50,10 @@
             <object height="750" type="application/pdf" data="~/opdrachtenG1/@Model.Opdracht.Oefening.Opgave" id="pdf_content"></object>
         </div>
         <div style="clear:both"></div>
+        <div hidden>
+            <p><input asp-for="JuistGeantwoordtoegangscodeString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordtoegangscodeStringId" /></p>
+            <p><input asp-for="JuistGeantwoordOpgaveString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordOpgaveStringId" /></p>
+        </div>
     </form>
 </body>
 
@@ -63,7 +67,7 @@
         console.log("Antwoord met toegangscode: " + @(Model.Opdracht.Oefening.AntwoordMetGroepsbewerking()));
         console.log("Teller " + @Model.Opdracht.foutePogingen);
         console.log("Progressie " + @progressie[0] + " " + @progressie[1]);
-        console.log("State " + @TempData["State"]);
+        //console.log("State " + @TempData["State"]);
         //console.log("SessieCode " + @Model.SessieCode);
         console.log("GroepId " +@Model.GroepId);
 
@@ -119,7 +123,8 @@
                     }
 
                     swal("Juist!", "Op naar de volgende oefening!", );
-                        @(Model.JuistGeantwoordtoegangscode) = true;
+                    //@(Model.JuistGeantwoordtoegangscode) = true;
+                    document.getElementById("JuistGeantwoordtoegangscodeStringId").value = "True";
                     setTimeout(delaySubmit, 1000);
                 });
             }
