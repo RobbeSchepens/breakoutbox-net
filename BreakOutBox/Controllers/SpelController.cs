@@ -47,6 +47,8 @@ namespace BreakOutBox.Controllers
             {
                 try
                 {
+                    TempData["State"] = groep.State;
+
                     if (groep.Pad.getCurrentOpdracht().isOpgelost(ssvm.Groepsantwoord))
                     {
                         ssvm.JuistGeantwoordOpgave = true;
