@@ -27,9 +27,12 @@
                 <p>
                     Stap2: Voer deze groepsbewerking uit <br /> op het antwoord.  <br /> Groepsbewerking: @(Model.Opdracht.Oefening.Groepsbewerking.ToString()).
                 </p>
-                @*<p>@TempData["State"]</p>
-                <p>teller @Model.Opdracht.foutePogingen</p>*@
                 <p><label asp-for="Groepsantwoord"></label></p>
+
+                @*Voor te testen*@
+                @*<p>State: @TempData["State"]</p>
+                <p>Teller: @Model.Opdracht.foutePogingen</p>*@
+
                 <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
                 <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
                 <button type="submit" class="" id="GaVerder">Geef antwoord in</button>

@@ -143,6 +143,10 @@ namespace BreakOutBox.Controllers
         public IActionResult Feedback(SpelSpelenViewModel ssvm, Groep groep)
         {
             TempData["State"] = groep.State;
+
+            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
+            ssvm.Opdracht.foutePogingen = 0;
+            _sessieRepository.SaveChanges();
             return View(ssvm);
             //if (groep.State != 3 || groep.State != 2)
             //{
@@ -155,16 +159,16 @@ namespace BreakOutBox.Controllers
             //}
         }
 
-        [HttpPost]
-        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
-        public IActionResult Feedback(Groep groep)
-        {
-            // State veranderen
-            groep.Ontgrendel();
-            _sessieRepository.SaveChanges();
-            TempData["State"] = groep.State;
-            return RedirectToAction(nameof(SpelSpelen));
-        }
+        //[HttpPost]
+        //[ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        //public IActionResult Feedback(Groep groep)
+        //{
+        //    // State veranderen
+        //    groep.Ontgrendel();
+        //    _sessieRepository.SaveChanges();
+        //    TempData["State"] = groep.State;
+        //    return RedirectToAction(nameof(SpelSpelen));
+        //}
 
         [HttpPost]
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
