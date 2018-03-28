@@ -89,8 +89,8 @@ namespace BreakOutBox.Controllers
                         }
                         else //if(groep.Pad.getCurrentOpdracht().foutePogingen >= 3)
                         {
-                            //groep.Blokkeer();
-                            groep.SwitchState(3);
+                            groep.Vergrendel();
+                            //groep.SwitchState(groep.State);
 
                             //groep.Pad.getCurrentOpdracht().Opgelost = false;   // de vraag blijft op onOpgelost staan 
                             //groep.Pad.getCurrentOpdracht().foutePogingen ++;
@@ -103,7 +103,7 @@ namespace BreakOutBox.Controllers
 
                             TempData["State"] = groep.State;
                             _sessieRepository.SaveChanges();
-                            return RedirectToAction(nameof(Feedback));
+                            return RedirectToAction(nameof(Feedback), ssvm);
                         }
                     }
                 }
@@ -152,6 +152,17 @@ namespace BreakOutBox.Controllers
             //{
             //    return View(ssvm);
             //}
+        }
+
+        [HttpPost]
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult Feedback(Groep groep)
+        {
+            // State veranderen
+            groep.Ontgrendel();
+            _sessieRepository.SaveChanges();
+            TempData["State"] = groep.State;
+            return RedirectToAction(nameof(SpelSpelen));
         }
     }
 }

@@ -13,14 +13,18 @@
 
 <h2>Feedback</h2>
 <h3>Uitleg over de opdracht.</h3>
-<p>State: @TempData["State"]</p>
-@if (Convert.ToInt32(TempData["State"]) == 3 || Convert.ToInt32(TempData["State"]) == 2)
+@*<p>State: @TempData["State"]</p>*@
+@if (Convert.ToInt32(TempData["State"]) == 1)
 {
     <p>Je bent gedeblokkeerd, je kunt terug opnieuw proberen.</p>
-    <button type="submit" asp-controller="Spel" asp-action="Opnieuw" asp-route-sessiecode="@Model.Sessie.Code" asp-route-groepid="@Model.Groep.GroepId">Keer terug naar spel.</button>
+    <form>
+        <button type="submit" asp-controller="Spel" asp-action="SpelSpelen">Keer terug naar spel.</button>
+    </form>
 }
 else
 {
     <p>Je bent geblokkeerd. Te veel foute pogingen.</p>
+    
+
 }
 <object height="750" type="application/pdf" data="~/algemenepdfs/Theorie.pdf"></object>
