@@ -73,6 +73,14 @@ namespace BreakOutBox.Controllers
                         {
                             _sessieRepository.SaveChanges();
                             ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), true, ssvm.JuistGeantwoordtoegangscode, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
+                            //if (groep.State == 3 || groep.State == 2)
+                            //{
+                            //    return RedirectToAction(nameof(Feedback), ssvm);
+                            //}
+                            //else
+                            //{
+                            //    return View(ssvm);
+                            //}
                             return View(ssvm);
                         }
                     }
@@ -86,6 +94,15 @@ namespace BreakOutBox.Controllers
                             _sessieRepository.SaveChanges();
                             TempData["FouteCode"] = "FOUT! je hebt " + groep.Pad.getCurrentOpdracht().foutePogingen + " foute pogingen ondernomen";
                             TempData["State"] = groep.State;
+                            //if (groep.State == 3 || groep.State == 2)
+                            //{
+                            //    groep.Pad.getCurrentOpdracht().foutePogingen++; // foutpogingen +1 wanneer fout antwoord
+                            //    return RedirectToAction(nameof(Feedback), ssvm);
+                            //}
+                            //else
+                            //{
+                            //    return View(ssvm);
+                            //}
                             return View(ssvm);
                         }
                         else //if(groep.Pad.getCurrentOpdracht().foutePogingen >= 3)
@@ -148,7 +165,7 @@ namespace BreakOutBox.Controllers
             //    return View(ssvm);
             //}
         }
-        
+
         [HttpPost]
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
         public IActionResult TerugNaarOefening(Groep groep)

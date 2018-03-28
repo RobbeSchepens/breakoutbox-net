@@ -68,12 +68,9 @@
             document.getElementById("Toegangscode").value = (@(Model.Opdracht.Oefening.AntwoordMetGroepsbewerking().ToString()));
             document.getElementById("JuistGeantwoordtoegangscodeStringId").value = "True";
 
-            if (@TempData["State"] !=3 && @TempData["State"] !=2) {
+
                 groepsantwoordJuist();
-            }
-            else {
-                geblokkeerd();
-            }
+
             console.log("bool " + '@(Model.JuistGeantwoordOpgave)');
             console.log("bool " + '@(Model.JuistGeantwoordtoegangscode)');
         }
@@ -138,19 +135,33 @@
             console.log("Gelukt");
         }
 
-        function geblokkeerd() {
-            swal({
-                title: "Geblokkeerd",
-                type: "Warning",
-                showCancelButton: false,
-                closeOnConfirm: true,
-                confirmButtonText: "Refresh",
-                animation: "slide-from-top",
-            },
-            function () {
-                window.location.reload();
+        @*function geblokkeerd() {
+            if (@TempData["State"] == 3 || @TempData["State"] == 2 ) {
+                //swal({
+                //    title: "Geblokkeerd",
+                //    type: "Warning",
+                //    showCancelButton: false,
+                //    closeOnConfirm: true,
+                //    confirmButtonText: "Refresh",
+                //    animation: "slide-from-top",
+                //},
+                //    function () {
+                //        document.getElementById("Toegangscode").value = "";
+                //        window.location.reload();
+                //    });
+                $("#GaVerder").click(function () {
+                    alert('clicked')
+                    $("#div").load(" #div > *");
+                });
+            }
+
+            $("#GaVerder").click(function () {
+                if (@TempData["State"] == 3 || @TempData["State"] == 2) {
+                    alert('clicked')
+                    $("#div").load(" #div > *");
+                }
             });
-        }
+        }*@
 
         function delaySubmit() {
             document.getElementById("formAntwoord").submit();
