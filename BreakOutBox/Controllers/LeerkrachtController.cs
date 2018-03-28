@@ -12,6 +12,7 @@ namespace BreakOutBox.Controllers
 {
     [AutoValidateAntiforgeryToken]
     [Authorize(Policy = "leerkrachtAuth")]
+    [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
     public class LeerkrachtController : Controller
     {
         private readonly ISessieRepository _sessieRepository;
@@ -29,8 +30,7 @@ namespace BreakOutBox.Controllers
             ViewData["LeerkrachtNaam"] = leerkracht.Voornaam + " " + leerkracht.Achternaam;
             return View(leerkracht.Sessies.ToList());
         }
-
-        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        
         public IActionResult OverzichtGroepenInSessie(Sessie sessie, string sessiecode)
         {
             if (ModelState.IsValid)
@@ -59,8 +59,7 @@ namespace BreakOutBox.Controllers
             }
             return View();
         }
-
-        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        
         public IActionResult ActiveerSessie(Sessie sessie)
         {
             // State veranderen
@@ -69,8 +68,7 @@ namespace BreakOutBox.Controllers
 
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
-
-        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        
         public IActionResult DeactiveerSessie(Sessie sessie)
         {
             // State veranderen
@@ -79,8 +77,7 @@ namespace BreakOutBox.Controllers
 
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
-
-        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        
         public IActionResult BlokkeerSessie(Sessie sessie)
         {
             // State veranderen
@@ -89,8 +86,7 @@ namespace BreakOutBox.Controllers
 
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
-
-        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        
         public IActionResult DeblokkeerSessie(Sessie sessie)
         {
             // State veranderen
@@ -99,8 +95,7 @@ namespace BreakOutBox.Controllers
 
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
-
-        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        
         public IActionResult StartSpelSessie(Sessie sessie)
         {
             // State veranderen
@@ -109,8 +104,7 @@ namespace BreakOutBox.Controllers
 
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
-
-        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        
         public IActionResult OverzichtGroep(Sessie sessie, Groep groep, string groepid)
         {
             if (ModelState.IsValid)
@@ -130,7 +124,78 @@ namespace BreakOutBox.Controllers
             return View();
         }
 
-        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult BlokkeerGroep(Sessie sessie, Groep groep)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    groep.Blokkeer();
+                    _sessieRepository.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    //ModelState.AddModelError("", e.Message);
+                    TempData["message"] = $"Deze groep kon niet geblokkeerd worden.";
+                }
+            }
+            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+        }
+
+        public IActionResult DeblokkeerGroep(Sessie sessie, Groep groep)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    groep.DeBlokkeer();
+                    _sessieRepository.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    //ModelState.AddModelError("", e.Message);
+                    TempData["message"] = $"Deze groep kon niet gedeblokkeerd worden.";
+                }
+            }
+            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+        }
+
+        public IActionResult OntgrendelGroep(Sessie sessie, Groep groep)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    groep.Ontgrendel();
+                    _sessieRepository.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    //ModelState.AddModelError("", e.Message);
+                    TempData["message"] = $"Deze groep kon niet ontgrendeld worden.";
+                }
+            }
+            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+        }
+
+        public IActionResult VergrendelGroep(Sessie sessie, Groep groep)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    groep.Vergrendel();
+                    _sessieRepository.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    //ModelState.AddModelError("", e.Message);
+                    TempData["message"] = $"Deze groep kon niet vergrendeld worden.";
+                }
+            }
+            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+        }
+
         public IActionResult ZetGroepGereed(Sessie sessie, Groep groep)
         {
             if (ModelState.IsValid)
@@ -139,16 +204,32 @@ namespace BreakOutBox.Controllers
                 {
                     groep.ZetGereed();
                     _sessieRepository.SaveChanges();
-                    TempData["message"] = $"Je hebt groep {groep.GroepId} gekozen.";
                 }
                 catch (Exception e)
                 {
                     //ModelState.AddModelError("", e.Message);
-                    TempData["message"] = $"Deze groep werd al gekozen.";
+                    TempData["message"] = $"Deze groep kon niet klaar gezet worden worden.";
                 }
             }
-            //return View(nameof(LeerkrachtController.Index), "Leerkracht");
-            return RedirectToAction(nameof(OverzichtGroepenInSessie), "Leerkracht");
+            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+        }
+
+        public IActionResult ZetGroepNietGereed(Sessie sessie, Groep groep)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    groep.ZetNietGereed();
+                    _sessieRepository.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    //ModelState.AddModelError("", e.Message);
+                    TempData["message"] = $"Deze groep kon niet onklaar gezet worden.";
+                }
+            }
+            return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
     }
 }

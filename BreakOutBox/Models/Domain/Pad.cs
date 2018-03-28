@@ -46,6 +46,7 @@ namespace BreakOutBox.Models.Domain
             return Opdrachten.Where(t => !t.Opgelost).FirstOrDefault();
 
         }
+
         public bool CheckToegangscode(string toegangscode)
         {
             if (toegangscode == getNextOpdracht().Toegangscode.Code.ToString())
@@ -54,8 +55,7 @@ namespace BreakOutBox.Models.Domain
             }
             return false;
         }
-
-
+        
         public List<int> getProgressie()
         {
             List<int> progressieList = new List<int>(); // elem 1 is het vraagnummer waaraan de groep zit, elem 2 het totaal aantal vragen
@@ -63,6 +63,5 @@ namespace BreakOutBox.Models.Domain
             progressieList.Add(Opdrachten.ToList().IndexOf(getCurrentOpdracht()));
             return progressieList;
         }
-
     }
 }

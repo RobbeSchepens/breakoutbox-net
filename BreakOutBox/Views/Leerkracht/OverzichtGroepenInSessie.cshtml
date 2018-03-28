@@ -30,6 +30,7 @@
                 <button asp-controller="Leerkracht" asp-action="DeblokkeerSessie" asp-route-id="@Model.Code" class="">Deblokkeer</button>
                 break;
         }
+        <button type="submit" style="font-size:22px" onClick="window.location.reload()"> <i class="fa">&#xf021;</i></button>
     </form>
 </div>
 @*<div class="row">
@@ -119,7 +120,7 @@
                         @switch (groep.State)
                         {
                             case 0: // NietGereedState
-                                <li><a asp-controller="Leerkracht" asp-action="ZetGroepGereed2" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Zet gereed</a></li>
+                                <li><a asp-controller="Leerkracht" asp-action="ZetGroepGereed" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Zet gereed</a></li>
                                 <li><a asp-controller="Leerkracht" asp-action="VergrendelGroep" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Vergrendel</a></li>
                                 break;
                             case 1: // GereedState
