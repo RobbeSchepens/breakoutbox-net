@@ -3,6 +3,7 @@ using BreakOutBox.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 using BreakOutBox.Models.SpelViewModels;
 using BreakOutBox.Filters;
+using System;
 
 namespace BreakOutBox.Controllers
 {
@@ -163,6 +164,29 @@ namespace BreakOutBox.Controllers
             _sessieRepository.SaveChanges();
             TempData["State"] = groep.State;
             return RedirectToAction(nameof(SpelSpelen));
+        }
+
+        [HttpPost]
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult TerugNaarOefening(Groep groep)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // State veranderen
+                    groep.Ontgrendel();
+                    _sessieRepository.SaveChanges();
+
+                    TempData["State"] = groep.State;
+                    return RedirectToAction(nameof(SpelSpelen));
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", e.Message);
+                }
+            }
+            return View();
         }
     }
 }
