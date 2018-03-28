@@ -15,19 +15,19 @@
         @switch (Model.State)
         {
             case 0: // NonActiefState
-                <button asp-controller="Leerkracht" asp-action="ActiveerSessie" asp-route-id="@Model.Code" class="">Activeer</button>
+                <button asp-controller="Leerkracht" asp-action="ActiveerSessie">Activeer</button>
                 break;
             case 1: // ActiefState
-                <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" asp-route-id="@Model.Code" class="">Deactiveer</button>
-                <button asp-controller="Leerkracht" asp-action="BlokkeerSessie" asp-route-id="@Model.Code" class="">Blokkeer</button>
-                <button asp-controller="Leerkracht" asp-action="StartSpelSessie" asp-route-id="@Model.Code" class="">Start</button>
+                <button asp-controller="Leerkracht" asp-action="DeactiveerSessie">Deactiveer</button>
+                <button asp-controller="Leerkracht" asp-action="BlokkeerSessie">Blokkeer</button>
+                <button asp-controller="Leerkracht" asp-action="StartSpelSessie">Start</button>
                 break;
             case 2: // InSpelState
-                <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" asp-route-id="@Model.Code" class="">Deactiveer</button>
-                <button asp-controller="Leerkracht" asp-action="Blokkeer" asp-route-id="@Model.Code" class="">Blokkeer</button>
+                <button asp-controller="Leerkracht" asp-action="DeactiveerSessie">Deactiveer</button>
+                <button asp-controller="Leerkracht" asp-action="Blokkeer">Blokkeer</button>
                 break;
             case 3: // GeblokkeerdState
-                <button asp-controller="Leerkracht" asp-action="DeblokkeerSessie" asp-route-id="@Model.Code" class="">Deblokkeer</button>
+                <button asp-controller="Leerkracht" asp-action="DeblokkeerSessie">Deblokkeer</button>
                 break;
         }
         <button type="submit" style="font-size:22px" onClick="window.location.reload()"> <i class="fa">&#xf021;</i></button>
@@ -42,7 +42,7 @@
             <th>Voortgang</th>
             <th>Beheer</th>
         </tr>
-        @foreach(var groep in Model.Groepen)
+        @foreach (var groep in Model.Groepen)
         {
             <tr class="text-center">
                 <td>
@@ -67,19 +67,19 @@
                         @switch (groep.State)
                         {
                             case 0: // NietGereedState
-                                <li><a asp-controller="Leerkracht" asp-action="ZetGroepGereed" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Zet gereed</a></li>
-                                <li><a asp-controller="Leerkracht" asp-action="VergrendelGroep" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Vergrendel</a></li>
+                                <li><a asp-controller="Leerkracht" asp-action="ZetGroepGereed" asp-route-groepid="@groep.GroepId">Zet gereed</a></li>
+                                <li><a asp-controller="Leerkracht" asp-action="VergrendelGroep" asp-route-groepid="@groep.GroepId">Vergrendel</a></li>
                                 break;
                             case 1: // GereedState
-                                <li><a asp-controller="Leerkracht" asp-action="ZetGroepNietGereed" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Zet niet gereed</a></li>
-                                <li><a asp-controller="Leerkracht" asp-action="VergrendelGroep" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Vergrendel</a></li>
+                                <li><a asp-controller="Leerkracht" asp-action="ZetGroepNietGereed" asp-route-groepid="@groep.GroepId">Zet niet gereed</a></li>
+                                <li><a asp-controller="Leerkracht" asp-action="VergrendelGroep" asp-route-groepid="@groep.GroepId">Vergrendel</a></li>
                                 break;
                             case 2: // VergrendeldState
-                                <li><a asp-controller="Leerkracht" asp-action="OntgrendelGroep" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Ontgrendel</a></li>
-                                <li><a asp-controller="Leerkracht" asp-action="BlokkeerGroep" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Blokkeer</a></li>
+                                <li><a asp-controller="Leerkracht" asp-action="OntgrendelGroep" asp-route-groepid="@groep.GroepId">Ontgrendel</a></li>
+                                <li><a asp-controller="Leerkracht" asp-action="BlokkeerGroep" asp-route-groepid="@groep.GroepId">Blokkeer</a></li>
                                 break;
                             case 3: // GeblokkeerdState
-                                <li><a asp-controller="Leerkracht" asp-action="DeblokkeerGroep" asp-route-id="@Model.Code" asp-route-groepid="@groep.GroepId">Deblokkeer</a></li>
+                                <li><a asp-controller="Leerkracht" asp-action="DeblokkeerGroep" asp-route-groepid="@groep.GroepId">Deblokkeer</a></li>
                                 break;
                         }
                     </ul>
@@ -88,12 +88,3 @@
         }
     </table>
 </div>
-
-
-@functions{
-    public string Encode(string encodeMe)
-    {
-        byte[] encoded = System.Text.Encoding.UTF8.GetBytes(encodeMe);
-        return Convert.ToBase64String(encoded);
-    }
-}
