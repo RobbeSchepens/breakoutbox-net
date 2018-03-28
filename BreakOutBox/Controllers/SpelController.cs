@@ -157,10 +157,6 @@ namespace BreakOutBox.Controllers
             {
                 try
                 {
-                    // State veranderen
-                    groep.Ontgrendel();
-                    _sessieRepository.SaveChanges();
-
                     TempData["State"] = groep.State;
                     return RedirectToAction(nameof(SpelSpelen));
                 }
