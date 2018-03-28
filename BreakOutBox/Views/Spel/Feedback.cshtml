@@ -14,7 +14,7 @@
 <h2>Feedback</h2>
 <h3>Uitleg over de opdracht.</h3>
 @*<p>State: @TempData["State"]</p>*@
-@if (Convert.ToInt32(TempData["State"]) != 1) // Moet op == 1 staan (!= 1 is voor testen)
+@if (Convert.ToInt32(TempData["State"]) == 1) // Moet op == 1 staan (!= 1 is voor testen)
 {
     <p>Je bent gedeblokkeerd, je kunt terug opnieuw proberen.</p>
     <form asp-action="TerugNaarOefening">
@@ -27,4 +27,5 @@ else
     
 
 }
+<br />
 <object height="750" type="application/pdf" data="~/algemenepdfs/Theorie.pdf"></object>
