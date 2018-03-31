@@ -74,62 +74,27 @@ namespace BreakOutBox.Models.Domain
 
         public void Activeer()
         {
-            try
-            {
-                _currentState.Activeer();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            _currentState.Activeer();
         }
 
         public void Deactiveer()
         {
-            try
-            {
-                _currentState.Deactiveer(Groepen);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            _currentState.Deactiveer(Groepen);
         }
 
         public void StartSpel()
         {
-            try
-            {
-                _currentState.StartSpel(Groepen);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            _currentState.StartSpel(Groepen);
         }
 
         public void Blokkeer()
         {
-            try
-            {
-                _currentState.Blokkeer();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            _currentState.Blokkeer();
         }
 
         public void Deblokkeer()
         {
-            try
-            {
-                _currentState.Deblokkeer();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            _currentState.Deblokkeer();
         }
 
         public SessieState GetState()

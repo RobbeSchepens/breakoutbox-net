@@ -70,74 +70,32 @@ namespace BreakOutBox.Models.Domain
 
         public void ZetGereed()
         {
-            try
-            {
-                _currentState.ZetGereed();
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
+            _currentState.ZetGereed();
         }
 
         public void ZetNietGereed()
         {
-            try
-            {
-                _currentState.ZetNietGereed();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            _currentState.ZetNietGereed();
         }
 
         public void Vergrendel()
         {
-            try
-            {
-                _currentState.Vergrendel();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            _currentState.Vergrendel();
         }
 
         public void Ontgrendel()
         {
-            try
-            {
-                _currentState.Ontgrendel();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            _currentState.Ontgrendel();
         }
 
         public void Blokkeer()
         {
-            try
-            {
-                _currentState.Blokkeer();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            _currentState.Blokkeer();
         }
 
         public void DeBlokkeer()
         {
-            try
-            {
-                _currentState.DeBlokkeer();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            _currentState.DeBlokkeer();
         }
 
         public GroepState GetState()
