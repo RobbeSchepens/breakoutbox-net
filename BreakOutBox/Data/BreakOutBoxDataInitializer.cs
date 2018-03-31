@@ -43,7 +43,7 @@ namespace BreakOutBox.Data
 
                 for (var i = 0; i < 40; i++)
                 {
-                    acties.Add(new Actie("pak ballon " + (i + 1)));
+                    acties.Add(new Actie("Pak ballon met nummer van jouw groepsantwoord."));
                 }
 
                 // OEFENINGEN
