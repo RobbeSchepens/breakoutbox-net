@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using BreakOutBox.Models;
 using BreakOutBox.Models.AccountViewModels;
 using BreakOutBox.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace BreakOutBox.Controllers
 {
@@ -247,6 +248,7 @@ namespace BreakOutBox.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
+            HttpContext.Session.Clear();
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 

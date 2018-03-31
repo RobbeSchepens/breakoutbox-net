@@ -31,15 +31,7 @@
         <div class="container">
             <div class="row nav">
                 <nav id="navigatie" class="sm-12 col inputinline">
-                    <ul>
-                        @if (Context.Session.GetString("sessiecode") != null && Context.Session.GetString("groepid") == null) { 
-                            <li><a asp-controller="Sessie" asp-action="SessieOverzicht">Ga naar Sessie @Context.Session.GetString("sessiecode")</a></li> 
-                        }
-                        else if (Context.Session.GetString("sessiecode") != null && Context.Session.GetString("groepid") != null) { 
-                            <li><a asp-controller="Spel" asp-action="SpelSpelen">Ga naar Sessie @Context.Session.GetString("sessiecode")</a></li> 
-                        }
-                        @await Html.PartialAsync("_LoginPartial")
-                    </ul>
+                    @await Html.PartialAsync("_LoginPartial")
                 </nav>
             </div>
         </div>

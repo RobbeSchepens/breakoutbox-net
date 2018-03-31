@@ -91,6 +91,10 @@ ul li::before {
     content: none;
 }
 
+ul ul li::before {
+    content: none;
+}
+
 a:hover {
     font-weight: bold;
 }
