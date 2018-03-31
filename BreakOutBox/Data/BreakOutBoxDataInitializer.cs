@@ -30,7 +30,7 @@ namespace BreakOutBox.Data
                 #region Box aanmaken
                 // TOEGANGSCODES
                 // deze code geeft aan wat je volgende oefening is (bv. de code die je in een balon terugvind)
-                var toegangscodes = new List<Toegangscode>(); 
+                var toegangscodes = new List<Toegangscode>();
 
                 for (var i = 100; i < 140; i++)
                 {
@@ -39,7 +39,7 @@ namespace BreakOutBox.Data
 
                 // ACTIES
                 // de mogelijke acties dat je moet ondernemen (in een balon prikken, telefoonboek opendoen)
-                var acties = new List<Actie>(); 
+                var acties = new List<Actie>();
 
                 for (var i = 0; i < 40; i++)
                 {
@@ -61,7 +61,7 @@ namespace BreakOutBox.Data
                 // FEEDBACK in OEFENING
                 for (var i = 1; i < 9; i++)
                 {
-                    oefeningen[i-1].Feedback = "TheorieOefening" + i + ".pdf";
+                    oefeningen[i - 1].Feedback = "TheorieOefening" + i + ".pdf";
                 }
 
                 Box box = new Box(acties, oefeningen, toegangscodes, "Een box met diverse oefeningen", "BoxNaam");
@@ -90,9 +90,9 @@ namespace BreakOutBox.Data
                     new Opdracht(8,act[7],oef[7],toe[7])
                 };
 
-                for(int z = 0; z < 8; z++)
+                for (int z = 0; z < 8; z++)
                 {
-                    opdrachtenGroep1[z].Oefening.Opgave = "opdracht" + (z+1) + "G1.pdf";
+                    opdrachtenGroep1[z].Oefening.Opgave = "opdracht" + (z + 1) + "G1.pdf";
                     opdrachtenGroep1[z].Oefening.Antwoord = z + 200;
                 }
 
@@ -207,11 +207,11 @@ namespace BreakOutBox.Data
                 };
 
                 var groepen = new List<Groep> {
-                  new Groep(paden[0], leerlingen.GetRange(0, 4), 0),
-                  new Groep(paden[1], leerlingen.GetRange(4, 4), 0),
-                  new Groep(paden[2], leerlingen.GetRange(8, 4), 1),
-                  new Groep(paden[3], leerlingen.GetRange(12, 4), 1),
-                  new Groep(paden[4], leerlingen.GetRange(16, 4), 2)
+                    new Groep(paden[0], leerlingen.GetRange(0, 4), 0),
+                    new Groep(paden[1], leerlingen.GetRange(4, 4), 0),
+                    new Groep(paden[2], leerlingen.GetRange(8, 4), 1),
+                    new Groep(paden[3], leerlingen.GetRange(12, 4), 1),
+                    new Groep(paden[4], leerlingen.GetRange(16, 4), 2)
                 };
                 #endregion
 
@@ -219,23 +219,16 @@ namespace BreakOutBox.Data
                 var lk = new Leerkracht("Tom", "Pieters", "Tom_Pieters@school.be");
                 var k = new Klas(leerlingen, lk);
                 lk.VoegKlasToe(k);
-                
+
                 var s = new Sessie("ABC", "Sessie1", "Maandag ochtend D klas", groepen, box, 1);
                 s.Klas = k;
                 lk.VoegSessieToe(s);
 
+                _dbContext.Leerkrachten.Add(lk);
                 _dbContext.Sessies.Add(s);
-                //await CreateUser("Tom_Pieters@school.be", "Tom_Pieters@school.be", "P@ssword1!", "leerkracht");
                 _dbContext.SaveChanges();
                 #endregion
             }
-
-            //async Task CreateUser(string userName, string email, string password, string role)
-            //{
-            //    var user = new ApplicationUser { UserName = email, Email = email , SecurityStamp = Guid.NewGuid().ToString() };
-            //    await _userManager.CreateAsync(user, password);
-            //   // await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, role));
-            //}
         }
 
         private async Task InitializeLeerkrachten()

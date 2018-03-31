@@ -9,6 +9,7 @@ namespace BreakOutBox.Data.Mappers
         public void Configure(EntityTypeBuilder<Klas> builder)
         {
             builder.ToTable("Klas");
+            builder.Ignore(k => k.Leerkracht);
 
             //Associations
             builder.HasMany(s => s.Leerlingen).WithOne().IsRequired().OnDelete(DeleteBehavior.Restrict);
