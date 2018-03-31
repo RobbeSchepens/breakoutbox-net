@@ -3,6 +3,10 @@
     ViewData["Title"] = "Overzicht";
 }
 
+@section AddItemsToNav {
+    <li><a asp-controller="Leerkracht" asp-action="Index">Keer terug naar sessielijst</a></li>
+}
+
 <div class="row">
     <div class="col-12 col text-center">
         <h2>Sessie: @Model.Omschrijving</h2>

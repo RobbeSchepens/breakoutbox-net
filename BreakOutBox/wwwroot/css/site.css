@@ -112,6 +112,10 @@ a:hover {
     padding-bottom: 0;
 }
 
+#logoutForm {
+    display: inline;
+}
+
 .nav {
     margin-bottom: 0;
 }
