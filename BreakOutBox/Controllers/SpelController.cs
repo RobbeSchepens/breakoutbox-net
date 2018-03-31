@@ -73,7 +73,7 @@ namespace BreakOutBox.Controllers
                         {
                             _sessieRepository.SaveChanges();
                             ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), true, ssvm.JuistGeantwoordtoegangscode, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
-                            //if (groep.State == 3 || groep.State == 2)
+                            //if (groep.CurrentState is GroepVergrendeldState || groep.CurrentState is GroepGeblokkeerdState)
                             //{
                             //    return RedirectToAction(nameof(Feedback), ssvm);
                             //}
@@ -94,7 +94,7 @@ namespace BreakOutBox.Controllers
                             _sessieRepository.SaveChanges();
                             TempData["FouteCode"] = "FOUT! je hebt " + groep.Pad.getCurrentOpdracht().foutePogingen + " foute pogingen ondernomen";
                             TempData["State"] = groep.State;
-                            //if (groep.State == 3 || groep.State == 2)
+                            //if (groep.CurrentState is GroepVergrendeldState || groep.CurrentState is GroepGeblokkeerdState)
                             //{
                             //    groep.Pad.getCurrentOpdracht().foutePogingen++; // foutpogingen +1 wanneer fout antwoord
                             //    return RedirectToAction(nameof(Feedback), ssvm);
@@ -126,7 +126,7 @@ namespace BreakOutBox.Controllers
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
         public IActionResult Opnieuw(Sessie sessie, Groep groep, SpelSpelenViewModel ssvm)
         {
-            if (groep.State != 1)
+            if (groep.CurrentState is GroepGereedState == false)
             {
                 TempData["message"] = $"Deze groep is niet gereed.";
                 TempData["State"] = groep.State;
@@ -155,7 +155,7 @@ namespace BreakOutBox.Controllers
             ssvm.Opdracht.foutePogingen = 0;
             _sessieRepository.SaveChanges();
             return View(ssvm);
-            //if (groep.State != 3 || groep.State != 2)
+            //if (groep.CurrentState is GroepVergrendeldState == false || groep.CurrentState is GroepGeblokkeerdState == false)
             //{
             //    ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
             //    return RedirectToAction(nameof(SpelSpelen));

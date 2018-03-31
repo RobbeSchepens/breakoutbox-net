@@ -9,7 +9,7 @@ namespace BreakOutBox.Data.Mappers
         public void Configure(EntityTypeBuilder<Groep> builder)
         {
             builder.ToTable("Groep");
-            //builder.Ignore(g => g.CurrentState);
+            builder.Ignore(g => g.CurrentState);
 
             //Associations
             builder.HasMany(s => s.Leerlingen).WithOne().IsRequired(false).OnDelete(DeleteBehavior.Restrict);

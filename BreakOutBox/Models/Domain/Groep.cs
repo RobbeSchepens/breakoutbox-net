@@ -7,7 +7,6 @@ namespace BreakOutBox.Models.Domain
     public class Groep
     {
         #region Fields
-        private GroepState _currentState;
         private int _state;
         #endregion
 
@@ -16,6 +15,7 @@ namespace BreakOutBox.Models.Domain
         public int GroepId { get; set; }
         public ICollection<Leerling> Leerlingen { get; set; }
         public Pad Pad { get; set; }
+        public GroepState CurrentState { get; private set; }
         public int State {
             get { return _state; }
             set {
@@ -41,7 +41,7 @@ namespace BreakOutBox.Models.Domain
         #region Methods
         protected void ToState(GroepState state)
         {
-            _currentState = state;
+            CurrentState = state;
         }
 
         public void SwitchState(int st)
@@ -66,39 +66,34 @@ namespace BreakOutBox.Models.Domain
 
         public void ZetGereed()
         {
-            _currentState.ZetGereed();
+            CurrentState.ZetGereed();
         }
 
         public void ZetNietGereed()
         {
-            _currentState.ZetNietGereed();
+            CurrentState.ZetNietGereed();
         }
 
         public void Vergrendel()
         {
-            _currentState.Vergrendel();
+            CurrentState.Vergrendel();
         }
 
         public void Ontgrendel()
         {
-            _currentState.Ontgrendel();
+            CurrentState.Ontgrendel();
         }
 
         public void Blokkeer()
         {
-            _currentState.Blokkeer();
+            CurrentState.Blokkeer();
         }
 
         public void DeBlokkeer()
         {
-            _currentState.DeBlokkeer();
+            CurrentState.DeBlokkeer();
         }
-
-        public GroepState GetState()
-        {
-            return _currentState;
-        }
-
+        
         public void VoegLeerlingToe(Leerling leerling)
         {
             if (Leerlingen.Count == 4)
