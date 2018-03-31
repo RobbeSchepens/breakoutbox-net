@@ -16,12 +16,10 @@ namespace BreakOutBox.Models.Domain
         public string Feedback { get; set; }
         public Vak Vak { get; set; }
 
-
-
         public Oefening()
         {
-
         }
+
         public Oefening(string oefeningNaam, string opgave, double antwoord, Vak vak)
         {
             Naam = oefeningNaam;
@@ -33,11 +31,8 @@ namespace BreakOutBox.Models.Domain
         public string AntwoordMetGroepsbewerking()
         {
             string grpBew = Groepsbewerking.ToString().ToLower(); ;
-
-           
             string resultString = Regex.Match(Groepsbewerking, @"\d+").Value;
             int getalInString = Int32.Parse(resultString);
-
 
             if (grpBew.Contains("tel"))
                 return (Antwoord + getalInString).ToString();
@@ -47,12 +42,7 @@ namespace BreakOutBox.Models.Domain
                 return (Antwoord * getalInString).ToString();
             if (grpBew.Contains("deel"))
                 return (Antwoord / getalInString).ToString();
-          
-
             return "fout";
-
         }
-
-
     }
 }

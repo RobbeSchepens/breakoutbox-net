@@ -87,7 +87,7 @@
             } else {
                 swal({ // de swal van alle oefeningen
                     title: "Toegangscode volgende oefening",
-                    text: "@Model.Opdracht.Actie.Omschrijving.ToString()",
+                    text: "@Model.Opdracht.Actie.Omschrijving.ToString() (@(Model.Opdracht.Oefening.AntwoordMetGroepsbewerking())) en vul de toegangscode hieronder in",
                     type: "input",
                     showCancelButton: false,
                     closeOnConfirm: false,
