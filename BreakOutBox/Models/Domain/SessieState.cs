@@ -9,7 +9,7 @@ namespace BreakOutBox.Models.Domain
     {
         protected Sessie _sessie;
 
-        public abstract String Beschrijving { get; set; }
+        public abstract string Beschrijving { get; set; }
 
         protected SessieState(Sessie sessie)
         {

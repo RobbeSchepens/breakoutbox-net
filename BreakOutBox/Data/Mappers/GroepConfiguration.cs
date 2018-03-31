@@ -9,8 +9,8 @@ namespace BreakOutBox.Data.Mappers
         public void Configure(EntityTypeBuilder<Groep> builder)
         {
             builder.ToTable("Groep");
-            //builder.Property(t => t.Naam).IsRequired().HasMaxLength(20);
-            
+            //builder.Ignore(g => g.CurrentState);
+
             //Associations
             builder.HasMany(s => s.Leerlingen).WithOne().IsRequired(false).OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(s => s.Pad).WithOne(s => s.Groep).IsRequired().OnDelete(DeleteBehavior.Cascade);

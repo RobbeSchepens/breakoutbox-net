@@ -21,7 +21,7 @@
             <td align="center">@(item.Code)</td>
             <td align="center">@(item.Omschrijving)</td>
             <td align="center">@(item.Groepen.Count)</td>
-            <td align="center">@(item.GetState().Beschrijving)</td>
+            <td align="center">@(item.CurrentState.Beschrijving)</td>
             <td><a asp-controller="Leerkracht" asp-action="OverzichtGroepenInSessie" asp-route-sessiecode="@item.Code"><i class="fa fa-arrow-right" style="color:darkgreen"></i></a></td>
         </tr>
     }

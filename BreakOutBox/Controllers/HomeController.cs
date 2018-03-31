@@ -55,12 +55,13 @@ namespace BreakOutBox.Controllers
                 try
                 {
                     Sessie sessie = _sessieRepository.GetBySessieCode(SessieCode);
+                    sessie.SwitchState(sessie.State);
                     if (sessie != null)
                     {
                         // Cookie toewijzen
                         HttpContext.Session.SetString("sessiecode", JsonConvert.SerializeObject(sessie.Code));
 
-                        if (sessie.State != 0)
+                        if (sessie.CurrentState is SessieNonActiefState == false)
                             return RedirectToAction(nameof(SessieController.SessieOverzicht), "Sessie");
                         else
                             TempData["message"] = $"Deze sessie is nog niet geactiveerd.";

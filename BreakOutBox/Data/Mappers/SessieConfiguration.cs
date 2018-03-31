@@ -12,6 +12,7 @@ namespace BreakOutBox.Data.Mappers
             builder.HasKey(t => t.Code);
             builder.Property(t => t.Naam).IsRequired().HasMaxLength(20);
             builder.Property(t => t.Omschrijving).IsRequired().HasMaxLength(100);
+            builder.Ignore(s => s.CurrentState);
             
             //Associations
             builder.HasOne(s => s.Klas).WithMany().IsRequired().OnDelete(DeleteBehavior.Restrict);

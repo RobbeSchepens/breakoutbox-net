@@ -7,7 +7,6 @@ namespace BreakOutBox.Models.Domain
     public class Sessie
     {
         #region Fields
-        private SessieState _currentState;
         private int _state;
         #endregion
 
@@ -19,6 +18,7 @@ namespace BreakOutBox.Models.Domain
         public Klas Klas { get; set; }
         public ICollection<Groep> Groepen { get; set; }
         public Box Box { get; private set; } // Box uit Java met alle oefeningen in
+        public SessieState CurrentState { get; private set;  }
         public int State
         {
             get { return _state; }
@@ -49,7 +49,7 @@ namespace BreakOutBox.Models.Domain
         #region Methods
         protected void ToState(SessieState state)
         {
-            _currentState = state;
+            CurrentState = state;
         }
 
         public void SwitchState(int st)
@@ -74,32 +74,27 @@ namespace BreakOutBox.Models.Domain
 
         public void Activeer()
         {
-            _currentState.Activeer();
+            CurrentState.Activeer();
         }
 
         public void Deactiveer()
         {
-            _currentState.Deactiveer(Groepen);
+            CurrentState.Deactiveer(Groepen);
         }
 
         public void StartSpel()
         {
-            _currentState.StartSpel(Groepen);
+            CurrentState.StartSpel(Groepen);
         }
 
         public void Blokkeer()
         {
-            _currentState.Blokkeer();
+            CurrentState.Blokkeer();
         }
 
         public void Deblokkeer()
         {
-            _currentState.Deblokkeer();
-        }
-
-        public SessieState GetState()
-        {
-            return _currentState;
+            CurrentState.Deblokkeer();
         }
         #endregion
     }
