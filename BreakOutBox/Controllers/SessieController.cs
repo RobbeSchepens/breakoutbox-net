@@ -21,7 +21,7 @@ namespace BreakOutBox.Controllers
         {
             _sessieRepository = sessieRepository;
         }
-        
+
         public IActionResult SessieOverzicht(Sessie sessie, Groep groep)
         {
             // Check of de cookie "groepid" leeg is.
@@ -32,23 +32,30 @@ namespace BreakOutBox.Controllers
             }
             return View(sessie);
         }
-        
+
         public IActionResult ZetGroepGereed(Sessie sessie, Groep groep, string groepid)
         {
             // Check of de cookie "groepid" leeg is.
             if (HttpContext.Session.GetString("groepid") == null)
             {
-                // Cookie toewijzen
-                HttpContext.Session.SetString("groepid", JsonConvert.SerializeObject(groepid));
+                try
+                {
+                    // Cookie toewijzen
+                    HttpContext.Session.SetString("groepid", JsonConvert.SerializeObject(groepid));
 
-                // State veranderen
-                groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                groep.SwitchState(groep.State);
-                groep.ZetGereed();
-                _sessieRepository.SaveChanges();
+                    // State veranderen
+                    groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                    groep.SwitchState(groep.State);
+                    groep.ZetGereed();
+                    _sessieRepository.SaveChanges();
 
-                // Boodschap
-                TempData["message"] = $"Je hebt groep {groep.GroepId} gekozen.";
+                    // Boodschap
+                    TempData["message"] = $"Je hebt groep {groep.GroepId} gekozen.";
+                }
+                catch (Exception e)
+                {
+                    TempData["message"] = e;
+                }
             }
             else
             {
@@ -56,21 +63,28 @@ namespace BreakOutBox.Controllers
             }
             return RedirectToAction(nameof(SessieOverzicht));
         }
-        
+
         public IActionResult ZetGroepNietGereed(Sessie sessie, Groep groep)
         {
             // Check of de cookie "groepid" leeg is.
             if (HttpContext.Session.GetString("groepid") != null)
             {
-                // State veranderen
-                groep.ZetNietGereed();
-                _sessieRepository.SaveChanges();
+                try
+                {
+                    // State veranderen
+                    groep.ZetNietGereed();
+                    _sessieRepository.SaveChanges();
 
-                // Cookie leegmaken
-                HttpContext.Session.Remove("groepid");
+                    // Cookie leegmaken
+                    HttpContext.Session.Remove("groepid");
 
-                // Boodschap
-                TempData["message"] = $"Groep {groep.GroepId} is nu terug beschikbaar.";
+                    // Boodschap
+                    TempData["message"] = $"Groep {groep.GroepId} is nu terug beschikbaar.";
+                }
+                catch (Exception e)
+                {
+                    TempData["message"] = e;
+                }
             }
             else
             {

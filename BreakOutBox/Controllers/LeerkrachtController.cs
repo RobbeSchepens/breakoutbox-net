@@ -103,7 +103,7 @@ namespace BreakOutBox.Controllers
             }
             catch (Exception e)
             {
-                TempData["message"] = $"Deze groep kon niet geblokkeerd worden.";
+                TempData["message"] = e;
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
@@ -118,7 +118,7 @@ namespace BreakOutBox.Controllers
             }
             catch (Exception e)
             {
-                TempData["message"] = $"Deze groep kon niet gedeblokkeerd worden.";
+                TempData["message"] = e;
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
@@ -133,7 +133,7 @@ namespace BreakOutBox.Controllers
             }
             catch (Exception e)
             {
-                TempData["message"] = $"Deze groep kon niet ontgrendeld worden.";
+                TempData["message"] = e;
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
@@ -148,7 +148,7 @@ namespace BreakOutBox.Controllers
             }
             catch (Exception e)
             {
-                TempData["message"] = $"Deze groep kon niet vergrendeld worden.";
+                TempData["message"] = e;
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
@@ -163,7 +163,7 @@ namespace BreakOutBox.Controllers
             }
             catch (Exception e)
             {
-                TempData["message"] = $"Deze groep kon niet klaar gezet worden worden.";
+                TempData["message"] = e;
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
@@ -178,7 +178,7 @@ namespace BreakOutBox.Controllers
             }
             catch (Exception e)
             {
-                TempData["message"] = $"Deze groep kon niet onklaar gezet worden.";
+                TempData["message"] = e;
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
