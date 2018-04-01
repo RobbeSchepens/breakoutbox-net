@@ -63,11 +63,3 @@
         </div>
     </div>
 </div>
-
-@functions{
-    public string Encode(string encodeMe)
-    {
-        byte[] encoded = System.Text.Encoding.UTF8.GetBytes(encodeMe);
-        return Convert.ToBase64String(encoded);
-    }
-}

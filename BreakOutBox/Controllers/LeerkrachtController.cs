@@ -33,31 +33,19 @@ namespace BreakOutBox.Controllers
         
         public IActionResult OverzichtGroepenInSessie(Sessie sessie, string sessiecode)
         {
-            if (ModelState.IsValid)
+            if (sessiecode != null)
             {
-                try
-                {
-                    if (sessiecode != null)
-                    {
-                        // Cookie toewijzen
-                        HttpContext.Session.SetString("sessiecode", JsonConvert.SerializeObject(sessiecode));
+                // Cookie toewijzen
+                HttpContext.Session.SetString("sessiecode", JsonConvert.SerializeObject(sessiecode));
 
-                        sessie = _sessieRepository.GetBySessieCode(sessiecode);
-                        sessie.SwitchState(sessie.State);
-                        foreach (Groep groep in sessie.Groepen)
-                        {
-                            groep.SwitchState(groep.State);
-                        }
-                    }
-
-                    return View(sessie);
-                }
-                catch (Exception e)
+                sessie = _sessieRepository.GetBySessieCode(sessiecode);
+                sessie.SwitchState(sessie.State);
+                foreach (Groep groep in sessie.Groepen)
                 {
-                    ModelState.AddModelError("", e.Message);
+                    groep.SwitchState(groep.State);
                 }
             }
-            return View();
+            return View(sessie);
         }
         
         public IActionResult ActiveerSessie(Sessie sessie)
@@ -107,114 +95,90 @@ namespace BreakOutBox.Controllers
 
         public IActionResult BlokkeerGroep(Sessie sessie, string groepid)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                    groep.Blokkeer();
-                    _sessieRepository.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    //ModelState.AddModelError("", e.Message);
-                    TempData["message"] = $"Deze groep kon niet geblokkeerd worden.";
-                }
+                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                groep.Blokkeer();
+                _sessieRepository.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                TempData["message"] = $"Deze groep kon niet geblokkeerd worden.";
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
 
         public IActionResult DeblokkeerGroep(Sessie sessie, string groepid)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                    groep.DeBlokkeer();
-                    _sessieRepository.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    //ModelState.AddModelError("", e.Message);
-                    TempData["message"] = $"Deze groep kon niet gedeblokkeerd worden.";
-                }
+                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                groep.DeBlokkeer();
+                _sessieRepository.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                TempData["message"] = $"Deze groep kon niet gedeblokkeerd worden.";
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
 
         public IActionResult OntgrendelGroep(Sessie sessie, string groepid)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                    groep.Ontgrendel();
-                    _sessieRepository.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    //ModelState.AddModelError("", e.Message);
-                    TempData["message"] = $"Deze groep kon niet ontgrendeld worden.";
-                }
+                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                groep.Ontgrendel();
+                _sessieRepository.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                TempData["message"] = $"Deze groep kon niet ontgrendeld worden.";
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
 
         public IActionResult VergrendelGroep(Sessie sessie, string groepid)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                    groep.Vergrendel();
-                    _sessieRepository.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    //ModelState.AddModelError("", e.Message);
-                    TempData["message"] = $"Deze groep kon niet vergrendeld worden.";
-                }
+                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                groep.Vergrendel();
+                _sessieRepository.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                TempData["message"] = $"Deze groep kon niet vergrendeld worden.";
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
 
         public IActionResult ZetGroepGereed(Sessie sessie, string groepid)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                    groep.ZetGereed();
-                    _sessieRepository.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    //ModelState.AddModelError("", e.Message);
-                    TempData["message"] = $"Deze groep kon niet klaar gezet worden worden.";
-                }
+                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                groep.ZetGereed();
+                _sessieRepository.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                TempData["message"] = $"Deze groep kon niet klaar gezet worden worden.";
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
 
         public IActionResult ZetGroepNietGereed(Sessie sessie, string groepid)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                    groep.ZetNietGereed();
-                    _sessieRepository.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    //ModelState.AddModelError("", e.Message);
-                    TempData["message"] = $"Deze groep kon niet onklaar gezet worden.";
-                }
+                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                groep.ZetNietGereed();
+                _sessieRepository.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                TempData["message"] = $"Deze groep kon niet onklaar gezet worden.";
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }

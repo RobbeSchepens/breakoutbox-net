@@ -35,92 +35,61 @@ namespace BreakOutBox.Controllers
         
         public IActionResult ZetGroepGereed(Sessie sessie, Groep groep, string groepid)
         {
-            if (ModelState.IsValid)
+            // Check of de cookie "groepid" leeg is.
+            if (HttpContext.Session.GetString("groepid") == null)
             {
-                try
-                {
-                    // Check of de cookie "groepid" leeg is.
-                    if (HttpContext.Session.GetString("groepid") == null)
-                    {
-                        // Cookie toewijzen
-                        HttpContext.Session.SetString("groepid", JsonConvert.SerializeObject(groepid));
+                // Cookie toewijzen
+                HttpContext.Session.SetString("groepid", JsonConvert.SerializeObject(groepid));
 
-                        // State veranderen
-                        groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                        groep.SwitchState(groep.State);
-                        groep.ZetGereed();
-                        _sessieRepository.SaveChanges();
+                // State veranderen
+                groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                groep.SwitchState(groep.State);
+                groep.ZetGereed();
+                _sessieRepository.SaveChanges();
 
-                        // Boodschap
-                        TempData["message"] = $"Je hebt groep {groep.GroepId} gekozen.";
-                    }
-                    else
-                    {
-                        TempData["message"] = $"Je hebt al een groep gekozen.";
-                    }
-                }
-                catch (Exception e)
-                {
-                    //ModelState.AddModelError("", e.Message);
-                    TempData["message"] = $"Deze groep werd al gekozen.";
-                }
+                // Boodschap
+                TempData["message"] = $"Je hebt groep {groep.GroepId} gekozen.";
+            }
+            else
+            {
+                TempData["message"] = $"Je hebt al een groep gekozen.";
             }
             return RedirectToAction(nameof(SessieOverzicht));
         }
         
         public IActionResult ZetGroepNietGereed(Sessie sessie, Groep groep)
         {
-            if (ModelState.IsValid)
+            // Check of de cookie "groepid" leeg is.
+            if (HttpContext.Session.GetString("groepid") != null)
             {
-                try
-                {
-                    // Check of de cookie "groepid" leeg is.
-                    if (HttpContext.Session.GetString("groepid") != null)
-                    {
-                        // State veranderen
-                        groep.ZetNietGereed();
-                        _sessieRepository.SaveChanges();
+                // State veranderen
+                groep.ZetNietGereed();
+                _sessieRepository.SaveChanges();
 
-                        // Cookie leegmaken
-                        HttpContext.Session.Remove("groepid");
+                // Cookie leegmaken
+                HttpContext.Session.Remove("groepid");
 
-                        // Boodschap
-                        TempData["message"] = $"Groep {groep.GroepId} is nu terug beschikbaar.";
-                    }
-                    else
-                    {
-                        TempData["message"] = $"Je hebt geen groep gereed gezet.";
-                    }
-                }
-                catch (Exception e)
-                {
-                    ModelState.AddModelError("", e.Message);
-                }
+                // Boodschap
+                TempData["message"] = $"Groep {groep.GroepId} is nu terug beschikbaar.";
+            }
+            else
+            {
+                TempData["message"] = $"Je hebt geen groep gereed gezet.";
             }
             return RedirectToAction(nameof(SessieOverzicht));
         }
 
         public IActionResult StartSpel(Sessie sessie, Groep groep)
         {
-            if (ModelState.IsValid)
+            // Check of de cookie "groepid" leeg is.
+            if (HttpContext.Session.GetString("groepid") != null)
             {
-                try
-                {
-                    // Check of de cookie "groepid" leeg is.
-                    if (HttpContext.Session.GetString("groepid") != null)
-                    {
-                        // Naar SpelController
-                        return RedirectToAction(nameof(SpelController.SpelSpelen), "Spel");
-                    }
-                    else
-                    {
-                        TempData["message"] = $"Je hebt geen groep gekozen. Je kunt het spel niet spelen zonder groep.";
-                    }
-                }
-                catch (Exception e)
-                {
-                    ModelState.AddModelError("", e.Message);
-                }
+                // Naar SpelController
+                return RedirectToAction(nameof(SpelController.SpelSpelen), "Spel");
+            }
+            else
+            {
+                TempData["message"] = $"Je hebt geen groep gekozen. Je kunt het spel niet spelen zonder groep.";
             }
             return RedirectToAction(nameof(SessieOverzicht));
         }
