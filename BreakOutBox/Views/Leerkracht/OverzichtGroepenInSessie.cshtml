@@ -71,11 +71,11 @@
                         @switch (groep.State)
                         {
                             case 0: // NietGereedState
-                                <li><a asp-controller="Leerkracht" asp-action="ZetGroepGereed" asp-route-groepid="@groep.GroepId">Zet gereed</a></li>
+                                @*<li><a asp-controller="Leerkracht" asp-action="ZetGroepGereed" asp-route-groepid="@groep.GroepId">Zet gereed</a></li>*@
                                 <li><a asp-controller="Leerkracht" asp-action="VergrendelGroep" asp-route-groepid="@groep.GroepId">Vergrendel</a></li>
                                 break;
                             case 1: // GereedState
-                                <li><a asp-controller="Leerkracht" asp-action="ZetGroepNietGereed" asp-route-groepid="@groep.GroepId">Zet niet gereed</a></li>
+                                <li><a asp-controller="Leerkracht" asp-action="ZetGroepNietGereed" asp-route-groepid="@groep.GroepId">Zet niet gekozen</a></li>
                                 <li><a asp-controller="Leerkracht" asp-action="VergrendelGroep" asp-route-groepid="@groep.GroepId">Vergrendel</a></li>
                                 break;
                             case 2: // VergrendeldState

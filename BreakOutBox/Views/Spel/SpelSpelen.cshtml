@@ -20,11 +20,11 @@
             <h2 style="text-decoration:underline"> @Model.Opdracht.Oefening.Naam </h2>
             <h4 style="text-decoration: underline">@(Model.Opdracht.Oefening.Vak.Naam)</h4>
             <p>
-                <h5>Progressie: Opdracht @(progressie[1] + 1) van de @(progressie[0]).</h5>
+                <h5>Progressie: Opdracht @(progressie[1] + 1) van de @(progressie[0])</h5>
             </p>
-            <p>Stap1: Maak de oefening</p>
+            <p>Stap 1: Maak de oefening.</p>
             <p>
-                Stap2: Voer deze groepsbewerking uit <br /> op het antwoord.  <br /> Groepsbewerking: @(Model.Opdracht.Oefening.Groepsbewerking.ToString()).
+                Stap 2: Voer deze groepsbewerking uit op het antwoord.<br>Groepsbewerking: @(Model.Opdracht.Oefening.Groepsbewerking.ToString()).
             </p>
             <p><label asp-for="Groepsantwoord"></label></p>
 
@@ -32,7 +32,7 @@
             @*<p>State: @TempData["State"]</p>
                 <p>Teller: @Model.Opdracht.foutePogingen</p>*@
 
-            <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" value="" /></p>
+            <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" placeholder="Antwoord na groepsbewerking"></p>
             <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
             <button type="submit" class="" id="GaVerder">Geef antwoord in</button>
             <p style="color:red">@TempData["FouteCode"]</p>

@@ -7,7 +7,7 @@ namespace BreakOutBox.Models.SpelViewModels
     public class SpelSpelenViewModel
     {
         [Required(ErrorMessage = "Dit mag niet leeg zijn")]
-        [Display(Name = "Stap 3: Geef het antwoord met de groepsbewerking")]
+        [Display(Name = "Stap 3: Vul je bekomen resultaat hieronder in.")]
         public string Groepsantwoord { get; set; }
 
         public bool JuistGeantwoordOpgave { get; set; }
@@ -23,19 +23,10 @@ namespace BreakOutBox.Models.SpelViewModels
         public int GroepId { get; set; }
         public string SessieCode { get; set; }
         
-        // props hieronder mogen allemaal weg
-        public Sessie Sessie { get; set; }
-        public Groep Groep { get; set; }
-        public int State { get; set; }
-        //public int GroepId { get; set; }
-        //public int OpdrachtId { get; set; }
-        public int TellerFoutePogingen { get; set; }
-        
         public SpelSpelenViewModel()
         {
             JuistGeantwoordOpgave = false;
             JuistGeantwoordtoegangscode = false;
-            State = 0;
         }
 
         public SpelSpelenViewModel(Sessie sessie, Groep groep)
@@ -48,7 +39,6 @@ namespace BreakOutBox.Models.SpelViewModels
                 return true;
             if (text == "False")
                 return false;
-
             return false;
         }
     }

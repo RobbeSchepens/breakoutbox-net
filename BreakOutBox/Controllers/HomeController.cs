@@ -55,9 +55,10 @@ namespace BreakOutBox.Controllers
                 try
                 {
                     Sessie sessie = _sessieRepository.GetBySessieCode(SessieCode);
-                    sessie.SwitchState(sessie.State);
                     if (sessie != null)
                     {
+                        sessie.SwitchState(sessie.State);
+
                         // Cookie toewijzen
                         HttpContext.Session.SetString("sessiecode", JsonConvert.SerializeObject(sessie.Code));
 

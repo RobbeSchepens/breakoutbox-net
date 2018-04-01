@@ -27,6 +27,12 @@ namespace BreakOutBox.Controllers
                 groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(),
                 groep.Pad.getProgressie());
             TempData["State"] = groep.State;
+
+            // Foute pogingen
+            int pogingen = groep.Pad.getCurrentOpdracht().foutePogingen;
+            if (pogingen != 0)
+                TempData["FouteCode"] = "Fout! Je hebt " + pogingen + " foute " + (pogingen == 1 ? "poging" : "pogingen") + " ondernomen.";
+
             return View(ssvm);
         }
 
@@ -92,7 +98,8 @@ namespace BreakOutBox.Controllers
                             groep.Pad.getCurrentOpdracht().foutePogingen++; // foutpogingen +1 wanneer fout antwoord
                             ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
                             _sessieRepository.SaveChanges();
-                            TempData["FouteCode"] = "FOUT! je hebt " + groep.Pad.getCurrentOpdracht().foutePogingen + " foute pogingen ondernomen";
+                            int pogingen = groep.Pad.getCurrentOpdracht().foutePogingen;
+                            TempData["FouteCode"] = "Fout! Je hebt " + pogingen + " foute " + (pogingen == 1 ? "poging" : "pogingen") + " ondernomen.";
                             TempData["State"] = groep.State;
                             //if (groep.CurrentState is GroepVergrendeldState || groep.CurrentState is GroepGeblokkeerdState)
                             //{
