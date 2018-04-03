@@ -33,19 +33,11 @@ namespace BreakOutBox.Controllers
         
         public IActionResult OverzichtGroepenInSessie(Sessie sessie, string sessiecode)
         {
-            if (sessiecode != null)
-            {
-                // Cookie toewijzen
-                HttpContext.Session.SetString("sessiecode", JsonConvert.SerializeObject(sessiecode));
+            if (sessie != null)
+                return View(sessie);
 
-                sessie = _sessieRepository.GetBySessieCode(sessiecode);
-                sessie.SwitchState(sessie.State);
-                foreach (Groep groep in sessie.Groepen)
-                {
-                    groep.SwitchState(groep.State);
-                }
-            }
-            return View(sessie);
+            TempData["message"] = "De sessie werd niet gevonden.";
+            return View(nameof(Index));
         }
         
         public IActionResult ActiveerSessie(Sessie sessie)

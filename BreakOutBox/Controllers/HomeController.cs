@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BreakOutBox.Models;
 using BreakOutBox.Models.Domain;
-using BreakOutBox.Models.SessieViewModels;
 using BreakOutBox.Filters;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 
 namespace BreakOutBox.Controllers
 {
@@ -24,21 +19,6 @@ namespace BreakOutBox.Controllers
 
         public IActionResult Index()
         {
-            //ViewData["Message"] = "Your application description page.";
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
@@ -48,24 +28,19 @@ namespace BreakOutBox.Controllers
         }
 
         [HttpPost]
-        public IActionResult EnterSessie(string SessieCode)
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult EnterSessie(Sessie sessie, string sessiecode)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Sessie sessie = _sessieRepository.GetBySessieCode(SessieCode);
                     if (sessie != null)
                     {
-                        sessie.SwitchState(sessie.State);
-
-                        // Cookie toewijzen
-                        HttpContext.Session.SetString("sessiecode", JsonConvert.SerializeObject(sessie.Code));
-
                         if (sessie.CurrentState is SessieNonActiefState == false)
                             return RedirectToAction(nameof(SessieController.SessieOverzicht), "Sessie");
                         else
-                            TempData["message"] = $"Deze sessie is nog niet geactiveerd.";
+                            TempData["message"] = $"Deze sessie is niet geactiveerd.";
                     }
                     else
                         TempData["message"] = $"Deze sessie werd niet gevonden. Heb je de juiste code ingegeven?";

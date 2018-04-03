@@ -14,6 +14,7 @@ using BreakOutBox.Models;
 using BreakOutBox.Models.AccountViewModels;
 using BreakOutBox.Services;
 using Microsoft.AspNetCore.Http;
+using BreakOutBox.Filters;
 
 namespace BreakOutBox.Controllers
 {
@@ -244,11 +245,11 @@ namespace BreakOutBox.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ServiceFilter(typeof(ClearSessionFilter))]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            HttpContext.Session.Clear();
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 

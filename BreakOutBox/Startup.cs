@@ -48,6 +48,8 @@ namespace BreakOutBox
             services.AddScoped<ISessieRepository, SessieRepository>();
             services.AddScoped<ILeerkrachtRepository, LeerkrachtRepository>();
             services.AddScoped<BreakOutBoxDataInitializer>();
+            services.AddScoped<ClearSessionFilter>();
+            services.AddScoped<ClearGroepSessionFilter>();
             services.AddScoped<SessieEnGroepSessionFilter>();
             services.AddScoped<LeerkrachtFilter>();
             services.AddSession();

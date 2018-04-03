@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BreakOutBox.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
-using BreakOutBox.Models.SessieViewModels;
-using Microsoft.AspNetCore.Authorization;
 using BreakOutBox.Filters;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 
 namespace BreakOutBox.Controllers
 {
@@ -24,28 +17,27 @@ namespace BreakOutBox.Controllers
 
         public IActionResult SessieOverzicht(Sessie sessie, Groep groep)
         {
-            // Check of de cookie "groepid" leeg is.
-            if (HttpContext.Session.GetString("groepid") != null)
+            if (sessie.CurrentState is SessieNonActiefState == true)
+            {
+                TempData["message"] = $"Deze sessie is niet geactiveerd.";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            if (groep != null)
             {
                 // Geef een extra object mee aan de view via ViewBag
                 ViewBag.GeselecteerdeGroep = groep;
             }
             return View(sessie);
         }
-
+        
         public IActionResult ZetGroepGereed(Sessie sessie, Groep groep, string groepid)
         {
-            // Check of de cookie "groepid" leeg is.
-            if (HttpContext.Session.GetString("groepid") == null)
+            if (groep != null)
             {
                 try
                 {
-                    // Cookie toewijzen
-                    HttpContext.Session.SetString("groepid", JsonConvert.SerializeObject(groepid));
-
                     // State veranderen
-                    groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                    groep.SwitchState(groep.State);
                     groep.ZetGereed();
                     _sessieRepository.SaveChanges();
 
@@ -59,25 +51,22 @@ namespace BreakOutBox.Controllers
             }
             else
             {
-                TempData["message"] = $"Je hebt al een groep gekozen.";
+                TempData["message"] = $"Je hebt geen groep mee gegeven.";
             }
             return RedirectToAction(nameof(SessieOverzicht));
         }
 
+        [ServiceFilter(typeof(ClearGroepSessionFilter))]
         public IActionResult ZetGroepNietGereed(Sessie sessie, Groep groep)
         {
-            // Check of de cookie "groepid" leeg is.
-            if (HttpContext.Session.GetString("groepid") != null)
+            if (groep != null)
             {
                 try
                 {
                     // State veranderen
                     groep.ZetNietGereed();
                     _sessieRepository.SaveChanges();
-
-                    // Cookie leegmaken
-                    HttpContext.Session.Remove("groepid");
-
+                    
                     // Boodschap
                     TempData["message"] = $"Groep {groep.GroepId} is nu terug beschikbaar.";
                 }
@@ -95,8 +84,7 @@ namespace BreakOutBox.Controllers
 
         public IActionResult StartSpel(Sessie sessie, Groep groep)
         {
-            // Check of de cookie "groepid" leeg is.
-            if (HttpContext.Session.GetString("groepid") != null)
+            if (groep != null)
             {
                 // Naar SpelController
                 return RedirectToAction(nameof(SpelController.SpelSpelen), "Spel");

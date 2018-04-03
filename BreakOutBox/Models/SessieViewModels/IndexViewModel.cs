@@ -8,7 +8,7 @@ namespace BreakOutBox.Models.SessieViewModels
         [Display(Name = "Sessiecode")]
         [DataType(DataType.Text)]
         public string SessieCode { get; set; }
-        
+
         public IndexViewModel()
         {
         }

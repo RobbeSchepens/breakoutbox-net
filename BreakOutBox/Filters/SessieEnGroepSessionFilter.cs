@@ -21,6 +21,8 @@ namespace BreakOutBox.Filters
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
+            TakeArgumentAndWriteToSession(context, "sessiecode");
+
             if (ReadSessieFromSession(context.HttpContext) != null)
             {
                 // Sessieobject opvragen uit repository aan de hand van cookie "sessiecode".
@@ -37,6 +39,8 @@ namespace BreakOutBox.Filters
                 // Toekennen aan argumenten van de action method. Vang je op via (Sessie sessie). 
                 context.ActionArguments["sessie"] = _sessie;
 
+                TakeArgumentAndWriteToSession(context, "groepid");
+
                 // Check of de cookie "groepid" leeg is.
                 if (ReadGroepFromSession(context.HttpContext) != null)
                 {
@@ -47,14 +51,19 @@ namespace BreakOutBox.Filters
                     // Toekennen aan argumenten van de action method.
                     context.ActionArguments["groep"] = _groep;
                 }
+                else
+                    context.ActionArguments["groep"] = null;
             }
+            else
+                context.ActionArguments["sessie"] = null;
+
             base.OnActionExecuting(context);
         }
 
         private string ReadSessieFromSession(HttpContext context)
         {
             string sessiecode = context.Session.GetString("sessiecode") == null ?
-                   null : JsonConvert.DeserializeObject<string>(context.Session.GetString("sessiecode"));
+                null : JsonConvert.DeserializeObject<string>(context.Session.GetString("sessiecode"));
             return sessiecode;
         }
 
@@ -65,9 +74,24 @@ namespace BreakOutBox.Filters
             return groepid;
         }
 
-        private void WriteGroepToSession(Groep groep, HttpContext context)
+        private void TakeArgumentAndWriteToSession(ActionExecutingContext context, string sessionkey)
         {
-            context.Session.SetString("groepid", JsonConvert.SerializeObject(groep.GroepId));
+            object obj;
+            context.ActionArguments.TryGetValue(sessionkey, out obj);
+
+            if (obj != null && sessionkey == "sessiecode")
+            {
+                _sessie = _sessieRepository.GetBySessieCode(obj.ToString());
+                if (_sessie != null)
+                    context.HttpContext.Session.SetString(sessionkey, JsonConvert.SerializeObject(obj));
+            }
+
+            if (obj != null && sessionkey == "groepid")
+            {
+                _groep = _sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(obj.ToString()));
+                if (_groep != null)
+                    context.HttpContext.Session.SetString(sessionkey, JsonConvert.SerializeObject(obj));
+            }
         }
     }
 }
