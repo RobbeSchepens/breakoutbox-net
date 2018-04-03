@@ -50,6 +50,7 @@ namespace BreakOutBox
             services.AddScoped<BreakOutBoxDataInitializer>();
             services.AddScoped<ClearSessionFilter>();
             services.AddScoped<ClearGroepSessionFilter>();
+            services.AddScoped<ClearSessieSessionFilter>();
             services.AddScoped<SessieEnGroepSessionFilter>();
             services.AddScoped<LeerkrachtFilter>();
             services.AddSession();

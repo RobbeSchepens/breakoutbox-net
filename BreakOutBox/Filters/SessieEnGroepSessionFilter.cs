@@ -1,6 +1,8 @@
 ﻿using BreakOutBox.Models.Domain;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Routing;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -36,10 +38,11 @@ namespace BreakOutBox.Filters
                     groep.SwitchState(groep.State);
                 }
 
+                IsSessieNonActief(context);
+                TakeArgumentAndWriteToSession(context, "groepid");
+
                 // Toekennen aan argumenten van de action method. Vang je op via (Sessie sessie). 
                 context.ActionArguments["sessie"] = _sessie;
-
-                TakeArgumentAndWriteToSession(context, "groepid");
 
                 // Check of de cookie "groepid" leeg is.
                 if (ReadGroepFromSession(context.HttpContext) != null)
@@ -91,6 +94,17 @@ namespace BreakOutBox.Filters
                 _groep = _sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(obj.ToString()));
                 if (_groep != null)
                     context.HttpContext.Session.SetString(sessionkey, JsonConvert.SerializeObject(obj));
+            }
+        }
+
+        private void IsSessieNonActief(ActionExecutingContext context)
+        {
+            if (_sessie.CurrentState is SessieNonActiefState && !context.HttpContext.User.Identity.IsAuthenticated)
+            {
+                ((Controller)context.Controller).TempData.Add("message", "Deze sessie is niet geactiveerd.");
+                context.Result = new RedirectToRouteResult(
+                    new RouteValueDictionary {{ "Controller", "Home" },
+                                      { "Action", "Index" } });
             }
         }
     }

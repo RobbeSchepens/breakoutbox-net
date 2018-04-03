@@ -17,12 +17,6 @@ namespace BreakOutBox.Controllers
 
         public IActionResult SessieOverzicht(Sessie sessie, Groep groep)
         {
-            if (sessie.CurrentState is SessieNonActiefState == true)
-            {
-                TempData["message"] = $"Deze sessie is niet geactiveerd.";
-                return RedirectToAction(nameof(HomeController.Index), "Home");
-            }
-
             if (groep != null)
             {
                 // Geef een extra object mee aan de view via ViewBag

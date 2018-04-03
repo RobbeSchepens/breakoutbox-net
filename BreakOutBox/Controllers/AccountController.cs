@@ -56,6 +56,7 @@ namespace BreakOutBox.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [ServiceFilter(typeof(ClearSessieSessionFilter))]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
