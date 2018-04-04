@@ -1,83 +1,74 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="nl-be">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewData["Title"] - BreakOutBox</title>
 
     <environment include="Development">
-        @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />*@
-        <link href="~/css/paper.css" rel="stylesheet" />
-        <link rel="stylesheet" href="~/css/site.css" />
-        <link rel="stylesheet" href="~/css/groep.css" />
+        <link href="~/lib/bootstrap-4.0.0-dist/css/bootstrap.min.css" rel="stylesheet">
     </environment>
     <environment exclude="Development">
-        @*<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-            asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-            asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />*@
-        <link href="https://unpkg.com/papercss@1.4.1/dist/paper.min.css" rel="stylesheet"
-              asp-fallback-href="~/lib/paper/paper.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/css/groep.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap-4.0.0-dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </environment>
-    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-    <script src="https://unpkg.com/tippy.js@2.4.0/dist/tippy.all.min.js"></script>
+    <link rel="stylesheet" href="~/css/shards.min.css">
+    <link rel="stylesheet" href="~/css/app.css">
+
     @RenderSection("Head", required: false)
 </head>
 <body>
-    <div class="bgcolorwhite">
-        <div class="container">
-            <div class="row nav">
-                <nav id="navigatie" class="sm-12 col inputinline">
-                    <ul>
-                        @RenderSection("AddItemsToNav", required: false)
-                        @await Html.PartialAsync("_LoginPartial")
-                    </ul>
-                </nav>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+        <a asp-controller="Home" asp-action="Index" class="navbar-brand"><i class="fas fa-box-open fa-lg mr-3"></i>BreakOutBox</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown-1" aria-controls="navbarNavDropdown-1" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown-1">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a asp-controller="Home" asp-action="Index" class="nav-link">
+                        Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                @await Html.PartialAsync("_SessionPartial")
+                @RenderSection("AddItemsToNav", required: false)
+            </ul>
+            <ul class="navbar-nav">
+                @await Html.PartialAsync("_LoginPartial")
+            </ul>
         </div>
-    </div>
-    <div class="container">
+    </nav>
+    <div class="container-fluid">
         @RenderBody()
         <footer class="text-center">
-            <p><a asp-controller="Home" asp-action="Index">Deelnemen aan andere sessie? Klik dan hier.</a></p>
             <p>&copy; 2018 - BreakOutBox</p>
         </footer>
     </div>
 
+    <!-- JavaScript Dependencies: jQuery, Popper.js, Bootstrap JS, Shards JS, Font Awesome -->
     <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-3.3.1/jquery-3.3.1.min.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </environment>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <environment include="Development">
+        <script src="~/lib/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap-4.0.0-dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl">
+        </script>
+    </environment>
+    <script src="~/lib/Shards-Version-2.0.1/js/shards.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 
-    <script>
-        tippy('.tip', {
-            delay: 100,
-            arrow: true,
-            arrowType: 'sharp',
-            size: 'large',
-            duration: 100,
-            animation: 'shift-away'
-        })
-    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,8 @@
+﻿nav .btn {
+    box-shadow: none;
+    color: white;
+}
+
+nav .btn:hover {
+    color: black;
+}

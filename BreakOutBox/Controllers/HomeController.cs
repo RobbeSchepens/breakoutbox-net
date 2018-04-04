@@ -29,7 +29,7 @@ namespace BreakOutBox.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
-        public IActionResult EnterSessie(Sessie sessie, string sessiecode)
+        public IActionResult Index(Sessie sessie, string sessiecode)
         {
             if (ModelState.IsValid)
             {
@@ -50,7 +50,7 @@ namespace BreakOutBox.Controllers
                     ModelState.AddModelError("", e.Message);
                 }
             }
-            return View("Index");
+            return View();
         }
     }
 }

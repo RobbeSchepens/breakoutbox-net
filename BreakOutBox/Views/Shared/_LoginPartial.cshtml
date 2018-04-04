@@ -6,26 +6,17 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
+    <li class="nav-item active mr-3">
+        <a asp-controller="Leerkracht" asp-action="Index" title="Sessieoverview" class="nav-link">@UserManager.GetUserName(User)</a>
+    </li>
     <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
-        @if (Context.Session.GetString("sessiecode") != null) { 
-            <li><a asp-controller="Leerkracht" asp-action="OverzichtGroepenInSessie">Ga naar Sessie @(JsonConvert.DeserializeObject<string>(Context.Session.GetString("sessiecode")))</a></li> 
-        }
-        <li>
-            <a asp-area="" asp-controller="Leerkracht" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-        </li>
-        <li>
-            <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
+        <li class="nav-item active">
+            <button type="submit" class="btn btn-outline-light btn-squared">Afmelden</button>
         </li>
     </form>
 }
 else
 {
-    @if (Context.Session.GetString("sessiecode") != null && Context.Session.GetString("groepid") == null) { 
-        <li><a asp-controller="Sessie" asp-action="SessieOverzicht">Ga naar Sessie @(JsonConvert.DeserializeObject<string>(Context.Session.GetString("sessiecode")))</a></li> 
-    }
-    else if (Context.Session.GetString("sessiecode") != null && Context.Session.GetString("groepid") != null) { 
-        <li><a asp-controller="Spel" asp-action="SpelSpelen">Ga naar Sessie @(JsonConvert.DeserializeObject<string>(Context.Session.GetString("sessiecode")))</a></li> 
-    }
-    @*<li><a asp-area="" asp-controller="Account" asp-action="Register">Registreer leerkracht</a></li>*@
-    <li><a asp-area="" asp-controller="Account" asp-action="Login">Aanmelden als leerkracht</a></li>
+    @*<li><a asp-controller="Account" asp-action="Register" class="nav-link">Registreer leerkracht</a></li>*@
+    <li class="nav-item active"><a asp-controller="Account" asp-action="Login" class="nav-link">Aanmelden (leerkracht)</a></li>
 }

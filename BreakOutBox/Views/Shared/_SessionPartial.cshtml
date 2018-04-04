@@ -1,0 +1,24 @@
+@using Microsoft.AspNetCore.Identity
+@using BreakOutBox.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (Context.Session.GetString("sessiecode") != null)
+    {
+        <li class="nav-item active"><a asp-controller="Leerkracht" asp-action="OverzichtGroepenInSessie" class="nav-link">Huidige sessie @(JsonConvert.DeserializeObject<string>(Context.Session.GetString("sessiecode")))</a></li>
+    }
+}
+else
+{
+    @if (Context.Session.GetString("sessiecode") != null && Context.Session.GetString("groepid") == null)
+    {
+        <li class="nav-item active"><a asp-controller="Sessie" asp-action="SessieOverzicht" class="nav-link">Huidige sessie @(JsonConvert.DeserializeObject<string>(Context.Session.GetString("sessiecode")))</a></li>
+    }
+    else if (Context.Session.GetString("sessiecode") != null && Context.Session.GetString("groepid") != null)
+    {
+        <li class="nav-item active"><a asp-controller="Spel" asp-action="SpelSpelen" class="nav-link">Huidige sessie @(JsonConvert.DeserializeObject<string>(Context.Session.GetString("sessiecode")))</a></li>
+    }
+}
