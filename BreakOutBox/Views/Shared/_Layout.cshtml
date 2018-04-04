@@ -20,7 +20,7 @@
     @RenderSection("Head", required: false)
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a asp-controller="Home" asp-action="Index" class="navbar-brand"><i class="fas fa-box-open fa-lg mr-3"></i>BreakOutBox</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown-1" aria-controls="navbarNavDropdown-1" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -41,12 +41,13 @@
             </ul>
         </div>
     </nav>
-    <div class="container-fluid">
+    @await Html.PartialAsync("_AlertPartial")
+    <div class="container-fluid mt-6">
         @RenderBody()
-        <footer class="text-center">
-            <p>&copy; 2018 - BreakOutBox</p>
-        </footer>
     </div>
+    <footer class="text-center pt-3">
+        <p>&copy; 2018 - BreakOutBox</p>
+    </footer>
 
     <!-- JavaScript Dependencies: jQuery, Popper.js, Bootstrap JS, Shards JS, Font Awesome -->
     <environment include="Development">

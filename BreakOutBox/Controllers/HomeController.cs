@@ -40,10 +40,10 @@ namespace BreakOutBox.Controllers
                         if (sessie.CurrentState is SessieNonActiefState == false)
                             return RedirectToAction(nameof(SessieController.SessieOverzicht), "Sessie");
                         else
-                            TempData["message"] = $"Deze sessie is niet geactiveerd.";
+                            TempData["info"] = $"Deze sessie is niet geactiveerd.";
                     }
                     else
-                        TempData["message"] = $"Deze sessie werd niet gevonden. Heb je de juiste code ingegeven?";
+                        TempData["warning"] = $"Deze sessie werd niet gevonden. Heb je de juiste code ingegeven?";
                 }
                 catch (Exception e)
                 {

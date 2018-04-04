@@ -31,7 +31,7 @@ namespace BreakOutBox.Controllers
             // Foute pogingen
             int pogingen = groep.Pad.getCurrentOpdracht().foutePogingen;
             if (pogingen != 0)
-                TempData["FouteCode"] = "Fout! Je hebt " + pogingen + " foute " + (pogingen == 1 ? "poging" : "pogingen") + " ondernomen.";
+                TempData["danger"] = "Fout! Je hebt " + pogingen + " foute " + (pogingen == 1 ? "poging" : "pogingen") + " ondernomen.";
 
             return View(ssvm);
         }
@@ -99,7 +99,7 @@ namespace BreakOutBox.Controllers
                             ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
                             _sessieRepository.SaveChanges();
                             int pogingen = groep.Pad.getCurrentOpdracht().foutePogingen;
-                            TempData["FouteCode"] = "Fout! Je hebt " + pogingen + " foute " + (pogingen == 1 ? "poging" : "pogingen") + " ondernomen.";
+                            TempData["danger"] = "Fout! Je hebt " + pogingen + " foute " + (pogingen == 1 ? "poging" : "pogingen") + " ondernomen.";
                             TempData["State"] = groep.State;
                             //if (groep.CurrentState is GroepVergrendeldState || groep.CurrentState is GroepGeblokkeerdState)
                             //{
@@ -135,7 +135,7 @@ namespace BreakOutBox.Controllers
         {
             if (groep.CurrentState is GroepGereedState == false)
             {
-                TempData["message"] = $"Deze groep is niet gereed.";
+                TempData["warning"] = $"Deze groep is niet gereed.";
                 TempData["State"] = groep.State;
                 return RedirectToAction(nameof(SpelSpelenViewModel));
             }

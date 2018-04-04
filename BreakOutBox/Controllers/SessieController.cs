@@ -36,16 +36,16 @@ namespace BreakOutBox.Controllers
                     _sessieRepository.SaveChanges();
 
                     // Boodschap
-                    TempData["message"] = $"Je hebt groep {groep.GroepId} gekozen.";
+                    TempData["success"] = $"Je hebt groep {groep.GroepId} gekozen.";
                 }
                 catch (Exception e)
                 {
-                    TempData["message"] = e;
+                    TempData["warning"] = e;
                 }
             }
             else
             {
-                TempData["message"] = $"Je hebt geen groep mee gegeven.";
+                TempData["warning"] = $"Je hebt geen groep mee gegeven.";
             }
             return RedirectToAction(nameof(SessieOverzicht));
         }
@@ -62,16 +62,16 @@ namespace BreakOutBox.Controllers
                     _sessieRepository.SaveChanges();
                     
                     // Boodschap
-                    TempData["message"] = $"Groep {groep.GroepId} is nu terug beschikbaar.";
+                    TempData["success"] = $"Groep {groep.GroepId} is nu terug beschikbaar.";
                 }
                 catch (Exception e)
                 {
-                    TempData["message"] = e;
+                    TempData["warning"] = e;
                 }
             }
             else
             {
-                TempData["message"] = $"Je hebt geen groep gereed gezet.";
+                TempData["warning"] = $"Je hebt geen groep gereed gezet.";
             }
             return RedirectToAction(nameof(SessieOverzicht));
         }
@@ -85,7 +85,7 @@ namespace BreakOutBox.Controllers
             }
             else
             {
-                TempData["message"] = $"Je hebt geen groep gekozen. Je kunt het spel niet spelen zonder groep.";
+                TempData["warning"] = $"Je hebt geen groep gekozen. Je kunt het spel niet spelen zonder groep.";
             }
             return RedirectToAction(nameof(SessieOverzicht));
         }

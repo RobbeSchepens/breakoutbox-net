@@ -101,7 +101,7 @@ namespace BreakOutBox.Filters
         {
             if (_sessie.CurrentState is SessieNonActiefState && !context.HttpContext.User.Identity.IsAuthenticated)
             {
-                ((Controller)context.Controller).TempData.Add("message", "Deze sessie is niet geactiveerd.");
+                ((Controller)context.Controller).TempData.Add("info", "Deze sessie is niet geactiveerd.");
                 context.Result = new RedirectToRouteResult(
                     new RouteValueDictionary {{ "Controller", "Home" },
                                       { "Action", "Index" } });

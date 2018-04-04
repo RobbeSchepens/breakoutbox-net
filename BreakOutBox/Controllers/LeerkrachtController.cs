@@ -30,58 +30,98 @@ namespace BreakOutBox.Controllers
             ViewData["LeerkrachtNaam"] = leerkracht.Voornaam + " " + leerkracht.Achternaam;
             return View(leerkracht.Sessies.ToList());
         }
-        
+
         public IActionResult OverzichtGroepenInSessie(Sessie sessie, string sessiecode)
         {
             if (sessie != null)
                 return View(sessie);
 
-            TempData["message"] = "De sessie werd niet gevonden.";
+            TempData["warning"] = "De sessie werd niet gevonden.";
             return View(nameof(Index));
         }
-        
+
         public IActionResult ActiveerSessie(Sessie sessie)
         {
-            // State veranderen
-            sessie.Activeer();
-            _sessieRepository.SaveChanges();
+            try
+            {
+                // State veranderen
+                sessie.Activeer();
+                _sessieRepository.SaveChanges();
+                TempData["success"] = $"Het spel is geactiveerd";
+            }
+            catch (Exception e)
+            {
+                TempData["warning"] = e;
+            }
 
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
-        
+
         public IActionResult DeactiveerSessie(Sessie sessie)
         {
-            // State veranderen
-            sessie.Deactiveer();
-            _sessieRepository.SaveChanges();
+            try
+            {
+                // State veranderen
+                sessie.Deactiveer();
+                _sessieRepository.SaveChanges();
+                TempData["success"] = $"Het spel is gedeactiveerd";
+            }
+            catch (Exception e)
+            {
+                TempData["warning"] = e;
+            }
 
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
-        
+
         public IActionResult BlokkeerSessie(Sessie sessie)
         {
-            // State veranderen
-            sessie.Blokkeer();
-            _sessieRepository.SaveChanges();
+            try
+            {
+                // State veranderen
+                sessie.Blokkeer();
+                _sessieRepository.SaveChanges();
+                TempData["success"] = $"Het spel is geblokkeerd";
+            }
+            catch (Exception e)
+            {
+                TempData["warning"] = e;
+            }
 
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
-        
+
         public IActionResult DeblokkeerSessie(Sessie sessie)
         {
-            // State veranderen
-            sessie.Deblokkeer();
-            _sessieRepository.SaveChanges();
+            try
+            {
+                // State veranderen
+                sessie.Deblokkeer();
+                _sessieRepository.SaveChanges();
+                TempData["success"] = $"Het spel is gedeblokkeerd";
+            }
+            catch (Exception e)
+            {
+                TempData["warning"] = e;
+            }
 
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
-        
+
         public IActionResult StartSpelSessie(Sessie sessie)
         {
-            // State veranderen
-            sessie.StartSpel();
-            _sessieRepository.SaveChanges();
+            try
+            {
+                // State veranderen
+                sessie.StartSpel();
+                _sessieRepository.SaveChanges();
 
+                TempData["success"] = $"Het spel is gestart";
+            }
+            catch (Exception e)
+            {
+                TempData["warning"] = e;
+            }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
 
@@ -92,10 +132,11 @@ namespace BreakOutBox.Controllers
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                 groep.Blokkeer();
                 _sessieRepository.SaveChanges();
+                TempData["success"] = $"Groep {groep.GroepId} is nu geblokkeerd";
             }
             catch (Exception e)
             {
-                TempData["message"] = e;
+                TempData["warning"] = e;
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
@@ -107,10 +148,11 @@ namespace BreakOutBox.Controllers
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                 groep.DeBlokkeer();
                 _sessieRepository.SaveChanges();
+                TempData["success"] = $"Groep {groep.GroepId} is nu gedeblokkeerd";
             }
             catch (Exception e)
             {
-                TempData["message"] = e;
+                TempData["warning"] = e;
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
@@ -122,10 +164,11 @@ namespace BreakOutBox.Controllers
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                 groep.Ontgrendel();
                 _sessieRepository.SaveChanges();
+                TempData["success"] = $"Groep {groep.GroepId} is nu ontgrendeld";
             }
             catch (Exception e)
             {
-                TempData["message"] = e;
+                TempData["warning"] = e;
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
@@ -137,10 +180,11 @@ namespace BreakOutBox.Controllers
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                 groep.Vergrendel();
                 _sessieRepository.SaveChanges();
+                TempData["success"] = $"Groep {groep.GroepId} is nu vergrendeld";
             }
             catch (Exception e)
             {
-                TempData["message"] = e;
+                TempData["warning"] = e;
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
@@ -152,10 +196,11 @@ namespace BreakOutBox.Controllers
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                 groep.ZetGereed();
                 _sessieRepository.SaveChanges();
+                TempData["success"] = $"Groep {groep.GroepId} staat nu op gekozen";
             }
             catch (Exception e)
             {
-                TempData["message"] = e;
+                TempData["warning"] = e;
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
@@ -167,10 +212,11 @@ namespace BreakOutBox.Controllers
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                 groep.ZetNietGereed();
                 _sessieRepository.SaveChanges();
+                TempData["success"] = $"Groep {groep.GroepId} staat nu op niet gekozen";
             }
             catch (Exception e)
             {
-                TempData["message"] = e;
+                TempData["warning"] = e;
             }
             return RedirectToAction(nameof(OverzichtGroepenInSessie));
         }
