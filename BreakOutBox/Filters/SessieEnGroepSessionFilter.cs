@@ -87,6 +87,8 @@ namespace BreakOutBox.Filters
                 _sessie = _sessieRepository.GetBySessieCode(obj.ToString());
                 if (_sessie != null)
                     context.HttpContext.Session.SetString(sessionkey, JsonConvert.SerializeObject(obj));
+                else
+                    context.HttpContext.Session.Remove("sessiecode");
             }
 
             if (obj != null && sessionkey == "groepid")
@@ -94,6 +96,8 @@ namespace BreakOutBox.Filters
                 _groep = _sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(obj.ToString()));
                 if (_groep != null)
                     context.HttpContext.Session.SetString(sessionkey, JsonConvert.SerializeObject(obj));
+                else
+                    context.HttpContext.Session.Remove("groepid");
             }
         }
 
