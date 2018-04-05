@@ -251,6 +251,7 @@ namespace BreakOutBox.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
+            TempData["success"] = "Je bent afgemeld";
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 

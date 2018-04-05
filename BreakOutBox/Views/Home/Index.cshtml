@@ -3,23 +3,25 @@
     ViewData["Title"] = "Home";
 }
 
-<p class="text-center pt-5"><i class="fas fa-box-open fa-8x text-primary"></i></p>
-<h1 class="text-primary text-center mb-5">BreakOutBox</h1>
-<form asp-action="Index" class="text-center" id="homeForm">
-    <div class="form-row align-items-center">
-        <div class="col-auto form-group">
-            <div class="input-group input-group-seamless">
-                @*<label asp-for="SessieCode" class="sr-only">Sessiecode</label>*@
-                <span class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="fas fa-key"></i>
+<div class="container mt-6">
+    <p class="text-center pt-5"><i class="fas fa-box-open fa-8x text-primary"></i></p>
+    <h1 class="text-primary text-center mb-5">BreakOutBox</h1>
+    <form asp-action="Index" class="text-center" id="homeForm">
+        <div class="form-row align-items-center">
+            <div class="col-auto form-group">
+                <div class="input-group input-group-seamless">
+                    @*<label asp-for="SessieCode" class="sr-only">Sessiecode</label>*@
+                    <span class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-key"></i>
+                        </span>
                     </span>
-                </span>
-                <input asp-for="SessieCode" class="form-control" id="Sessiecode" placeholder="Sessiecode" type="text" autocomplete="off">
+                    <input asp-for="SessieCode" class="form-control" id="Sessiecode" placeholder="Sessiecode" type="text" autocomplete="off">
+                </div>
+            </div>
+            <div class="col-auto form-group">
+                <button type="submit" class="btn btn-primary">Ga</button>
             </div>
         </div>
-        <div class="col-auto form-group">
-            <button type="submit" class="btn btn-primary">Ga</button>
-        </div>
-    </div>
-</form>
+    </form>
+</div>
