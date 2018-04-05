@@ -10,3 +10,7 @@ nav .btn:hover {
 .alert-warning {
     color: rgba(0,0,0,0.66);
 }
+
+#homeForm > * {
+    display: inline-block;
+}

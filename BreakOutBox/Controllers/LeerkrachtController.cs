@@ -47,7 +47,7 @@ namespace BreakOutBox.Controllers
                 // State veranderen
                 sessie.Activeer();
                 _sessieRepository.SaveChanges();
-                TempData["success"] = $"Het spel is geactiveerd";
+                TempData["success"] = $"De sessie is geactiveerd";
             }
             catch (Exception e)
             {
@@ -64,7 +64,7 @@ namespace BreakOutBox.Controllers
                 // State veranderen
                 sessie.Deactiveer();
                 _sessieRepository.SaveChanges();
-                TempData["success"] = $"Het spel is gedeactiveerd";
+                TempData["success"] = $"De sessie is gedeactiveerd";
             }
             catch (Exception e)
             {
@@ -81,7 +81,7 @@ namespace BreakOutBox.Controllers
                 // State veranderen
                 sessie.Blokkeer();
                 _sessieRepository.SaveChanges();
-                TempData["success"] = $"Het spel is geblokkeerd";
+                TempData["success"] = $"De sessie is geblokkeerd";
             }
             catch (Exception e)
             {
@@ -98,7 +98,7 @@ namespace BreakOutBox.Controllers
                 // State veranderen
                 sessie.Deblokkeer();
                 _sessieRepository.SaveChanges();
-                TempData["success"] = $"Het spel is gedeblokkeerd";
+                TempData["success"] = $"De sessie is gedeblokkeerd";
             }
             catch (Exception e)
             {
