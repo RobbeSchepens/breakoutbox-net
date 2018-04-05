@@ -220,7 +220,7 @@ namespace BreakOutBox.Data
                 var k = new Klas(leerlingen, lk);
                 lk.VoegKlasToe(k);
 
-                var s = new Sessie("ABC", "Sessie1", "Maandag ochtend D klas", groepen, box, 1);
+                var s = new Sessie("ABC", "Sessie1", "Maandag ochtend D klas", groepen, box, 2);
                 s.Klas = k;
                 lk.VoegSessieToe(s);
 

@@ -2,64 +2,63 @@
 @{
     ViewData["Title"] = "Sessie";
 }
+@section Head {
+    <link rel="stylesheet" href="~/css/groep.css">
+}
 
-<div class="row">
-    <div class="col-12 col text-center">
-        <h2>Sessie: @Model.Omschrijving</h2>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12 col">
-        <p>Kies jouw groep en maak je klaar voor de start.</p>
-        <p>Lees ondertussen ook de spelregels door. Deze vind je onderaan de pagina.</p>
-    </div>
-    @foreach (var groep in Model.Groepen)
-    {
-        <div class="sm-12 md-4 groep">
-            <ul>
-                <li><i class="fas fa-users fa-fw icon"></i>Groep #@(groep.GroepId)</li>
-                @foreach (var leerling in groep.Leerlingen)
-                {
-                    <li><i class="far fa-user fa-fw icon"></i>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
-                }
-                @if (groep.State == 0 && groep.State != 2 && ViewBag.GeselecteerdeGroep == null)
-                {
-                    <li><a href="@Url.Action("ZetGroepGereed", "Sessie", new { groepid = groep.GroepId.ToString() })" class="tip" title="Klik hier als dit jouw groep is">Dit is mijn groepje</a></li>
-                }
-                @if (groep.State == 1 && groep.State != 2 && ViewBag.GeselecteerdeGroep != null && ViewBag.GeselecteerdeGroep.GroepId == groep.GroepId)
-                {
-                    <li><a href="@Url.Action("ZetGroepNietGereed", "Sessie")" class="tip" title="Klik hier om deze groep te deselecteren">Deze groep deselecteren</a></li>
-                }
-                @if (groep.State == 1 && groep.State != 2 && ViewBag.GeselecteerdeGroep == null)
-                {
-                    <li>Deze groep is niet beschikbaar</li>
-                }
-                @if (groep.State == 2)
-                {
-                    <li>Deze groep is vergrendeld</li>
-                }
-            </ul>
-        </div>
-    }
-</div>
-<div class="row">
-    <div class="sm-12 col text-center">
-        <p>
-            @if (TempData.Count != 0)
-            {<i class="fas fa-exclamation-triangle fa-sm marginright"></i> @TempData["message"]}
-        </p>
-        <p>
-            @if (ViewBag.GeselecteerdeGroep != null)
+<div class="container-fluid pt-5">
+    <div class="row text-center">
+        <div class="col mb-4">
+            <h4 class="mr-3" style="display:inline;">@ViewData["Title"]</h4> <h2 class="" style="display:inline-block;">@Model.Omschrijving</h2>
+            @if (ViewBag.GeselecteerdeGroep != null && Model.State == 2)
             {
-                <a href="@Url.Action("StartSpel", "Sessie", new { groepid = ViewBag.GeselecteerdeGroep.GroepId.ToString() })">Start de eerste opdracht</a>
+                <form asp-controller="Sessie" asp-action="StartSpel" method="post" class="mt-4">
+                    <button type="submit" class="btn btn-primary btn-pill btn-lg">Start de eerste opdracht</button>
+                </form>
             }
-        </p>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="sm-12 col">
-        <div id="pdf">
-            <object height="750" type="application/pdf" data="~/algemenepdfs/instructies.pdf" id="pdf_content"></object>
+    <div class="row">
+        <div class="col-md-12 col-lg-6 mb-5">
+            <h4>Groep selecteren</h4>
+            <p>Selecteer de groep waar jullie tot behoren.</p>
+            <div class="row" style="padding: 0 15px;">
+                @foreach (var groep in Model.Groepen)
+                {
+                    <div class="col-12 col-sm-6 col-md-4 groep">
+                        <ul>
+                            <li><i class="fas fa-users fa-fw icon"></i>Groep #@(groep.GroepId)</li>
+                            @foreach (var leerling in groep.Leerlingen)
+                            {
+                                <li><i class="far fa-user fa-fw icon"></i>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
+                            }
+                            @if (groep.State == 0 && groep.State != 2 && ViewBag.GeselecteerdeGroep == null)
+                            {
+                                <li><a href="@Url.Action("ZetGroepGereed", "Sessie", new { groepid = groep.GroepId.ToString() })" class="tip" title="Klik hier als dit jullie groep is">Dit is ons groepje</a></li>
+                            }
+                            @if (groep.State == 1 && groep.State != 2 && ViewBag.GeselecteerdeGroep != null && ViewBag.GeselecteerdeGroep.GroepId == groep.GroepId)
+                            {
+                                <li><a href="@Url.Action("ZetGroepNietGereed", "Sessie")" class="tip" title="Klik hier om deze groep te deselecteren">Deze groep deselecteren</a></li>
+                            }
+                            @if (groep.State == 1 && groep.State != 2 && ViewBag.GeselecteerdeGroep == null)
+                            {
+                                <li>Deze groep is niet beschikbaar</li>
+                            }
+                            @if (groep.State == 2)
+                            {
+                                <li>Deze groep is vergrendeld</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 mb-5">
+            <h4>Spelregels lezen</h4>
+            <p>Lees goed de spelregels door alvorens je start met het spel.</p>
+            <div id="pdfcontainer">
+                <object type="application/pdf" data="~/algemenepdfs/instructies.pdf" id="pdf"></object>
+            </div>
         </div>
     </div>
 </div>

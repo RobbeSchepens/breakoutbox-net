@@ -1,22 +1,6 @@
 ﻿/* 
 =========== GROEP ===========
 */
-body {
-    margin: 0;
-    font-size: 16px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
-}
-
-.container {
-    width: 70%;
-    margin: 0 auto;
-}
-
-nav {
-    background: rgb(72, 151, 190);
-    height: 60px;
-}
-
 ul, li {
     padding: 0;
     margin: 0;
@@ -25,7 +9,8 @@ ul, li {
 
 .groep {
     max-width: 600px;
-    border: 2px solid rgb(72, 151, 190);
+    border: 2px solid rgb(0, 123, 255);
+    padding: 0;
 }
 
 .groep ul {
@@ -42,7 +27,7 @@ ul, li {
 .groep li:first-of-type {
     font-weight: bold;
     color: white;
-    background: rgb(72, 151, 190);
+    background: rgb(0, 123, 255);
     line-height: 2.2em;
     margin-bottom: 2px;
     padding-bottom: 2px;
@@ -65,7 +50,7 @@ ul, li {
     font-weight: bold;
     font-size: 1em;
     line-height: 3.5em;
-    background: rgb(72, 151, 190);
+    background: rgb(0, 123, 255);
     color: white;
     margin-bottom: 10px;
 }
@@ -76,7 +61,7 @@ ul, li {
 }
 
 .groep a {
-    color: rgb(58, 121, 152);
+    /*color: rgb(58, 121, 152);*/
     text-decoration: none;
 }
 

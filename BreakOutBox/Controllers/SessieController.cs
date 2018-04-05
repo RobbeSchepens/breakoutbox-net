@@ -36,7 +36,7 @@ namespace BreakOutBox.Controllers
                     _sessieRepository.SaveChanges();
 
                     // Boodschap
-                    TempData["success"] = $"Je hebt groep {groep.GroepId} gekozen.";
+                    TempData["success"] = $"Je hebt groep #{groep.GroepId} gekozen.";
                 }
                 catch (Exception e)
                 {
@@ -62,7 +62,7 @@ namespace BreakOutBox.Controllers
                     _sessieRepository.SaveChanges();
                     
                     // Boodschap
-                    TempData["success"] = $"Groep {groep.GroepId} is nu terug beschikbaar.";
+                    TempData["success"] = $"Je hebt groep #{groep.GroepId} gedeselecteerd.";
                 }
                 catch (Exception e)
                 {
