@@ -47,7 +47,7 @@ namespace BreakOutBox.Controllers
                 // State veranderen
                 sessie.Activeer();
                 _sessieRepository.SaveChanges();
-                TempData["success"] = $"De sessie is geactiveerd";
+                TempData["success"] = $"De sessie is geactiveerd.";
             }
             catch (Exception e)
             {
@@ -64,7 +64,7 @@ namespace BreakOutBox.Controllers
                 // State veranderen
                 sessie.Deactiveer();
                 _sessieRepository.SaveChanges();
-                TempData["success"] = $"De sessie is gedeactiveerd";
+                TempData["success"] = $"De sessie is gedeactiveerd.";
             }
             catch (Exception e)
             {
@@ -81,7 +81,7 @@ namespace BreakOutBox.Controllers
                 // State veranderen
                 sessie.Blokkeer();
                 _sessieRepository.SaveChanges();
-                TempData["success"] = $"De sessie is geblokkeerd";
+                TempData["success"] = $"De sessie is geblokkeerd.";
             }
             catch (Exception e)
             {
@@ -98,7 +98,7 @@ namespace BreakOutBox.Controllers
                 // State veranderen
                 sessie.Deblokkeer();
                 _sessieRepository.SaveChanges();
-                TempData["success"] = $"De sessie is gedeblokkeerd";
+                TempData["success"] = $"De sessie is gedeblokkeerd.";
             }
             catch (Exception e)
             {
@@ -116,39 +116,7 @@ namespace BreakOutBox.Controllers
                 sessie.StartSpel();
                 _sessieRepository.SaveChanges();
 
-                TempData["success"] = $"Het spel is gestart";
-            }
-            catch (Exception e)
-            {
-                TempData["warning"] = e;
-            }
-            return RedirectToAction(nameof(SessieBeheren));
-        }
-
-        public IActionResult BlokkeerGroep(Sessie sessie, string groepid)
-        {
-            try
-            {
-                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                groep.Blokkeer();
-                _sessieRepository.SaveChanges();
-                TempData["success"] = $"Groep {groep.GroepId} is nu geblokkeerd";
-            }
-            catch (Exception e)
-            {
-                TempData["warning"] = e;
-            }
-            return RedirectToAction(nameof(SessieBeheren));
-        }
-
-        public IActionResult DeblokkeerGroep(Sessie sessie, string groepid)
-        {
-            try
-            {
-                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                groep.DeBlokkeer();
-                _sessieRepository.SaveChanges();
-                TempData["success"] = $"Groep {groep.GroepId} is nu gedeblokkeerd";
+                TempData["success"] = $"Het spel is gestart.";
             }
             catch (Exception e)
             {
@@ -164,7 +132,7 @@ namespace BreakOutBox.Controllers
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                 groep.Ontgrendel();
                 _sessieRepository.SaveChanges();
-                TempData["success"] = $"Groep {groep.GroepId} is nu ontgrendeld";
+                TempData["success"] = $"Groep #{groep.GroepId} is nu ontgrendeld.";
             }
             catch (Exception e)
             {
@@ -180,7 +148,7 @@ namespace BreakOutBox.Controllers
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                 groep.Vergrendel();
                 _sessieRepository.SaveChanges();
-                TempData["success"] = $"Groep {groep.GroepId} is nu vergrendeld";
+                TempData["success"] = $"Groep #{groep.GroepId} is nu vergrendeld.";
             }
             catch (Exception e)
             {
@@ -196,7 +164,7 @@ namespace BreakOutBox.Controllers
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                 groep.ZetGereed();
                 _sessieRepository.SaveChanges();
-                TempData["success"] = $"Groep {groep.GroepId} staat nu op gekozen";
+                TempData["success"] = $"Groep #{groep.GroepId} staat nu op gekozen.";
             }
             catch (Exception e)
             {
@@ -212,7 +180,55 @@ namespace BreakOutBox.Controllers
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                 groep.ZetNietGereed();
                 _sessieRepository.SaveChanges();
-                TempData["success"] = $"Groep {groep.GroepId} staat nu op niet gekozen";
+                TempData["success"] = $"Groep #{groep.GroepId} staat nu op niet gekozen.";
+            }
+            catch (Exception e)
+            {
+                TempData["warning"] = e;
+            }
+            return RedirectToAction(nameof(SessieBeheren));
+        }
+
+        public IActionResult HaalGroepUitSpel(Sessie sessie, string groepid)
+        {
+            try
+            {
+                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                //groep.HaalGroepUitSpel();
+                _sessieRepository.SaveChanges();
+                TempData["success"] = $"Groep #{groep.GroepId} zit niet meer in het spel.";
+            }
+            catch (Exception e)
+            {
+                TempData["warning"] = e;
+            }
+            return RedirectToAction(nameof(SessieBeheren));
+        }
+
+        public IActionResult BlokkeerGroep(Sessie sessie, string groepid)
+        {
+            try
+            {
+                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                groep.Blokkeer();
+                _sessieRepository.SaveChanges();
+                TempData["success"] = $"Groep #{groep.GroepId} is nu geblokkeerd.";
+            }
+            catch (Exception e)
+            {
+                TempData["warning"] = e;
+            }
+            return RedirectToAction(nameof(SessieBeheren));
+        }
+
+        public IActionResult DeblokkeerGroep(Sessie sessie, string groepid)
+        {
+            try
+            {
+                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                groep.Deblokkeer();
+                _sessieRepository.SaveChanges();
+                TempData["success"] = $"Groep #{groep.GroepId} is nu gedeblokkeerd.";
             }
             catch (Exception e)
             {

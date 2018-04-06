@@ -21,6 +21,6 @@ namespace BreakOutBox.Models.Domain
         public abstract void Vergrendel();
         public abstract void Ontgrendel();
         public abstract void Blokkeer();
-        public abstract void DeBlokkeer();
+        public abstract void Deblokkeer();
     }
 }

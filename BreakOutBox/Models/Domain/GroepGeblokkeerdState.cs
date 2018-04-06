@@ -39,7 +39,7 @@ namespace BreakOutBox.Models.Domain
             throw new Exception("Groep is al geblokkeerd!");
         }
 
-        public override void DeBlokkeer()
+        public override void Deblokkeer()
         {
             _groep.State = 2;
         }

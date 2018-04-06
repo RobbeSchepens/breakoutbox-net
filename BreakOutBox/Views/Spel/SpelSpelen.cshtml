@@ -15,7 +15,7 @@
         <div class="col mb-4 inlin">
             <h4 class="d-inline">@(Model.Opdracht.Oefening.Vak.Naam)</h4> <h2 class="d-inline ml-3 mr-3">@Model.Opdracht.Oefening.Naam</h2>
             <form asp-action="SpelSpelen" asp-controller="Spel" class="d-inline" method="get">
-                <button type="submit" style="margin-bottom: 0.75rem;" class="btn btn-outline-primary btn-pill btn-sm d-inline"><i class="fas fa-sync-alt"></i></button>
+                <button type="submit" class="btn btn-outline-primary btn-pill btn-sm d-inline sync"><i class="fas fa-sync-alt"></i></button>
             </form>
             <div class="progress progress-lg mt-3">
                 <div class="progress-bar" role="progressbar" style="width: @(progressiePercentageCompleted)%" aria-valuenow="@(progressiePercentageCompleted)" aria-valuemin="0" aria-valuemax="100"></div>
@@ -26,7 +26,7 @@
         <div class="col-md-12 col-lg-6 mb-5">
             <h4>@Model.Opdracht.Oefening.Naam</h4>
             <p>Opdracht @(progressie[1] + 1) van de @(progressie[0]).</p>
-            <form method="post" id="formAntwoord" name="formAntwoord">
+            <form id="formAntwoord" name="formAntwoord">
                 <p>
                     Stap 1: Maak de oefening.<br>
                     Stap 2: Voer deze groepsbewerking uit op het antwoord. Groepsbewerking: @(Model.Opdracht.Oefening.Groepsbewerking.ToString()).<br>

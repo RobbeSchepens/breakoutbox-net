@@ -89,9 +89,9 @@ namespace BreakOutBox.Models.Domain
             CurrentState.Blokkeer();
         }
 
-        public void DeBlokkeer()
+        public void Deblokkeer()
         {
-            CurrentState.DeBlokkeer();
+            CurrentState.Deblokkeer();
         }
         
         public void VoegLeerlingToe(Leerling leerling)
