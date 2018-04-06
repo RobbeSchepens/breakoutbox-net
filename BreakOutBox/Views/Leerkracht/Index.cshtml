@@ -1,27 +1,33 @@
 ﻿@model List<BreakOutBox.Models.Domain.Sessie>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Sessielijst";
 }
 
-<h3>Sessies van @ViewData["LeerkrachtNaam"]</h3>
-<table>
-    <tr>
-        <th>Nr.</th>
-        <th>Code</th>
-        <th>Omschrijving</th>
-        <th>Aantal groepen</th>
-        <th>Status</th>
-    </tr>
-    @{int i = 1;}
-    @foreach (var item in Model)
-    {
-        <tr class="c">
-            <td align="center">@(i++).</td>
-            <td align="center">@(item.Code)</td>
-            <td align="center">@(item.Omschrijving)</td>
-            <td align="center">@(item.Groepen.Count)</td>
-            <td align="center">@(item.CurrentState.Beschrijving)</td>
-            <td><a asp-controller="Leerkracht" asp-action="OverzichtGroepenInSessie" asp-route-sessiecode="@item.Code"><i class="fa fa-arrow-right" style="color:darkgreen"></i></a></td>
-        </tr>
-    }
-</table>
+<div class="container pt-4">
+    <div class="row">
+        <div class="col mb-5">
+            <h2 class="mb-4">Sessies van @ViewData["LeerkrachtNaam"]</h2>
+            <table id="sessielijst" style="width:100%;">
+                <tr>
+                    <th>#</th>
+                    <th>Code</th>
+                    <th>Omschrijving</th>
+                    <th>Groepen</th>
+                    <th>Status</th>
+                </tr>
+                @{int i = 1;}
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@(i++).</td>
+                        <td>@(item.Code)</td>
+                        <td>@(item.Omschrijving)</td>
+                        <td>@(item.Groepen.Count)</td>
+                        <td>@(item.CurrentState.Beschrijving)</td>
+                        <td align="right"><a asp-controller="Leerkracht" asp-action="SessieBeheren" asp-route-sessiecode="@item.Code">Beheer</a></td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

@@ -31,7 +31,7 @@ namespace BreakOutBox.Controllers
             return View(leerkracht.Sessies.ToList());
         }
 
-        public IActionResult OverzichtGroepenInSessie(Sessie sessie, string sessiecode)
+        public IActionResult SessieBeheren(Sessie sessie, string sessiecode)
         {
             if (sessie != null)
                 return View(sessie);
@@ -54,7 +54,7 @@ namespace BreakOutBox.Controllers
                 TempData["warning"] = e;
             }
 
-            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+            return RedirectToAction(nameof(SessieBeheren));
         }
 
         public IActionResult DeactiveerSessie(Sessie sessie)
@@ -71,7 +71,7 @@ namespace BreakOutBox.Controllers
                 TempData["warning"] = e;
             }
 
-            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+            return RedirectToAction(nameof(SessieBeheren));
         }
 
         public IActionResult BlokkeerSessie(Sessie sessie)
@@ -88,7 +88,7 @@ namespace BreakOutBox.Controllers
                 TempData["warning"] = e;
             }
 
-            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+            return RedirectToAction(nameof(SessieBeheren));
         }
 
         public IActionResult DeblokkeerSessie(Sessie sessie)
@@ -105,7 +105,7 @@ namespace BreakOutBox.Controllers
                 TempData["warning"] = e;
             }
 
-            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+            return RedirectToAction(nameof(SessieBeheren));
         }
 
         public IActionResult StartSpelSessie(Sessie sessie)
@@ -122,7 +122,7 @@ namespace BreakOutBox.Controllers
             {
                 TempData["warning"] = e;
             }
-            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+            return RedirectToAction(nameof(SessieBeheren));
         }
 
         public IActionResult BlokkeerGroep(Sessie sessie, string groepid)
@@ -138,7 +138,7 @@ namespace BreakOutBox.Controllers
             {
                 TempData["warning"] = e;
             }
-            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+            return RedirectToAction(nameof(SessieBeheren));
         }
 
         public IActionResult DeblokkeerGroep(Sessie sessie, string groepid)
@@ -154,7 +154,7 @@ namespace BreakOutBox.Controllers
             {
                 TempData["warning"] = e;
             }
-            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+            return RedirectToAction(nameof(SessieBeheren));
         }
 
         public IActionResult OntgrendelGroep(Sessie sessie, string groepid)
@@ -170,7 +170,7 @@ namespace BreakOutBox.Controllers
             {
                 TempData["warning"] = e;
             }
-            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+            return RedirectToAction(nameof(SessieBeheren));
         }
 
         public IActionResult VergrendelGroep(Sessie sessie, string groepid)
@@ -186,7 +186,7 @@ namespace BreakOutBox.Controllers
             {
                 TempData["warning"] = e;
             }
-            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+            return RedirectToAction(nameof(SessieBeheren));
         }
 
         public IActionResult ZetGroepGereed(Sessie sessie, string groepid)
@@ -202,7 +202,7 @@ namespace BreakOutBox.Controllers
             {
                 TempData["warning"] = e;
             }
-            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+            return RedirectToAction(nameof(SessieBeheren));
         }
 
         public IActionResult ZetGroepNietGereed(Sessie sessie, string groepid)
@@ -218,7 +218,7 @@ namespace BreakOutBox.Controllers
             {
                 TempData["warning"] = e;
             }
-            return RedirectToAction(nameof(OverzichtGroepenInSessie));
+            return RedirectToAction(nameof(SessieBeheren));
         }
     }
 }
