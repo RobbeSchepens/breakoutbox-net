@@ -16,11 +16,13 @@ namespace BreakOutBox.Models.Domain
             _groep = groep;
         }
 
-        public abstract void ZetGereed();
-        public abstract void ZetNietGereed();
+        public abstract void ZetGekozen();
+        public abstract void ZetNietGekozen();
         public abstract void Vergrendel();
         public abstract void Ontgrendel();
         public abstract void Blokkeer();
         public abstract void Deblokkeer();
+        public abstract void ZetInSpel();
+        public abstract void HaalUitSpel();
     }
 }

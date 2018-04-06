@@ -21,22 +21,32 @@ namespace BreakOutBox.Controllers
             {
                 // Geef een extra object mee aan de view via ViewBag
                 ViewBag.GeselecteerdeGroep = groep;
+
+                if (sessie.CurrentState is SessieGeblokkeerdState)
+                    TempData["info"] = $"De sessie is momenteel geblokkeerd. Je kan nog niet aan de opdracht beginnen.";
+                if (sessie.CurrentState is SessieActiefState)
+                    TempData["info"] = $"Het spel is nog niet gestart. Nog even geduld.";
             }
             return View(sessie);
         }
-        
-        public IActionResult ZetGroepGereed(Sessie sessie, Groep groep, string groepid)
+
+        public IActionResult ZetGroepGekozen(Sessie sessie, Groep groep, string groepid)
         {
             if (groep != null)
             {
                 try
                 {
                     // State veranderen
-                    groep.ZetGereed();
+                    groep.ZetGekozen();
                     _sessieRepository.SaveChanges();
 
                     // Boodschap
                     TempData["success"] = $"Je hebt groep #{groep.GroepId} gekozen.";
+
+                    if (sessie.CurrentState is SessieGeblokkeerdState)
+                        TempData["info"] = $"De sessie is momenteel geblokkeerd. Je kan nog niet aan de opdracht beginnen.";
+                    if (sessie.CurrentState is SessieActiefState)
+                        TempData["info"] = $"Het spel is nog niet gestart. Nog even geduld.";
                 }
                 catch (Exception e)
                 {
@@ -51,16 +61,16 @@ namespace BreakOutBox.Controllers
         }
 
         [ServiceFilter(typeof(ClearGroepSessionFilter))]
-        public IActionResult ZetGroepNietGereed(Sessie sessie, Groep groep)
+        public IActionResult ZetGroepNietGekozen(Sessie sessie, Groep groep)
         {
             if (groep != null)
             {
                 try
                 {
                     // State veranderen
-                    groep.ZetNietGereed();
+                    groep.ZetNietGekozen();
                     _sessieRepository.SaveChanges();
-                    
+
                     // Boodschap
                     TempData["success"] = $"Je hebt groep #{groep.GroepId} gedeselecteerd.";
                 }
@@ -76,12 +86,29 @@ namespace BreakOutBox.Controllers
             return RedirectToAction(nameof(SessieOverzicht));
         }
 
+        [HttpPost]
         public IActionResult StartSpel(Sessie sessie, Groep groep)
         {
             if (groep != null)
             {
-                // Naar SpelController
-                return RedirectToAction(nameof(SpelController.SpelSpelen), "Spel");
+                try
+                {
+                    if (groep.CurrentState is GroepNietGekozenState || groep.CurrentState is GroepGekozenState || groep.CurrentState is GroepVergrendeldState)
+                    {
+                        // State veranderen
+                        groep.ZetInSpel();
+                        _sessieRepository.SaveChanges();
+                    }
+
+                    if (sessie.CurrentState is SessieGeblokkeerdState == false)
+                        return RedirectToAction(nameof(SpelController.SpelSpelen), "Spel");
+                    else
+                        TempData["info"] = $"Deze sessie is momenteel geblokkeerd.";
+                }
+                catch (Exception e)
+                {
+                    TempData["warning"] = e;
+                }
             }
             else
             {

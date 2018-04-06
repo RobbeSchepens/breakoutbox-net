@@ -134,7 +134,7 @@ namespace BreakOutBox.Controllers
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
         public IActionResult Opnieuw(Sessie sessie, Groep groep, SpelSpelenViewModel ssvm)
         {
-            if (groep.CurrentState is GroepGereedState == false)
+            if (groep.CurrentState is GroepGekozenState == false)
             {
                 TempData["warning"] = $"Deze groep is niet gereed.";
                 TempData["State"] = groep.State;

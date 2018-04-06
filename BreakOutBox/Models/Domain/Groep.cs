@@ -49,29 +49,32 @@ namespace BreakOutBox.Models.Domain
             switch (st)
             {
                 case 0:
-                    ToState(new GroepNietGereedState(this));
+                    ToState(new GroepNietGekozenState(this));
                     break;
                 case 1:
-                    ToState(new GroepGereedState(this));
+                    ToState(new GroepGekozenState(this));
                     break;
                 case 2:
                     ToState(new GroepVergrendeldState(this));
                     break;
                 case 3:
+                    ToState(new GroepInSpelState(this));
+                    break;
+                case 4:
                     ToState(new GroepGeblokkeerdState(this));
                     break;
                 default: goto case 0;
             }
         }
 
-        public void ZetGereed()
+        public void ZetGekozen()
         {
-            CurrentState.ZetGereed();
+            CurrentState.ZetGekozen();
         }
 
-        public void ZetNietGereed()
+        public void ZetNietGekozen()
         {
-            CurrentState.ZetNietGereed();
+            CurrentState.ZetNietGekozen();
         }
 
         public void Vergrendel()
@@ -82,6 +85,16 @@ namespace BreakOutBox.Models.Domain
         public void Ontgrendel()
         {
             CurrentState.Ontgrendel();
+        }
+
+        public void ZetInSpel()
+        {
+            CurrentState.ZetInSpel();
+        }
+
+        public void HaalUitSpel()
+        {
+            CurrentState.HaalUitSpel();
         }
 
         public void Blokkeer()
@@ -102,7 +115,7 @@ namespace BreakOutBox.Models.Domain
 
             // Check state 
             if (Leerlingen.Count >= 2 && Leerlingen.Count <= 4)
-                ToState(new GroepGereedState(this));
+                ToState(new GroepGekozenState(this));
         }
 
         public void VerwijderLeerling(Leerling leerling)

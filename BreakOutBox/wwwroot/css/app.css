@@ -7,6 +7,10 @@ nav .btn:hover {
     color: black;
 }
 
+.alert {
+    margin-bottom: 0;
+}
+
 .alert-warning {
     color: darkgray;
     color: rgba(0,0,0,0.66);

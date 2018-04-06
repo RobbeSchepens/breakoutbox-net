@@ -2,13 +2,13 @@
 
 namespace BreakOutBox.Models.Domain
 {
-    public class GroepGeblokkeerdState : GroepState
+    public class GroepInSpelState : GroepState
     {
         public override string Beschrijving { get; set; }
 
-        public GroepGeblokkeerdState(Groep groep) : base(groep)
+        public GroepInSpelState(Groep groep) : base(groep)
         {
-            Beschrijving = "geblokkeerd";
+            Beschrijving = "in spel";
         }
 
         public override void ZetGekozen()
@@ -33,12 +33,12 @@ namespace BreakOutBox.Models.Domain
 
         public override void Blokkeer()
         {
-            throw new Exception("De groep is al geblokkeerd.");
+            _groep.State = 4;
         }
 
         public override void Deblokkeer()
         {
-            _groep.State = 3;
+            throw new Exception("De groep kan niet gedeblokkeerd worden omdat ze niet geblokkeerd is.");
         }
 
         public override void ZetInSpel()
@@ -48,7 +48,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void HaalUitSpel()
         {
-            throw new Exception("De groep kan niet uit het spel gehaald worden omdat ze geblokkeerd is.");
+            _groep.State = 1;
         }
     }
 }

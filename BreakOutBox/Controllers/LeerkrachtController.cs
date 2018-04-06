@@ -157,12 +157,12 @@ namespace BreakOutBox.Controllers
             return RedirectToAction(nameof(SessieBeheren));
         }
 
-        public IActionResult ZetGroepGereed(Sessie sessie, string groepid)
+        public IActionResult ZetGroepGekozen(Sessie sessie, string groepid)
         {
             try
             {
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                groep.ZetGereed();
+                groep.ZetGekozen();
                 _sessieRepository.SaveChanges();
                 TempData["success"] = $"Groep #{groep.GroepId} staat nu op gekozen.";
             }
@@ -173,14 +173,30 @@ namespace BreakOutBox.Controllers
             return RedirectToAction(nameof(SessieBeheren));
         }
 
-        public IActionResult ZetGroepNietGereed(Sessie sessie, string groepid)
+        public IActionResult ZetGroepNietGekozen(Sessie sessie, string groepid)
         {
             try
             {
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                groep.ZetNietGereed();
+                groep.ZetNietGekozen();
                 _sessieRepository.SaveChanges();
                 TempData["success"] = $"Groep #{groep.GroepId} staat nu op niet gekozen.";
+            }
+            catch (Exception e)
+            {
+                TempData["warning"] = e;
+            }
+            return RedirectToAction(nameof(SessieBeheren));
+        }
+
+        public IActionResult ZetGroepInSpel(Sessie sessie, string groepid)
+        {
+            try
+            {
+                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                groep.ZetInSpel();
+                _sessieRepository.SaveChanges();
+                TempData["success"] = $"Groep #{groep.GroepId} zit niet meer in het spel.";
             }
             catch (Exception e)
             {
@@ -194,7 +210,7 @@ namespace BreakOutBox.Controllers
             try
             {
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                //groep.HaalGroepUitSpel();
+                groep.HaalUitSpel();
                 _sessieRepository.SaveChanges();
                 TempData["success"] = $"Groep #{groep.GroepId} zit niet meer in het spel.";
             }

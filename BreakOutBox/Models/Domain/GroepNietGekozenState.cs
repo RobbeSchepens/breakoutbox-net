@@ -2,33 +2,33 @@
 
 namespace BreakOutBox.Models.Domain
 {
-    public class GroepVergrendeldState : GroepState
+    public class GroepNietGekozenState : GroepState
     {
         public override string Beschrijving { get; set; }
 
-        public GroepVergrendeldState(Groep groep) : base(groep)
+        public GroepNietGekozenState(Groep groep) : base(groep)
         {
-            Beschrijving = "vergrendeld";
+            Beschrijving = "nog niet gekozen";
         }
 
         public override void ZetGekozen()
         {
-            throw new Exception("De kan niet op gekozen gezet worden omdat ze vergrendeld is.");
+            _groep.State = 1;
         }
 
         public override void ZetNietGekozen()
         {
-            throw new Exception("De kan niet op niet-gekozen gezet worden omdat ze vergrendeld is.");
+            throw new Exception("De groep staat al op niet-gekozen.");
         }
 
         public override void Vergrendel()
         {
-            throw new Exception("De groep is al vergrendeld.");
+            _groep.State = 2;
         }
 
         public override void Ontgrendel()
         {
-            _groep.State = 0;
+            throw new Exception("De groep kan niet ontgrendeld worden omdat ze niet vergrendeld is.");
         }
 
         public override void Blokkeer()
@@ -43,7 +43,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void ZetInSpel()
         {
-            throw new Exception("De groep kan niet in het spel gezet worden omdat ze vergrendeld is.");
+            throw new Exception("De groep kan niet in het spel gezet worden omdat ze niet gekozen is.");
         }
 
         public override void HaalUitSpel()
