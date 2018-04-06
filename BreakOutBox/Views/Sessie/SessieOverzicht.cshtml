@@ -9,8 +9,8 @@
 <div class="container-fluid pt-5">
     <div class="row text-center">
         <div class="col mb-4">
-            <h4 style="display:inline;">@ViewData["Title"]</h4> <h2 class="ml-3 mr-3" style="display:inline;">@Model.Omschrijving</h2>
-            <button type="button" style="display:inline;margin-bottom: 0.75rem;" onClick="window.location.reload(true)" class="btn btn-outline-primary btn-pill btn-sm"><i class="fas fa-sync-alt"></i></button>
+            <h4 class="d-inline">@ViewData["Title"]</h4> <h2 class="d-inline ml-3 mr-3">@Model.Omschrijving</h2>
+            <button type="button" style="margin-bottom: 0.75rem;" onClick="window.location.reload(true)" class="btn btn-outline-primary btn-pill btn-sm d-inline"><i class="fas fa-sync-alt"></i></button>
             @if (ViewBag.GeselecteerdeGroep != null && Model.State == 2)
             {
                 <form asp-controller="Sessie" asp-action="StartSpel" method="post" class="mt-3">

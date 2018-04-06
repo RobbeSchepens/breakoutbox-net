@@ -1,9 +1,9 @@
 ﻿@model BreakOutBox.Models.SpelViewModels.SpelSpelenViewModel
 @{
     var progressie = Model.ProgressieInPad;
-    //var progressiePercentage = ((((decimal)progressie[1] + 1) / ((decimal)progressie[0])) * 100);
-    //var progressiePercentageCompleted = (int)(System.Math.Round(progressiePercentage, 0) - ((decimal)100 / progressie[0]));
-    ViewData["Title"] = "Opdracht " + (progressie[1] + 1).ToString();
+    var progressiePercentage = ((((decimal)progressie[1] + 1) / ((decimal)progressie[0])) * 100);
+    var progressiePercentageCompleted = (int)(System.Math.Round(progressiePercentage, 0) - ((decimal)100 / progressie[0]));
+    ViewData["Title"] = @Model.Opdracht.Oefening.Naam;
 }
 
 @section Head {
@@ -14,39 +14,53 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 }
 
-<form method="post" id="formAntwoord" name="formAntwoord">
-    <div style="text-align:center;">
-        <div style="float:left;">
-            <h2 style="text-decoration:underline"> @Model.Opdracht.Oefening.Naam </h2>
-            <h4 style="text-decoration: underline">@(Model.Opdracht.Oefening.Vak.Naam)</h4>
-            <p>
-                <h5>Progressie: Opdracht @(progressie[1] + 1) van de @(progressie[0])</h5>
-            </p>
-            <p>Stap 1: Maak de oefening.</p>
-            <p>
-                Stap 2: Voer deze groepsbewerking uit op het antwoord.<br>Groepsbewerking: @(Model.Opdracht.Oefening.Groepsbewerking.ToString()).
-            </p>
-            <p><label asp-for="Groepsantwoord"></label></p>
-
-            @*Voor te testen*@
-            @*<p>State: @TempData["State"]</p>
-                <p>Teller: @Model.Opdracht.foutePogingen</p>*@
-
-            <p><input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" placeholder="Antwoord na groepsbewerking"></p>
-            <p><span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span></p>
-            <button type="submit" class="" id="GaVerder">Geef antwoord in</button>
-            <p style="color:red">@TempData["FouteCode"]</p>
+<div class="container-fluid pt-5">
+    <div class="row text-center">
+        <div class="col mb-4 inlin">
+            <h4 class="d-inline">@(Model.Opdracht.Oefening.Vak.Naam)</h4> <h2 class="d-inline ml-3 mr-3">@Model.Opdracht.Oefening.Naam</h2>
+            <button type="button" style="margin-bottom: 0.75rem;" onClick="window.location.reload(true)" class="btn btn-outline-primary btn-pill btn-sm d-inline"><i class="fas fa-sync-alt"></i></button>
+            <div class="progress progress-lg mt-3">
+                <div class="progress-bar" role="progressbar" style="width: @(progressiePercentageCompleted)%" aria-valuenow="@(progressiePercentageCompleted)" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
         </div>
     </div>
-    <div style="float:right;width: 55%">
-        <object height="750" type="application/pdf" data="~/opdrachtenG1/@Model.Opdracht.Oefening.Opgave" id="pdf_content"></object>
+    <div class="row">
+        <div class="col-md-12 col-lg-6 mb-5">
+            <h4>@Model.Opdracht.Oefening.Naam</h4>
+            <p>Opdracht @(progressie[1] + 1) van de @(progressie[0]).</p>
+            <form method="post" id="formAntwoord" name="formAntwoord">
+                <p>
+                    Stap 1: Maak de oefening.<br>
+                    Stap 2: Voer deze groepsbewerking uit op het antwoord. Groepsbewerking: @(Model.Opdracht.Oefening.Groepsbewerking.ToString()).<br>
+                    Stap 3: Vul je bekomen resultaat hieronder in.
+                </p>
+                <div class="form-group">
+                    <div class="input-group input-group-seamless">
+                        <span class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </span>
+                        <input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" placeholder="Antwoord na groepsbewerking">
+                        <span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" id="GaVerder">Geef antwoord in</button>
+                </div>
+                <input name="JuistGeantwoordtoegangscodeString" type="hidden" id="JuistGeantwoordtoegangscodeStringId">
+                <input name="JuistGeantwoordOpgaveString" type="hidden" id="JuistGeantwoordOpgaveStringId">
+            </form>
+        </div>
+        <div class="col-md-12 col-lg-6 mb-5">
+            <h4>Opgave</h4>
+            @*<p></p>*@
+            <div id="pdfcontainer">
+                <object type="application/pdf" data="~/opdrachtenG1/@Model.Opdracht.Oefening.Opgave" id="pdf"></object>
+            </div>
+        </div>
     </div>
-    <div style="clear:both"></div>
-    <div hidden>
-        <p><input asp-for="JuistGeantwoordtoegangscodeString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordtoegangscodeStringId" /></p>
-        <p><input asp-for="JuistGeantwoordOpgaveString" type="text" class="form-control" autocomplete="off" value="" id="JuistGeantwoordOpgaveStringId" /></p>
-    </div>
-</form>
+</div>
 
 @section Scripts {
     <script asp-src-include="lib/jquery-validation/dist/jquery.validate.js"></script>
@@ -78,11 +92,11 @@
                     title: 'Juist! Schatkist gevonden!',
                     text: '',
                     showCancelButton: false,
-                    confirmButtonText: 'sluit het spel'
+                    confirmButtonText: 'Sluit het spel'
                 },
                 function () {
                     console.log("hier");
-                    window.location.href = "/Sessie/Index";
+                    window.location.href = "/Home/Index";
                 });
             } else {
                 swal({ // de swal van alle oefeningen
