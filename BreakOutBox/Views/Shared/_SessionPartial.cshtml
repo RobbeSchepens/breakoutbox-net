@@ -14,12 +14,12 @@
 }
 else
 {
-    @if (Context.Session.GetString("sessiecode") != null && Context.Session.GetString("groepid") == null)
+    @if (Context.Session.GetString("sessiecode") != null)
     {
         <li class="nav-item active"><a asp-controller="Sessie" asp-action="SessieOverzicht" class="nav-link">Huidige sessie @(JsonConvert.DeserializeObject<string>(Context.Session.GetString("sessiecode")))</a></li>
     }
-    else if (Context.Session.GetString("sessiecode") != null && Context.Session.GetString("groepid") != null)
+    if (Context.Session.GetString("sessiecode") != null && Context.Session.GetString("groepid") != null)
     {
-        <li class="nav-item active"><a asp-controller="Spel" asp-action="SpelSpelen" class="nav-link">Huidige sessie @(JsonConvert.DeserializeObject<string>(Context.Session.GetString("sessiecode")))</a></li>
+        <li class="nav-item active"><a asp-controller="Spel" asp-action="SpelSpelen" class="nav-link">Huidige opdracht</a></li>
     }
 }

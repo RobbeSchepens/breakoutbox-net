@@ -6,11 +6,13 @@
     <link rel="stylesheet" href="~/css/groep.css">
 }
 
-<div class="container-fluid pt-5">
+<div class="container-fluid pt-4">
     <div class="row text-center">
         <div class="col mb-4">
             <h4 class="d-inline">@ViewData["Title"]</h4> <h2 class="d-inline ml-3 mr-3">@Model.Omschrijving</h2>
-            <button type="button" style="margin-bottom: 0.75rem;" onClick="window.location.reload(true)" class="btn btn-outline-primary btn-pill btn-sm d-inline"><i class="fas fa-sync-alt"></i></button>
+            <form asp-action="SpelSpelen" asp-controller="Spel" class="d-inline" method="get">
+                <button type="submit" style="margin-bottom: 0.75rem;" class="btn btn-outline-primary btn-pill btn-sm d-inline"><i class="fas fa-sync-alt"></i></button>
+            </form>
             @if (ViewBag.GeselecteerdeGroep != null && Model.State == 2)
             {
                 <form asp-controller="Sessie" asp-action="StartSpel" method="post" class="mt-3">
@@ -22,7 +24,7 @@
     <div class="row">
         <div class="col-md-12 col-lg-6 mb-5">
             @if (ViewBag.GeselecteerdeGroep != null)
-            { 
+            {
                 <h4>Jouw groep</h4>
                 <div class="row mb-5" style="padding: 0 15px;">
                     <div class="col-12 col-sm-6 col-md-4 groep">

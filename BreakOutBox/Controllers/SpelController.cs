@@ -22,8 +22,8 @@ namespace BreakOutBox.Controllers
             SpelSpelenViewModel ssvm = new SpelSpelenViewModel();
             ssvm = geefSsvmAangepastTerug(ssvm,
                 groep.Pad.getCurrentOpdracht(),
-                ssvm.JuistGeantwoordOpgave = ssvm.JuistGeantwoordOpgave,
-                ssvm.JuistGeantwoordtoegangscode = ssvm.JuistGeantwoordtoegangscode,
+                false,
+                false,
                 groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(),
                 groep.Pad.getProgressie());
             TempData["State"] = groep.State;
@@ -73,6 +73,7 @@ namespace BreakOutBox.Controllers
                             groep.Pad.getCurrentOpdracht().Opgelost = true;
                             _sessieRepository.SaveChanges();
                             ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
+                            ssvm.Groepsantwoord = ""; // werkt niet
                             return View(ssvm);
                         }
                         else // enkel antwoord juist
