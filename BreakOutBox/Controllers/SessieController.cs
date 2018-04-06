@@ -15,7 +15,7 @@ namespace BreakOutBox.Controllers
             _sessieRepository = sessieRepository;
         }
 
-        public IActionResult SessieOverzicht(Sessie sessie, Groep groep)
+        public IActionResult GroepKiezen(Sessie sessie, Groep groep)
         {
             if (groep != null)
             {
@@ -57,7 +57,7 @@ namespace BreakOutBox.Controllers
             {
                 TempData["warning"] = $"Je hebt geen groep mee gegeven.";
             }
-            return RedirectToAction(nameof(SessieOverzicht));
+            return RedirectToAction(nameof(GroepKiezen));
         }
 
         [ServiceFilter(typeof(ClearGroepSessionFilter))]
@@ -83,7 +83,7 @@ namespace BreakOutBox.Controllers
             {
                 TempData["warning"] = $"Je hebt geen groep gereed gezet.";
             }
-            return RedirectToAction(nameof(SessieOverzicht));
+            return RedirectToAction(nameof(GroepKiezen));
         }
 
         [HttpPost]
@@ -114,7 +114,7 @@ namespace BreakOutBox.Controllers
             {
                 TempData["warning"] = $"Je hebt geen groep gekozen. Je kunt het spel niet spelen zonder groep.";
             }
-            return RedirectToAction(nameof(SessieOverzicht));
+            return RedirectToAction(nameof(GroepKiezen));
         }
     }
 }

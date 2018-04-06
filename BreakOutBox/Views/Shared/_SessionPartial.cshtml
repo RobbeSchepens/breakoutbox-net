@@ -9,14 +9,14 @@
     <li class="nav-item active"><a asp-controller="Leerkracht" asp-action="Index" class="nav-link">Sessielijst</a></li>
     @if (Context.Session.GetString("sessiecode") != null)
     {
-        <li class="nav-item active"><a asp-controller="Leerkracht" asp-action="SessieBeheren" class="nav-link">Huidige sessie @(JsonConvert.DeserializeObject<string>(Context.Session.GetString("sessiecode")))</a></li>
+        <li class="nav-item active"><a asp-controller="Leerkracht" asp-action="SessieBeheren" class="nav-link">Huidige sessie</a></li>
     }
 }
 else
 {
     @if (Context.Session.GetString("sessiecode") != null)
     {
-        <li class="nav-item active"><a asp-controller="Sessie" asp-action="SessieOverzicht" class="nav-link">Huidige sessie @(JsonConvert.DeserializeObject<string>(Context.Session.GetString("sessiecode")))</a></li>
+        <li class="nav-item active"><a asp-controller="Sessie" asp-action="GroepKiezen" class="nav-link">Huidige sessie</a></li>
     }
     if (Context.Session.GetString("sessiecode") != null && Context.Session.GetString("groepid") != null)
     {

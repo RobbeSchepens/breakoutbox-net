@@ -43,7 +43,7 @@ namespace BreakOutBox.Controllers
                     if (sessie != null)
                     {
                         if (sessie.CurrentState is SessieNonActiefState == false)
-                            return RedirectToAction(nameof(SessieController.SessieOverzicht), "Sessie");
+                            return RedirectToAction(nameof(SessieController.GroepKiezen), "Sessie");
                         else
                             TempData["info"] = $"Deze sessie is niet geactiveerd.";
                     }
