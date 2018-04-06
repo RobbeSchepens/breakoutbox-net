@@ -9,8 +9,9 @@ ul, li {
 
 .groep {
     max-width: 600px;
-    border: 2px solid rgb(0, 123, 255);
     padding: 0;
+    padding-right: 6px;
+    margin-bottom: 1em;
 }
 
 .groep ul {
@@ -21,20 +22,20 @@ ul, li {
     line-height: 1.8em;
     font-size: 0.9em;
     padding: 0 0.8em;
+    padding-bottom: 0.12em;
     border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
 .groep li:first-of-type {
     font-weight: bold;
-    color: white;
-    background: rgb(0, 123, 255);
     line-height: 2.2em;
-    margin-bottom: 2px;
-    padding-bottom: 2px;
+    border: 1px solid rgb(0, 123, 255);
+    color: rgb(0, 123, 255);
+    margin-bottom: 0.12em;
 }
 
 .groep li:last-of-type {
-    border-bottom: none;
+    /*border-bottom: none;*/
 }
 
 .groep .icon {
