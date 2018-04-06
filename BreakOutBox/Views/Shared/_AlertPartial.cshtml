@@ -1,3 +1,13 @@
+@if (TempData["danger"] != null)
+{
+    <!-- Danger Dismissible Alert -->
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true"><i class="fas fa-times fa-sm fa-fw"></i></span>
+        </button>
+        <i class="fas fa-exclamation-circle fa-fw"></i> @TempData["danger"]
+    </div>
+}
 @if (TempData["success"] != null)
 {
     <!-- Success Dismissible Alert -->
@@ -6,16 +16,6 @@
             <span aria-hidden="true"><i class="fas fa-times fa-sm fa-fw"></i></span>
         </button>
         <i class="fas fa-check fa-fw"></i> @TempData["success"]
-    </div>
-}
-@if (TempData["info"] != null)
-{
-    <!-- Info Dismissible Alert -->
-    <div class="alert alert-info alert-dismissible fade show" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true"><i class="fas fa-times fa-sm fa-fw"></i></span>
-        </button>
-        <i class="fas fa-info-circle fa-fw"></i> @TempData["info"]
     </div>
 }
 @if (TempData["warning"] != null)
@@ -28,13 +28,13 @@
         <i class="fas fa-exclamation-triangle fa-fw"></i> @TempData["warning"]
     </div>
 }
-@if (TempData["danger"] != null)
+@if (TempData["info"] != null)
 {
-    <!-- Danger Dismissible Alert -->
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <!-- Info Dismissible Alert -->
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true"><i class="fas fa-times fa-sm fa-fw"></i></span>
         </button>
-        <i class="fas fa-exclamation-circle fa-fw"></i> @TempData["danger"]
+        <i class="fas fa-info-circle fa-fw"></i> @TempData["info"]
     </div>
 }

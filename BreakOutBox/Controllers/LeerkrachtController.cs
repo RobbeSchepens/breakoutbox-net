@@ -196,7 +196,7 @@ namespace BreakOutBox.Controllers
                 Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
                 groep.ZetInSpel();
                 _sessieRepository.SaveChanges();
-                TempData["success"] = $"Groep #{groep.GroepId} zit niet meer in het spel.";
+                TempData["success"] = $"Groep #{groep.GroepId} zit nu in het spel.";
             }
             catch (Exception e)
             {

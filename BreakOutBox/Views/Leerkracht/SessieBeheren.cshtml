@@ -23,11 +23,13 @@
                     case 1: // ActiefState
                         <button asp-controller="Leerkracht" asp-action="StartSpelSessie" class="btn btn-primary btn-pill mr-1">Start</button>
                         <button asp-controller="Leerkracht" asp-action="BlokkeerSessie" class="btn btn-danger btn-pill mr-1">Blokkeer</button>
-                        <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" class="btn btn-secondary btn-pill">Deactiveer</button>
+                        <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" class="btn btn-secondary btn-pill" data-toggle="confirmation" 
+                                data-content="Deze actie dient enkel om de sessie te archiveren nadat het spel uitgespeeld is.">Deactiveer</button>
                         break;
                     case 2: // InSpelState
                         <button asp-controller="Leerkracht" asp-action="BlokkeerSessie" class="btn btn-danger btn-pill mr-1">Blokkeer</button>
-                        <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" class="btn btn-secondary btn-pill">Deactiveer</button>
+                        <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" class="btn btn-secondary btn-pill" data-toggle="confirmation" 
+                                data-content="Deze actie dient enkel om de sessie te archiveren nadat het spel uitgespeeld is.">Deactiveer</button>
                         break;
                     case 3: // GeblokkeerdState
                         <button asp-controller="Leerkracht" asp-action="DeblokkeerSessie" class="btn btn-secondary btn-pill">Deblokkeer</button>
@@ -38,101 +40,118 @@
     </div>
     <div class="row">
         <div class="col-md-12 col-lg-6 mb-5">
-            <h4>Groepen die nog niet in het spel zitten</h4>
-            <div class="row" style="padding: 0 15px;">
-                @foreach (var groep in Model.Groepen)
-                {
-                    if (groep.State != 3 && groep.State != 4)
-                    {
-                    <div class="col-12 col-sm-6 col-md-4 groep">
-                        <ul>
-                            <li><i class="fas fa-users fa-fw icon"></i>Groep #@(groep.GroepId) <span class="font-weight-normal d-inline px-0">is @groep.CurrentState.Beschrijving</span></li>
-                            @foreach (var leerling in groep.Leerlingen)
-                            {
-                                <li><i class="far fa-user fa-fw icon"></i>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
-                            }
-                            @switch (groep.State)
-                            {
-                                case 0: // NietGereedState
-                                    <li>
-                                        <a href="@Url.Action("ZetGroepGekozen", "Leerkracht", new { groepid = groep.GroepId })" title="Zet deze groep op gekozen">
-                                            Zet deze groep op gekozen
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="@Url.Action("VergrendelGroep", "Leerkracht", new { groepid = groep.GroepId })" title="Vergrendel deze groep">
-                                            Vergrendel deze groep
-                                        </a>
-                                    </li>
-                                    break;
-                                case 1: // GereedState
-                                    <li>
-                                        <a href="@Url.Action("ZetGroepNietGekozen", "Leerkracht", new { groepid = groep.GroepId })" title="Zet deze groep op niet-gekozen">
-                                            Zet deze groep op niet-gekozen
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="@Url.Action("VergrendelGroep", "Leerkracht", new { groepid = groep.GroepId })" title="Vergrendel deze groep">
-                                            Vergrendel deze groep
-                                        </a>
-                                    </li>
-                                    break;
-                                case 2: // VergrendeldState
-                                    <li>
-                                        <a href="@Url.Action("OntgrendelGroep", "Leerkracht", new { groepid = groep.GroepId })" title="Ontgrendel deze groep">
-                                            Ontgrendel deze groep
-                                        </a>
-                                    </li>
-                                    break;
-                            }
-                        </ul>
-                    </div>
-                    }
-                }
-            </div>
-        </div>
-        <div class="col-md-12 col-lg-6 mb-5">
             <h4>Groepen in spel</h4>
             <div class="row" style="padding: 0 15px;">
                 @foreach (var groep in Model.Groepen)
                 {
                     if (groep.State == 3 || groep.State == 4)
                     {
-                    <div class="col-12 col-sm-6 col-md-4 groep">
-                        <ul>
-                            <li><i class="fas fa-users fa-fw icon"></i>Groep #@(groep.GroepId) <span class="font-weight-normal d-inline px-0">is @groep.CurrentState.Beschrijving</span></li>
-                            <li><i class="fas fa-tasks fa-fw icon"></i>Bezig aan opdracht @(groep.Pad.getProgressie()[1] + 1) van de @groep.Pad.getProgressie()[0]</li>
-                            @foreach (var leerling in groep.Leerlingen)
-                            {
-                                <li><i class="far fa-user fa-fw icon"></i>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
-                            }
-                            @switch (groep.State)
-                            {
-                                case 3: // InSpelState
-                                    <li>
-                                        <a href="@Url.Action("HaalGroepUitSpel", "Leerkracht", new { groepid = groep.GroepId })" title="Haal deze groep uit het spel" class="text-danger">
-                                            Haal deze groep uit het spel
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="@Url.Action("BlokkeerGroep", "Leerkracht", new { groepid = groep.GroepId })" title="Blokkeer deze groep" class="text-danger">
-                                            Blokkeer deze groep
-                                        </a>
-                                    </li>
-                                    break;
-                                case 4: // GeblokkeerdState
-                                    <li>
-                                        <a href="@Url.Action("DeblokkeerGroep", "Leerkracht", new { groepid = groep.GroepId })" title="Deblokkeer deze groep">
-                                            Deblokkeer deze groep
-                                        </a>
-                                    </li>
-                                    break;
-                            }
-                        </ul>
-                    </div>
+                        <div class="col-12 col-sm-6 col-md-4 groep">
+                            <ul>
+                                <li><i class="fas fa-users fa-fw icon"></i>Groep #@(groep.GroepId) <span class="font-weight-normal d-inline px-0">is @groep.CurrentState.Beschrijving</span></li>
+                                <li><i class="fas fa-tasks fa-fw icon"></i>Bezig aan opdracht @(groep.Pad.getProgressie()[1] + 1) van de @groep.Pad.getProgressie()[0]</li>
+                                @foreach (var leerling in groep.Leerlingen)
+                                {
+                                    <li><i class="far fa-user fa-fw icon"></i>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
+                                }
+                                @switch (groep.State)
+                                {
+                                    case 3: // InSpelState
+                                        <li>
+                                            <a href="@Url.Action("HaalGroepUitSpel", "Leerkracht", new { groepid = groep.GroepId })" title="Haal deze groep uit het spel" class="text-danger">
+                                                Haal deze groep uit het spel
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("BlokkeerGroep", "Leerkracht", new { groepid = groep.GroepId })" title="Blokkeer deze groep" class="text-danger">
+                                                Blokkeer deze groep
+                                            </a>
+                                        </li>
+                                        break;
+                                    case 4: // GeblokkeerdState
+                                        <li>
+                                            <a href="@Url.Action("DeblokkeerGroep", "Leerkracht", new { groepid = groep.GroepId })" title="Deblokkeer deze groep">
+                                                Deblokkeer deze groep
+                                            </a>
+                                        </li>
+                                        break;
+                                }
+                            </ul>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 mb-5">
+            <h4>Groepen die nog niet in het spel zitten</h4>
+            <div class="row" style="padding: 0 15px;">
+                @foreach (var groep in Model.Groepen)
+                {
+                    if (groep.State != 3 && groep.State != 4)
+                    {
+                        <div class="col-12 col-sm-6 col-md-4 groep">
+                            <ul>
+                                <li><i class="fas fa-users fa-fw icon"></i>Groep #@(groep.GroepId) <span class="font-weight-normal d-inline px-0">is @groep.CurrentState.Beschrijving</span></li>
+                                @foreach (var leerling in groep.Leerlingen)
+                                {
+                                    <li><i class="far fa-user fa-fw icon"></i>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
+                                }
+                                @switch (groep.State)
+                                {
+                                    case 0: // NietGereedState
+                                        <li>
+                                            <a href="@Url.Action("ZetGroepGekozen", "Leerkracht", new { groepid = groep.GroepId })" title="Zet deze groep op gekozen">
+                                                Zet deze groep op gekozen
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("VergrendelGroep", "Leerkracht", new { groepid = groep.GroepId })" title="Vergrendel deze groep">
+                                                Vergrendel deze groep
+                                            </a>
+                                        </li>
+                                        break;
+                                    case 1: // GereedState
+                                        <li>
+                                            <a href="@Url.Action("ZetGroepNietGekozen", "Leerkracht", new { groepid = groep.GroepId })" title="Zet deze groep op niet-gekozen">
+                                                Zet deze groep op niet-gekozen
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("ZetGroepInSpel", "Leerkracht", new { groepid = groep.GroepId })" title="Zet deze groep in het spel">
+                                                Zet deze groep in het spel
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("VergrendelGroep", "Leerkracht", new { groepid = groep.GroepId })" title="Vergrendel deze groep">
+                                                Vergrendel deze groep
+                                            </a>
+                                        </li>
+                                        break;
+                                    case 2: // VergrendeldState
+                                        <li>
+                                            <a href="@Url.Action("OntgrendelGroep", "Leerkracht", new { groepid = groep.GroepId })" title="Ontgrendel deze groep">
+                                                Ontgrendel deze groep
+                                            </a>
+                                        </li>
+                                        break;
+                                }
+                            </ul>
+                        </div>
                     }
                 }
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $('[data-toggle=confirmation]').confirmation({
+            rootSelector: '[data-toggle=confirmation]',
+            title: 'Ben je zeker?',
+            btnOkClass: 'btn-danger',
+            btnOkLabel: 'Ja',
+            btnCancelLabel: 'Nee',
+        });
+    </script>
+}
