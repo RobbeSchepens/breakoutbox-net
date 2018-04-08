@@ -82,7 +82,7 @@ namespace BreakOutBox.Controllers
                             ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), true, ssvm.JuistGeantwoordtoegangscode, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
                             //if (groep.CurrentState is GroepVergrendeldState || groep.CurrentState is GroepGeblokkeerdState)
                             //{
-                            //    return RedirectToAction(nameof(Feedback), ssvm);
+                            //    return RedirectToAction(nameof(Feedback));
                             //}
                             //else
                             //{
@@ -105,7 +105,7 @@ namespace BreakOutBox.Controllers
                             //if (groep.CurrentState is GroepVergrendeldState || groep.CurrentState is GroepGeblokkeerdState)
                             //{
                             //    groep.Pad.getCurrentOpdracht().foutePogingen++; // foutpogingen +1 wanneer fout antwoord
-                            //    return RedirectToAction(nameof(Feedback), ssvm);
+                            //    return RedirectToAction(nameof(Feedback));
                             //}
                             //else
                             //{
@@ -115,44 +115,20 @@ namespace BreakOutBox.Controllers
                         }
                         else //if(groep.Pad.getCurrentOpdracht().foutePogingen >= 3)
                         {
-                            groep.Vergrendel();
+                            // State veranderen
+                            groep.Blokkeer();
                             _sessieRepository.SaveChanges();
 
                             TempData["State"] = groep.State;
-                            return RedirectToAction(nameof(Feedback), ssvm);
+                            return RedirectToAction(nameof(Feedback));
                         }
                     }
                 }
                 catch
                 {
-                    ViewData["errorGeenVOlgendeOpdracht"] = "Er is geen volgende opdracht gevonden";
                 }
             }
             return View();
-        }
-
-        // Deze wordt niet gebruikt? 
-        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
-        public IActionResult Opnieuw(Sessie sessie, Groep groep, SpelSpelenViewModel ssvm)
-        {
-            if (groep.CurrentState is GroepGekozenState == false)
-            {
-                TempData["warning"] = $"Deze groep is niet gereed.";
-                TempData["State"] = groep.State;
-                return RedirectToAction(nameof(SpelSpelenViewModel));
-            }
-            else
-            {
-                ssvm.Opdracht.foutePogingen = 0;
-                groep.Pad.getCurrentOpdracht().Opgelost = false;
-                ssvm.ProgressieInPad = groep.Pad.getProgressie();
-                ssvm.Opdracht = groep.Pad.getCurrentOpdracht();
-                ssvm.JuistGeantwoordOpgave = false;
-                ssvm.JuistGeantwoordtoegangscode = false;
-                ssvm.ToegangscodeVolgendeOefening = groep.Pad.getNextOpdracht().Toegangscode.Code.ToString();
-
-                return View(new SpelSpelenViewModel(sessie, groep));
-            }
         }
 
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]

@@ -26,7 +26,7 @@
         <div class="col-md-12 col-lg-6 mb-5">
             <h4>@Model.Opdracht.Oefening.Naam</h4>
             <p>Opdracht @(progressie[1] + 1) van de @(progressie[0]).</p>
-            <form id="formAntwoord" name="formAntwoord">
+            <form id="formAntwoord" name="formAntwoord" method="post">
                 <p>
                     Stap 1: Maak de oefening.<br>
                     Stap 2: Voer deze groepsbewerking uit op het antwoord. Groepsbewerking: @(Model.Opdracht.Oefening.Groepsbewerking.ToString()).<br>
