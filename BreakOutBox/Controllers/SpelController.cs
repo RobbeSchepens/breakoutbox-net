@@ -48,7 +48,7 @@ namespace BreakOutBox.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
-        public IActionResult SpelSpelen(/*Groep groep,*/ SpelSpelenViewModel ssvm, Sessie sessie, Groep groep) // met die filter groep doorgeven (en ook sessie mss)
+        public IActionResult SpelSpelen(SpelSpelenViewModel ssvm, Sessie sessie, Groep groep)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace BreakOutBox.Controllers
                             groep.Pad.getCurrentOpdracht().Opgelost = true;
                             _sessieRepository.SaveChanges();
                             ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
-                            ssvm.Groepsantwoord = ""; // werkt niet
+                            //ssvm.Groepsantwoord = ""; // werkt niet
                             return View(ssvm);
                         }
                         else // enkel antwoord juist
@@ -155,23 +155,14 @@ namespace BreakOutBox.Controllers
         }
 
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
-        public IActionResult Feedback(SpelSpelenViewModel ssvm, Groep groep)
+        public IActionResult Feedback(SpelSpelenViewModel ssvm, Sessie sessie, Groep groep)
         {
             TempData["State"] = groep.State;
 
             ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
             ssvm.Opdracht.foutePogingen = 0;
             _sessieRepository.SaveChanges();
-            return View(ssvm);
-            //if (groep.CurrentState is GroepVergrendeldState == false || groep.CurrentState is GroepGeblokkeerdState == false)
-            //{
-            //    ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
-            //    return RedirectToAction(nameof(SpelSpelen));
-            //}
-            //else
-            //{
-            //    return View(ssvm);
-            //}
+            return View(sessie);
         }
 
         [HttpPost]
