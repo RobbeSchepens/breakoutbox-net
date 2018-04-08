@@ -17,7 +17,7 @@ namespace BreakOutBox.Controllers
         }
 
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
-        public IActionResult SpelSpelen(Sessie sessie, Groep groep)
+        public IActionResult SpelSpelen(Groep groep)
         {
             SpelSpelenViewModel ssvm = new SpelSpelenViewModel();
             ssvm = geefSsvmAangepastTerug(ssvm,
@@ -131,6 +131,7 @@ namespace BreakOutBox.Controllers
             return View();
         }
 
+        // Deze wordt niet gebruikt? 
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
         public IActionResult Opnieuw(Sessie sessie, Groep groep, SpelSpelenViewModel ssvm)
         {
@@ -167,7 +168,7 @@ namespace BreakOutBox.Controllers
 
         [HttpPost]
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
-        public IActionResult TerugNaarOefening(Groep groep)
+        public IActionResult Feedback(Sessie sessie, Groep groep)
         {
             if (ModelState.IsValid)
             {
@@ -181,7 +182,7 @@ namespace BreakOutBox.Controllers
                     ModelState.AddModelError("", e.Message);
                 }
             }
-            return View();
+            return View(sessie);
         }
     }
 }
