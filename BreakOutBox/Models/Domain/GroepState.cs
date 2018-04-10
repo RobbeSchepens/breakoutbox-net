@@ -24,5 +24,6 @@ namespace BreakOutBox.Models.Domain
         public abstract void Deblokkeer();
         public abstract void ZetInSpel();
         public abstract void HaalUitSpel();
+        public abstract void VerwerkAntwoord(double inputantwoord);
     }
 }

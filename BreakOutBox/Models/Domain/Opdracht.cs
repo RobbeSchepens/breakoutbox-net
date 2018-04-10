@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace BreakOutBox.Models.Domain
 {
@@ -10,32 +11,33 @@ namespace BreakOutBox.Models.Domain
         public Actie Actie { get; set; } // UIT BOX
         public Oefening Oefening { get; set; } // UIT BOX
         public Toegangscode Toegangscode { get; set; } // UIT BOX
-        public int foutePogingen { get; set; }
-
+        public Groepsbewerking Groepsbewerking { get; set; } // MOET OOK UIT BOX 
+        public int FoutePogingen { get; set; }
+        public DateTime StartTijd { get; set; }
 
         public Opdracht()
         {
-
         }
-        public Opdracht(int volgNr, Actie actie, Oefening oefening, Toegangscode toegangscode)
+
+        public Opdracht(int volgNr, Actie actie, Oefening oefening, Toegangscode toegangscode, Groepsbewerking groepsbewerking)
         {
             VolgNr = volgNr;
             Actie = actie;
             Oefening = oefening;
             Toegangscode = toegangscode;
-            Opgelost = false;
+            Groepsbewerking = groepsbewerking;
         }
         
-
-
-        public bool isOpgelost(string antwoordVanGroep)
+        public bool IsOpgelost(string antwoordVanGroep)
         {
             if(antwoordVanGroep == Oefening.AntwoordMetGroepsbewerking())
-            {
-                
                 return true;
-            }
             return false;
+        }
+
+        public void VerwerkAntwoord(double inputantwoord)
+        {
+
         }
     }
 }

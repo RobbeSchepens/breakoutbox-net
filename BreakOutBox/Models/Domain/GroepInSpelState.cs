@@ -50,5 +50,10 @@ namespace BreakOutBox.Models.Domain
         {
             _groep.State = 1;
         }
+
+        public override void VerwerkAntwoord(double inputantwoord)
+        {
+            _groep.Pad.VerwerkAntwoord(inputantwoord);
+        }
     }
 }

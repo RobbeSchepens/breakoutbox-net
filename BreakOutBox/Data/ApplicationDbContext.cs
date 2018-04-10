@@ -37,6 +37,7 @@ namespace BreakOutBox.Data
             builder.ApplyConfiguration(new ActieConfiguration());
             builder.ApplyConfiguration(new OefeningConfiguration());
             builder.ApplyConfiguration(new ToegangscodeConfiguration());
+            builder.ApplyConfiguration(new GroepsbewerkingConfiguration());
         }
     }
 }

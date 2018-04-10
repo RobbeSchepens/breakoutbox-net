@@ -49,7 +49,7 @@
                         <div class="col-12 col-sm-6 col-md-4 groep">
                             <ul>
                                 <li><i class="fas fa-users fa-fw icon"></i>Groep #@(groep.GroepId) <span class="font-weight-normal d-inline px-0">is @groep.CurrentState.Beschrijving</span></li>
-                                <li><i class="fas fa-tasks fa-fw icon"></i>Bezig aan opdracht @(groep.Pad.getProgressie()[1] + 1) van de @groep.Pad.getProgressie()[0]</li>
+                                <li><i class="fas fa-tasks fa-fw icon"></i>Bezig aan opdracht @(groep.Pad.GetProgressie()[1] + 1) van de @groep.Pad.GetProgressie()[0]</li>
                                 @foreach (var leerling in groep.Leerlingen)
                                 {
                                     <li><i class="far fa-user fa-fw icon"></i>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
@@ -99,11 +99,11 @@
                                 @switch (groep.State)
                                 {
                                     case 0: // NietGereedState
-                                        <li>
+                                        @*<li>
                                             <a href="@Url.Action("ZetGroepGekozen", "Leerkracht", new { groepid = groep.GroepId })" title="Zet deze groep op gekozen">
                                                 Zet deze groep op gekozen
                                             </a>
-                                        </li>
+                                        </li>*@
                                         <li>
                                             <a href="@Url.Action("VergrendelGroep", "Leerkracht", new { groepid = groep.GroepId })" title="Vergrendel deze groep">
                                                 Vergrendel deze groep
@@ -148,7 +148,7 @@
     <script>
         $('[data-toggle=confirmation]').confirmation({
             rootSelector: '[data-toggle=confirmation]',
-            title: 'Ben je zeker?',
+            title: 'Bent u zeker?',
             btnOkClass: 'btn-danger',
             btnOkLabel: 'Ja',
             btnCancelLabel: 'Nee',

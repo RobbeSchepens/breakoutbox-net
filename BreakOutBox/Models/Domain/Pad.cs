@@ -7,8 +7,6 @@ namespace BreakOutBox.Models.Domain
 {
     public class Pad
     {
-        public int _voortgang;
-
         public int PadId { get; set; }
         public ICollection<Opdracht> Opdrachten { get; set; }
         public int GroepId { get; set; } // Voor one to one EF relatie.
@@ -23,11 +21,11 @@ namespace BreakOutBox.Models.Domain
             Opdrachten = opdrachten;
         }
 
-        public Opdracht getNextOpdracht()
+        public Opdracht GetNextOpdracht()
         {
             try
             {
-                int indexCurrent = Opdrachten.ToList().IndexOf(getCurrentOpdracht());
+                int indexCurrent = Opdrachten.ToList().IndexOf(GetCurrentOpdracht());
                 return Opdrachten.ToList()[indexCurrent + 1];
             }       
             catch // in catch als laatste oefeningn
@@ -41,7 +39,7 @@ namespace BreakOutBox.Models.Domain
             }                  
         }
 
-        public Opdracht getCurrentOpdracht()
+        public Opdracht GetCurrentOpdracht()
         {
             return Opdrachten.Where(t => !t.Opgelost).FirstOrDefault();
 
@@ -49,19 +47,24 @@ namespace BreakOutBox.Models.Domain
 
         public bool CheckToegangscode(string toegangscode)
         {
-            if (toegangscode == getNextOpdracht().Toegangscode.Code.ToString())
+            if (toegangscode == GetNextOpdracht().Toegangscode.Code.ToString())
             {
                 return true;
             }
             return false;
         }
-        
-        public List<int> getProgressie()
+
+        public List<int> GetProgressie()
         {
             List<int> progressieList = new List<int>(); // elem 1 is het vraagnummer waaraan de groep zit, elem 2 het totaal aantal vragen
             progressieList.Add(Opdrachten.Count);
-            progressieList.Add(Opdrachten.ToList().IndexOf(getCurrentOpdracht()));
+            progressieList.Add(Opdrachten.ToList().IndexOf(GetCurrentOpdracht()));
             return progressieList;
+        }
+
+        public void VerwerkAntwoord(double inputantwoord)
+        {
+            Opdracht.VerwerkAntwoord(inputantwoord);
         }
     }
 }

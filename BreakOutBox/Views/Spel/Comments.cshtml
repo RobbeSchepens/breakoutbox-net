@@ -33,7 +33,7 @@
                     inputPlaceholder: "Toegangscode"
                     },
                     function (inputValue) {
-                        var j = @(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString());
+                        var j = @(Model.Groep.Pad.GetNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString());
                         if (inputValue === false) return false;
 
                         if (inputValue === "") {
@@ -60,7 +60,7 @@
                 else {
                     console.log("Antwoord en toegangscode");
                     console.log(@Model.Opdracht.Oefening.Antwoord.ToString());
-                    console.log(@(Model.Groep.Pad.getNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString()));
+                    console.log(@(Model.Groep.Pad.GetNextOpdracht(Model.Opdracht).Toegangscode.Code.ToString()));
                     document.getElementById("formAntwoord").submit();
                 }*@
            // }

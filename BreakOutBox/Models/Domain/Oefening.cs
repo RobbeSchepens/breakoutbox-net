@@ -12,7 +12,6 @@ namespace BreakOutBox.Models.Domain
         public string Naam { get; set; }
         public string Opgave { get; set; } // Een path bvb: "oef/oefening1.pdf"
         public double Antwoord { get; set; } // Het antwoord VOORALEER de groepsbewerking toe te passen
-        public string Groepsbewerking { get; set; } // De bewerking. Het resultaat van antwoord + groepsbewerking wordt 'on the spot' uitgerekend. 
         public string Feedback { get; set; }
         public Vak Vak { get; set; }
 
@@ -28,21 +27,21 @@ namespace BreakOutBox.Models.Domain
             Vak = vak;
         }
 
-        public string AntwoordMetGroepsbewerking()
-        {
-            string grpBew = Groepsbewerking.ToString().ToLower(); ;
-            string resultString = Regex.Match(Groepsbewerking, @"\d+").Value;
-            int getalInString = Int32.Parse(resultString);
+        //public string AntwoordMetGroepsbewerking()
+        //{
+        //    string grpBew = Groepsbewerking.ToString().ToLower(); ;
+        //    string resultString = Regex.Match(Groepsbewerking, @"\d+").Value;
+        //    int getalInString = Int32.Parse(resultString);
 
-            if (grpBew.Contains("tel"))
-                return (Antwoord + getalInString).ToString();
-            if (grpBew.Contains("trek"))
-                return (Antwoord - getalInString).ToString();
-            if (grpBew.Contains("vermenigvuldig"))
-                return (Antwoord * getalInString).ToString();
-            if (grpBew.Contains("deel"))
-                return (Antwoord / getalInString).ToString();
-            return "fout";
-        }
+        //    if (grpBew.Contains("tel"))
+        //        return (Antwoord + getalInString).ToString();
+        //    if (grpBew.Contains("trek"))
+        //        return (Antwoord - getalInString).ToString();
+        //    if (grpBew.Contains("vermenigvuldig"))
+        //        return (Antwoord * getalInString).ToString();
+        //    if (grpBew.Contains("deel"))
+        //        return (Antwoord / getalInString).ToString();
+        //    return "fout";
+        //}
     }
 }

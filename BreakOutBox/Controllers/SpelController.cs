@@ -21,15 +21,15 @@ namespace BreakOutBox.Controllers
         {
             SpelSpelenViewModel ssvm = new SpelSpelenViewModel();
             ssvm = geefSsvmAangepastTerug(ssvm,
-                groep.Pad.getCurrentOpdracht(),
+                groep.Pad.GetCurrentOpdracht(),
                 false,
                 false,
-                groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(),
-                groep.Pad.getProgressie());
+                groep.Pad.GetNextOpdracht().Toegangscode.Code.ToString(),
+                groep.Pad.GetProgressie());
             TempData["State"] = groep.State;
 
             // Foute pogingen
-            int pogingen = groep.Pad.getCurrentOpdracht().foutePogingen;
+            int pogingen = groep.Pad.GetCurrentOpdracht().FoutePogingen;
             if (pogingen != 0)
                 TempData["danger"] = "Fout! Je hebt " + pogingen + " foute " + (pogingen == 1 ? "poging" : "pogingen") + " ondernomen.";
 
@@ -56,7 +56,7 @@ namespace BreakOutBox.Controllers
                 {
                     TempData["State"] = groep.State;
 
-                    if (groep.Pad.getCurrentOpdracht().isOpgelost(ssvm.Groepsantwoord))
+                    if (groep.Pad.GetCurrentOpdracht().IsOpgelost(ssvm.Groepsantwoord))
                     {
                         ssvm.JuistGeantwoordOpgave = true;
                         ssvm.JuistGeantwoordtoegangscode = false;
@@ -70,16 +70,16 @@ namespace BreakOutBox.Controllers
 
                         if (ssvm.JuistGeantwoordtoegangscode) // toegangscode en oplossing juist
                         {
-                            groep.Pad.getCurrentOpdracht().Opgelost = true;
+                            groep.Pad.GetCurrentOpdracht().Opgelost = true;
                             _sessieRepository.SaveChanges();
-                            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
+                            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.GetCurrentOpdracht(), false, false, groep.Pad.GetNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.GetProgressie());
                             //ssvm.Groepsantwoord = ""; // werkt niet
                             return View(ssvm);
                         }
                         else // enkel antwoord juist
                         {
                             _sessieRepository.SaveChanges();
-                            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), true, ssvm.JuistGeantwoordtoegangscode, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
+                            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.GetCurrentOpdracht(), true, ssvm.JuistGeantwoordtoegangscode, groep.Pad.GetNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.GetProgressie());
                             //if (groep.CurrentState is GroepVergrendeldState || groep.CurrentState is GroepGeblokkeerdState)
                             //{
                             //    return RedirectToAction(nameof(Feedback));
@@ -93,18 +93,18 @@ namespace BreakOutBox.Controllers
                     }
                     else // er is geen juist antwoord gegeven
                     {
-                        if (groep.Pad.getCurrentOpdracht().foutePogingen <= 1)
+                        if (groep.Pad.GetCurrentOpdracht().FoutePogingen <= 1)
                         {
-                            groep.Pad.getCurrentOpdracht().Opgelost = false;   // de vraag blijft op onOpgelost staan
-                            groep.Pad.getCurrentOpdracht().foutePogingen++; // foutpogingen +1 wanneer fout antwoord
-                            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
+                            groep.Pad.GetCurrentOpdracht().Opgelost = false;   // de vraag blijft op onOpgelost staan
+                            groep.Pad.GetCurrentOpdracht().FoutePogingen++; // foutpogingen +1 wanneer fout antwoord
+                            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.GetCurrentOpdracht(), false, false, groep.Pad.GetNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.GetProgressie());
                             _sessieRepository.SaveChanges();
-                            int pogingen = groep.Pad.getCurrentOpdracht().foutePogingen;
+                            int pogingen = groep.Pad.GetCurrentOpdracht().FoutePogingen;
                             TempData["danger"] = "Fout! Je hebt " + pogingen + " foute " + (pogingen == 1 ? "poging" : "pogingen") + " ondernomen.";
                             TempData["State"] = groep.State;
                             //if (groep.CurrentState is GroepVergrendeldState || groep.CurrentState is GroepGeblokkeerdState)
                             //{
-                            //    groep.Pad.getCurrentOpdracht().foutePogingen++; // foutpogingen +1 wanneer fout antwoord
+                            //    groep.Pad.getCurrentOpdracht().FoutePogingen++; // foutpogingen +1 wanneer fout antwoord
                             //    return RedirectToAction(nameof(Feedback));
                             //}
                             //else
@@ -113,7 +113,7 @@ namespace BreakOutBox.Controllers
                             //}
                             return View(ssvm);
                         }
-                        else //if(groep.Pad.getCurrentOpdracht().foutePogingen >= 3)
+                        else //if(groep.Pad.getCurrentOpdracht().FoutePogingen >= 3)
                         {
                             // State veranderen
                             groep.Blokkeer();
@@ -136,8 +136,8 @@ namespace BreakOutBox.Controllers
         {
             TempData["State"] = groep.State;
 
-            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.getCurrentOpdracht(), false, false, groep.Pad.getNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.getProgressie());
-            ssvm.Opdracht.foutePogingen = 0;
+            ssvm = geefSsvmAangepastTerug(ssvm, groep.Pad.GetCurrentOpdracht(), false, false, groep.Pad.GetNextOpdracht().Toegangscode.Code.ToString(), groep.Pad.GetProgressie());
+            ssvm.Opdracht.FoutePogingen = 0;
             _sessieRepository.SaveChanges();
             return View(sessie);
         }

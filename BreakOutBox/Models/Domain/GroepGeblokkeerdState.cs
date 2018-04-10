@@ -50,5 +50,10 @@ namespace BreakOutBox.Models.Domain
         {
             throw new Exception("De groep kan niet uit het spel gehaald worden omdat ze geblokkeerd is.");
         }
+
+        public override void VerwerkAntwoord(double inputantwoord)
+        {
+            throw new Exception("Jouw groepje is momenteel geblokkeerd en kan geen nieuwe antwoorden verwerken.");
+        }
     }
 }
