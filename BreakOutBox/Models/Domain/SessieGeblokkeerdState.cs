@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BreakOutBox.Models.Domain
 {
@@ -14,29 +11,34 @@ namespace BreakOutBox.Models.Domain
             Beschrijving = "Geblokkeerd";
         }
 
-        public override void Deblokkeer()
-        {
-            _sessie.State = 2;
-        }
-
         public override void Activeer()
         {
-            throw new Exception("De sessie is geblokkeerd!");
+            throw new Exception("De sessie kan niet geactiveerd worden omdat ze al in de in-spel-state is.");
+        }
+
+        public override void Deactiveer()
+        {
+            throw new Exception("De sessie kan niet gedeactiveerd worden omdat ze geblokkeerd is.");
+        }
+
+        public override void StartSpel()
+        {
+            throw new Exception("De sessie is al in de in-spel-state.");
+        }
+
+        public override void HaalUitSpel()
+        {
+            throw new Exception("De sessie kan niet uit het spel gehaald worden omdat ze geblokkeerd is.");
         }
 
         public override void Blokkeer()
         {
-            throw new Exception("Sessie is al geblokkeerd");
+            throw new Exception("De sessie is al geblokkeerd.");
         }
 
-        public override void Deactiveer(ICollection<Groep> groepen)
+        public override void Deblokkeer()
         {
-            throw new Exception("De sessie is geblokkeerd!");
-        }
-
-        public override void StartSpel(ICollection<Groep> groepen)
-        {
-            throw new Exception("Sessie is al gestart!");
+            _sessie.State = 2;
         }
     }
 }

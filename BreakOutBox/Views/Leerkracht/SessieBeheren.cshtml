@@ -22,14 +22,14 @@
                         break;
                     case 1: // ActiefState
                         <button asp-controller="Leerkracht" asp-action="StartSpelSessie" class="btn btn-primary btn-pill mr-1">Start</button>
-                        <button asp-controller="Leerkracht" asp-action="BlokkeerSessie" class="btn btn-danger btn-pill mr-1">Blokkeer</button>
                         <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" class="btn btn-secondary btn-pill" data-toggle="confirmation" 
-                                data-content="Deze actie dient enkel om de sessie te archiveren nadat het spel uitgespeeld is.">Deactiveer</button>
+                                data-content="Deze actie dient om de sessie te archiveren nadat het spel uitgespeeld is.">Deactiveer</button>
                         break;
                     case 2: // InSpelState
+                        <button asp-controller="Leerkracht" asp-action="HaalSessieUitSpel" class="btn btn-warning btn-pill mr-1">Haal uit spel</button>
                         <button asp-controller="Leerkracht" asp-action="BlokkeerSessie" class="btn btn-danger btn-pill mr-1">Blokkeer</button>
                         <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" class="btn btn-secondary btn-pill" data-toggle="confirmation" 
-                                data-content="Deze actie dient enkel om de sessie te archiveren nadat het spel uitgespeeld is.">Deactiveer</button>
+                                data-content="Deze actie dient om de sessie te archiveren nadat het spel uitgespeeld is.">Deactiveer</button>
                         break;
                     case 3: // GeblokkeerdState
                         <button asp-controller="Leerkracht" asp-action="DeblokkeerSessie" class="btn btn-secondary btn-pill">Deblokkeer</button>

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BreakOutBox.Models.Domain
 {
@@ -17,8 +14,9 @@ namespace BreakOutBox.Models.Domain
         }
         
         public abstract void Activeer();
-        public abstract void Deactiveer(ICollection<Groep> groepen);
-        public abstract void StartSpel(ICollection<Groep> groepen);
+        public abstract void Deactiveer();
+        public abstract void StartSpel();
+        public abstract void HaalUitSpel();
         public abstract void Blokkeer();
         public abstract void Deblokkeer();
     }

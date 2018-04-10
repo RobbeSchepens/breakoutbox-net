@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BreakOutBox.Models.Domain
 {
@@ -16,21 +13,22 @@ namespace BreakOutBox.Models.Domain
 
         public override void Activeer()
         {
-            throw new Exception("Het spel is bezig. Gelieve te deactiveren alvorens actief te maken.");
+            throw new Exception("Gebruik de haal uit spel knop hiervoor.");
         }
 
-        public override void Deactiveer(ICollection<Groep> groepen)
+        public override void Deactiveer()
         {
-            //foreach (Groep g in groepen)
-            //{
-            //    g.Ontgrendel();
-            //}
             _sessie.State = 0;
         }
 
-        public override void StartSpel(ICollection<Groep> groepen)
+        public override void StartSpel()
         {
             throw new Exception("Het spel is al gestart.");
+        }
+
+        public override void HaalUitSpel()
+        {
+            _sessie.State = 1;
         }
 
         public override void Blokkeer()
@@ -40,7 +38,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void Deblokkeer()
         {
-            throw new Exception("Sessie is niet geblokkeerd!");
+            throw new Exception("De sessie kan niet gedeblokkeerd worden omdat ze niet geblokkeerd is.");
         }
     }
 }

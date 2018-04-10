@@ -79,12 +79,17 @@ namespace BreakOutBox.Models.Domain
 
         public void Deactiveer()
         {
-            CurrentState.Deactiveer(Groepen);
+            CurrentState.Deactiveer();
         }
 
         public void StartSpel()
         {
-            CurrentState.StartSpel(Groepen);
+            CurrentState.StartSpel();
+        }
+
+        public void HaalUitSpel()
+        {
+            CurrentState.HaalUitSpel();
         }
 
         public void Blokkeer()

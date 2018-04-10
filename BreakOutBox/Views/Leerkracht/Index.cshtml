@@ -25,7 +25,7 @@
                         <td>@(item.Omschrijving)</td>
                         <td>@(item.Groepen.Count)</td>
                         <td>@(item.CurrentState.Beschrijving)</td>
-                        <td align="right"><a asp-controller="Leerkracht" asp-action="SessieBeheren" asp-route-sessiecode="@item.Code">Beheer</a></td>
+                        <td><a asp-controller="Leerkracht" asp-action="SessieBeheren" asp-route-sessiecode="@item.Code">Beheer</a></td>
                     </tr>
                 }
             </table>

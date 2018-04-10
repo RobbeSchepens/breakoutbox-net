@@ -40,6 +40,9 @@ namespace BreakOutBox.Controllers
             return View(nameof(Index));
         }
 
+        /* ===================== ============ =====================
+         * ===================== SESSIEACTIES =====================
+         * ===================== ============ ===================== */
         public IActionResult ActiveerSessie(Sessie sessie)
         {
             try
@@ -71,6 +74,40 @@ namespace BreakOutBox.Controllers
                 TempData["warning"] = e;
             }
 
+            return RedirectToAction(nameof(SessieBeheren));
+        }
+
+        public IActionResult StartSpelSessie(Sessie sessie)
+        {
+            try
+            {
+                // State veranderen
+                sessie.StartSpel();
+                _sessieRepository.SaveChanges();
+
+                TempData["success"] = $"Het spel is gestart.";
+            }
+            catch (Exception e)
+            {
+                TempData["warning"] = e;
+            }
+            return RedirectToAction(nameof(SessieBeheren));
+        }
+
+        public IActionResult HaalSessieUitSpel(Sessie sessie)
+        {
+            try
+            {
+                // State veranderen
+                sessie.HaalUitSpel();
+                _sessieRepository.SaveChanges();
+
+                TempData["success"] = $"Het spel is niet langer gestart.";
+            }
+            catch (Exception e)
+            {
+                TempData["warning"] = e;
+            }
             return RedirectToAction(nameof(SessieBeheren));
         }
 
@@ -108,55 +145,9 @@ namespace BreakOutBox.Controllers
             return RedirectToAction(nameof(SessieBeheren));
         }
 
-        public IActionResult StartSpelSessie(Sessie sessie)
-        {
-            try
-            {
-                // State veranderen
-                sessie.StartSpel();
-                _sessieRepository.SaveChanges();
-
-                TempData["success"] = $"Het spel is gestart.";
-            }
-            catch (Exception e)
-            {
-                TempData["warning"] = e;
-            }
-            return RedirectToAction(nameof(SessieBeheren));
-        }
-
-        public IActionResult OntgrendelGroep(Sessie sessie, string groepid)
-        {
-            try
-            {
-                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                groep.Ontgrendel();
-                _sessieRepository.SaveChanges();
-                TempData["success"] = $"Groep #{groep.GroepId} is nu ontgrendeld.";
-            }
-            catch (Exception e)
-            {
-                TempData["warning"] = e;
-            }
-            return RedirectToAction(nameof(SessieBeheren));
-        }
-
-        public IActionResult VergrendelGroep(Sessie sessie, string groepid)
-        {
-            try
-            {
-                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
-                groep.Vergrendel();
-                _sessieRepository.SaveChanges();
-                TempData["success"] = $"Groep #{groep.GroepId} is nu vergrendeld.";
-            }
-            catch (Exception e)
-            {
-                TempData["warning"] = e;
-            }
-            return RedirectToAction(nameof(SessieBeheren));
-        }
-
+        /* ===================== ============ =====================
+         * ===================== GROEP ACTIES =====================
+         * ===================== ============ ===================== */
         public IActionResult ZetGroepGekozen(Sessie sessie, string groepid)
         {
             try
@@ -181,6 +172,38 @@ namespace BreakOutBox.Controllers
                 groep.ZetNietGekozen();
                 _sessieRepository.SaveChanges();
                 TempData["success"] = $"Groep #{groep.GroepId} staat nu op niet gekozen.";
+            }
+            catch (Exception e)
+            {
+                TempData["warning"] = e;
+            }
+            return RedirectToAction(nameof(SessieBeheren));
+        }
+
+        public IActionResult VergrendelGroep(Sessie sessie, string groepid)
+        {
+            try
+            {
+                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                groep.Vergrendel();
+                _sessieRepository.SaveChanges();
+                TempData["success"] = $"Groep #{groep.GroepId} is nu vergrendeld.";
+            }
+            catch (Exception e)
+            {
+                TempData["warning"] = e;
+            }
+            return RedirectToAction(nameof(SessieBeheren));
+        }
+
+        public IActionResult OntgrendelGroep(Sessie sessie, string groepid)
+        {
+            try
+            {
+                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                groep.Ontgrendel();
+                _sessieRepository.SaveChanges();
+                TempData["success"] = $"Groep #{groep.GroepId} is nu ontgrendeld.";
             }
             catch (Exception e)
             {

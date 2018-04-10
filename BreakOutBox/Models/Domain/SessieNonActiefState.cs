@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BreakOutBox.Models.Domain
 {
@@ -19,14 +16,19 @@ namespace BreakOutBox.Models.Domain
             _sessie.State = 1;
         }
 
-        public override void Deactiveer(ICollection<Groep> groepen)
+        public override void Deactiveer()
         {
             throw new Exception("De sessie is al non-actief.");
         }
 
-        public override void StartSpel(ICollection<Groep> groepen)
+        public override void StartSpel()
         {
             throw new Exception("Het spel kan niet gestart worden als de sessie niet actief is.");
+        }
+
+        public override void HaalUitSpel()
+        {
+            throw new Exception("Het spel is niet in de in-spel-state.");
         }
 
         public override void Blokkeer()
