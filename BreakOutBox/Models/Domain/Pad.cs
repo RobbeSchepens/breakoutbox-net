@@ -19,6 +19,7 @@ namespace BreakOutBox.Models.Domain
         public Pad(ICollection<Opdracht> opdrachten)
         {
             Opdrachten = opdrachten;
+            Opdrachten.ElementAt(0).IsToegankelijk = true;
         }
 
         public Opdracht GetNextOpdracht()
@@ -38,14 +39,14 @@ namespace BreakOutBox.Models.Domain
                 
                 //return new Opdracht(20000,actie,oef,toegCode,new Groepsbewerking(0, 10));
                 //int volgNr, Actie actie, Oefening oefening, Toegangscode toegangscode
-            }                  
+            }
         }
 
         public Opdracht GetCurrentOpdracht()
         {
             try
             {
-                return Opdrachten.Where(t => !t.IsOpgelost).FirstOrDefault();
+                return Opdrachten.Where(t => !t.IsOpgelost && t.IsToegankelijk).FirstOrDefault();
             }
             catch (NullReferenceException)
             {

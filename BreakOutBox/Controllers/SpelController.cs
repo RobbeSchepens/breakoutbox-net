@@ -39,10 +39,6 @@ namespace BreakOutBox.Controllers
                     double.TryParse(svm.Groepsantwoord.Replace(',', '.'), out double doubleAntwoord);
                     groep.VerwerkAntwoord(doubleAntwoord);
                     _sessieRepository.SaveChanges();
-
-                    //if (svm.Opdracht.IsOpgelost)
-                    //    // Toon toegangscode scherm
-                    //    return null;
                 }
                 catch (DrieFoutePogingenException)
                 {
@@ -63,11 +59,40 @@ namespace BreakOutBox.Controllers
                 }
             }
 
-            SpelViewModel svmMetAntwoord = new SpelViewModel(groep)
+            SpelViewModel svmMetInput = new SpelViewModel(groep)
             {
                 Groepsantwoord = svm.Groepsantwoord
             };
-            return View(svmMetAntwoord);
+            return View(svmMetInput);
+        }
+
+        [HttpPost]
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult VerwerkToegangscode(Groep groep, SpelViewModel svm)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    double.TryParse(svm.Toegangscode.Replace(',', '.'), out double doubleAntwoord);
+                    groep.VerwerkToegangscode(doubleAntwoord);
+                    _sessieRepository.SaveChanges();
+                }
+                catch (FouteToegangscodeException)
+                {
+                    TempData["warning"] = "Foute toegangscode";
+                }
+                catch (Exception e)
+                {
+                    TempData["warning"] = e;
+                }
+            }
+
+            SpelViewModel svmMetInput = new SpelViewModel(groep)
+            {
+                Toegangscode = svm.Toegangscode
+            };
+            return View(svmMetInput);
         }
 
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]

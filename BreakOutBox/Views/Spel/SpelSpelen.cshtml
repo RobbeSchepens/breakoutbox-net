@@ -33,9 +33,10 @@
                                 <i class="fas fa-arrow-right"></i>
                             </span>
                         </span>
-                        <input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" autocomplete="off" placeholder="Antwoord na groepsbewerking">
+                        <input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" 
+                               autocomplete="off" placeholder="Antwoord na groepsbewerking" required>
                     </div>
-                    <span asp-validation-for="Groepsantwoord" class="text-danger" id="foutTeksvakLeeg"></span>
+                    <span asp-validation-for="Groepsantwoord" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary" id="GaVerder">Geef antwoord in</button>
@@ -53,15 +54,53 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="toegangscodeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="formToegangscode" name="formToegangscode" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Toegangscode volgende opdracht</h5>
+                </div>
+                <div class="modal-body">
+                    <p>@Model.Opdracht.Actie.Omschrijving.ToString() en vul de gevonden code hieronder in</p>
+                    <div class="form-group">
+                        <div class="input-group input-group-seamless">
+                            <span class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fas fa-arrow-right"></i>
+                                </span>
+                            </span>
+                            <input id="Toegangscode" asp-for="Toegangscode" type="text" class="form-control" 
+                                   autocomplete="off" placeholder="Toegangscode volgende opdracht" required>
+                        </div>
+                        <span asp-validation-for="Toegangscode" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Geef toegangscode in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <environment include="Development">
         <script>
-        console.log("@Model.Opdracht.Oefening.Antwoord.ToString()");
-        console.log("@Model.Opdracht.Groepsbewerking.ToString()");
+            console.log("@Model.Opdracht.Oefening.Antwoord.ToString()");
+            console.log("@Model.Opdracht.Groepsbewerking.ToString()");
         </script>
     </environment>
 
     <script>
+        $('#toegangscodeModal').modal({
+            keyboard: false,
+            backdrop: false,
+            show: false
+        });
 
+        if (@Model.Opdracht.IsOpgelost.ToString().ToLower())
+            $('#toegangscodeModal').modal('show');
     </script>
 }
