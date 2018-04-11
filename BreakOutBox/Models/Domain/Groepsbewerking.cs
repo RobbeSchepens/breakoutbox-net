@@ -4,8 +4,10 @@
 
     public class Groepsbewerking
     {
+        public int GroepsbewerkingId { get; set; }
         public EnumBewerking Bewerking { get; private set; }
         public double Getal { get; private set; }
+        public int OpdrachtIdFK { get; set; } // Voor one to one EF relatie
         public Opdracht Opdracht { get; set; } // Voor one to one EF relatie
 
         public Groepsbewerking()

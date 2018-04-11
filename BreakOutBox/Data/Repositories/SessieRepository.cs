@@ -41,6 +41,10 @@ namespace BreakOutBox.Data.Repositories
                     .ThenInclude(groep => groep.Pad)
                         .ThenInclude(pad => pad.Opdrachten)
                             .ThenInclude(opdr => opdr.Toegangscode)
+                .Include(sessie => sessie.Groepen)
+                    .ThenInclude(groep => groep.Pad)
+                        .ThenInclude(pad => pad.Opdrachten)
+                            .ThenInclude(opdr => opdr.Groepsbewerking)
                 .Include(sessie => sessie.Klas)
                     .ThenInclude(k => k.Leerlingen)
                 .FirstOrDefault(sessie => sessie.Code == sessieCode);

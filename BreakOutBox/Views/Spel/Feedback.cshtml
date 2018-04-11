@@ -20,7 +20,7 @@
     </div>
     <div class="row">
         <div class="col-md-12 col-lg-6 mb-5">
-            @if (Convert.ToInt32(TempData["State"]) != 4)
+            @if (Convert.ToInt32(ViewData["State"]) != 4)
             {
                 <h4>Gedeblokkeerd</h4>
                 <p>Je groepje is gedeblokkeerd, jullie kunnen de opdracht opnieuw proberen.</p>

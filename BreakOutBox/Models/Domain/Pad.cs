@@ -9,7 +9,7 @@ namespace BreakOutBox.Models.Domain
     {
         public int PadId { get; set; }
         public ICollection<Opdracht> Opdrachten { get; set; }
-        public int GroepId { get; set; } // Voor one to one EF relatie.
+        public int GroepIdFK { get; set; } // Voor one to one EF relatie.
         public Groep Groep { get; set; } // Voor one to one EF relatie.
         
         public Pad()
@@ -27,38 +27,52 @@ namespace BreakOutBox.Models.Domain
             {
                 int indexCurrent = Opdrachten.ToList().IndexOf(GetCurrentOpdracht());
                 return Opdrachten.ToList()[indexCurrent + 1];
-            }       
-            catch // in catch als laatste oefeningn
+            }
+            catch (ArgumentOutOfRangeException) // in catch als laatste oefeningn
             {
-                var actie = new Actie("");
-                var oef = new Oefening("","",0,new Vak(""));
-                var toegCode = new Toegangscode(0);
+                return null;
 
-                return new Opdracht(20000,actie,oef,toegCode,new Groepsbewerking(0, 10));
+                //var actie = new Actie("");
+                //var oef = new Oefening("","",0,new Vak(""));
+                //var toegCode = new Toegangscode(0);
+                
+                //return new Opdracht(20000,actie,oef,toegCode,new Groepsbewerking(0, 10));
                 //int volgNr, Actie actie, Oefening oefening, Toegangscode toegangscode
             }                  
         }
 
         public Opdracht GetCurrentOpdracht()
         {
-            return Opdrachten.Where(t => !t.IsOpgelost).FirstOrDefault();
-        }
-
-        public bool CheckToegangscode(string toegangscode)
-        {
-            if (toegangscode == GetNextOpdracht().Toegangscode.Code.ToString())
+            try
             {
-                return true;
+                return Opdrachten.Where(t => !t.IsOpgelost).FirstOrDefault();
             }
-            return false;
+            catch (NullReferenceException)
+            {
+                throw new AlleOpdrachtenVoltooidException("Alle opdrachten zijn voltooid.");
+            }
         }
 
+        //public bool CheckToegangscode(string toegangscode)
+        //{
+        //    if (toegangscode == GetNextOpdracht().Toegangscode.Code.ToString())
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
+        
         public List<int> GetProgressie()
         {
-            List<int> progressieList = new List<int>(); // elem 1 is het vraagnummer waaraan de groep zit, elem 2 het totaal aantal vragen
+            List<int> progressieList = new List<int>();
+            progressieList.Add(Opdrachten.ToList().IndexOf(GetCurrentOpdracht()) + 1);
             progressieList.Add(Opdrachten.Count);
-            progressieList.Add(Opdrachten.ToList().IndexOf(GetCurrentOpdracht()));
             return progressieList;
+        }
+
+        public void VerwerkToegangscode(double inputcode)
+        {
+            GetNextOpdracht().VerwerkToegangscode(inputcode);
         }
     }
 }

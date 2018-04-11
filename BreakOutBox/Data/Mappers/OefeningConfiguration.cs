@@ -12,7 +12,6 @@ namespace BreakOutBox.Data.Mappers
             builder.Property(t => t.Naam).IsRequired().HasMaxLength(20);
             builder.Property(t => t.Antwoord).IsRequired().HasMaxLength(8);
             builder.Property(t => t.Opgave).IsRequired().HasMaxLength(20);
-            builder.Property(t => t.Groepsbewerking).IsRequired().HasMaxLength(20);
 
             //Associations
             builder.HasOne(s => s.Vak).WithMany().IsRequired().OnDelete(DeleteBehavior.Restrict);

@@ -69,11 +69,11 @@ namespace BreakOutBox.Data
 
                 #region Opdrachten opvullen en in pad steken
                 // GROEPSBEWERKINGEN
-                var lijstMetGroepsbewerkingen = new List<String>();
-                for (int i = 50; i < 90; i++)
-                {
-                    lijstMetGroepsbewerkingen.Add("Tel " + i.ToString() + " bij op");
-                }
+                //var lijstMetGroepsbewerkingen = new List<String>();
+                //for (int i = 50; i < 90; i++)
+                //{
+                //    lijstMetGroepsbewerkingen.Add("Tel " + i.ToString() + " bij op");
+                //}
 
                 var act = box.Acties.ToList();
                 var oef = box.Oefeningen.ToList();
@@ -241,7 +241,7 @@ namespace BreakOutBox.Data
         private Groepsbewerking GenereerGroepsbewerking()
         {
             Random rnd = new Random();
-            Groepsbewerking groepsbewerking = new Groepsbewerking((EnumBewerking)rnd.Next(0, 4), rnd.Next(10, 200));
+            Groepsbewerking groepsbewerking = new Groepsbewerking((EnumBewerking)rnd.Next(0, 4), rnd.Next(1, 6));
             return groepsbewerking;
         }
     }

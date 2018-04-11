@@ -7,7 +7,8 @@ namespace BreakOutBox.Models.Domain
     {
         public int OpdrachtId { get; set; }
         public int VolgNr { get; set; }
-        public bool IsOpgelost { get; set; }
+        public bool IsOpgelost { get; set; } // Groepsantwoord gevonden?
+        public bool IsToegankelijk { get; set; } // Toegangscode gevonden?
         public Actie Actie { get; set; } // UIT BOX
         public Oefening Oefening { get; set; } // UIT BOX
         public Toegangscode Toegangscode { get; set; } // UIT BOX
@@ -58,21 +59,23 @@ namespace BreakOutBox.Models.Domain
             {
                 FoutePogingen++;
                 if (FoutePogingen == 3)
-                    throw new FoutePogingenException("Je hebt 3 foute pogingen");
+                    throw new DrieFoutePogingenException("Je hebt 3 foute pogingen.");
+                throw new FoutAntwoordException("Fout antwoord gegeven.");
             }
+            else
+                IsOpgelost = true;
+        }
+
+        public void VerwerkToegangscode(double inputcode)
+        {
+            Toegangscode.VerwerkToegangscode(inputcode);
+            IsToegankelijk = true;
         }
 
         public void StartVolgendeOpdracht()
         {
             if (StartTijd == null)
                 StartTijd = DateTime.Now;
-        }
-
-        public void VerwerkToegangscode(double inputcode)
-        {
-            if (inputcode != Toegangscode.Code)
-                throw new FouteToegangscodeException("Je hebt een foute toegangscode opgegeven.");
-            IsOpgelost = true;
         }
     }
 }

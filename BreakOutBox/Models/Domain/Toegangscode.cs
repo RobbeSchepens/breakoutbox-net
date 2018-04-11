@@ -19,5 +19,11 @@ namespace BreakOutBox.Models.Domain
         {
             Code = code;
         }
+
+        public void VerwerkToegangscode(double inputcode)
+        {
+            if (inputcode != Code)
+                throw new FouteToegangscodeException("Je hebt een foute toegangscode opgegeven.");
+        }
     }
 }

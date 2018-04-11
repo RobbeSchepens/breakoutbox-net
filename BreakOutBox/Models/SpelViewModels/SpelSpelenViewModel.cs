@@ -33,7 +33,7 @@ namespace BreakOutBox.Models.SpelViewModels
         {
         }
 
-        public bool convertTextToBool(string text)
+        public bool ConvertTextToBool(string text)
         {
             if (text == "True")
                 return true;

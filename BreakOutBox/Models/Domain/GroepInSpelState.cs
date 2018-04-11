@@ -58,7 +58,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void VerwerkToegangscode(double inputcode)
         {
-            _groep.Pad.GetCurrentOpdracht().VerwerkToegangscode(inputcode);
+            _groep.Pad.VerwerkToegangscode(inputcode);
         }
 
         public override void StartVolgendeOpdracht()

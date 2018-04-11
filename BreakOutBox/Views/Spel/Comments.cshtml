@@ -9,7 +9,7 @@
 
             @*if (@(Model.Opdracht.Oefening.Antwoord.ToString()) == document.getElementById("Toegangscode").value) {
 
-                 if (@(progressie[1] + 1) == @(progressie[0])){
+                 if (@(progressie[1]) == @(progressie[0])){
                     swal({
                         title: 'Juist! doe het volgende om de schatkist te vinden',
                         text: '@Model.Opdracht.Actie.Omschrijving.ToString()',
