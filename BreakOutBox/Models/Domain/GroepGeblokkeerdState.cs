@@ -39,6 +39,7 @@ namespace BreakOutBox.Models.Domain
         public override void Deblokkeer()
         {
             _groep.State = 3;
+            _groep.Pad.GetCurrentOpdracht().FoutePogingen = 0;
         }
 
         public override void ZetInSpel()
@@ -58,7 +59,12 @@ namespace BreakOutBox.Models.Domain
 
         public override void VerwerkToegangscode(double inputcode)
         {
-            throw new Exception("Jouw groepje is momenteel geblokkeerd en kan geen nieuwe antwoorden verwerken.");
+            throw new Exception("Jouw groepje is momenteel geblokkeerd en kan geen nieuwe toegangscode verwerken.");
+        }
+
+        public override void StartVolgendeOpdracht()
+        {
+            throw new Exception("Jouw groepje is momenteel geblokkeerd en kan geen volgende opdracht starten.");
         }
     }
 }

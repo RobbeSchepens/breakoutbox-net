@@ -26,5 +26,6 @@ namespace BreakOutBox.Models.Domain
         public abstract void HaalUitSpel();
         public abstract void VerwerkAntwoord(double inputantwoord);
         public abstract void VerwerkToegangscode(double inputcode);
+        public abstract void StartVolgendeOpdracht();
     }
 }

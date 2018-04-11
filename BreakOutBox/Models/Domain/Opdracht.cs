@@ -62,6 +62,12 @@ namespace BreakOutBox.Models.Domain
             }
         }
 
+        public void StartVolgendeOpdracht()
+        {
+            if (StartTijd == null)
+                StartTijd = DateTime.Now;
+        }
+
         public void VerwerkToegangscode(double inputcode)
         {
             if (inputcode != Toegangscode.Code)

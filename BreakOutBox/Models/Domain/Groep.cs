@@ -112,6 +112,16 @@ namespace BreakOutBox.Models.Domain
             CurrentState.VerwerkAntwoord(inputantwoord);
         }
 
+        public void VerwerkToegangscode(double inputcode)
+        {
+            CurrentState.VerwerkToegangscode(inputcode);
+        }
+
+        public void StartVolgendeOpdracht()
+        {
+            CurrentState.StartVolgendeOpdracht();
+        }
+
         public void VoegLeerlingToe(Leerling leerling)
         {
             if (Leerlingen.Count == 4)

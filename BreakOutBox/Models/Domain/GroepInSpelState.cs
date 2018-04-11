@@ -60,5 +60,10 @@ namespace BreakOutBox.Models.Domain
         {
             _groep.Pad.GetCurrentOpdracht().VerwerkToegangscode(inputcode);
         }
+
+        public override void StartVolgendeOpdracht()
+        {
+            _groep.Pad.GetCurrentOpdracht().StartVolgendeOpdracht();
+        }
     }
 }

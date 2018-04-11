@@ -50,5 +50,20 @@ namespace BreakOutBox.Models.Domain
         {
             throw new Exception("De groep kan niet uit het spel gehaald worden omdat ze niet in de in-spel-staat is.");
         }
+
+        public override void VerwerkAntwoord(double inputantwoord)
+        {
+            throw new Exception("Er kan geen antwoord verwerkt worden omdat de groep vergrendeld is.");
+        }
+
+        public override void VerwerkToegangscode(double inputcode)
+        {
+            throw new Exception("Er kan geen toegangscode verwerkt worden omdat de groep vergrendeld is.");
+        }
+
+        public override void StartVolgendeOpdracht()
+        {
+            throw new Exception("De volgende opdracht kan niet gestart worden omdat de groep vergrendeld is.");
+        }
     }
 }
