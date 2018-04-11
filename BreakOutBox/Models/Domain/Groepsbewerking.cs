@@ -17,5 +17,21 @@
             Bewerking = bewerking;
             Getal = getal;
         }
+
+        public override string ToString()
+        {
+            switch (Bewerking)
+            {
+                case EnumBewerking.OPTELLING:
+                    return "Tel er " + Getal + " bij op.";
+                case EnumBewerking.AFTREKKING:
+                    return "Trek er " + Getal + " van af.";
+                case EnumBewerking.VERMENIGVULDIGING:
+                    return "Vermenigvuldig met " + Getal + ".";
+                case EnumBewerking.DELING:
+                    return "Deel door " + Getal + ".";
+            }
+            return null;
+        }
     }
 }

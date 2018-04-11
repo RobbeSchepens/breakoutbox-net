@@ -109,9 +109,6 @@ namespace BreakOutBox.Models.Domain
 
         public void VerwerkAntwoord(double inputantwoord)
         {
-            if (CurrentState is GroepGeblokkeerdState)
-                throw new Exception("Jouw groepje is momenteel geblokkeerd en kan geen nieuwe antwoorden verwerken.");
-
             CurrentState.VerwerkAntwoord(inputantwoord);
         }
 

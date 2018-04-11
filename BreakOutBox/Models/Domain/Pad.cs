@@ -34,15 +34,14 @@ namespace BreakOutBox.Models.Domain
                 var oef = new Oefening("","",0,new Vak(""));
                 var toegCode = new Toegangscode(0);
 
-                return new Opdracht(20000, actie,oef,toegCode);
+                return new Opdracht(20000,actie,oef,toegCode,new Groepsbewerking(0, 10));
                 //int volgNr, Actie actie, Oefening oefening, Toegangscode toegangscode
             }                  
         }
 
         public Opdracht GetCurrentOpdracht()
         {
-            return Opdrachten.Where(t => !t.Opgelost).FirstOrDefault();
-
+            return Opdrachten.Where(t => !t.IsOpgelost).FirstOrDefault();
         }
 
         public bool CheckToegangscode(string toegangscode)
@@ -60,11 +59,6 @@ namespace BreakOutBox.Models.Domain
             progressieList.Add(Opdrachten.Count);
             progressieList.Add(Opdrachten.ToList().IndexOf(GetCurrentOpdracht()));
             return progressieList;
-        }
-
-        public void VerwerkAntwoord(double inputantwoord)
-        {
-            Opdracht.VerwerkAntwoord(inputantwoord);
         }
     }
 }

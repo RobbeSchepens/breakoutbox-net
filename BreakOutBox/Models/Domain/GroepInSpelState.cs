@@ -53,7 +53,12 @@ namespace BreakOutBox.Models.Domain
 
         public override void VerwerkAntwoord(double inputantwoord)
         {
-            _groep.Pad.VerwerkAntwoord(inputantwoord);
+            _groep.Pad.GetCurrentOpdracht().VerwerkAntwoord(inputantwoord);
+        }
+
+        public override void VerwerkToegangscode(double inputcode)
+        {
+            _groep.Pad.GetCurrentOpdracht().VerwerkToegangscode(inputcode);
         }
     }
 }
