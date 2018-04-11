@@ -63,7 +63,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void StartVolgendeOpdracht()
         {
-            _groep.Pad.GetCurrentOpdracht().StartVolgendeOpdracht();
+            _groep.Pad.StartVolgendeOpdracht();
         }
     }
 }

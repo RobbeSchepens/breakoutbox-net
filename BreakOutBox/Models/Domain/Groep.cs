@@ -16,9 +16,11 @@ namespace BreakOutBox.Models.Domain
         public ICollection<Leerling> Leerlingen { get; set; }
         public Pad Pad { get; set; }
         public GroepState CurrentState { get; private set; }
-        public int State {
-            get { return _state; }
-            set {
+        public int State
+        {
+            get => _state;
+            set
+            {
                 _state = value;
                 SwitchState(_state);
             }

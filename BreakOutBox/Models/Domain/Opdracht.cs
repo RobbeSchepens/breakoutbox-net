@@ -3,18 +3,19 @@ using System.Collections.Generic;
 
 namespace BreakOutBox.Models.Domain
 {
-    public class Opdracht
+    public class Opdracht : IComparable
     {
         public int OpdrachtId { get; set; }
         public int VolgNr { get; set; }
         public bool IsOpgelost { get; set; } // Groepsantwoord gevonden?
         public bool IsToegankelijk { get; set; } // Toegangscode gevonden?
+        public bool IsGestart { get; set; } // Start gedrukt?
         public Actie Actie { get; set; } // UIT BOX
         public Oefening Oefening { get; set; } // UIT BOX
         public Toegangscode Toegangscode { get; set; } // UIT BOX
         public Groepsbewerking Groepsbewerking { get; set; } // MOET OOK UIT BOX 
         public int FoutePogingen { get; set; }
-        public DateTime StartTijd { get; set; }
+        public DateTime? StartTijd { get; set; }
 
         public Opdracht()
         {
@@ -28,13 +29,6 @@ namespace BreakOutBox.Models.Domain
             Toegangscode = toegangscode;
             Groepsbewerking = groepsbewerking;
         }
-        
-        //public bool IsOpgelost(string antwoordVanGroep)
-        //{
-        //    //if(antwoordVanGroep == Oefening.AntwoordMetGroepsbewerking())
-        //    //    return true;
-        //    //return false;
-        //}
 
         public void VerwerkAntwoord(double inputantwoord)
         {
@@ -72,10 +66,21 @@ namespace BreakOutBox.Models.Domain
             IsToegankelijk = true;
         }
 
-        public void StartVolgendeOpdracht()
+        public void StartOpdracht()
         {
             if (StartTijd == null)
                 StartTijd = DateTime.Now;
+            IsGestart = true;
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+
+            if (obj is Opdracht otherOpdracht)
+                return VolgNr.CompareTo(otherOpdracht.VolgNr);
+            else
+                throw new ArgumentException("Object is not a Opdracht");
         }
     }
 }

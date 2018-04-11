@@ -80,7 +80,7 @@ namespace BreakOutBox.Controllers
                 }
                 catch (FouteToegangscodeException)
                 {
-                    TempData["warning"] = "Foute toegangscode";
+                    TempData["foutetoegangscode"] = TempData["warning"] = $"De toegangscode {svm.Toegangscode} is fout.";
                 }
                 catch (Exception e)
                 {
@@ -92,7 +92,26 @@ namespace BreakOutBox.Controllers
             {
                 Toegangscode = svm.Toegangscode
             };
-            return View(svmMetInput);
+            return View(nameof(SpelSpelen), svmMetInput);
+        }
+
+        [HttpPost]
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult VolgendeOpdracht(Groep groep)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    groep.StartVolgendeOpdracht();
+                    _sessieRepository.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    TempData["warning"] = e;
+                }
+            }
+            return View(nameof(SpelSpelen), new SpelViewModel(groep));
         }
 
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]

@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-md-12 col-lg-6 mb-5">
             <h4>@Model.Opdracht.Oefening.Naam</h4>
-            <p>Opdracht @(Model.NrHuidigeOpdracht) van de @(Model.NrTotaalOpdrachten).</p>
+            <p>Bezig aan @(Model.NrHuidigeOpdracht) van de @(Model.NrTotaalOpdrachten).</p>
             <form id="formAntwoord" name="formAntwoord" method="post">
                 <p>
                     Stap 1: Maak de oefening.<br>
@@ -33,7 +33,7 @@
                                 <i class="fas fa-arrow-right"></i>
                             </span>
                         </span>
-                        <input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control" 
+                        <input id="Toegangscode" asp-for="Groepsantwoord" type="text" class="form-control"
                                autocomplete="off" placeholder="Antwoord na groepsbewerking" required>
                     </div>
                     <span asp-validation-for="Groepsantwoord" class="text-danger"></span>
@@ -54,13 +54,13 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="toegangscodeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal Geef toegangscode in-->
+<div class="modal" id="toegangscodeModal" tabindex="-1" role="dialog" aria-labelledby="toegangscodeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form id="formToegangscode" name="formToegangscode" method="post">
+            <form asp-action="VerwerkToegangscode" id="formToegangscode" name="formToegangscode" method="post">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Toegangscode volgende opdracht</h5>
+                    <h5 class="modal-title" id="toegangscodeModalLabel">Toegangscode volgende opdracht</h5>
                 </div>
                 <div class="modal-body">
                     <p>@Model.Opdracht.Actie.Omschrijving.ToString() en vul de gevonden code hieronder in</p>
@@ -71,14 +71,34 @@
                                     <i class="fas fa-arrow-right"></i>
                                 </span>
                             </span>
-                            <input id="Toegangscode" asp-for="Toegangscode" type="text" class="form-control" 
+                            <input id="Toegangscode" asp-for="Toegangscode" type="text" class="form-control"
                                    autocomplete="off" placeholder="Toegangscode volgende opdracht" required>
                         </div>
                         <span asp-validation-for="Toegangscode" class="text-danger"></span>
+                        <p class="text-danger">@TempData["foutetoegangscode"]</p>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Geef toegangscode in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Start volgende opdracht -->
+<div class="modal" id="startVolgendeOpdrachtModal" tabindex="-1" role="dialog" aria-labelledby="startVolgendeOpdrachtModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form asp-action="VolgendeOpdracht" id="formToegangscode" name="formToegangscode" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="startVolgendeOpdrachtModalLabel">Volgende opdracht</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Ben je klaar voor de volgende opdracht?</p>
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="submit" class="btn btn-primary btn-pill d-inline">Start volgende opdracht</button>
                 </div>
             </form>
         </div>
@@ -90,17 +110,21 @@
         <script>
             console.log("@Model.Opdracht.Oefening.Antwoord.ToString()");
             console.log("@Model.Opdracht.Groepsbewerking.ToString()");
+            console.log("@Model.ToegangscodeVolgendeOpdracht.ToString()");
         </script>
     </environment>
 
     <script>
-        $('#toegangscodeModal').modal({
+        $('#toegangscodeModal, #startVolgendeOpdrachtModal').modal({
             keyboard: false,
-            backdrop: false,
+            backdrop: 'static',
             show: false
         });
 
-        if (@Model.Opdracht.IsOpgelost.ToString().ToLower())
+        if (@Model.Opdracht.IsOpgelost.ToString().ToLower() && !@Model.VolgendeOpdrachtIsToegankelijk.ToString().ToLower())
             $('#toegangscodeModal').modal('show');
+
+        if (@Model.Opdracht.IsOpgelost.ToString().ToLower() && @Model.VolgendeOpdrachtIsToegankelijk.ToString().ToLower())
+            $('#startVolgendeOpdrachtModal').modal('show');
     </script>
 }

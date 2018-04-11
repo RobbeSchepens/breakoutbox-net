@@ -93,10 +93,11 @@ namespace BreakOutBox.Controllers
             {
                 try
                 {
-                    if (groep.CurrentState is GroepNietGekozenState || groep.CurrentState is GroepGekozenState || groep.CurrentState is GroepVergrendeldState)
+                    if (groep.CurrentState is GroepGekozenState)
                     {
                         // State veranderen
                         groep.ZetInSpel();
+                        groep.StartVolgendeOpdracht();
                         _sessieRepository.SaveChanges();
                     }
 

@@ -22,7 +22,7 @@ namespace BreakOutBox.Models.Domain
         public SessieState CurrentState { get; private set;  }
         public int State
         {
-            get { return _state; }
+            get => _state;
             set
             {
                 SwitchState(value);

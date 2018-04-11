@@ -7,73 +7,78 @@ namespace BreakOutBox.Models.Domain
 {
     public class Pad
     {
+        #region Fields
+        private IList<Opdracht> _opdrachten;
+        #endregion
+
+        #region Properties
         public int PadId { get; set; }
-        public ICollection<Opdracht> Opdrachten { get; set; }
+        public IList<Opdracht> Opdrachten
+        {
+            get => _opdrachten;
+            set => _opdrachten = value.OrderBy(e => e.VolgNr).ToList();
+        }
         public int GroepIdFK { get; set; } // Voor one to one EF relatie.
         public Groep Groep { get; set; } // Voor one to one EF relatie.
-        
+        #endregion
+
+        #region Constructors
         public Pad()
         {
         }
 
-        public Pad(ICollection<Opdracht> opdrachten)
+        public Pad(IList<Opdracht> opdrachten)
         {
             Opdrachten = opdrachten;
             Opdrachten.ElementAt(0).IsToegankelijk = true;
+            Opdrachten.ElementAt(0).IsGestart = true;
+        }
+        #endregion
+
+        #region Methods
+        public Opdracht GetCurrentOpdracht()
+        {
+            if (Opdrachten.OrderBy(e => e.VolgNr).LastOrDefault().IsOpgelost)
+                throw new AlleOpdrachtenVoltooidException("Alle opdrachten zijn voltooid.");
+
+            return Opdrachten.OrderBy(e => e.VolgNr).Where(e => e.IsToegankelijk && e.IsGestart).LastOrDefault();
         }
 
         public Opdracht GetNextOpdracht()
         {
             try
             {
-                int indexCurrent = Opdrachten.ToList().IndexOf(GetCurrentOpdracht());
-                return Opdrachten.ToList()[indexCurrent + 1];
+                int indexCurrent = Opdrachten.IndexOf(GetCurrentOpdracht());
+                return Opdrachten[indexCurrent + 1];
             }
-            catch (ArgumentOutOfRangeException) // in catch als laatste oefeningn
+            catch (ArgumentOutOfRangeException) // in catch als laatste oefening
             {
                 return null;
-
-                //var actie = new Actie("");
-                //var oef = new Oefening("","",0,new Vak(""));
-                //var toegCode = new Toegangscode(0);
-                
-                //return new Opdracht(20000,actie,oef,toegCode,new Groepsbewerking(0, 10));
-                //int volgNr, Actie actie, Oefening oefening, Toegangscode toegangscode
             }
         }
-
-        public Opdracht GetCurrentOpdracht()
-        {
-            try
-            {
-                return Opdrachten.Where(t => !t.IsOpgelost && t.IsToegankelijk).FirstOrDefault();
-            }
-            catch (NullReferenceException)
-            {
-                throw new AlleOpdrachtenVoltooidException("Alle opdrachten zijn voltooid.");
-            }
-        }
-
-        //public bool CheckToegangscode(string toegangscode)
-        //{
-        //    if (toegangscode == GetNextOpdracht().Toegangscode.Code.ToString())
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
         
         public List<int> GetProgressie()
         {
-            List<int> progressieList = new List<int>();
-            progressieList.Add(Opdrachten.ToList().IndexOf(GetCurrentOpdracht()) + 1);
-            progressieList.Add(Opdrachten.Count);
-            return progressieList;
+            return new List<int>
+            {
+                GetCurrentOpdracht().VolgNr,
+                Opdrachten.Count
+            };
         }
 
         public void VerwerkToegangscode(double inputcode)
         {
             GetNextOpdracht().VerwerkToegangscode(inputcode);
         }
+
+        public void StartVolgendeOpdracht()
+        {
+            // Eerste opdracht, anders daaropvolgende opdrachten
+            if (Opdrachten.OrderBy(e => e.VolgNr).FirstOrDefault() == GetCurrentOpdracht() && !GetNextOpdracht().IsToegankelijk)
+                GetCurrentOpdracht().StartOpdracht();
+            else if (GetCurrentOpdracht().IsOpgelost && GetNextOpdracht().IsToegankelijk)
+                GetNextOpdracht().StartOpdracht();
+        }
+        #endregion
     }
 }

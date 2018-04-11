@@ -15,8 +15,8 @@
             </form>
             @if (ViewBag.GeselecteerdeGroep != null && Model.State == 2 || Model.State == 4)
             {
-                <form asp-controller="Sessie" asp-action="StartSpel" class="mt-3">
-                    <button type="submit" class="btn btn-primary btn-pill btn-lg">Start de eerste opdracht</button>
+                <form asp-controller="Sessie" asp-action="StartSpel" class="mt-3" method="post">
+                    <button type="submit" class="btn btn-primary btn-pill btn-lg">Start de volgende opdracht</button>
                 </form>
             }
         </div>
@@ -34,7 +34,7 @@
                             {
                                 <li><i class="far fa-user fa-fw icon"></i>@(leerling.Voornaam + " " + leerling.Achternaam)</li>
                             }
-                            @if (ViewBag.GeselecteerdeGroep.State != 2)
+                            @if (ViewBag.GeselecteerdeGroep.State == 1)
                             {
                                 <li><a href="@Url.Action("ZetGroepNietGekozen", "Sessie")" title="Klik hier om deze groep te deselecteren">Deze groep deselecteren</a></li>
                             }
