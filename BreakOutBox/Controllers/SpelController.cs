@@ -19,13 +19,11 @@ namespace BreakOutBox.Controllers
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
         public IActionResult SpelSpelen(Groep groep)
         {
-            SpelViewModel svm = new SpelViewModel(groep);
-
             int pogingen = groep.Pad.GetCurrentOpdracht().FoutePogingen;
             if (pogingen != 0)
                 TempData["danger"] = $"Je hebt {pogingen} foute {(pogingen == 1 ? "poging" : "pogingen")} ondernomen.";
 
-            return View(svm);
+            return View(new SpelViewModel(groep));
         }
 
         [HttpPost]
@@ -42,7 +40,7 @@ namespace BreakOutBox.Controllers
                 {
                     groep.Blokkeer();
                     _sessieRepository.SaveChanges();
-                    
+
                     return RedirectToAction(nameof(Feedback));
                 }
                 catch (FoutAntwoordException)
@@ -50,6 +48,9 @@ namespace BreakOutBox.Controllers
                     int pogingen = groep.Pad.GetCurrentOpdracht().FoutePogingen;
                     if (pogingen != 0)
                         TempData["danger"] = $"{svm.Groepsantwoord} is fout! Je hebt {pogingen} foute {(pogingen == 1 ? "poging" : "pogingen")} ondernomen.";
+                }
+                catch (AlleOpdrachtenVoltooidException)
+                {
                 }
                 catch (Exception e)
                 {
@@ -113,15 +114,15 @@ namespace BreakOutBox.Controllers
         }
 
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
-        public IActionResult Feedback(SpelViewModel ssvm, Sessie sessie, Groep groep)
+        public IActionResult Feedback(Groep groep)
         {
             ViewData["State"] = groep.State;
-            return View(sessie);
+            return View(new SpelViewModel(groep));
         }
 
         [HttpPost]
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
-        public IActionResult Feedback(Sessie sessie, Groep groep)
+        public IActionResult Feedback(Groep groep, SpelViewModel svm)
         {
             if (ModelState.IsValid)
             {
@@ -135,7 +136,7 @@ namespace BreakOutBox.Controllers
                     ModelState.AddModelError("", e.Message);
                 }
             }
-            return View(sessie);
+            return View(new SpelViewModel(groep));
         }
     }
 }

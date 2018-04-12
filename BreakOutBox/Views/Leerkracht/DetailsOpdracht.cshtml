@@ -27,8 +27,15 @@
                 Groepsantwoord: @(Model.Groepsantwoord != null ? Model.Groepsantwoord : 999.999) <br>
                 Aantal pogingen: @Model.FoutePogingen <br>
                 Groepsantwoord al opgelost? @(Model.OpdrachtIsOpgelost == true ? "Ja" : "Nee") <br>
-                Toegangscode voor volgende opdracht: @Model.ToegangscodeVolgendeOpdracht <br>
-                Toegangscode al opgelost? @(Model.VolgendeOpdrachtIsToegankelijk == true ? "Ja" : "Nee")
+                @if (!Model.IsLaatsteOefening)
+                {
+                    <span>Toegangscode voor volgende opdracht: @Model.ToegangscodeVolgendeOpdracht</span> <br>
+                    <span>Toegangscode al opgelost? @(Model.VolgendeOpdrachtIsToegankelijk == true ? "Ja" : "Nee")</span>
+                }
+                else
+                {
+                    <span>Dit is hun laatste opdracht</span>
+                }
             </p>
         </div>
         <div class="col-md-12 col-lg-6 mb-5">

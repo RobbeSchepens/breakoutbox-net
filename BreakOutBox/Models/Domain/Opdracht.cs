@@ -10,6 +10,7 @@ namespace BreakOutBox.Models.Domain
         public bool IsOpgelost { get; set; } // Groepsantwoord gevonden?
         public bool IsToegankelijk { get; set; } // Toegangscode gevonden?
         public bool IsGestart { get; set; } // Start gedrukt?
+        public bool IsLaatsteOefening { get; set; } 
         public Actie Actie { get; set; } // UIT BOX
         public Oefening Oefening { get; set; } // UIT BOX
         public Toegangscode Toegangscode { get; set; } // UIT BOX
@@ -32,7 +33,7 @@ namespace BreakOutBox.Models.Domain
 
         public void VerwerkAntwoord(string inputantwoord)
         {
-            double? parsedinput = double.TryParse(inputantwoord.Replace(',', '.'), out double outValue) ? (double?)outValue : null;
+            double? parsedinput = double.TryParse(inputantwoord.Replace('.', ','), out double outValue) ? (double?)outValue : null;
             double? correctAntwoord = null;
 
             switch (Groepsbewerking.Bewerking)

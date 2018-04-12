@@ -38,23 +38,16 @@ namespace BreakOutBox.Models.Domain
         #region Methods
         public Opdracht GetCurrentOpdracht()
         {
-            if (Opdrachten.OrderBy(e => e.VolgNr).LastOrDefault().IsOpgelost)
-                throw new AlleOpdrachtenVoltooidException("Alle opdrachten zijn voltooid.");
+            //if (Opdrachten.OrderBy(e => e.VolgNr).LastOrDefault().IsOpgelost)
+            //    throw new AlleOpdrachtenVoltooidException("Alle opdrachten zijn voltooid.");
 
             return Opdrachten.OrderBy(e => e.VolgNr).Where(e => e.IsToegankelijk && e.IsGestart).LastOrDefault();
         }
 
         public Opdracht GetNextOpdracht()
         {
-            try
-            {
-                int indexCurrent = Opdrachten.IndexOf(GetCurrentOpdracht());
-                return Opdrachten[indexCurrent + 1];
-            }
-            catch (ArgumentOutOfRangeException) // in catch als laatste oefening
-            {
-                return null;
-            }
+            int indexCurrent = Opdrachten.OrderBy(e => e.VolgNr).ToList().IndexOf(GetCurrentOpdracht());
+            return Opdrachten.OrderBy(e => e.VolgNr).ToList()[indexCurrent + 1];
         }
         
         public List<int> GetProgressie()
@@ -73,11 +66,18 @@ namespace BreakOutBox.Models.Domain
 
         public void StartVolgendeOpdracht()
         {
-            // Eerste opdracht, anders daaropvolgende opdrachten
-            if (Opdrachten.OrderBy(e => e.VolgNr).FirstOrDefault() == GetCurrentOpdracht() && !GetNextOpdracht().IsToegankelijk)
-                GetCurrentOpdracht().StartOpdracht();
-            else if (GetCurrentOpdracht().IsOpgelost && GetNextOpdracht().IsToegankelijk)
-                GetNextOpdracht().StartOpdracht();
+            try
+            {
+                // Eerste opdracht, anders daaropvolgende opdrachten
+                if (Opdrachten.OrderBy(e => e.VolgNr).FirstOrDefault() == GetCurrentOpdracht() && !GetNextOpdracht().IsToegankelijk)
+                    GetCurrentOpdracht().StartOpdracht();
+                else if (GetCurrentOpdracht().IsOpgelost && GetNextOpdracht().IsToegankelijk)
+                    GetNextOpdracht().StartOpdracht();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                throw new AlleOpdrachtenVoltooidException("Dit was de laatste opdracht.");
+            }
         }
         #endregion
     }

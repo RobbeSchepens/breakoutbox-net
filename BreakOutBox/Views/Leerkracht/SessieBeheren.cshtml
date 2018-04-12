@@ -49,11 +49,17 @@
                         <div class="col-12 col-sm-6 col-md-4 groep">
                             <ul>
                                 <li><i class="fas fa-users fa-fw icon"></i>Groep #@(groep.GroepId) <span class="font-weight-normal d-inline px-0">is @groep.CurrentState.Beschrijving</span></li>
-                                <li><i class="fas fa-tasks fa-fw icon"></i>
-                                    <a href="@Url.Action("DetailsOpdracht", "Leerkracht", new { groepid = groep.GroepId })" title="Toon details van huidige opdracht">
-                                        Bezig aan opdracht @(groep.Pad.GetProgressie()[0]) van de @groep.Pad.GetProgressie()[1]
-                                    </a>
-                                </li>
+                                @if (groep.Pad.GetProgressie()[0] == groep.Pad.GetProgressie()[1] && groep.Pad.GetCurrentOpdracht().IsOpgelost)
+                                {
+                                    <li><i class="fas fa-tasks fa-fw icon"></i>Heeft alle opdrachten voltooid</li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <i class="fas fa-tasks fa-fw icon"></i><a href="@Url.Action("DetailsOpdracht", "Leerkracht", new { groepid = groep.GroepId })" 
+                                           title="Toon details van huidige opdracht">Bezig aan opdracht @(groep.Pad.GetProgressie()[0]) van de @groep.Pad.GetProgressie()[1]</a>
+                                    </li>
+                                }
                                 @foreach (var leerling in groep.Leerlingen)
                                 {
                                     <li><i class="far fa-user fa-fw icon"></i>@(leerling.Voornaam + " " + leerling.Achternaam)</li>

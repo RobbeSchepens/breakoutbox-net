@@ -63,7 +63,7 @@
                     <h5 class="modal-title" id="toegangscodeModalLabel">Toegangscode volgende opdracht</h5>
                 </div>
                 <div class="modal-body">
-                    <p>@Model.Opdracht.Actie.Omschrijving.ToString() en vul de gevonden code hieronder in</p>
+                    <p>@Model.ActieVolgendeOpdracht en vul de gevonden code hieronder in</p>
                     <div class="form-group">
                         <div class="input-group input-group-seamless">
                             <span class="input-group-prepend">
@@ -105,6 +105,25 @@
     </div>
 </div>
 
+<!-- Modal Gewonnen -->
+<div class="modal" id="gewonnenModal" tabindex="-1" role="dialog" aria-labelledby="gewonnenModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form asp-controller="Home" asp-action="Index" id="formHome" name="formHome" method="get">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="gewonnenModalLabel">Alle opdrachten voltooid</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Jullie hebben alle opdrachten voltooid!</p>
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="submit" class="btn btn-primary btn-pill d-inline">Naar home</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <environment include="Development">
         <script>
@@ -115,16 +134,19 @@
     </environment>
 
     <script>
-        $('#toegangscodeModal, #startVolgendeOpdrachtModal').modal({
+        $('#toegangscodeModal, #startVolgendeOpdrachtModal, #gewonnenModal').modal({
             keyboard: false,
             backdrop: 'static',
             show: false
         });
 
-        if (@Model.Opdracht.IsOpgelost.ToString().ToLower() && !@Model.VolgendeOpdrachtIsToegankelijk.ToString().ToLower())
+        if (@Model.Opdracht.IsOpgelost.ToString().ToLower() && !@Model.VolgendeOpdrachtIsToegankelijk.ToString().ToLower() && !@Model.IsLaatsteOefening.ToString().ToLower())
             $('#toegangscodeModal').modal('show');
 
-        if (@Model.Opdracht.IsOpgelost.ToString().ToLower() && @Model.VolgendeOpdrachtIsToegankelijk.ToString().ToLower())
+        if (@Model.Opdracht.IsOpgelost.ToString().ToLower() && @Model.VolgendeOpdrachtIsToegankelijk.ToString().ToLower() && !@Model.IsLaatsteOefening.ToString().ToLower())
             $('#startVolgendeOpdrachtModal').modal('show');
+
+        if (@Model.Opdracht.IsOpgelost.ToString().ToLower() && @Model.IsLaatsteOefening.ToString().ToLower())
+            $('#gewonnenModal').modal('show');
     </script>
 }

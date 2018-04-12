@@ -22,7 +22,7 @@ namespace BreakOutBox.Models.Domain
 
         public void VerwerkToegangscode(string inputcode)
         {
-            double? parsedinput = double.TryParse(inputcode.Replace(',', '.'), out double outValue) ? (double?)outValue : null;
+            double? parsedinput = double.TryParse(inputcode.Replace('.', ','), out double outValue) ? (double?)outValue : null;
 
             if (!parsedinput.HasValue || parsedinput != Code)
                 throw new FouteToegangscodeException("Je hebt een foute toegangscode opgegeven.");
