@@ -20,7 +20,7 @@ nav .btn:hover {
     display: inline-block;
 }
 
-#pdfcontainer {
+.pdfcontainer {
     position: relative;
     height: 0;
     overflow: hidden;
@@ -28,7 +28,7 @@ nav .btn:hover {
     box-shadow: 0 7px 4px -6px rgba(0,0,0,0.5);
 }
 
-#pdf {
+.pdf {
     position: absolute;
     top: 0;
     left: 0;

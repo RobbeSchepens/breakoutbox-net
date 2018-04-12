@@ -1,5 +1,6 @@
 ﻿using BreakOutBox.Filters;
 using BreakOutBox.Models.Domain;
+using BreakOutBox.Models.LeerkrachtViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -268,6 +269,20 @@ namespace BreakOutBox.Controllers
                 groep.Deblokkeer();
                 _sessieRepository.SaveChanges();
                 TempData["success"] = $"Groep #{groep.GroepId} is nu gedeblokkeerd.";
+            }
+            catch (Exception e)
+            {
+                TempData["warning"] = e;
+            }
+            return RedirectToAction(nameof(SessieBeheren));
+        }
+
+        public IActionResult DetailsOpdracht(Sessie sessie, string groepid)
+        {
+            try
+            {
+                Groep groep = sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(groepid));
+                return View(new OpdrachtViewModel(groep));
             }
             catch (Exception e)
             {

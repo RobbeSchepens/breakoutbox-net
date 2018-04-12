@@ -1,0 +1,57 @@
+﻿@model BreakOutBox.Models.LeerkrachtViewModels.OpdrachtViewModel
+@{
+    ViewData["Title"] = "Details opdracht";
+}
+
+<div class="container-fluid pt-4">
+    <div class="row text-center">
+        <div class="col mb-4">
+            <h4 class="d-inline">@(Model.Opdracht.Oefening.Vak.Naam)</h4> <h2 class="d-inline ml-3 mr-3">@Model.Opdracht.Oefening.Naam</h2>
+            <form asp-action="DetailsOpdracht" class="d-inline" method="post" asp-route-groepid="@Model.Groep.GroepId">
+                <button type="submit" class="btn btn-outline-primary btn-pill btn-sm d-inline sync"><i class="fas fa-sync-alt"></i></button>
+            </form>
+            <div class="progress progress-lg mt-3">
+                <div class="progress-bar" role="progressbar" style="width: @(Model.PercentageVoltooid)%"
+                     aria-valuenow="@(Model.PercentageVoltooid)" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-6 mb-5">
+            <h4>Groep #@Model.Groep.GroepId is bezig aan opdracht @Model.NrHuidigeOpdracht van de @(Model.NrTotaalOpdrachten)</h4>
+            <p>
+                Naam van oefening: @Model.Opdracht.Oefening.Naam <br>
+                Vak: @Model.Opdracht.Oefening.Vak.Naam <br>
+                Antwoord: @Model.Opdracht.Oefening.Antwoord <br>
+                Groepsbewerking: @Model.Opdracht.Groepsbewerking.ToString() <br>
+                Groepsantwoord: @(Model.Groepsantwoord != null ? Model.Groepsantwoord : 999.999) <br>
+                Aantal pogingen: @Model.FoutePogingen <br>
+                Groepsantwoord al opgelost? @(Model.OpdrachtIsOpgelost == true ? "Ja" : "Nee") <br>
+                Toegangscode voor volgende opdracht: @Model.ToegangscodeVolgendeOpdracht <br>
+                Toegangscode al opgelost? @(Model.VolgendeOpdrachtIsToegankelijk == true ? "Ja" : "Nee")
+            </p>
+        </div>
+        <div class="col-md-12 col-lg-6 mb-5">
+            <h4><a href="#" id="toggle">Toggle</a> <span id="opgave">Opgave</span><span id="feedback">Feedback</span></h4>
+            <div id="PDFOpgave" class="pdfcontainer">
+                <object type="application/pdf" data="~/opdrachtenG1/@Model.Opdracht.Oefening.Opgave" class="pdf"></object>
+            </div>
+            <div id="PDFFeedback" class="pdfcontainer">
+                <object type="application/pdf" data="~/algemenepdfs/Theorie.pdf" class="pdf"></object>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("#PDFFeedback").hide();
+        $("#feedback").hide();
+        $("#toggle").click(function () {
+            $("#PDFOpgave").toggle();
+            $("#PDFFeedback").toggle();
+            $("#opgave").toggle();
+            $("#feedback").toggle();
+        });
+    </script>
+}
