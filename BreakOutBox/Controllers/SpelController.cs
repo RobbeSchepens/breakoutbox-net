@@ -36,8 +36,7 @@ namespace BreakOutBox.Controllers
             {
                 try
                 {
-                    double.TryParse(svm.Groepsantwoord.Replace(',', '.'), out double doubleAntwoord);
-                    groep.VerwerkAntwoord(doubleAntwoord);
+                    groep.VerwerkAntwoord(svm.Groepsantwoord);
                     _sessieRepository.SaveChanges();
                 }
                 catch (DrieFoutePogingenException)
@@ -74,8 +73,7 @@ namespace BreakOutBox.Controllers
             {
                 try
                 {
-                    double.TryParse(svm.Toegangscode.Replace(',', '.'), out double doubleAntwoord);
-                    groep.VerwerkToegangscode(doubleAntwoord);
+                    groep.VerwerkToegangscode(svm.Toegangscode);
                     _sessieRepository.SaveChanges();
                 }
                 catch (FouteToegangscodeException)

@@ -11,8 +11,8 @@
                 <button type="submit" class="btn btn-outline-primary btn-pill btn-sm d-inline sync"><i class="fas fa-sync-alt"></i></button>
             </form>
             <div class="progress progress-lg mt-3">
-                <div class="progress-bar" role="progressbar" style="width: @(Model.PercentageVoltooid * 100)%"
-                     aria-valuenow="@(Model.PercentageVoltooid)" aria-valuemin="0.00" aria-valuemax="1.00"></div>
+                <div class="progress-bar" role="progressbar" style="width: @Model.PercentageVoltooid%"
+                     aria-valuenow="@Model.PercentageVoltooid" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
         <div class="col-md-12 col-lg-6 mb-5">
             <h4>@Model.Opdracht.Oefening.Naam</h4>
             <p>Bezig aan @(Model.NrHuidigeOpdracht) van de @(Model.NrTotaalOpdrachten).</p>
-            <form id="formAntwoord" name="formAntwoord" method="post">
+            <form id="formAntwoord" name="formAntwoord" asp-action="SpelSpelen" method="post">
                 <p>
                     Stap 1: Maak de oefening.<br>
                     Stap 2: Voer deze groepsbewerking uit op het antwoord. Groepsbewerking: @(Model.Opdracht.Groepsbewerking.ToString())<br>

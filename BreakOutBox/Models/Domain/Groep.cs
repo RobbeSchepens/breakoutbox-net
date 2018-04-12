@@ -109,12 +109,12 @@ namespace BreakOutBox.Models.Domain
             CurrentState.Deblokkeer();
         }
 
-        public void VerwerkAntwoord(double inputantwoord)
+        public void VerwerkAntwoord(string inputantwoord)
         {
             CurrentState.VerwerkAntwoord(inputantwoord);
         }
 
-        public void VerwerkToegangscode(double inputcode)
+        public void VerwerkToegangscode(string inputcode)
         {
             CurrentState.VerwerkToegangscode(inputcode);
         }

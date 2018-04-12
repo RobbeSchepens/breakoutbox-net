@@ -53,12 +53,12 @@ namespace BreakOutBox.Models.Domain
             throw new Exception("De groep kan niet uit het spel gehaald worden omdat ze geblokkeerd is.");
         }
 
-        public override void VerwerkAntwoord(double inputantwoord)
+        public override void VerwerkAntwoord(string inputantwoord)
         {
             throw new Exception("Jouw groepje is momenteel geblokkeerd en kan geen nieuwe antwoorden verwerken.");
         }
 
-        public override void VerwerkToegangscode(double inputcode)
+        public override void VerwerkToegangscode(string inputcode)
         {
             throw new Exception("Jouw groepje is momenteel geblokkeerd en kan geen nieuwe toegangscode verwerken.");
         }

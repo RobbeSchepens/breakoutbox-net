@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col mb-4 text-center">
             <h4 class="d-inline">Sessie</h4> <h2 class="d-inline ml-3 mr-3">@Model.Omschrijving</h2>
-            <form asp-action="SessieBeheren" asp-controller="Leerkracht" class="d-inline" method="get">
+            <form asp-action="SessieBeheren" class="d-inline" method="get">
                 <button type="submit" class="btn btn-outline-primary btn-pill btn-sm d-inline sync"><i class="fas fa-sync-alt"></i></button>
             </form>
             <form class="mt-3">
@@ -18,21 +18,21 @@
                 @switch (Model.State)
                 {
                     case 0: // NonActiefState
-                        <button asp-controller="Leerkracht" asp-action="ActiveerSessie" class="btn btn-success btn-pill">Activeer</button>
+                        <button asp-action="ActiveerSessie" class="btn btn-success btn-pill">Activeer</button>
                         break;
                     case 1: // ActiefState
-                        <button asp-controller="Leerkracht" asp-action="StartSpelSessie" class="btn btn-primary btn-pill mr-1">Start</button>
-                        <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" class="btn btn-secondary btn-pill" data-toggle="confirmation" 
+                        <button asp-action="StartSpelSessie" class="btn btn-primary btn-pill mr-1">Start</button>
+                        <button asp-action="DeactiveerSessie" class="btn btn-secondary btn-pill" data-toggle="confirmation" 
                                 data-content="Deze actie dient om de sessie te archiveren nadat het spel uitgespeeld is.">Deactiveer</button>
                         break;
                     case 2: // InSpelState
-                        <button asp-controller="Leerkracht" asp-action="HaalSessieUitSpel" class="btn btn-warning btn-pill mr-1">Haal uit spel</button>
-                        <button asp-controller="Leerkracht" asp-action="BlokkeerSessie" class="btn btn-danger btn-pill mr-1">Blokkeer</button>
-                        <button asp-controller="Leerkracht" asp-action="DeactiveerSessie" class="btn btn-secondary btn-pill" data-toggle="confirmation" 
+                        <button asp-action="HaalSessieUitSpel" class="btn btn-warning btn-pill mr-1">Haal uit spel</button>
+                        <button asp-action="BlokkeerSessie" class="btn btn-danger btn-pill mr-1">Blokkeer</button>
+                        <button asp-action="DeactiveerSessie" class="btn btn-secondary btn-pill" data-toggle="confirmation" 
                                 data-content="Deze actie dient om de sessie te archiveren nadat het spel uitgespeeld is.">Deactiveer</button>
                         break;
                     case 3: // GeblokkeerdState
-                        <button asp-controller="Leerkracht" asp-action="DeblokkeerSessie" class="btn btn-secondary btn-pill">Deblokkeer</button>
+                        <button asp-action="DeblokkeerSessie" class="btn btn-secondary btn-pill">Deblokkeer</button>
                         break;
                 }
             </form>

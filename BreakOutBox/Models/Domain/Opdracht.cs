@@ -30,8 +30,9 @@ namespace BreakOutBox.Models.Domain
             Groepsbewerking = groepsbewerking;
         }
 
-        public void VerwerkAntwoord(double inputantwoord)
+        public void VerwerkAntwoord(string inputantwoord)
         {
+            double? parsedinput = double.TryParse(inputantwoord.Replace(',', '.'), out double outValue) ? (double?)outValue : null;
             double? correctAntwoord = null;
 
             switch (Groepsbewerking.Bewerking)
@@ -49,7 +50,7 @@ namespace BreakOutBox.Models.Domain
             if (correctAntwoord == null)
                 throw new Exception("Systeemfout! Het juiste antwoord kon niet berekend worden.");
 
-            if (inputantwoord != correctAntwoord)
+            if (!parsedinput.HasValue || parsedinput != correctAntwoord)
             {
                 FoutePogingen++;
                 if (FoutePogingen == 3)
@@ -60,7 +61,7 @@ namespace BreakOutBox.Models.Domain
                 IsOpgelost = true;
         }
 
-        public void VerwerkToegangscode(double inputcode)
+        public void VerwerkToegangscode(string inputcode)
         {
             Toegangscode.VerwerkToegangscode(inputcode);
             IsToegankelijk = true;

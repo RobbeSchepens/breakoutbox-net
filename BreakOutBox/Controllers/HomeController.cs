@@ -27,9 +27,18 @@ namespace BreakOutBox.Controllers
             return View();
         }
 
-        public IActionResult Error()
+        public IActionResult Error(int? statusCode = null)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            //return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+
+            if (statusCode.HasValue)
+            {
+                if (statusCode == 404 || statusCode == 500)
+                {
+                    return View(statusCode.ToString());
+                }
+            }
+            return View();
         }
 
         [HttpPost]

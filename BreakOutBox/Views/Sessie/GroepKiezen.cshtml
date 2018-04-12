@@ -10,12 +10,12 @@
     <div class="row">
         <div class="col mb-4 text-center">
             <h4 class="d-inline">Sessie</h4> <h2 class="d-inline ml-3 mr-3">@Model.Omschrijving</h2>
-            <form asp-action="GroepKiezen" asp-controller="Sessie" class="d-inline" method="get">
+            <form asp-action="GroepKiezen" class="d-inline" method="get">
                 <button type="submit" class="btn btn-outline-primary btn-pill btn-sm d-inline sync"><i class="fas fa-sync-alt"></i></button>
             </form>
             @if (ViewBag.GeselecteerdeGroep != null && Model.State == 2 || Model.State == 4)
             {
-                <form asp-controller="Sessie" asp-action="StartSpel" class="mt-3" method="post">
+                <form asp-action="StartSpel" class="mt-3" method="post">
                     <button type="submit" class="btn btn-primary btn-pill btn-lg">Start de volgende opdracht</button>
                 </form>
             }

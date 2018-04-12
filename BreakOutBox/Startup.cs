@@ -72,7 +72,8 @@ namespace BreakOutBox
             }
 
             app.UseStaticFiles();
-            app.UseStatusCodePages();
+            //app.UseStatusCodePages();
+            app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
             app.UseSession();
             app.UseAuthentication();
 
@@ -80,7 +81,7 @@ namespace BreakOutBox
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}/{id2?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
             breakOutBoxDataInitializer.InitializeData().Wait();

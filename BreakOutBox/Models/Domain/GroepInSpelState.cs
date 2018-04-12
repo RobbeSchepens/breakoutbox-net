@@ -51,12 +51,12 @@ namespace BreakOutBox.Models.Domain
             _groep.State = 1;
         }
 
-        public override void VerwerkAntwoord(double inputantwoord)
+        public override void VerwerkAntwoord(string inputantwoord)
         {
             _groep.Pad.GetCurrentOpdracht().VerwerkAntwoord(inputantwoord);
         }
 
-        public override void VerwerkToegangscode(double inputcode)
+        public override void VerwerkToegangscode(string inputcode)
         {
             _groep.Pad.VerwerkToegangscode(inputcode);
         }

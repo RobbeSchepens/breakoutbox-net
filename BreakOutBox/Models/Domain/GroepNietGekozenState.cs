@@ -51,12 +51,12 @@ namespace BreakOutBox.Models.Domain
             throw new Exception("De groep kan niet uit het spel gehaald worden omdat ze niet in de in-spel-staat is.");
         }
 
-        public override void VerwerkAntwoord(double inputantwoord)
+        public override void VerwerkAntwoord(string inputantwoord)
         {
             throw new Exception("Er kan geen antwoord verwerkt worden omdat de groep niet in de in-spel-state is.");
         }
 
-        public override void VerwerkToegangscode(double inputcode)
+        public override void VerwerkToegangscode(string inputcode)
         {
             throw new Exception("Er kan geen toegangscode verwerkt worden omdat de groep niet in de in-spel-state is.");
         }

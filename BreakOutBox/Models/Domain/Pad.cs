@@ -66,7 +66,7 @@ namespace BreakOutBox.Models.Domain
             };
         }
 
-        public void VerwerkToegangscode(double inputcode)
+        public void VerwerkToegangscode(string inputcode)
         {
             GetNextOpdracht().VerwerkToegangscode(inputcode);
         }
