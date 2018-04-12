@@ -54,8 +54,8 @@ namespace BreakOutBox.Models.Domain
             if (!parsedinput.HasValue || parsedinput != correctAntwoord)
             {
                 FoutePogingen++;
-                if (FoutePogingen == 3)
-                    throw new DrieFoutePogingenException("Je hebt 3 foute pogingen.");
+                if (FoutePogingen % 3 == 0)
+                    throw new DrieFoutePogingenException("Je hebt 3 foute pogingen of een veelvoud ervan.");
                 throw new FoutAntwoordException("Fout antwoord gegeven.");
             }
             else

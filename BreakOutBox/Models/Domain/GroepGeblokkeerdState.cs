@@ -39,7 +39,7 @@ namespace BreakOutBox.Models.Domain
         public override void Deblokkeer()
         {
             _groep.State = 3;
-            _groep.Pad.GetCurrentOpdracht().FoutePogingen = 0;
+            //_groep.Pad.GetCurrentOpdracht().FoutePogingen = 0;
             _groep.Pad.GetCurrentOpdracht().StartTijd = DateTime.Now;
         }
 
