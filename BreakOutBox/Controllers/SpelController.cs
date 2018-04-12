@@ -37,7 +37,6 @@ namespace BreakOutBox.Controllers
                 try
                 {
                     groep.VerwerkAntwoord(svm.Groepsantwoord);
-                    _sessieRepository.SaveChanges();
                 }
                 catch (DrieFoutePogingenException)
                 {
@@ -58,6 +57,7 @@ namespace BreakOutBox.Controllers
                 }
             }
 
+            _sessieRepository.SaveChanges();
             SpelViewModel svmMetInput = new SpelViewModel(groep)
             {
                 Groepsantwoord = svm.Groepsantwoord
