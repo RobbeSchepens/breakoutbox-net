@@ -64,26 +64,21 @@ namespace BreakOutBox.Models.Domain
             if (correctAntwoord == null)
                 throw new Exception("Systeemfout! Het juiste antwoord kon niet berekend worden.");
 
+            // bereken verschil in minuten tussen starttijd en nu
+            // @TODO Wat als er pauze genomen wordt? 
+            if (StartTijd != null && OpdrachtBepaler is EnumOpdrachtBepaler.TIJD && (DateTime.Now - StartTijd).Value.TotalMinutes >= TijdInMinuten)
+                throw new TijdVerstrekenException($"Er zijn {TijdInMinuten} minuten verstreken.");
+
             if (!parsedinput.HasValue || parsedinput != correctAntwoord)
             {
-                if (OpdrachtBepaler is EnumOpdrachtBepaler.POGINGEN)
-                {
-                    FoutePogingen++;
-                    if (FoutePogingen % Pogingen == 0)
-                        throw new DrieFoutePogingenException($"Je hebt {Pogingen} foute pogingen.");
-                    throw new FoutAntwoordException("Fout antwoord gegeven.");
-                }
-                else if (OpdrachtBepaler is EnumOpdrachtBepaler.TIJD)
-                {
-                    // bereken verschil in minuten tussen starttijd en nu
-                    // @TODO Berekent verschil van starttijd, maar wat als er pauze genomen wordt? 
-                    if (StartTijd != null && (DateTime.Now - StartTijd).Value.Minutes >= TijdInMinuten)
-                        throw new TijdVerstrekenException($"Er zijn {TijdInMinuten} minuten verstreken.");
-                    throw new FoutAntwoordException("Fout antwoord gegeven.");
-                }
+                FoutePogingen++;
+
+                if (OpdrachtBepaler is EnumOpdrachtBepaler.POGINGEN && FoutePogingen % Pogingen == 0)
+                    throw new DrieFoutePogingenException($"Je hebt {Pogingen} foute pogingen.");
+                throw new FoutAntwoordException("Fout antwoord gegeven.");
             }
-            else
-                IsOpgelost = true;
+
+            IsOpgelost = true;
         }
 
         public void VerwerkToegangscode(string inputcode)

@@ -19,7 +19,13 @@
     <div class="row">
         <div class="col-md-12 col-lg-6 mb-5">
             <h4>@Model.Opdracht.Oefening.Naam</h4>
-            <p>Bezig aan @(Model.NrHuidigeOpdracht) van de @(Model.NrTotaalOpdrachten).</p>
+            <p>Bezig aan @(Model.NrHuidigeOpdracht) van de @(Model.NrTotaalOpdrachten) 
+            @if (Model.Opdracht.OpdrachtBepaler is BreakOutBox.Models.Domain.EnumOpdrachtBepaler.TIJD)
+            {
+                <br><span>Tijd beschikbaar voor deze opdracht: @Model.Opdracht.TijdInMinuten minuten</span> <br>
+                <span>Tijd verstreken: <span id="timer"></span></span>
+            }
+            </p>
             <form id="formAntwoord" name="formAntwoord" asp-action="SpelSpelen" method="post">
                 <p>
                     Stap 1: Maak de oefening.<br>
@@ -132,6 +138,8 @@
             console.log("@Model.ToegangscodeVolgendeOpdracht.ToString()");
         </script>
     </environment>
+    <script src="~/lib/jintervals-master/jintervals.js"></script>
+    <script src="~/lib/jquery-stopwatch-0.0.3/jquery.stopwatch.js"></script>
 
     <script>
         $('#toegangscodeModal, #startVolgendeOpdrachtModal, #gewonnenModal').modal({
@@ -148,5 +156,16 @@
 
         if (@Model.Opdracht.IsOpgelost.ToString().ToLower() && @Model.IsLaatsteOefening.ToString().ToLower())
             $('#gewonnenModal').modal('show');
+        
+        if (@((Model.Opdracht.OpdrachtBepaler is BreakOutBox.Models.Domain.EnumOpdrachtBepaler.TIJD).ToString().ToLower()) && !$('#toegangscodeModal').hasClass('in') || !$('#startVolgendeOpdrachtModal').hasClass('in') || !$('#gewonnenModal').hasClass('in'))
+            $('#timer').stopwatch({ startTime: @((int)((DateTime.Now - Model.Opdracht.StartTijd).Value.TotalMilliseconds)) }).bind('tick.stopwatch', function (e, elapsed) {
+                if (elapsed >= @(Model.Opdracht.TijdInMinuten*60*1000)) {
+                    //$.post('@Url.Action("TijdVerstreken", "Spel")');
+                    
+                    //var url = '@Url.Action("Details", "Branch", new { id = "__id__" })';
+                    $('#timer').stopwatch('stop');
+                    window.location.href = '@(Url.Action("TijdVerstreken", "Spel"))';
+                }
+            }).stopwatch('start');
     </script>
 }

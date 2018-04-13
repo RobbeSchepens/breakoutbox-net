@@ -121,6 +121,15 @@ namespace BreakOutBox.Controllers
             }
             return View(nameof(SpelSpelen), new SpelViewModel(groep));
         }
+        
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public IActionResult TijdVerstreken(Groep groep)
+        {
+            groep.Blokkeer();
+            _sessieRepository.SaveChanges();
+            TempData["danger"] = "Je tijd is verstreken.";
+            return RedirectToAction(nameof(Feedback));
+        }
 
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
         public IActionResult Feedback(Groep groep)

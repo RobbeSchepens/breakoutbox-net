@@ -26,6 +26,11 @@
                 Groepsbewerking: @Model.Opdracht.Groepsbewerking.ToString() <br>
                 Groepsantwoord: @(Model.Groepsantwoord != null ? Model.Groepsantwoord : 999.999) <br>
                 Aantal pogingen: @Model.FoutePogingen <br>
+                @if (Model.Opdracht.OpdrachtBepaler is BreakOutBox.Models.Domain.EnumOpdrachtBepaler.TIJD)
+                {
+                    <span>Tijd beschikbaar voor deze opdracht: @Model.Opdracht.TijdInMinuten</span> <br>
+                    <span>Tijd verstreken: @((int)((DateTime.Now - Model.Opdracht.StartTijd).Value.TotalMinutes)) minuten</span> <br>
+                }
                 Groepsantwoord al opgelost? @(Model.OpdrachtIsOpgelost == true ? "Ja" : "Nee") <br>
                 @if (!Model.IsLaatsteOefening)
                 {
