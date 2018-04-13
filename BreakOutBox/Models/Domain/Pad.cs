@@ -68,10 +68,9 @@ namespace BreakOutBox.Models.Domain
         {
             try
             {
-                // Eerste opdracht, anders daaropvolgende opdrachten
-                if (Opdrachten.OrderBy(e => e.VolgNr).FirstOrDefault() == GetCurrentOpdracht() && !GetNextOpdracht().IsToegankelijk)
+                if (!GetCurrentOpdracht().IsOpgelost)
                     GetCurrentOpdracht().StartOpdracht();
-                else if (GetCurrentOpdracht().IsOpgelost && GetNextOpdracht().IsToegankelijk)
+                else if (GetNextOpdracht().IsToegankelijk)
                     GetNextOpdracht().StartOpdracht();
             }
             catch (ArgumentOutOfRangeException)

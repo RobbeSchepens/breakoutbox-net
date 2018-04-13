@@ -36,11 +36,18 @@ namespace BreakOutBox.Controllers
                 {
                     groep.VerwerkAntwoord(svm.Groepsantwoord);
                 }
-                catch (DrieFoutePogingenException)
+                catch (DrieFoutePogingenException e)
                 {
                     groep.Blokkeer();
                     _sessieRepository.SaveChanges();
-
+                    TempData["danger"] = e.Message;
+                    return RedirectToAction(nameof(Feedback));
+                }
+                catch (TijdVerstrekenException e)
+                {
+                    groep.Blokkeer();
+                    _sessieRepository.SaveChanges();
+                    TempData["danger"] = e.Message;
                     return RedirectToAction(nameof(Feedback));
                 }
                 catch (FoutAntwoordException)
@@ -48,6 +55,8 @@ namespace BreakOutBox.Controllers
                     int pogingen = groep.Pad.GetCurrentOpdracht().FoutePogingen;
                     if (pogingen != 0)
                         TempData["danger"] = $"{svm.Groepsantwoord} is fout! Je hebt {pogingen} foute {(pogingen == 1 ? "poging" : "pogingen")} ondernomen.";
+                    else
+                        TempData["danger"] = $"{svm.Groepsantwoord} is fout!";
                 }
                 catch (AlleOpdrachtenVoltooidException)
                 {

@@ -80,14 +80,14 @@ namespace BreakOutBox.Data
                 var toe = box.Toegangscodes.ToList();
 
                 var opdrachtenGroep1 = new List<Opdracht>{ // lijst met alle opdrachten van groep1 (1,2, 3, 4, 5, 6, 7, 8)             
-                    new Opdracht(1,act[0],oef[0],toe[0],GenereerGroepsbewerking()),
-                    new Opdracht(2,act[1],oef[1],toe[1],GenereerGroepsbewerking()),
-                    new Opdracht(3,act[2],oef[2],toe[2],GenereerGroepsbewerking()),
-                    new Opdracht(4,act[3],oef[3],toe[3],GenereerGroepsbewerking()),
-                    new Opdracht(5,act[4],oef[4],toe[4],GenereerGroepsbewerking()),
-                    new Opdracht(6,act[5],oef[5],toe[5],GenereerGroepsbewerking()),
-                    new Opdracht(7,act[6],oef[6],toe[6],GenereerGroepsbewerking()),
-                    new Opdracht(8,act[7],oef[7],toe[7],GenereerGroepsbewerking())
+                    new Opdracht(1,act[0],oef[0],toe[0],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD),
+                    new Opdracht(2,act[1],oef[1],toe[1],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD),
+                    new Opdracht(3,act[2],oef[2],toe[2],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD),
+                    new Opdracht(4,act[3],oef[3],toe[3],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD),
+                    new Opdracht(5,act[4],oef[4],toe[4],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD),
+                    new Opdracht(6,act[5],oef[5],toe[5],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD),
+                    new Opdracht(7,act[6],oef[6],toe[6],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD),
+                    new Opdracht(8,act[7],oef[7],toe[7],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD)
                 };
 
                 for (int z = 0; z < 8; z++)
@@ -96,6 +96,7 @@ namespace BreakOutBox.Data
                     opdrachtenGroep1[z].Oefening.Antwoord = z + 200;
                     opdrachtenGroep1[z].IsToegankelijk = true;
                     opdrachtenGroep1[z].IsGestart = true;
+                    opdrachtenGroep1[z].TijdInMinuten = 1;
                 }
 
                 for (int z = 0; z < 7; z++)
@@ -108,14 +109,14 @@ namespace BreakOutBox.Data
                 _dbContext.SaveChanges();
 
                 var opdrachtenGroep2 = new List<Opdracht>{ // lijst met alle opdrachten van groep2 (7, 6, 5, 4, 3, 2, 1, 8)
-                    new Opdracht(1,act[8],oef[6],toe[8],GenereerGroepsbewerking()),
-                    new Opdracht(2,act[9],oef[5],toe[9],GenereerGroepsbewerking()),
-                    new Opdracht(3,act[10],oef[4],toe[10],GenereerGroepsbewerking()),
-                    new Opdracht(4,act[11],oef[3],toe[11],GenereerGroepsbewerking()),
-                    new Opdracht(5,act[12],oef[2],toe[12],GenereerGroepsbewerking()),
-                    new Opdracht(6,act[13],oef[1],toe[13],GenereerGroepsbewerking()),
-                    new Opdracht(7,act[14],oef[0],toe[14],GenereerGroepsbewerking()),
-                    new Opdracht(8,act[15],oef[7],toe[15],GenereerGroepsbewerking())
+                    new Opdracht(1,act[8],oef[6],toe[8],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(2,act[9],oef[5],toe[9],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(3,act[10],oef[4],toe[10],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(4,act[11],oef[3],toe[11],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(5,act[12],oef[2],toe[12],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(6,act[13],oef[1],toe[13],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(7,act[14],oef[0],toe[14],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(8,act[15],oef[7],toe[15],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN)
                 };
                 for (int i = 0; i < 8; i++)
                 {
@@ -125,14 +126,14 @@ namespace BreakOutBox.Data
                 _dbContext.SaveChanges();
 
                 var opdrachtenGroep3 = new List<Opdracht>{ // lijst met alle opdrachten van groep3 (3, 5, 7, 1, 2, 4, 6, 8)
-                    new Opdracht(1,act[16],oef[2],toe[16],GenereerGroepsbewerking()),
-                    new Opdracht(2,act[17],oef[4],toe[17],GenereerGroepsbewerking()),
-                    new Opdracht(3,act[18],oef[6],toe[18],GenereerGroepsbewerking()),
-                    new Opdracht(4,act[19],oef[0],toe[19],GenereerGroepsbewerking()),
-                    new Opdracht(5,act[20],oef[1],toe[20],GenereerGroepsbewerking()),
-                    new Opdracht(6,act[21],oef[3],toe[21],GenereerGroepsbewerking()),
-                    new Opdracht(7,act[22],oef[5],toe[22],GenereerGroepsbewerking()),
-                    new Opdracht(8,act[23],oef[7],toe[23],GenereerGroepsbewerking())
+                    new Opdracht(1,act[16],oef[2],toe[16],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(2,act[17],oef[4],toe[17],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(3,act[18],oef[6],toe[18],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(4,act[19],oef[0],toe[19],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(5,act[20],oef[1],toe[20],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(6,act[21],oef[3],toe[21],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(7,act[22],oef[5],toe[22],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(8,act[23],oef[7],toe[23],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN)
                 };
                 for (int i = 0; i < 8; i++)
                 {
@@ -142,14 +143,14 @@ namespace BreakOutBox.Data
                 _dbContext.SaveChanges();
 
                 var opdrachtenGroep4 = new List<Opdracht>{ // lijst met alle opdrachten van groep4 ( 6, 2, 5, 1, 4, 7, 3, 8 )
-                    new Opdracht(1,act[24],oef[5],toe[24],GenereerGroepsbewerking()),
-                    new Opdracht(2,act[25],oef[1],toe[25],GenereerGroepsbewerking()),
-                    new Opdracht(3,act[26],oef[4],toe[26],GenereerGroepsbewerking()),
-                    new Opdracht(4,act[27],oef[0],toe[27],GenereerGroepsbewerking()),
-                    new Opdracht(5,act[28],oef[3],toe[28],GenereerGroepsbewerking()),
-                    new Opdracht(6,act[29],oef[6],toe[29],GenereerGroepsbewerking()),
-                    new Opdracht(7,act[30],oef[2],toe[30],GenereerGroepsbewerking()),
-                    new Opdracht(8,act[31],oef[7],toe[31],GenereerGroepsbewerking())
+                    new Opdracht(1,act[24],oef[5],toe[24],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(2,act[25],oef[1],toe[25],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(3,act[26],oef[4],toe[26],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(4,act[27],oef[0],toe[27],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(5,act[28],oef[3],toe[28],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(6,act[29],oef[6],toe[29],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(7,act[30],oef[2],toe[30],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(8,act[31],oef[7],toe[31],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN)
                 };
                 for (int i = 0; i < 8; i++)
                 {
@@ -159,14 +160,14 @@ namespace BreakOutBox.Data
                 _dbContext.SaveChanges();
 
                 var opdrachtenGroep5 = new List<Opdracht>{ // lijst met alle opdrachten van groep5 (4, 3, 6, 2, 7, 5, 1, 8)
-                    new Opdracht(1,act[32],oef[3],toe[32],GenereerGroepsbewerking()),
-                    new Opdracht(2,act[33],oef[2],toe[33],GenereerGroepsbewerking()),
-                    new Opdracht(3,act[34],oef[5],toe[34],GenereerGroepsbewerking()),
-                    new Opdracht(4,act[35],oef[1],toe[35],GenereerGroepsbewerking()),
-                    new Opdracht(5,act[36],oef[6],toe[36],GenereerGroepsbewerking()),
-                    new Opdracht(6,act[37],oef[4],toe[37],GenereerGroepsbewerking()),
-                    new Opdracht(7,act[38],oef[0],toe[38],GenereerGroepsbewerking()),
-                    new Opdracht(8,act[39],oef[7],toe[39],GenereerGroepsbewerking())
+                    new Opdracht(1,act[32],oef[3],toe[32],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(2,act[33],oef[2],toe[33],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(3,act[34],oef[5],toe[34],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(4,act[35],oef[1],toe[35],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(5,act[36],oef[6],toe[36],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(6,act[37],oef[4],toe[37],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(7,act[38],oef[0],toe[38],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(8,act[39],oef[7],toe[39],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN)
                 };
                 for (int i = 0; i < 8; i++)
                 {

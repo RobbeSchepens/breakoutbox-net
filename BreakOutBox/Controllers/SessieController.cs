@@ -93,16 +93,15 @@ namespace BreakOutBox.Controllers
             {
                 try
                 {
-                    if (groep.CurrentState is GroepGekozenState)
+                    if (sessie.CurrentState is SessieGeblokkeerdState == false)
                     {
-                        // State veranderen
-                        groep.ZetInSpel();
+                        if (groep.CurrentState is GroepGekozenState)
+                            groep.ZetInSpel();
                         groep.StartVolgendeOpdracht();
                         _sessieRepository.SaveChanges();
-                    }
 
-                    if (sessie.CurrentState is SessieGeblokkeerdState == false)
                         return RedirectToAction(nameof(SpelController.SpelSpelen), "Spel");
+                    }
                     else
                         TempData["info"] = $"Deze sessie is momenteel geblokkeerd.";
                 }
