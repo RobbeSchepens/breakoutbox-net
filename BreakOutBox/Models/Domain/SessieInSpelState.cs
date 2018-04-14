@@ -13,7 +13,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void Activeer()
         {
-            throw new Exception("Gebruik de haal uit spel knop hiervoor.");
+            throw new StateException("Gebruik de haal uit spel knop hiervoor.");
         }
 
         public override void Deactiveer()
@@ -23,7 +23,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void StartSpel()
         {
-            throw new Exception("Het spel is al gestart.");
+            throw new StateException("Het spel is al gestart.");
         }
 
         public override void HaalUitSpel()
@@ -38,7 +38,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void Deblokkeer()
         {
-            throw new Exception("De sessie kan niet gedeblokkeerd worden omdat ze niet geblokkeerd is.");
+            throw new StateException("De sessie kan niet gedeblokkeerd worden omdat ze niet geblokkeerd is.");
         }
     }
 }

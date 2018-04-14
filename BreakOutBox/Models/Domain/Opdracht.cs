@@ -42,6 +42,10 @@ namespace BreakOutBox.Models.Domain
         #endregion
 
         #region Methods
+        /// <exception cref="DrieFoutePogingenException">Wordt gegooid wanneer er een veelvoud van 3 pogingen geteld wordt.</exception>
+        /// <exception cref="FoutAntwoordException">Wordt gegooid wanneer het opgegeven antwoord en berekende groepsantwoord niet gelijk zijn.</exception>
+        /// <exception cref="TijdVerstrekenException">Wordt gegooid wanneer het verschil tussen DateTime.Now 
+        /// en de DateTime in prop StartTijd hoger is dan de prop TijdInMinuten.</exception>
         public void VerwerkAntwoord(string inputantwoord)
         {
             // Probeer te parsen. Als er geen double gemaakt kan worden, is het resultaat null
@@ -92,6 +96,12 @@ namespace BreakOutBox.Models.Domain
             if (StartTijd == null)
                 StartTijd = DateTime.Now;
             IsGestart = true;
+        }
+
+        public void GeefNieuweTijd(int opgegevenminuten)
+        {
+            StartTijd = DateTime.Now;
+            TijdInMinuten = opgegevenminuten;
         }
 
         public int CompareTo(object obj)

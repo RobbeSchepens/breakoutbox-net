@@ -18,27 +18,27 @@ namespace BreakOutBox.Models.Domain
 
         public override void Deactiveer()
         {
-            throw new Exception("De sessie is al non-actief.");
+            throw new StateException("De sessie is al non-actief.");
         }
 
         public override void StartSpel()
         {
-            throw new Exception("Het spel kan niet gestart worden als de sessie niet actief is.");
+            throw new StateException("Het spel kan niet gestart worden als de sessie niet actief is.");
         }
 
         public override void HaalUitSpel()
         {
-            throw new Exception("Het spel is niet in de in-spel-state.");
+            throw new StateException("Het spel is niet in de in-spel-state.");
         }
 
         public override void Blokkeer()
         {
-            throw new Exception("Sessie is niet actief!");
+            throw new StateException("Sessie is niet actief!");
         }
 
         public override void Deblokkeer()
         {
-            throw new Exception("Sessie is niet geblokkeerd!");
+            throw new StateException("Sessie is niet geblokkeerd!");
         }
     }
 }

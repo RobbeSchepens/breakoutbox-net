@@ -20,6 +20,7 @@ namespace BreakOutBox.Models.Domain
             Code = code;
         }
 
+        /// <exception cref="AlleOpdrachtenVoltooidException">Wordt gegooid wanneer de ingegeven toegangscode niet overeenkomt met Toegangscode.Code.</exception>
         public void VerwerkToegangscode(string inputcode)
         {
             double? parsedinput = double.TryParse(inputcode.Replace('.', ','), out double outValue) ? (double?)outValue : null;

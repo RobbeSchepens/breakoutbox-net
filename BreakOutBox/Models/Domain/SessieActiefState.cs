@@ -13,7 +13,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void Activeer()
         {
-            throw new Exception("De sessie is al actief.");
+            throw new StateException("De sessie is al actief.");
         }
 
         public override void Deactiveer()
@@ -28,17 +28,17 @@ namespace BreakOutBox.Models.Domain
 
         public override void HaalUitSpel()
         {
-            throw new Exception("Het spel is niet in de in-spel-state.");
+            throw new StateException("Het spel is niet in de in-spel-state.");
         }
 
         public override void Blokkeer()
         {
-            throw new Exception("De sessie kan niet geblokkeerd worden omdat ze niet in de in-spel-state is.");
+            throw new StateException("De sessie kan niet geblokkeerd worden omdat ze niet in de in-spel-state is.");
         }
 
         public override void Deblokkeer()
         {
-            throw new Exception("De sessie kan niet gedeblokkeerd worden omdat ze niet geblokkeerd is.");
+            throw new StateException("De sessie kan niet gedeblokkeerd worden omdat ze niet geblokkeerd is.");
         }
     }
 }

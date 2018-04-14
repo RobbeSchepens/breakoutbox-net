@@ -19,6 +19,8 @@ namespace BreakOutBox.Models.LeerkrachtViewModels
         public double ToegangscodeVolgendeOpdracht { get; set; }
         public string ActieVolgendeOpdracht { get; set; }
         public bool IsLaatsteOefening { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "{0} mag geen negatief getal zijn.")]
+        public int OpgegevenMinuten { get; set; }
 
         public OpdrachtViewModel()
         {

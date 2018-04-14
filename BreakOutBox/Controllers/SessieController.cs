@@ -48,6 +48,10 @@ namespace BreakOutBox.Controllers
                     if (sessie.CurrentState is SessieActiefState)
                         TempData["info"] = $"Het spel is nog niet gestart. Nog even geduld.";
                 }
+                catch (StateException e)
+                {
+                    TempData["warning"] = e;
+                }
                 catch (Exception e)
                 {
                     TempData["warning"] = e;
@@ -73,6 +77,10 @@ namespace BreakOutBox.Controllers
 
                     // Boodschap
                     TempData["success"] = $"Je hebt groep #{groep.GroepId} gedeselecteerd.";
+                }
+                catch (StateException e)
+                {
+                    TempData["warning"] = e;
                 }
                 catch (Exception e)
                 {
@@ -104,6 +112,10 @@ namespace BreakOutBox.Controllers
                     }
                     else
                         TempData["info"] = $"Deze sessie is momenteel geblokkeerd.";
+                }
+                catch (StateException e)
+                {
+                    TempData["warning"] = e;
                 }
                 catch (Exception e)
                 {

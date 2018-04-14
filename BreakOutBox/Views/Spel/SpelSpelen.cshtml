@@ -160,9 +160,6 @@
         if (@((Model.Opdracht.OpdrachtBepaler is BreakOutBox.Models.Domain.EnumOpdrachtBepaler.TIJD).ToString().ToLower()) && !$('#toegangscodeModal').hasClass('in') || !$('#startVolgendeOpdrachtModal').hasClass('in') || !$('#gewonnenModal').hasClass('in'))
             $('#timer').stopwatch({ startTime: @((int)((DateTime.Now - Model.Opdracht.StartTijd).Value.TotalMilliseconds)) }).bind('tick.stopwatch', function (e, elapsed) {
                 if (elapsed >= @(Model.Opdracht.TijdInMinuten*60*1000)) {
-                    //$.post('@Url.Action("TijdVerstreken", "Spel")');
-                    
-                    //var url = '@Url.Action("Details", "Branch", new { id = "__id__" })';
                     $('#timer').stopwatch('stop');
                     window.location.href = '@(Url.Action("TijdVerstreken", "Spel"))';
                 }

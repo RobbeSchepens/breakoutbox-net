@@ -61,6 +61,10 @@ namespace BreakOutBox.Controllers
                 catch (AlleOpdrachtenVoltooidException)
                 {
                 }
+                catch (StateException e)
+                {
+                    TempData["warning"] = e;
+                }
                 catch (Exception e)
                 {
                     TempData["warning"] = e;
@@ -90,6 +94,10 @@ namespace BreakOutBox.Controllers
                 {
                     TempData["foutetoegangscode"] = TempData["warning"] = $"De toegangscode {svm.Toegangscode} is fout.";
                 }
+                catch (StateException e)
+                {
+                    TempData["warning"] = e;
+                }
                 catch (Exception e)
                 {
                     TempData["warning"] = e;
@@ -114,6 +122,10 @@ namespace BreakOutBox.Controllers
                     groep.StartVolgendeOpdracht();
                     _sessieRepository.SaveChanges();
                 }
+                catch (StateException e)
+                {
+                    TempData["warning"] = e;
+                }
                 catch (Exception e)
                 {
                     TempData["warning"] = e;
@@ -125,10 +137,18 @@ namespace BreakOutBox.Controllers
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
         public IActionResult TijdVerstreken(Groep groep)
         {
-            groep.Blokkeer();
-            _sessieRepository.SaveChanges();
-            TempData["danger"] = "Je tijd is verstreken.";
-            return RedirectToAction(nameof(Feedback));
+            try
+            {
+                groep.Blokkeer();
+                _sessieRepository.SaveChanges();
+                TempData["danger"] = "Je tijd is verstreken.";
+                return RedirectToAction(nameof(Feedback));
+            }
+            catch (StateException e)
+            {
+                TempData["warning"] = e;
+            }
+            return RedirectToAction(nameof(SpelSpelen));
         }
 
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]

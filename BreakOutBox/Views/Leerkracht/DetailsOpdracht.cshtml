@@ -42,6 +42,26 @@
                     <span>Dit is hun laatste opdracht</span>
                 }
             </p>
+            @if (Model.Opdracht.OpdrachtBepaler is BreakOutBox.Models.Domain.EnumOpdrachtBepaler.TIJD)
+            {
+                <form asp-action="GeefGroepNieuweTijd" id="tijdForm" method="post" asp-route-groepid="@Model.Groep.GroepId">
+                    <div class="form-row align-items-center">
+                        <div class="col-auto form-group">
+                            <label asp-for="OpgegevenMinuten">Stel een andere tijd in</label>
+                            <div class="input-group input-group-seamless">
+                                <span class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-key"></i>
+                                    </span>
+                                </span>
+                                <input asp-for="OpgegevenMinuten" class="form-control mr-2" id="OpgegevenMinuten" placeholder="Minuten" type="number" autocomplete="off">
+                                <button type="submit" class="btn btn-primary">Stel in</button>
+                            </div>
+                            <span asp-validation-for="OpgegevenMinuten" class="text-danger"></span>
+                        </div>
+                    </div>
+                </form>
+            }
         </div>
         <div class="col-md-12 col-lg-6 mb-5">
             <h4><a href="#" id="toggle">Toggle</a> <span id="opgave">Opgave</span><span id="feedback">Feedback</span></h4>

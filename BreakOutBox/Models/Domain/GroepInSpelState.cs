@@ -13,22 +13,22 @@ namespace BreakOutBox.Models.Domain
 
         public override void ZetGekozen()
         {
-            throw new Exception("De groep is in de in-spel-staat en kan niet op gekozen gezet worden.");
+            throw new StateException("De groep is in de in-spel-staat en kan niet op gekozen gezet worden.");
         }
 
         public override void ZetNietGekozen()
         {
-            throw new Exception("De groep is in de in-spel-staat en kan niet op niet-gekozen gezet worden.");
+            throw new StateException("De groep is in de in-spel-staat en kan niet op niet-gekozen gezet worden.");
         }
 
         public override void Vergrendel()
         {
-            throw new Exception("De groep kan niet vergrendeld worden omdat ze in de in-spel-staat is.");
+            throw new StateException("De groep kan niet vergrendeld worden omdat ze in de in-spel-staat is.");
         }
 
         public override void Ontgrendel()
         {
-            throw new Exception("De groep kan niet ontgrendeld worden omdat ze niet vergrendeld is.");
+            throw new StateException("De groep kan niet ontgrendeld worden omdat ze niet vergrendeld is.");
         }
 
         public override void Blokkeer()
@@ -38,12 +38,12 @@ namespace BreakOutBox.Models.Domain
 
         public override void Deblokkeer()
         {
-            throw new Exception("De groep kan niet gedeblokkeerd worden omdat ze niet geblokkeerd is.");
+            throw new StateException("De groep kan niet gedeblokkeerd worden omdat ze niet geblokkeerd is.");
         }
 
         public override void ZetInSpel()
         {
-            throw new Exception("De groep zit al in het spel.");
+            throw new StateException("De groep zit al in het spel.");
         }
 
         public override void HaalUitSpel()

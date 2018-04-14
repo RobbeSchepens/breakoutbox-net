@@ -64,6 +64,7 @@ namespace BreakOutBox.Models.Domain
             GetNextOpdracht().VerwerkToegangscode(inputcode);
         }
 
+        /// <exception cref="AlleOpdrachtenVoltooidException">Wordt gegooid wanneer de laatste opdracht gedetecteerd wordt bij het starten van de volgende opdracht.</exception>
         public void StartVolgendeOpdracht()
         {
             try
