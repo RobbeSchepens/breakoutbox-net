@@ -42,7 +42,7 @@ namespace BreakOutBox.Models.LeerkrachtViewModels
             IsTijdsOpdracht = Opdracht.OpdrachtBepaler is EnumOpdrachtBepaler.TIJD;
             FoutePogingen = Opdracht.FoutePogingen;
             OpdrachtIsOpgelost = groep.Pad.GetCurrentOpdracht().IsOpgelost;
-            Groepsantwoord = BerekenGroepsantwoord();
+            Groepsantwoord = Opdracht.BerekenCorrectAntwoord();
 
             try
             {
@@ -54,22 +54,6 @@ namespace BreakOutBox.Models.LeerkrachtViewModels
             {
                 IsLaatsteOefening = true;
             }
-        }
-
-        private double? BerekenGroepsantwoord()
-        {
-            switch (Opdracht.Groepsbewerking.Bewerking)
-            {
-                case EnumBewerking.OPTELLING:
-                    return Opdracht.Oefening.Antwoord + Opdracht.Groepsbewerking.Getal;
-                case EnumBewerking.AFTREKKING:
-                    return Opdracht.Oefening.Antwoord - Opdracht.Groepsbewerking.Getal;
-                case EnumBewerking.VERMENIGVULDIGING:
-                    return Opdracht.Oefening.Antwoord * Opdracht.Groepsbewerking.Getal;
-                case EnumBewerking.DELING:
-                    return Opdracht.Oefening.Antwoord / Opdracht.Groepsbewerking.Getal;
-            }
-            return null;
         }
     }
 }

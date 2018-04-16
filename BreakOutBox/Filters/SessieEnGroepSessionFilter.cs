@@ -51,6 +51,8 @@ namespace BreakOutBox.Filters
                     _groep = _sessie.Groepen.FirstOrDefault(g => g.GroepId == Int32.Parse(ReadGroepFromSession(context.HttpContext)));
                     _groep.SwitchState(_groep.State);
 
+                    //IsGroepGeblokkeerd(context);
+
                     // Toekennen aan argumenten van de action method.
                     context.ActionArguments["groep"] = _groep;
                 }
@@ -105,10 +107,22 @@ namespace BreakOutBox.Filters
         {
             if (_sessie.CurrentState is SessieNonActiefState && !context.HttpContext.User.Identity.IsAuthenticated)
             {
+                ((Controller)context.Controller).TempData["info"] = null; // required, if info already exists, next line will fail
                 ((Controller)context.Controller).TempData.Add("info", "Deze sessie is niet geactiveerd.");
                 context.Result = new RedirectToRouteResult(
                     new RouteValueDictionary {{ "Controller", "Home" },
                                       { "Action", "Index" } });
+            }
+        }
+
+        private void IsGroepGeblokkeerd(ActionExecutingContext context)
+        {
+            if (_groep.CurrentState is GroepGeblokkeerdState && !context.HttpContext.User.Identity.IsAuthenticated)
+            {
+                //((Controller)context.Controller).TempData.Add("danger", "Jouw groepje is geblokkeerd.");
+                context.Result = new RedirectToRouteResult(
+                    new RouteValueDictionary {{ "Controller", "Spel" },
+                                      { "Action", "Feedback" } });
             }
         }
     }

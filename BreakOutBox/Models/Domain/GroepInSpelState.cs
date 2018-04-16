@@ -33,6 +33,7 @@ namespace BreakOutBox.Models.Domain
 
         public override void Blokkeer()
         {
+            _groep.Pad.GetCurrentOpdracht().StopOpdracht();
             _groep.State = 4;
         }
 

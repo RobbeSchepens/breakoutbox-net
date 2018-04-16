@@ -148,6 +148,14 @@
             show: false
         });
 
+        setInterval(function () {
+            $.get('@(Url.Action("ControleerSessieIsGeblokkeerd", "Spel"))', function (data) {
+                if (data) { 
+                    window.location.href = '@(Url.Action("GroepKiezen", "Sessie"))';
+                }
+            });
+        }, 2000);
+
         if (@Model.Opdracht.IsOpgelost.ToString().ToLower() && !@Model.VolgendeOpdrachtIsToegankelijk.ToString().ToLower() && !@Model.IsLaatsteOefening.ToString().ToLower())
             $('#toegangscodeModal').modal('show');
 
@@ -156,8 +164,7 @@
 
         if (@Model.Opdracht.IsOpgelost.ToString().ToLower() && @Model.IsLaatsteOefening.ToString().ToLower())
             $('#gewonnenModal').modal('show');
-
-        console.log('@((Model.Opdracht.GespendeerdeSeconden *1000) + (int)((DateTime.Now - Model.Opdracht.StartTijd).Value.TotalMilliseconds))');
+        
         if (@Model.IsTijdsOpdracht.ToString().ToLower() && !$('#toegangscodeModal').hasClass('in') || !$('#startVolgendeOpdrachtModal').hasClass('in') || !$('#gewonnenModal').hasClass('in'))
             $('#timer').stopwatch({ startTime: @((Model.Opdracht.GespendeerdeSeconden *1000) + (int)((DateTime.Now - Model.Opdracht.StartTijd).Value.TotalMilliseconds)) }).bind('tick.stopwatch', function (e, elapsed) {
                 if (elapsed >= @(Model.Opdracht.MaxTijdInMinuten*60*1000)) {

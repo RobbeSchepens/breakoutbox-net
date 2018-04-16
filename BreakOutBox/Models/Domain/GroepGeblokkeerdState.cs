@@ -40,7 +40,8 @@ namespace BreakOutBox.Models.Domain
         {
             _groep.State = 3;
             //_groep.Pad.GetCurrentOpdracht().FoutePogingen = 0;
-            _groep.Pad.GetCurrentOpdracht().StartTijd = DateTime.Now;
+            _groep.Pad.GetCurrentOpdracht().GespendeerdeSeconden = 0;
+            _groep.Pad.GetCurrentOpdracht().StartOpdracht();
         }
 
         public override void ZetInSpel()

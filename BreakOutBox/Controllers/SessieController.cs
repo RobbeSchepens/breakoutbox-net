@@ -23,7 +23,7 @@ namespace BreakOutBox.Controllers
                 ViewBag.GeselecteerdeGroep = groep;
 
                 if (sessie.CurrentState is SessieGeblokkeerdState)
-                    TempData["info"] = $"De sessie is momenteel geblokkeerd. Je kan nog niet aan de opdracht beginnen.";
+                    TempData["info"] = $"De sessie is momenteel gepauzeerd. Je kan nog niet aan de opdracht beginnen.";
                 if (sessie.CurrentState is SessieActiefState)
                     TempData["info"] = $"Het spel is nog niet gestart. Nog even geduld.";
             }
@@ -44,7 +44,7 @@ namespace BreakOutBox.Controllers
                     TempData["success"] = $"Je hebt groep #{groep.GroepId} gekozen.";
 
                     if (sessie.CurrentState is SessieGeblokkeerdState)
-                        TempData["info"] = $"De sessie is momenteel geblokkeerd. Je kan nog niet aan de opdracht beginnen.";
+                        TempData["info"] = $"De sessie is momenteel gepauzeerd. Je kan nog niet aan de opdracht beginnen.";
                     if (sessie.CurrentState is SessieActiefState)
                         TempData["info"] = $"Het spel is nog niet gestart. Nog even geduld.";
                 }

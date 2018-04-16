@@ -19,6 +19,9 @@ namespace BreakOutBox.Controllers
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
         public IActionResult SpelSpelen(Groep groep)
         {
+            if (groep.CurrentState is GroepGeblokkeerdState)
+                return RedirectToAction(nameof(Feedback));
+
             int pogingen = groep.Pad.GetCurrentOpdracht().FoutePogingen;
             if (pogingen != 0)
                 TempData["danger"] = $"Je hebt {pogingen} foute {(pogingen == 1 ? "poging" : "pogingen")} ondernomen.";
@@ -30,6 +33,9 @@ namespace BreakOutBox.Controllers
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
         public IActionResult SpelSpelen(Groep groep, SpelViewModel svm)
         {
+            if (groep.CurrentState is GroepGeblokkeerdState)
+                return RedirectToAction(nameof(Feedback));
+
             if (ModelState.IsValid)
             {
                 try
@@ -83,6 +89,9 @@ namespace BreakOutBox.Controllers
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
         public IActionResult VerwerkToegangscode(Groep groep, SpelViewModel svm)
         {
+            if (groep.CurrentState is GroepGeblokkeerdState)
+                return RedirectToAction(nameof(Feedback));
+
             if (ModelState.IsValid)
             {
                 try
@@ -115,6 +124,9 @@ namespace BreakOutBox.Controllers
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
         public IActionResult VolgendeOpdracht(Groep groep)
         {
+            if (groep.CurrentState is GroepGeblokkeerdState)
+                return RedirectToAction(nameof(Feedback));
+
             if (ModelState.IsValid)
             {
                 try
@@ -137,7 +149,14 @@ namespace BreakOutBox.Controllers
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
         public IActionResult TijdVerstreken(Groep groep)
         {
+            if (groep.CurrentState is GroepGeblokkeerdState)
+                return RedirectToAction(nameof(Feedback));
+
             try
+            {
+                groep.Pad.GetCurrentOpdracht().ControleerGespendeerdeTijd();
+            }
+            catch (TijdVerstrekenException)
             {
                 groep.Blokkeer();
                 _sessieRepository.SaveChanges();
@@ -149,6 +168,17 @@ namespace BreakOutBox.Controllers
                 TempData["warning"] = e;
             }
             return RedirectToAction(nameof(SpelSpelen));
+        }
+
+        [ServiceFilter(typeof(SessieEnGroepSessionFilter))]
+        public bool ControleerSessieIsGeblokkeerd(Sessie sessie)
+        {
+            if (sessie.CurrentState is SessieGeblokkeerdState)
+            {
+                TempData["info"] = "De sessie is gepauzeerd.";
+                return true;
+            }
+            return false;
         }
 
         [ServiceFilter(typeof(SessieEnGroepSessionFilter))]

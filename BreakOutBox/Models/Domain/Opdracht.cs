@@ -43,41 +43,53 @@ namespace BreakOutBox.Models.Domain
         #endregion
 
         #region Methods
-        /// <exception cref="DrieFoutePogingenException">Wordt gegooid wanneer er een veelvoud van 3 pogingen geteld wordt.</exception>
-        /// <exception cref="FoutAntwoordException">Wordt gegooid wanneer het opgegeven antwoord en berekende groepsantwoord niet gelijk zijn.</exception>
-        /// <exception cref="TijdVerstrekenException">Wordt gegooid wanneer het verschil tussen DateTime.Now 
-        /// en de DateTime in prop StartTijd hoger is dan de prop MaxTijdInMinuten.</exception>
         public void VerwerkAntwoord(string inputantwoord)
         {
             // Probeer te parsen. Als er geen double gemaakt kan worden, is het resultaat null
             // @TODO Internationalisering/taalinstellingen doubles met . of ,
-            double? parsedinput = double.TryParse(inputantwoord.Replace('.', ','), out double outValue) ? (double?)outValue : null;
-            double? correctAntwoord = null;
+            double? parsedInput = double.TryParse(inputantwoord.Replace('.', ','), out double outValue) ? (double?)outValue : null;
 
+            double? correctAntwoord = BerekenCorrectAntwoord();
+            if (correctAntwoord == null)
+                throw new Exception("Systeemfout! Het juiste antwoord kon niet berekend worden. Er is iets foutgelopen met het ingestelde antwoord.");
+            
+            ControleerGespendeerdeTijd();
+            ControleerAntwoord(parsedInput, correctAntwoord);
+        }
+
+        public double? BerekenCorrectAntwoord()
+        {
             switch (Groepsbewerking.Bewerking)
             {
                 case EnumBewerking.OPTELLING:
-                    correctAntwoord = Oefening.Antwoord + Groepsbewerking.Getal; break;
+                    return Oefening.Antwoord + Groepsbewerking.Getal;
                 case EnumBewerking.AFTREKKING:
-                    correctAntwoord = Oefening.Antwoord - Groepsbewerking.Getal; break;
+                    return Oefening.Antwoord - Groepsbewerking.Getal;
                 case EnumBewerking.VERMENIGVULDIGING:
-                    correctAntwoord = Oefening.Antwoord * Groepsbewerking.Getal; break;
+                    return Oefening.Antwoord * Groepsbewerking.Getal;
                 case EnumBewerking.DELING:
-                    correctAntwoord = Oefening.Antwoord / Groepsbewerking.Getal; break;
+                    return Oefening.Antwoord / Groepsbewerking.Getal;
             }
+            return null;
+        }
 
-            if (correctAntwoord == null)
-                throw new Exception("Systeemfout! Het juiste antwoord kon niet berekend worden.");
-
+        /// <exception cref="TijdVerstrekenException">Wordt gegooid wanneer het verschil tussen DateTime.Now 
+        /// en de DateTime in prop StartTijd hoger is dan de prop MaxTijdInMinuten.</exception>
+        public void ControleerGespendeerdeTijd()
+        {
             // bereken verschil in minuten tussen gespendeerdetijd + starttijd en nu
-            // @TODO Wat als er pauze genomen wordt? 
-            if (StartTijd != null && OpdrachtBepaler is EnumOpdrachtBepaler.TIJD && (GespendeerdeSeconden /60 + (DateTime.Now - StartTijd).Value.TotalMinutes) >= MaxTijdInMinuten)
+            if (StartTijd != null && OpdrachtBepaler is EnumOpdrachtBepaler.TIJD && (GespendeerdeSeconden / 60 + (DateTime.Now - StartTijd).Value.TotalMinutes) >= MaxTijdInMinuten)
             {
                 StopOpdracht();
                 throw new TijdVerstrekenException($"Er zijn {MaxTijdInMinuten} minuten verstreken.");
             }
+        }
 
-            if (!parsedinput.HasValue || parsedinput != correctAntwoord)
+        /// <exception cref="DrieFoutePogingenException">Wordt gegooid wanneer er een veelvoud van 3 pogingen geteld wordt.</exception>
+        /// <exception cref="FoutAntwoordException">Wordt gegooid wanneer het opgegeven antwoord en berekende groepsantwoord niet gelijk zijn.</exception>
+        private void ControleerAntwoord(double? parsedInput, double? correctAntwoord)
+        {
+            if (!parsedInput.HasValue || parsedInput != correctAntwoord)
             {
                 FoutePogingen++;
 
