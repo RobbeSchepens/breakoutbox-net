@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BreakOutBox.Models.Domain
 {
@@ -31,12 +32,14 @@ namespace BreakOutBox.Models.Domain
             _sessie.State = 1;
         }
 
-        public override void Blokkeer()
+        public override void Blokkeer(ICollection<Groep> groepen)
         {
             _sessie.State = 3;
+            foreach (Groep groep in groepen)
+                groep.Pad.GetCurrentOpdracht().StopOpdracht();
         }
 
-        public override void Deblokkeer()
+        public override void Deblokkeer(ICollection<Groep> groepen)
         {
             throw new StateException("De sessie kan niet gedeblokkeerd worden omdat ze niet geblokkeerd is.");
         }

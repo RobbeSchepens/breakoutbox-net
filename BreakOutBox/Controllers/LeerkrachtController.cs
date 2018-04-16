@@ -135,7 +135,7 @@ namespace BreakOutBox.Controllers
                 // State veranderen
                 sessie.Blokkeer();
                 _sessieRepository.SaveChanges();
-                TempData["success"] = $"De sessie is geblokkeerd.";
+                TempData["success"] = $"De sessie is gepauzeerd.";
             }
             catch (StateException e)
             {
@@ -156,7 +156,7 @@ namespace BreakOutBox.Controllers
                 // State veranderen
                 sessie.Deblokkeer();
                 _sessieRepository.SaveChanges();
-                TempData["success"] = $"De sessie is gedeblokkeerd.";
+                TempData["success"] = $"De sessie is gedepauzeerd.";
             }
             catch (StateException e)
             {

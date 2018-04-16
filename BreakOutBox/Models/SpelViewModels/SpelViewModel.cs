@@ -19,6 +19,7 @@ namespace BreakOutBox.Models.SpelViewModels
         public double ToegangscodeVolgendeOpdracht { get; set; }
         public string ActieVolgendeOpdracht { get; set; }
         public bool IsLaatsteOefening { get; set; }
+        public bool IsTijdsOpdracht { get; set; }
 
         public SpelViewModel()
         {
@@ -35,6 +36,7 @@ namespace BreakOutBox.Models.SpelViewModels
                 PercentageVoltooid = (int)(((double)(NrHuidigeOpdracht - 1) / (double)NrTotaalOpdrachten) * 100);
 
             Opdracht = groep.Pad.GetCurrentOpdracht();
+            IsTijdsOpdracht = Opdracht.OpdrachtBepaler is EnumOpdrachtBepaler.TIJD;
 
             try
             {

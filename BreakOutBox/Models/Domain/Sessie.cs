@@ -96,12 +96,12 @@ namespace BreakOutBox.Models.Domain
 
         public void Blokkeer()
         {
-            CurrentState.Blokkeer();
+            CurrentState.Blokkeer(Groepen);
         }
 
         public void Deblokkeer()
         {
-            CurrentState.Deblokkeer();
+            CurrentState.Deblokkeer(Groepen);
         }
         #endregion
     }

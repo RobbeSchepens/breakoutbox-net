@@ -20,9 +20,9 @@
         <div class="col-md-12 col-lg-6 mb-5">
             <h4>@Model.Opdracht.Oefening.Naam</h4>
             <p>Bezig aan @(Model.NrHuidigeOpdracht) van de @(Model.NrTotaalOpdrachten) 
-            @if (Model.Opdracht.OpdrachtBepaler is BreakOutBox.Models.Domain.EnumOpdrachtBepaler.TIJD)
+            @if (Model.IsTijdsOpdracht)
             {
-                <br><span>Tijd beschikbaar voor deze opdracht: @Model.Opdracht.TijdInMinuten minuten</span> <br>
+                <br><span>Tijd beschikbaar voor deze opdracht: @Model.Opdracht.MaxTijdInMinuten minuten</span> <br>
                 <span>Tijd verstreken: <span id="timer"></span></span>
             }
             </p>
@@ -156,10 +156,11 @@
 
         if (@Model.Opdracht.IsOpgelost.ToString().ToLower() && @Model.IsLaatsteOefening.ToString().ToLower())
             $('#gewonnenModal').modal('show');
-        
-        if (@((Model.Opdracht.OpdrachtBepaler is BreakOutBox.Models.Domain.EnumOpdrachtBepaler.TIJD).ToString().ToLower()) && !$('#toegangscodeModal').hasClass('in') || !$('#startVolgendeOpdrachtModal').hasClass('in') || !$('#gewonnenModal').hasClass('in'))
-            $('#timer').stopwatch({ startTime: @((int)((DateTime.Now - Model.Opdracht.StartTijd).Value.TotalMilliseconds)) }).bind('tick.stopwatch', function (e, elapsed) {
-                if (elapsed >= @(Model.Opdracht.TijdInMinuten*60*1000)) {
+
+        console.log('@((Model.Opdracht.GespendeerdeSeconden *1000) + (int)((DateTime.Now - Model.Opdracht.StartTijd).Value.TotalMilliseconds))');
+        if (@Model.IsTijdsOpdracht.ToString().ToLower() && !$('#toegangscodeModal').hasClass('in') || !$('#startVolgendeOpdrachtModal').hasClass('in') || !$('#gewonnenModal').hasClass('in'))
+            $('#timer').stopwatch({ startTime: @((Model.Opdracht.GespendeerdeSeconden *1000) + (int)((DateTime.Now - Model.Opdracht.StartTijd).Value.TotalMilliseconds)) }).bind('tick.stopwatch', function (e, elapsed) {
+                if (elapsed >= @(Model.Opdracht.MaxTijdInMinuten*60*1000)) {
                     $('#timer').stopwatch('stop');
                     window.location.href = '@(Url.Action("TijdVerstreken", "Spel"))';
                 }

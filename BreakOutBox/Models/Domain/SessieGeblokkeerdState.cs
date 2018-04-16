@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BreakOutBox.Models.Domain
 {
@@ -31,14 +32,20 @@ namespace BreakOutBox.Models.Domain
             throw new StateException("De sessie kan niet uit het spel gehaald worden omdat ze geblokkeerd is.");
         }
 
-        public override void Blokkeer()
+        public override void Blokkeer(ICollection<Groep> groepen)
         {
             throw new StateException("De sessie is al geblokkeerd.");
         }
 
-        public override void Deblokkeer()
+        public override void Deblokkeer(ICollection<Groep> groepen)
         {
             _sessie.State = 2;
+            foreach (Groep groep in groepen)
+            {
+                groep.Pad.GetCurrentOpdracht().GespendeerdeSeconden = 0;
+                if (groep.Pad.GetCurrentOpdracht().IsGestart)
+                    groep.Pad.GetCurrentOpdracht().StartOpdracht();
+            }
         }
     }
 }

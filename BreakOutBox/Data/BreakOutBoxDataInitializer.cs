@@ -96,7 +96,7 @@ namespace BreakOutBox.Data
                     opdrachtenGroep1[z].Oefening.Antwoord = z + 200;
                     opdrachtenGroep1[z].IsToegankelijk = true;
                     opdrachtenGroep1[z].IsGestart = true;
-                    opdrachtenGroep1[z].TijdInMinuten = 1;
+                    opdrachtenGroep1[z].MaxTijdInMinuten = 1;
                 }
 
                 for (int z = 0; z < 7; z++)

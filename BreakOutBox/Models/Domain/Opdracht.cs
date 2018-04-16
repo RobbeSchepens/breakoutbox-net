@@ -11,7 +11,7 @@ namespace BreakOutBox.Models.Domain
         public int OpdrachtId { get; set; }
         public int VolgNr { get; set; }
         public int Pogingen { get; set; } = 3;
-        public int TijdInMinuten { get; set; } = 30;
+        public int MaxTijdInMinuten { get; set; } = 30; // Gedefinieerde max tijd per opdracht
         public bool IsOpgelost { get; set; } // Groepsantwoord gevonden?
         public bool IsToegankelijk { get; set; } // Toegangscode gevonden?
         public bool IsGestart { get; set; } // Start gedrukt?
@@ -20,8 +20,9 @@ namespace BreakOutBox.Models.Domain
         public Oefening Oefening { get; set; } // UIT BOX
         public Toegangscode Toegangscode { get; set; } // UIT BOX
         public Groepsbewerking Groepsbewerking { get; set; } // MOET OOK UIT BOX 
-        public DateTime? StartTijd { get; set; }
+        public DateTime? StartTijd { get; private set; }
         public int FoutePogingen { get; set; }
+        public int GespendeerdeSeconden { get; set; } // Tijd die al gespendeerd is aan de opdracht
         public EnumOpdrachtBepaler OpdrachtBepaler { get; private set; }
         #endregion
 
@@ -45,7 +46,7 @@ namespace BreakOutBox.Models.Domain
         /// <exception cref="DrieFoutePogingenException">Wordt gegooid wanneer er een veelvoud van 3 pogingen geteld wordt.</exception>
         /// <exception cref="FoutAntwoordException">Wordt gegooid wanneer het opgegeven antwoord en berekende groepsantwoord niet gelijk zijn.</exception>
         /// <exception cref="TijdVerstrekenException">Wordt gegooid wanneer het verschil tussen DateTime.Now 
-        /// en de DateTime in prop StartTijd hoger is dan de prop TijdInMinuten.</exception>
+        /// en de DateTime in prop StartTijd hoger is dan de prop MaxTijdInMinuten.</exception>
         public void VerwerkAntwoord(string inputantwoord)
         {
             // Probeer te parsen. Als er geen double gemaakt kan worden, is het resultaat null
@@ -68,10 +69,13 @@ namespace BreakOutBox.Models.Domain
             if (correctAntwoord == null)
                 throw new Exception("Systeemfout! Het juiste antwoord kon niet berekend worden.");
 
-            // bereken verschil in minuten tussen starttijd en nu
+            // bereken verschil in minuten tussen gespendeerdetijd + starttijd en nu
             // @TODO Wat als er pauze genomen wordt? 
-            if (StartTijd != null && OpdrachtBepaler is EnumOpdrachtBepaler.TIJD && (DateTime.Now - StartTijd).Value.TotalMinutes >= TijdInMinuten)
-                throw new TijdVerstrekenException($"Er zijn {TijdInMinuten} minuten verstreken.");
+            if (StartTijd != null && OpdrachtBepaler is EnumOpdrachtBepaler.TIJD && (GespendeerdeSeconden /60 + (DateTime.Now - StartTijd).Value.TotalMinutes) >= MaxTijdInMinuten)
+            {
+                StopOpdracht();
+                throw new TijdVerstrekenException($"Er zijn {MaxTijdInMinuten} minuten verstreken.");
+            }
 
             if (!parsedinput.HasValue || parsedinput != correctAntwoord)
             {
@@ -81,8 +85,11 @@ namespace BreakOutBox.Models.Domain
                     throw new DrieFoutePogingenException($"Je hebt {Pogingen} foute pogingen.");
                 throw new FoutAntwoordException("Fout antwoord gegeven.");
             }
-
-            IsOpgelost = true;
+            else
+            {
+                StopOpdracht();
+                IsOpgelost = true;
+            }
         }
 
         public void VerwerkToegangscode(string inputcode)
@@ -98,10 +105,19 @@ namespace BreakOutBox.Models.Domain
             IsGestart = true;
         }
 
+        public void StopOpdracht()
+        {
+            if (StartTijd != null)
+            {
+                GespendeerdeSeconden += (int)(DateTime.Now - StartTijd).Value.TotalSeconds;
+                StartTijd = null;
+            }
+        }
+
         public void GeefNieuweTijd(int opgegevenminuten)
         {
             StartTijd = DateTime.Now;
-            TijdInMinuten = opgegevenminuten;
+            MaxTijdInMinuten = opgegevenminuten;
         }
 
         public int CompareTo(object obj)

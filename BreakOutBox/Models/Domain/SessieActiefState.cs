@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BreakOutBox.Models.Domain
 {
@@ -31,12 +32,12 @@ namespace BreakOutBox.Models.Domain
             throw new StateException("Het spel is niet in de in-spel-state.");
         }
 
-        public override void Blokkeer()
+        public override void Blokkeer(ICollection<Groep> groepen)
         {
             throw new StateException("De sessie kan niet geblokkeerd worden omdat ze niet in de in-spel-state is.");
         }
 
-        public override void Deblokkeer()
+        public override void Deblokkeer(ICollection<Groep> groepen)
         {
             throw new StateException("De sessie kan niet gedeblokkeerd worden omdat ze niet geblokkeerd is.");
         }

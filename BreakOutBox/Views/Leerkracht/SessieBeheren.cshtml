@@ -26,13 +26,13 @@
                                 data-content="Deze actie dient om de sessie te archiveren nadat het spel uitgespeeld is.">Deactiveer</button>
                         break;
                     case 2: // InSpelState
-                        <button asp-action="HaalSessieUitSpel" class="btn btn-warning btn-pill mr-1">Haal uit spel</button>
-                        <button asp-action="BlokkeerSessie" class="btn btn-danger btn-pill mr-1">Blokkeer</button>
+                        <button asp-action="BlokkeerSessie" class="btn btn-warning btn-pill mr-1">Pauzeer</button>
+                        <button asp-action="HaalSessieUitSpel" class="btn btn-danger btn-pill mr-1">Haal uit spel</button>
                         <button asp-action="DeactiveerSessie" class="btn btn-secondary btn-pill" data-toggle="confirmation" 
                                 data-content="Deze actie dient om de sessie te archiveren nadat het spel uitgespeeld is.">Deactiveer</button>
                         break;
                     case 3: // GeblokkeerdState
-                        <button asp-action="DeblokkeerSessie" class="btn btn-secondary btn-pill">Deblokkeer</button>
+                        <button asp-action="DeblokkeerSessie" class="btn btn-success btn-pill">Depauzeer</button>
                         break;
                 }
             </form>

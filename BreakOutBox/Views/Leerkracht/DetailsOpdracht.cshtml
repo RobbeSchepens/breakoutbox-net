@@ -26,9 +26,9 @@
                 Groepsbewerking: @Model.Opdracht.Groepsbewerking.ToString() <br>
                 Groepsantwoord: @(Model.Groepsantwoord != null ? Model.Groepsantwoord : 999.999) <br>
                 Aantal pogingen: @Model.FoutePogingen <br>
-                @if (Model.Opdracht.OpdrachtBepaler is BreakOutBox.Models.Domain.EnumOpdrachtBepaler.TIJD)
+                @if (Model.IsTijdsOpdracht)
                 {
-                    <span>Tijd beschikbaar voor deze opdracht: @Model.Opdracht.TijdInMinuten</span> <br>
+                    <span>Tijd beschikbaar voor deze opdracht: @Model.Opdracht.MaxTijdInMinuten</span> <br>
                     <span>Tijd verstreken: @((int)((DateTime.Now - Model.Opdracht.StartTijd).Value.TotalMinutes)) minuten</span> <br>
                 }
                 Groepsantwoord al opgelost? @(Model.OpdrachtIsOpgelost == true ? "Ja" : "Nee") <br>
@@ -42,7 +42,7 @@
                     <span>Dit is hun laatste opdracht</span>
                 }
             </p>
-            @if (Model.Opdracht.OpdrachtBepaler is BreakOutBox.Models.Domain.EnumOpdrachtBepaler.TIJD)
+            @if (Model.IsTijdsOpdracht)
             {
                 <form asp-action="GeefGroepNieuweTijd" id="tijdForm" method="post" asp-route-groepid="@Model.Groep.GroepId">
                     <div class="form-row align-items-center">
