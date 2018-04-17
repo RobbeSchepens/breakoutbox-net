@@ -19,7 +19,7 @@ namespace BreakOutBox.Models.Domain
         public ICollection<Groep> Groepen { get; set; }
         public Box Box { get; private set; } // Box uit Java met alle oefeningen in
         public bool GebruiktTimer { get; private set; } // False = 3 pogingen per opdracht. True = 30 minuten per opdracht. 
-        public SessieState CurrentState { get; private set;  }
+        public SessieState CurrentState { get; private set; }
         public int State
         {
             get => _state;

@@ -9,7 +9,8 @@ namespace BreakOutBox.Models.Domain
     {
         public int ActieId { get; set; }
         public string Omschrijving { get; set; }
-        public Opdracht Opdracht { get; set; }
+        public Opdracht Opdracht { get; set; }  // Voor one to one EF relatie
+
         public Actie()
         {
         }
