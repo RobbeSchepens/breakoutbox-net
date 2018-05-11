@@ -29,7 +29,7 @@
             <form id="formAntwoord" name="formAntwoord" asp-action="SpelSpelen" method="post">
                 <p>
                     Stap 1: Maak de oefening.<br>
-                    Stap 2: Voer deze groepsbewerking uit op het antwoord. Groepsbewerking: @(Model.Opdracht.Groepsbewerking.ToString())<br>
+                    Stap 2: Voer deze groepsbewerking uit op het antwoord. Groepsbewerking: <strong>@(Model.Opdracht.Groepsbewerking.ToString())</strong><br>
                     Stap 3: Vul je bekomen resultaat hieronder in.
                 </p>
                 <div class="form-group">
@@ -150,7 +150,7 @@
 
         setInterval(function () {
             $.get('@(Url.Action("ControleerSessieIsGeblokkeerd", "Spel"))', function (data) {
-                if (data) { 
+                if (data) {
                     window.location.href = '@(Url.Action("GroepKiezen", "Sessie"))';
                 }
             });
@@ -164,13 +164,17 @@
 
         if (@Model.Opdracht.IsOpgelost.ToString().ToLower() && @Model.IsLaatsteOefening.ToString().ToLower())
             $('#gewonnenModal').modal('show');
-        
-        if (@Model.IsTijdsOpdracht.ToString().ToLower() && @((Model.Opdracht.StartTijd != null).ToString().ToLower()) && !$('#toegangscodeModal').hasClass('in') || !$('#startVolgendeOpdrachtModal').hasClass('in') || !$('#gewonnenModal').hasClass('in'))
-            $('#timer').stopwatch({ startTime: @((Model.Opdracht.GespendeerdeSeconden *1000) + (int)((DateTime.Now - Model.Opdracht.StartTijd).Value.TotalMilliseconds)) }).bind('tick.stopwatch', function (e, elapsed) {
-                if (elapsed >= @(Model.Opdracht.MaxTijdInMinuten*60*1000)) {
+
+        @if (@Model.IsTijdsOpdracht && Model.Opdracht.StartTijd != null) {
+            <script>
+            if (!$('#toegangscodeModal').hasClass('in') || !$('#startVolgendeOpdrachtModal').hasClass('in') || !$('#gewonnenModal').hasClass('in'))
+            $('#timer').stopwatch({ startTime: @((Model.Opdracht.GespendeerdeSeconden * 1000) + (int)((DateTime.Now - Model.Opdracht.StartTijd).Value.TotalMilliseconds)) }).bind('tick.stopwatch', function(e, elapsed) {
+                if (elapsed >= @(Model.Opdracht.MaxTijdInMinuten * 60 * 1000)) {
                     $('#timer').stopwatch('stop');
                     window.location.href = '@(Url.Action("TijdVerstreken", "Spel"))';
                 }
             }).stopwatch('start');
+            </script>
+        }
     </script>
 }

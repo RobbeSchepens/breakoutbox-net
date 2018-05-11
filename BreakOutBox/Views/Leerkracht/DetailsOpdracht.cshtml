@@ -92,7 +92,7 @@
                                         <i class="fas fa-key"></i>
                                     </span>
                                 </span>
-                                <input asp-for="OpgegevenMinuten" class="form-control mr-2" id="OpgegevenMinuten" placeholder="Minuten" type="number" autocomplete="off">
+                                <input asp-for="OpgegevenMinuten" class="form-control mr-2" id="OpgegevenMinuten" placeholder="Minuten" type="number" autocomplete="off" value="@Model.Opdracht.MaxTijdInMinuten">
                                 <button type="submit" class="btn btn-primary">Stel in</button>
                             </div>
                             <span asp-validation-for="OpgegevenMinuten" class="text-danger"></span>
