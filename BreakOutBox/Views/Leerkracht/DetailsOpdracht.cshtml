@@ -20,27 +20,65 @@
         <div class="col-md-12 col-lg-6 mb-5">
             <h4>Groep #@Model.Groep.GroepId is bezig aan opdracht @Model.NrHuidigeOpdracht van de @(Model.NrTotaalOpdrachten)</h4>
             <p>
-                Naam van oefening: @Model.Opdracht.Oefening.Naam <br>
-                Vak: @Model.Opdracht.Oefening.Vak.Naam <br>
-                Antwoord: @Model.Opdracht.Oefening.Antwoord <br>
-                Groepsbewerking: @Model.Opdracht.Groepsbewerking.ToString() <br>
-                Groepsantwoord: @(Model.Groepsantwoord != null ? Model.Groepsantwoord : 999.999) <br>
-                Aantal pogingen: @Model.FoutePogingen <br>
-                @if (Model.IsTijdsOpdracht)
-                {
-                    <span>Tijd beschikbaar voor deze opdracht: @Model.Opdracht.MaxTijdInMinuten</span> <br>
-                    <span>Tijd verstreken: @((int)((DateTime.Now - Model.Opdracht.StartTijd).Value.TotalMinutes)) minuten</span> <br>
-                }
-                Groepsantwoord al opgelost? @(Model.OpdrachtIsOpgelost == true ? "Ja" : "Nee") <br>
-                @if (!Model.IsLaatsteOefening)
-                {
-                    <span>Toegangscode voor volgende opdracht: @Model.ToegangscodeVolgendeOpdracht</span> <br>
-                    <span>Toegangscode al opgelost? @(Model.VolgendeOpdrachtIsToegankelijk == true ? "Ja" : "Nee")</span>
-                }
-                else
-                {
-                    <span>Dit is hun laatste opdracht</span>
-                }
+                <table style="border-collapse: collapse;">
+                    <tr>
+                        <td>Naam van oefening</td>
+                        <td>@Model.Opdracht.Oefening.Naam</td>
+                    </tr>
+                    <tr>
+                        <td>Vak</td>
+                        <td>@Model.Opdracht.Oefening.Vak.Naam</td>
+                    </tr>
+                    <tr>
+                        <td>Correct antwoord</td>
+                        <td>@Model.Opdracht.Oefening.Antwoord</td>
+                    </tr>
+                    <tr>
+                        <td>Groepsbewerking</td>
+                        <td>@Model.Opdracht.Groepsbewerking.ToString()</td>
+                    </tr>
+                    <tr>
+                        <td>Groepsantwoord</td>
+                        <td>@(Model.Groepsantwoord != null ? Model.Groepsantwoord : 999.999)</td>
+                    </tr>
+                    <tr>
+                        <td>Aantal pogingen</td>
+                        <td>@Model.FoutePogingen</td>
+                    </tr>
+                    @if (Model.IsTijdsOpdracht)
+                    {
+                        <tr>
+                            <td>Tijd beschikbaar</td>
+                            <td>@Model.Opdracht.MaxTijdInMinuten</td>
+                        </tr>
+                        <tr>
+                            <td>Tijd verstreken</td>
+                            <td>@(Model.Opdracht.StartTijd != null ? (int)((DateTime.Now - Model.Opdracht.StartTijd).Value.TotalMinutes) + " minuten" : "0 (Geblokkeerd)")</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td style="padding-right: 16px">Is groepsantwoord opgelost</td>
+                        <td>@(Model.OpdrachtIsOpgelost == true ? "Ja" : "Nee")</td>
+                    </tr>
+                    @if (!Model.IsLaatsteOefening)
+                    {
+                        <tr>
+                            <td style="padding-right: 16px">Toegangscode volgende opdracht</td>
+                            <td>@Model.ToegangscodeVolgendeOpdracht</td>
+                        </tr>
+                        <tr>
+                            <td>Is toegangscode opgelost</td>
+                            <td>@(Model.VolgendeOpdrachtIsToegankelijk == true ? "Ja" : "Nee")</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>Dit is hun laatste opdracht</td>
+                            <td></td>
+                        </tr>
+                    }
+                </table>
             </p>
             @if (Model.IsTijdsOpdracht)
             {
