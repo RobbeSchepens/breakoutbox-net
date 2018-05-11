@@ -166,7 +166,7 @@
             $('#gewonnenModal').modal('show');
 
         @if (@Model.IsTijdsOpdracht && Model.Opdracht.StartTijd != null) {
-            <script>
+            <text>
             if (!$('#toegangscodeModal').hasClass('in') || !$('#startVolgendeOpdrachtModal').hasClass('in') || !$('#gewonnenModal').hasClass('in'))
             $('#timer').stopwatch({ startTime: @((Model.Opdracht.GespendeerdeSeconden * 1000) + (int)((DateTime.Now - Model.Opdracht.StartTijd).Value.TotalMilliseconds)) }).bind('tick.stopwatch', function(e, elapsed) {
                 if (elapsed >= @(Model.Opdracht.MaxTijdInMinuten * 60 * 1000)) {
@@ -174,7 +174,7 @@
                     window.location.href = '@(Url.Action("TijdVerstreken", "Spel"))';
                 }
             }).stopwatch('start');
-            </script>
+            </text>
         }
     </script>
 }
