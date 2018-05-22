@@ -47,15 +47,24 @@ namespace BreakOutBox.Data
                 }
 
                 // OEFENINGEN
+                var wisk = new Vak("Wiskunde");
+                var nl = new Vak("Nederlands");
+                var nk = new Vak("Natuurkunde");
+                var aard = new Vak("Aardrijkskunde");
+
                 var oefeningen = new List<Oefening> { // dit zijn de oefeningen die in de sessie gebruikt worden
-                    new Oefening("BerekenOmtrek", "oefening1.pdf", 10, new Vak("Wiskunde")),
-                    new Oefening("Oefening2", "oefening2.pdf", 11, new Vak("Informatica")),
-                    new Oefening("Oefening3", "oefening3.pdf", 12, new Vak("Aardrijkskunde")),
-                    new Oefening("Oefening4", "oefening4.pdf", 13, new Vak("Mechanica")),
-                    new Oefening("Oefening5", "oefening5.pdf", 14, new Vak("Nederlands")),
-                    new Oefening("Oefening6", "oefening6.pdf", 15, new Vak("Engels")),
-                    new Oefening("Oefening7", "oefening7.pdf", 16, new Vak("Fysica")),
-                    new Oefening("Oefening8", "oefening8.pdf", 17, new Vak("Chemie"))
+                    new Oefening("Aftrekkingen", "oefening1.pdf", 80, wisk),
+                    new Oefening("Delingen", "oefening2.pdf", 23, wisk),
+                    new Oefening("Dieren", "oefening3.pdf", 10, nk),
+                    new Oefening("Hoofdstad VK", "oefening4.pdf", 10, aard),
+                    new Oefening("Kleuren", "oefening5.pdf", 14, nl),
+                    new Oefening("Letters", "oefening6.pdf", 15, nl),
+                    new Oefening("Optelsommen", "oefening7.pdf", 40, wisk),
+                    new Oefening("Organen", "oefening8.pdf", 17, nk),
+                    new Oefening("Rekensommen", "oefening7.pdf", 800, wisk),
+                    new Oefening("Vermenigsvuldigingen", "oefening7.pdf", 542, wisk),
+                    new Oefening("Voltooid deelwoorden", "oefening8.pdf", 17, nl),
+                    new Oefening("Werkwoorden", "oefening8.pdf", 17, nl)
                 };
 
                 // FEEDBACK in OEFENING
@@ -64,7 +73,7 @@ namespace BreakOutBox.Data
                     oefeningen[i - 1].Feedback = "TheorieOefening" + i + ".pdf";
                 }
 
-                Box box = new Box(acties, oefeningen, toegangscodes, "Een box met diverse oefeningen", "BoxNaam");
+                Box box = new Box(acties, oefeningen, toegangscodes, "Focus op wiskunde", "Wiskunde");
                 #endregion
 
                 #region Opdrachten opvullen en in pad steken
@@ -80,26 +89,26 @@ namespace BreakOutBox.Data
                 var toe = box.Toegangscodes.ToList();
 
                 var opdrachtenGroep1 = new List<Opdracht>{ // lijst met alle opdrachten van groep1 (1,2, 3, 4, 5, 6, 7, 8)             
-                    new Opdracht(1,act[0],oef[0],toe[0],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD),
-                    new Opdracht(2,act[1],oef[1],toe[1],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD),
-                    new Opdracht(3,act[2],oef[2],toe[2],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD),
-                    new Opdracht(4,act[3],oef[3],toe[3],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD),
-                    new Opdracht(5,act[4],oef[4],toe[4],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD),
-                    new Opdracht(6,act[5],oef[5],toe[5],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD),
-                    new Opdracht(7,act[6],oef[6],toe[6],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD),
-                    new Opdracht(8,act[7],oef[7],toe[7],GenereerGroepsbewerking(),EnumOpdrachtBepaler.TIJD)
+                    new Opdracht(1,act[0],oef[0],toe[0],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(2,act[1],oef[1],toe[1],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(3,act[2],oef[2],toe[2],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(4,act[3],oef[3],toe[3],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(5,act[4],oef[4],toe[4],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(6,act[5],oef[5],toe[5],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(7,act[6],oef[6],toe[6],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN),
+                    new Opdracht(8,act[7],oef[7],toe[7],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN)
                 };
 
-                for (int z = 0; z < 8; z++)
+                for (int z = 0; z < 6; z++)
                 {
                     opdrachtenGroep1[z].Oefening.Opgave = "opdracht" + (z + 1) + "G1.pdf";
                     opdrachtenGroep1[z].Oefening.Antwoord = z + 200;
                     opdrachtenGroep1[z].IsToegankelijk = true;
                     opdrachtenGroep1[z].IsGestart = true;
-                    opdrachtenGroep1[z].MaxTijdInMinuten = 1;
+                    //opdrachtenGroep1[z].MaxTijdInMinuten = 1;
                 }
 
-                for (int z = 0; z < 7; z++)
+                for (int z = 0; z < 5; z++)
                     opdrachtenGroep1[z].IsOpgelost = true;
 
                 //for (int i = 0; i < 8; i++)
@@ -225,7 +234,7 @@ namespace BreakOutBox.Data
                 var k = new Klas(leerlingen, lk);
                 lk.VoegKlasToe(k);
 
-                var s = new Sessie("ABC", "Sessie1", "Maandag ochtend D klas", groepen, box, false, 2);
+                var s = new Sessie("XYZ", "Wis A1 Ma", "Een sessie wiskunde op donderdag", groepen, box, false, 1);
                 s.Klas = k;
                 lk.VoegSessieToe(s);
 
