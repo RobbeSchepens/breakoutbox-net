@@ -99,7 +99,7 @@ namespace BreakOutBox.Data
                     new Opdracht(8,act[7],oef[7],toe[7],GenereerGroepsbewerking(),EnumOpdrachtBepaler.POGINGEN)
                 };
 
-                for (int z = 0; z < 6; z++)
+                for (int z = 0; z < 8; z++)
                 {
                     opdrachtenGroep1[z].Oefening.Opgave = "opdracht" + (z + 1) + "G1.pdf";
                     opdrachtenGroep1[z].Oefening.Antwoord = z + 200;
@@ -108,7 +108,7 @@ namespace BreakOutBox.Data
                     //opdrachtenGroep1[z].MaxTijdInMinuten = 1;
                 }
 
-                for (int z = 0; z < 5; z++)
+                for (int z = 0; z < 7; z++)
                     opdrachtenGroep1[z].IsOpgelost = true;
 
                 //for (int i = 0; i < 8; i++)
